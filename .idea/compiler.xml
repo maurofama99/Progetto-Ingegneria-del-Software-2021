@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ing-sw-2021-detomas-fama-grazian" target="11" />
       <module name="PSP34" target="11" />
     </bytecodeTargetLevel>
   </component>
