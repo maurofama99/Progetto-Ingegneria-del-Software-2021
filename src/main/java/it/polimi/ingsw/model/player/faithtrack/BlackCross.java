@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
-public class FaithMarker {
+public class BlackCross {
 
     private int position;
 
