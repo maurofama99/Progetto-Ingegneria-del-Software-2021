@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.resources;
 public enum ResourceType {
     SHIELD,
     SERVANT,
-    COINS,
+    COIN,
     STONE,
     WHITERESOURCE,
     FAITHPOINT
