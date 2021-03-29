@@ -1,19 +1,52 @@
 package it.polimi.ingsw.model.player.warehouse;
 
+import it.polimi.ingsw.model.resources.Resource;
+
 import java.util.ArrayList;
 
 public class Warehouse {
-    private ArrayList<Floor> Floors;
+    private FirstFloor firstFloor;
+    private SecondFloor secondFloor;
+    private ThirdFloor thirdFloor;
+    private StrongBox strongBox;
 
-    public ArrayList<Floor> getFloors() {
-        return Floors;
+    public Warehouse(FirstFloor firstFloor, SecondFloor secondFloor, ThirdFloor thirdFloor, StrongBox strongBox) {
+        this.firstFloor = firstFloor;
+        this.secondFloor = secondFloor;
+        this.thirdFloor = thirdFloor;
+        this.strongBox = strongBox;
     }
 
-    public void removeResources(){
-
+    public FirstFloor getFirstFloor() {
+        return firstFloor;
     }
 
-    public void moveFloorToFloor(Floor initFloor, Floor finFloor){
-
+    public SecondFloor getSecondFloor() {
+        return secondFloor;
     }
+
+    public ThirdFloor getThirdFloor() {
+        return thirdFloor;
+    }
+
+    public StrongBox getStrongBox() {
+        return strongBox;
+    }
+
+
+
+    //serve un remove che rimuove le risorse quando servono al player
+
+    //aggiungi risorse dal mercato ai floor
+    public void addResourcesToFloor(ArrayList<Resource> resourcesToAdd){
+        for (Resource res : resourcesToAdd) {
+            if(firstFloor.checkCorrectPlacement(res))
+                getFirstFloor().getStoredResource().setQnt(getFirstFloor().getStoredResource().getQnt() + res.getQnt());
+            else if (secondFloor.checkCorrectPlacement(res))
+                getSecondFloor().getStoredResource().setQnt(getSecondFloor().getStoredResource().getQnt() + res.getQnt());
+            else if (thirdFloor.checkCorrectPlacement(res))
+                getThirdFloor().getStoredResource().setQnt(getThirdFloor().getStoredResource().getQnt() + res.getQnt());
+        }
+    }
+
 }

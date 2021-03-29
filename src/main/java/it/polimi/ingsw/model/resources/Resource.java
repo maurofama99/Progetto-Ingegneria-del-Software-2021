@@ -9,6 +9,18 @@ public class Resource {
         this.type = type;
     }
 
+    public int getQnt() {
+        return qnt;
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public void setQnt(int qnt) {
+        this.qnt = qnt;
+    }
+
     @Override
     public String toString() {
         if (type.equals(ResourceType.SHIELD)) return "SHIELD";
