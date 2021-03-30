@@ -34,19 +34,29 @@ public class Warehouse {
     }
 
 
-
     //serve un remove che rimuove le risorse quando servono al player
 
     //aggiungi risorse dal mercato ai floor
-    public void addResourcesToFloor(ArrayList<Resource> resourcesToAdd){
+    public void addResourcesToFloor(ArrayList<Resource> resourcesToAdd) {
         for (Resource res : resourcesToAdd) {
-            if(firstFloor.checkCorrectPlacement(res))
-                getFirstFloor().getStoredResource().setQnt(getFirstFloor().getStoredResource().getQnt() + res.getQnt());
-            else if (secondFloor.checkCorrectPlacement(res))
-                getSecondFloor().getStoredResource().setQnt(getSecondFloor().getStoredResource().getQnt() + res.getQnt());
-            else if (thirdFloor.checkCorrectPlacement(res))
-                getThirdFloor().getStoredResource().setQnt(getThirdFloor().getStoredResource().getQnt() + res.getQnt());
+            if (firstFloor.checkCorrectPlacement(res)) {
+                if (getFirstFloor().getStoredResource().isEmpty()) {
+                    getFirstFloor().setStoredResource(res);
+                } else
+                    getFirstFloor().getStoredResource().get().setQnt(getFirstFloor().getStoredResource().get().getQnt() + res.getQnt());
+            } else if (secondFloor.checkCorrectPlacement(res)) {
+                if (getSecondFloor().getStoredResource().isEmpty()) {
+                    getSecondFloor().setStoredResource(res);
+                } else
+                    getSecondFloor().getStoredResource().get().setQnt(getSecondFloor().getStoredResource().get().getQnt() + res.getQnt());
+            } else if (thirdFloor.checkCorrectPlacement(res)) {
+                if (getThirdFloor().getStoredResource().isEmpty()) {
+                    getThirdFloor().setStoredResource(res);
+                } else
+                    getThirdFloor().getStoredResource().get().setQnt(getThirdFloor().getStoredResource().get().getQnt() + res.getQnt());
+            }
         }
+
     }
 
 }

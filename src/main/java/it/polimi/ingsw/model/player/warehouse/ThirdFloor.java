@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.resources.Resource;
 
 public class ThirdFloor extends Floor {
 
-    public ThirdFloor(Resource storedResource, int space) {
+    public ThirdFloor(Resource storedResource) {
         super(storedResource, 3);
     }
 
