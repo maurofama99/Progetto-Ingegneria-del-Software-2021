@@ -1,20 +1,17 @@
 package it.polimi.ingsw.model.player.warehouse;
 
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.Optional;
 
 public abstract class Floor {
     protected Optional<Resource> storedResource;
-    private int space;
+    private final int space;
 
     public Floor(Resource storedResource, int space) {
         this.storedResource = Optional.ofNullable(storedResource);
         this.space = space;
-    }
-
-    public Floor(Resource storedResource) {
-        this.storedResource = Optional.ofNullable(storedResource);
     }
 
     public Optional<Resource> getStoredResource() {
@@ -25,8 +22,12 @@ public abstract class Floor {
         return space;
     }
 
+    /******************************************************************
+     NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE AI FLOOR
+     ******************************************************************/
     public void setStoredResource(Resource storedResource) {
-        this.storedResource = Optional.ofNullable(storedResource);
+        if (storedResource.getType().equals(ResourceType.WHITERESOURCE)) throw new IllegalArgumentException("Can't place white resource here");
+        else this.storedResource = Optional.of(storedResource);
     }
 
 

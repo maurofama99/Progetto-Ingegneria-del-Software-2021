@@ -36,6 +36,9 @@ public class Warehouse {
 
     //serve un remove che rimuove le risorse quando servono al player
 
+    /******************************************************************
+     NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE AI FLOOR
+    ******************************************************************/
     //aggiungi risorse dal mercato ai floor
     public void addResourcesToFloor(ArrayList<Resource> resourcesToAdd) {
         for (Resource res : resourcesToAdd) {

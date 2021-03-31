@@ -6,10 +6,14 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import java.util.ArrayList;
 
 public class StrongBox {
-    private Resource[] storedResources;
+    //lo strongbox è un array delle 4 risorse in ordine alfabetico inizializzate con qnt = 0;
+    private Resource[] storedResources = new Resource[4];
 
-    public StrongBox(Resource[] storedResources) {
-        this.storedResources = storedResources;
+    public StrongBox() {
+        storedResources[0] = new Resource(0,ResourceType.COIN);
+        storedResources[1] = new Resource(0,ResourceType.SERVANT);
+        storedResources[2] = new Resource(0,ResourceType.SHIELD);
+        storedResources[3] = new Resource(0,ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {
@@ -20,6 +24,9 @@ public class StrongBox {
         this.storedResources = storedResources;
     }
 
+    /**********************************************************************
+     NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE ALLA STRONGBOX
+     **********************************************************************/
     public void addResourceToStrongBox(Resource resourceToAdd){
         if (resourceToAdd.getType().equals(ResourceType.COIN))
             storedResources[0].setQnt(resourceToAdd.getQnt() +  storedResources[0].getQnt());

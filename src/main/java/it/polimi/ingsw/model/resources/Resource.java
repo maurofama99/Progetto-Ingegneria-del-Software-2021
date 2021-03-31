@@ -17,6 +17,10 @@ public class Resource {
         return type;
     }
 
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
+
     public void setQnt(int qnt) {
         this.qnt = qnt;
     }

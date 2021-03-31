@@ -14,6 +14,15 @@ public class Player {
     private ArrayList<LeaderCard> leaderCards;
     private int victoryPoints;
     private FaithMarker playerFaithMarker;
+    private PersonalBoard personalBoard;
+
+    public FaithMarker getPlayerFaithMarker() {
+        return playerFaithMarker;
+    }
+
+    public PersonalBoard getPersonalBoard() {
+        return personalBoard;
+    }
 
     public Player(String nickname, boolean isCurrentTurn, Turn turnOrder, boolean hasMoved, ArrayList<LeaderCard> leaderCards, int victoryPoints, FaithMarker playerFaithMarker) {
         this.nickname = nickname;
