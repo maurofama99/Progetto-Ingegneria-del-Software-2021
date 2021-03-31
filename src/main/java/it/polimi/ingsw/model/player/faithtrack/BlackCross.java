@@ -1,14 +1,23 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
+import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
+
 public class BlackCross {
 
     private int position;
 
-    public void moveForward(){
+    public BlackCross(int position) {
+        this.position = position;
+    }
 
+    //Function that makes the cross go forward. Here is called only by the tokens of Lorenzo
+    public void moveForward(){
+        position = getPosition();
+        position++;
     }
 
     public int getPosition() {
-        return position;
+        return this.position;
     }
 }
