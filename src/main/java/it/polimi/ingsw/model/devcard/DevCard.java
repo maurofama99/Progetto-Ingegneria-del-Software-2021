@@ -13,14 +13,16 @@ public class DevCard {
     private ArrayList<Resource> requirementsDevCard;
     private Production production;
 
-    public DevCard(ArrayList<Resource> cost, int level, Color cardColor, int victoryPointsDevCard, boolean isPlaced, ArrayList<Resource> requirementsDevCard, Production production) {
-        this.cost = cost;
-        this.level = level;
-        this.cardColor = cardColor;
-        this.victoryPointsDevCard = victoryPointsDevCard;
-        this.isPlaced = isPlaced;
+    public void setRequirementsDevCard(ArrayList<Resource> requirementsDevCard) {
         this.requirementsDevCard = requirementsDevCard;
+    }
+
+    public void setProduction(Production production) {
         this.production = production;
+    }
+
+    public void setCost(ArrayList<Resource> cost) {
+        this.cost = cost;
     }
 
     public ArrayList<Resource> getCost() {

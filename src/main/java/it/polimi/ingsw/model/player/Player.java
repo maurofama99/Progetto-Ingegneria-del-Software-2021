@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import java.util.ArrayList;
 
 public class Player {
-    private String nickname;
+    private final String nickname;
     private boolean isCurrentTurn;
     private Turn turnOrder;
     private boolean hasMoved;
@@ -24,14 +24,36 @@ public class Player {
         return personalBoard;
     }
 
-    public Player(String nickname, boolean isCurrentTurn, Turn turnOrder, boolean hasMoved, ArrayList<LeaderCard> leaderCards, int victoryPoints, FaithMarker playerFaithMarker) {
-        this.nickname = nickname;
-        this.isCurrentTurn = isCurrentTurn;
+    public void setTurnOrder(Turn turnOrder) {
         this.turnOrder = turnOrder;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
+    }
+
+    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
         this.leaderCards = leaderCards;
+    }
+
+    public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
+    }
+
+    public void setPlayerFaithMarker(FaithMarker playerFaithMarker) {
         this.playerFaithMarker = playerFaithMarker;
+    }
+
+    public void setPersonalBoard(PersonalBoard personalBoard) {
+        this.personalBoard = personalBoard;
+    }
+
+    public void setCurrentTurn(boolean currentTurn) {
+        isCurrentTurn = currentTurn;
+    }
+
+    public Player(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getNickname() {

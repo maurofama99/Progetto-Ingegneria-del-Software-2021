@@ -24,7 +24,7 @@ public class StrongBox {
         this.storedResources = storedResources;
     }
 
-    /**********************************************************************
+    /* *********************************************************************
      NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE ALLA STRONGBOX
      **********************************************************************/
     public void addResourceToStrongBox(Resource resourceToAdd){

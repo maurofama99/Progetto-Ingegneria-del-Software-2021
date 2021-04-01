@@ -6,12 +6,16 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import java.util.Optional;
 
 public abstract class Floor {
+    //se la review da un warning ignoralo
     protected Optional<Resource> storedResource;
     private final int space;
 
-    public Floor(Resource storedResource, int space) {
-        this.storedResource = Optional.ofNullable(storedResource);
+    public Floor(int space) {
         this.space = space;
+    }
+
+    public void setStoredResource(Optional<Resource> storedResource) {
+        this.storedResource = storedResource;
     }
 
     public Optional<Resource> getStoredResource() {
@@ -22,12 +26,13 @@ public abstract class Floor {
         return space;
     }
 
-    /******************************************************************
+    /* ****************************************************************
      NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE AI FLOOR
      ******************************************************************/
     public void setStoredResource(Resource storedResource) {
         if (storedResource.getType().equals(ResourceType.WHITERESOURCE)) throw new IllegalArgumentException("Can't place white resource here");
-        else this.storedResource = Optional.of(storedResource);
+        if (storedResource.getType().equals(ResourceType.FAITHPOINT)) throw new IllegalArgumentException("Can't place faith point here");
+        this.storedResource = Optional.of(storedResource);
     }
 
 
