@@ -15,7 +15,8 @@ public class Victory extends Tile {
     }
 
     //add these points to the victory points of the player
-    public void addPoints(int pointsToAdd) {
-
+    public void addPoints(int pointsToAdd, Player p) {
+        
+        p.setVictoryPoints(p.getVictoryPoints()+pointsToAdd);
     }
 }

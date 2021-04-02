@@ -26,13 +26,13 @@ public class Production {
     public boolean checkInputResource(Player player){
 
         boolean finded=false, goout=false;
-        //creo una copia dell'array di required resources
+        //copying required resources
         ArrayList<Resource> requirements = new ArrayList<>(input);
 
-        //controllo una per una se le risorse richieste sono presenti nel warehouse
-        //-> se disponibile la sostituisco con white resource (nell'array copia)
+        //checking one by one if the required resources are in the warehouse
+        //-> if yes, replacing it with a white resource(in copied array)
 
-        //controllo first floor
+        //checking first floor
         while (!finded && !goout) {
             for (Resource res : requirements){
                 if (player.getPersonalBoard().getWarehouse().getFirstFloor().getStoredResource().isPresent()){
@@ -51,7 +51,7 @@ public class Production {
         finded=false;
         goout=false;
 
-        //controllo second floor
+        //checking second floor
         while (!finded && !goout) {
             for (Resource res : requirements){
                 if (player.getPersonalBoard().getWarehouse().getSecondFloor().getStoredResource().isPresent()){
@@ -70,7 +70,7 @@ public class Production {
         finded=false;
         goout=false;
 
-        //controllo third floor
+        //checking third floor
         while (!finded && !goout) {
             for (Resource res : requirements){
                 if (player.getPersonalBoard().getWarehouse().getThirdFloor().getStoredResource().isPresent()){
@@ -89,7 +89,7 @@ public class Production {
         finded=false;
         goout=false;
 
-        //controllo strongbox
+        //checking strongbox
         while(!finded && !goout){
             for (Resource res : requirements){
                 if (player.getPersonalBoard().getWarehouse().getStrongBox().checkAvailabilityStrongBox(res) && !finded){
@@ -101,7 +101,7 @@ public class Production {
             goout=true;
         }
 
-        //se tutti gli elementi dell'array di copia sono white resource ritorna true
+        //if all the elements of the copied array are white resources, return true
         return requirements.parallelStream()
                 .allMatch(o -> o.getType().equals(ResourceType.WHITERESOURCE));
 

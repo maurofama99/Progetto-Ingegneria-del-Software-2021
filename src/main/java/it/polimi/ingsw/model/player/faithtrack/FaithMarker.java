@@ -14,8 +14,8 @@ public class FaithMarker {
     }
 
     //Function that moves the marker forward. Needs to be connected to FaithPnt
-    public void moveForward(){
-        position = getPosition();
+    public void moveForward(FaithMarker fm){
+        position = fm.getPosition();
         position++;
     }
 

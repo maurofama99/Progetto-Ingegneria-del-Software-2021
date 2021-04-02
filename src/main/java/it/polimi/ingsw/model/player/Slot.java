@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Slot{
     private ArrayList<DevCard> cards;
-    //creata una classe enum per lo slot number
+    //created enum class for slot number
     private SlotNumber slotNumber;
 
 
@@ -18,7 +18,7 @@ public class Slot{
         return this.cards.get(this.cards.size()-1);
     }
 
-    //piazza la dev card in questo slot
+    //place dev card in this slot
     public void PlaceDevCard(DevCard devCard) throws IllegalAccessException {
         if ((devCard.getLevel() == this.getShowedCard().getLevel() + 1) || cards.isEmpty())
         this.cards.add(devCard);
