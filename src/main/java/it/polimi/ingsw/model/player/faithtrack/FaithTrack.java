@@ -53,6 +53,18 @@ public class FaithTrack {
         return thirdFavorTile;
     }
 
+    public void setFirstFavorTile(boolean firstFavorTile) {
+        this.firstFavorTile = firstFavorTile;
+    }
+
+    public void setSecondFavorTile(boolean secondFavorTile) {
+        this.secondFavorTile = secondFavorTile;
+    }
+
+    public void setThirdFavorTile(boolean thirdFavorTile) {
+        this.thirdFavorTile = thirdFavorTile;
+    }
+
     public boolean checkPosition(Player player){
         return true;
     }
@@ -138,6 +150,8 @@ public class FaithTrack {
         thirdSection.add(tile24);
         //End of create sections
     }
+
+
 
 
 

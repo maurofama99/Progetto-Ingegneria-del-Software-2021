@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
+import it.polimi.ingsw.model.player.Player;
+
 public class Tile {
     private int position;
     private boolean isFirstSection;
@@ -14,8 +16,8 @@ public class Tile {
     }
 
     //Function that add points to the player when a Tile is of type victory
-    public void addPoints(){
-
+    public void addPoints(Victory v, Player p){
+        v.addPoints(v.getPoints(), p);
     }
 
     public boolean isFirstSection() {

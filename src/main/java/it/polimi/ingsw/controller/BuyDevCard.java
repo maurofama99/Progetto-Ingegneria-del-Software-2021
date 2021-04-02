@@ -10,15 +10,15 @@ public class BuyDevCard implements TableState{
 
     public void isLegal(){}
 
-    //restituisce la Dev Card in posizione row-col della matrice sul table
+    //returns the DevCard in row-col position of table's matrix
     //public DevCard extractCard(int row, int col){    }
 
     public void manageResources(){}
 
-    //metti la carta comprata nel primo slot libero
+    //places bought card in the first free slot
     public void placeCard(DevCard card){}
 
-    //posiziona una nuova carta nello slot selezionato precedentemente (quello della carta comprata)
+    //places a new card in the row-col position of the matrix (replaces the bought one)
     public void removeAndReplaceCard(int row, int col){}
 
 

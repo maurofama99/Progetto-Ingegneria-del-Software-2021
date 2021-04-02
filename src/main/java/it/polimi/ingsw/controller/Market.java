@@ -13,12 +13,12 @@ public class Market implements TableState{
 
     }
 
-    //il boolean dice se l'index passato si riferisce a una riga o una colonna del market
+    //boolean says if given index is for row or column of the market
     public ArrayList<Resource> distributeResources(int index, boolean roworcolumn){
         return null;
     }  //true=>row, false=>column
 
-    //se non hai spazio nel deposito scarta la risorsa e muovi il marker degli altri giocatori
+    //no space in warehouse, discard resource and moves players' markers
     public void noSpaceMoveOther(ArrayList<Player> players){}
 
     public void resetMarketTray(){}

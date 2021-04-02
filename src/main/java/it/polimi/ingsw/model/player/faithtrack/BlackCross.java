@@ -12,8 +12,8 @@ public class BlackCross {
     }
 
     //Function that makes the cross go forward. Here is called only by the tokens of Lorenzo
-    public void moveForward(){
-        position = getPosition();
+    public void moveForward(BlackCross bc){
+        position = bc.getPosition();
         position++;
     }
 

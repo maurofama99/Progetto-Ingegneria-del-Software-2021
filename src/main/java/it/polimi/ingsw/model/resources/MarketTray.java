@@ -26,29 +26,29 @@ public class MarketTray {
         return slide;
     }
 
-    //restituisce un arraylist con le risorse della riga selezionata e usa lo slide.
-    //L'arraylist restituito è composto dalle risorse selezionate con quantià = 1,
-    //restituisce anche white resource che va ignorata al momento del deposito.
-    //Lo stesso vale per selectColumn
+    //returns arraylist of resources in the row selected and uses the slide
+    //returned arraylist is made of selected resources with quantity=1
+    //returns also white resources (to be ignored when is time to store it)
+    //idem for selectColumn
     public ArrayList<Resource> selectRow(int row) throws IndexOutOfBoundsException{
         ArrayList<Resource> resources;
         Resource[][] tmptray = new Resource[3][4];
         int i;
 
-        //ricopio in tmptray il tray iniziale
+        //copying in tmptray the initial tray
         for (i=0; i<3; i++){
             tmptray[i] = (tray[i].clone());
         }
 
         if (row == 1){
-            //aggiungi le risorse della riga all'array da restituire
+            //adding row's resources in the array to be returned
             resources = new ArrayList<>(Arrays.asList(tray[0]));
 
-           //cambia la disposizione del tray a seguito dello slide
+           //changes the tray disposition after using the slide
             System.arraycopy(tmptray[0], 0, tray[0], 1, 3);
             tray[0][0] = slide;
 
-            //setta il nuovo slide
+            //sets the new slide
             this.slide = resources.get(resources.size()-1);
         }
 
@@ -76,14 +76,14 @@ public class MarketTray {
         return resources;
     }
 
-    //restituisce un arraylist con le risorse della colonna selezionata
+    //returns an array list of the resources of selected column
     public ArrayList<Resource> selectColumn(int col){
         ArrayList<Resource> resources= new ArrayList<>();
         Resource[][] tmptray = new Resource[3][4];
         int i;
 
         for (i=0; i<3; i++){
-            tmptray[i] = (tray[i].clone());  //ricopio in tmptray il tray iniziale
+            tmptray[i] = (tray[i].clone());  //copying in tmptray the initial tray
         }
 
         if (col == 1){
@@ -148,7 +148,7 @@ public class MarketTray {
     }
 
 
-    //aggiunge le risorse dell'arraylist "resources" al player "player"
+    //adding array "resources"'s resources to player "player"'s warehouses
     public void giveResources(Player player, ArrayList<Resource> resources){
     }
 }
