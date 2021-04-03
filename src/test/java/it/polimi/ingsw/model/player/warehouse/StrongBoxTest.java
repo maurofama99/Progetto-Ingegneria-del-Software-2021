@@ -13,50 +13,53 @@ import static org.junit.Assert.*;
 
 public class StrongBoxTest {
 
-    private StrongBox strongBox;
+    private StrongBox strongBox = new StrongBox();
 
-    @Before
-    public void setUp(){
-        Resource[] storedResources = new Resource[4];
-        strongBox = new StrongBox(storedResources);
-        storedResources[0] = new Resource(2, ResourceType.COIN);
-        storedResources[1] = new Resource(4, ResourceType.SERVANT);
-        storedResources[2] = new Resource(0, ResourceType.SHIELD);
-        storedResources[3] = new Resource(1, ResourceType.STONE);
-    }
-
-    /*
-     * Testing the method that checks if a resource is available or not in StrongBox
-     */
+    /**
+     Testing the method that checks if a resource is available or not in StrongBox
+     **/
     @Test
     public void TestCheckAvailabilityStrongBox() {
 
-        Resource checkCoins = new Resource(1, ResourceType.COIN);
-        Resource checkServants = new Resource(5, ResourceType.SERVANT);
-        Resource checkShields = new Resource(1, ResourceType.SHIELD);
-        Resource checkStones = new Resource(1, ResourceType.STONE);
+        //creo un arraylist di risorse da aggiungere
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        resourcesToAdd.add( new Resource(1, ResourceType.COIN));
+        resourcesToAdd.add( new Resource(5, ResourceType.SERVANT));
+        resourcesToAdd.add( new Resource(3, ResourceType.STONE));
 
-        assertTrue(strongBox.checkAvailabilityStrongBox(checkCoins));
-        assertFalse(strongBox.checkAvailabilityStrongBox(checkServants));
-        assertTrue(strongBox.checkAvailabilityStrongBox(checkStones));
-        assertFalse(strongBox.checkAvailabilityStrongBox(checkShields));
+        //uso il metodo addResourceToStrongBox per aggiungere l'arraylist di risorse allo strongbox
+        strongBox.addResourceToStrongBox(resourcesToAdd);
+
+        //controllo la disponibilità delle risorse appena aggiunte
+        Resource oneCoin = new Resource(1, ResourceType.COIN);
+        Resource sixServants = new Resource(6, ResourceType.SERVANT);
+        Resource twoShields = new Resource(2, ResourceType.SHIELD);
+        Resource twoStones = new Resource(2, ResourceType.STONE);
+
+        assertTrue(strongBox.checkAvailabilityStrongBox(oneCoin));
+        assertFalse(strongBox.checkAvailabilityStrongBox(sixServants));
+        assertTrue(strongBox.checkAvailabilityStrongBox(twoStones));
+        assertFalse(strongBox.checkAvailabilityStrongBox(twoShields));
+
+        //TEST PASSATO
 
     }
 
     @Test
     public void TestAddResourceToStrongbox(){
+        //aggiungo ulteriori risorse allo strongbox
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-        resourcesToAdd.add( new Resource(1, ResourceType.COIN));
-        resourcesToAdd.add( new Resource(2, ResourceType.SERVANT));
-        resourcesToAdd.add( new Resource(10, ResourceType.SHIELD));
-        resourcesToAdd.add( new Resource(5, ResourceType.STONE));
+        resourcesToAdd.add( new Resource(1, ResourceType.COIN));  //ora 2 coin
+        resourcesToAdd.add( new Resource(2, ResourceType.SERVANT)); //ora 7 servi
+        resourcesToAdd.add( new Resource(10, ResourceType.SHIELD)); //ora 10 shield
+        resourcesToAdd.add( new Resource(5, ResourceType.STONE));  //ora 8 stone
 
         strongBox.addResourceToStrongBox(resourcesToAdd);
 
-        assertEquals(3, strongBox.getStoredResources()[0].getQnt());
-        assertEquals(6, strongBox.getStoredResources()[1].getQnt());
+        assertEquals(2, strongBox.getStoredResources()[0].getQnt()); //qui c'è un problema
+        assertEquals(7, strongBox.getStoredResources()[1].getQnt());
         assertEquals(10, strongBox.getStoredResources()[2].getQnt());
-        assertEquals(6, strongBox.getStoredResources()[3].getQnt());
+        assertEquals(8, strongBox.getStoredResources()[3].getQnt());
 
     }
 

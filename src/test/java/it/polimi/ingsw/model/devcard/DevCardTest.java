@@ -15,7 +15,7 @@ public class DevCardTest {
     FirstFloor fF = new FirstFloor();
     SecondFloor sF = new SecondFloor();
     ThirdFloor tF = new ThirdFloor();
-    StrongBox sB = new StrongBox(resources);
+    StrongBox sB = new StrongBox();
     Warehouse wH = new Warehouse(fF,sF,tF,sB);
     PersonalBoard pB = new PersonalBoard(wH);
     DevCard dC;

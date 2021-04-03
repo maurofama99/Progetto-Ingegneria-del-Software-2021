@@ -3,21 +3,28 @@ package it.polimi.ingsw.model.player.warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class StrongBox {
     //lo strongbox è un array delle 4 risorse in ordine alfabetico inizializzate con qnt = 0;
-    private Resource[] storedResources;
+    private Resource[] storedResources = new Resource[4];
 
 
-    public StrongBox(Resource[] storedResources) {
-        for (Resource resource : this.storedResources = storedResources) {
-            storedResources[0] = new Resource(0, ResourceType.COIN);
-            storedResources[1] = new Resource(0, ResourceType.SERVANT);
-            storedResources[2] = new Resource(0, ResourceType.SHIELD);
-            storedResources[3] = new Resource(0, ResourceType.STONE);
-        }
+   /* public StrongBox(Resource[] storedResources) {
+        storedResources[0] = new Resource(0, ResourceType.COIN);
+        storedResources[1] = new Resource(0, ResourceType.SERVANT);
+        storedResources[2] = new Resource(0, ResourceType.SHIELD);
+        storedResources[3] = new Resource(0, ResourceType.STONE);
+        this.storedResources = storedResources;
+    }*/
+
+    public StrongBox() {
+        this.storedResources[0] = new Resource(0, ResourceType.COIN);
+        this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
+        this.storedResources[2] = new Resource(0, ResourceType.SHIELD);
+        this.storedResources[3] = new Resource(0, ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {
