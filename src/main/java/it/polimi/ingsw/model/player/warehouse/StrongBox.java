@@ -4,18 +4,20 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class StrongBox {
     //lo strongbox è un array delle 4 risorse in ordine alfabetico inizializzate con qnt = 0;
-    private Resource[] storedResources = new Resource[4];
-    private boolean available;
+    private Resource[] storedResources;
 
-    public StrongBox() {
-        storedResources[0] = new Resource(0, ResourceType.COIN);
-        storedResources[1] = new Resource(0, ResourceType.SERVANT);
-        storedResources[2] = new Resource(0, ResourceType.SHIELD);
-        storedResources[3] = new Resource(0, ResourceType.STONE);
-        available = false;
+
+    public StrongBox(Resource[] storedResources) {
+        for (Resource resource : this.storedResources = storedResources) {
+            storedResources[0] = new Resource(0, ResourceType.COIN);
+            storedResources[1] = new Resource(0, ResourceType.SERVANT);
+            storedResources[2] = new Resource(0, ResourceType.SHIELD);
+            storedResources[3] = new Resource(0, ResourceType.STONE);
+        }
     }
 
     public Resource[] getStoredResources() {
@@ -59,11 +61,13 @@ public class StrongBox {
                 storedResources[3].setQnt(storedResources[3].getQnt() - resourceToRemove.getQnt());
         }
         else
-            System.out.println("There are not enough resources in StrongBox");
-        }
+           throw new NoSuchElementException("Resource requested is not available");
+
+    }
 
     //this method checks if a type of Resource is available in Strongbox.
     public boolean checkAvailabilityStrongBox(Resource resourceToCheck){
+        boolean available = false;
         if (resourceToCheck.getType().equals(ResourceType.COIN))
             available = (resourceToCheck.getQnt() <= storedResources[0].getQnt());
 
@@ -71,7 +75,7 @@ public class StrongBox {
             available = (resourceToCheck.getQnt() <= storedResources[1].getQnt());
 
         else if (resourceToCheck.getType().equals(ResourceType.SHIELD))
-            available =  (resourceToCheck.getQnt() <= storedResources[2].getQnt());
+            available = (resourceToCheck.getQnt() <= storedResources[2].getQnt());
 
         else if (resourceToCheck.getType().equals(ResourceType.STONE))
             available =  (resourceToCheck.getQnt() <= storedResources[3].getQnt());
