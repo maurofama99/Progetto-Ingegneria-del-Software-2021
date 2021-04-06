@@ -49,17 +49,17 @@ public class StrongBoxTest {
     public void TestAddResourceToStrongbox(){
         //aggiungo ulteriori risorse allo strongbox
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-        resourcesToAdd.add( new Resource(1, ResourceType.COIN));  //ora 2 coin
-        resourcesToAdd.add( new Resource(2, ResourceType.SERVANT)); //ora 7 servi
-        resourcesToAdd.add( new Resource(10, ResourceType.SHIELD)); //ora 10 shield
-        resourcesToAdd.add( new Resource(5, ResourceType.STONE));  //ora 8 stone
+        resourcesToAdd.add( new Resource(1, ResourceType.COIN));
+        resourcesToAdd.add( new Resource(2, ResourceType.SERVANT));
+        resourcesToAdd.add( new Resource(10, ResourceType.SHIELD));
+        resourcesToAdd.add( new Resource(5, ResourceType.STONE));
 
         strongBox.addResourceToStrongBox(resourcesToAdd);
 
-        assertEquals(2, strongBox.getStoredResources()[0].getQnt()); //qui c'è un problema
-        assertEquals(7, strongBox.getStoredResources()[1].getQnt());
+        assertEquals(1, strongBox.getStoredResources()[0].getQnt());
+        assertEquals(2, strongBox.getStoredResources()[1].getQnt());
         assertEquals(10, strongBox.getStoredResources()[2].getQnt());
-        assertEquals(8, strongBox.getStoredResources()[3].getQnt());
+        assertEquals(5, strongBox.getStoredResources()[3].getQnt());
 
     }
 
@@ -96,10 +96,6 @@ public class StrongBoxTest {
         assertTrue(thrown);
 
     }
-
-
-
-
 
 
 

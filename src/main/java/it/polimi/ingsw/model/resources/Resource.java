@@ -1,12 +1,20 @@
 package it.polimi.ingsw.model.resources;
 
-public class Resource {
-    private int qnt;
+import com.google.gson.annotations.SerializedName;
+
+public class Resource implements Cloneable{
+    @SerializedName("type")
     private ResourceType type;
+    private int qnt;
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     public Resource(int qnt, ResourceType type) {
-        this.qnt = qnt;
         this.type = type;
+        this.qnt = qnt;
     }
 
     public int getQnt() {

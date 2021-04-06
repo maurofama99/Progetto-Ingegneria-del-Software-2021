@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.resources.Resource;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class Warehouse {
     private FirstFloor firstFloor;
@@ -40,36 +41,115 @@ public class Warehouse {
 
     public void removeResources(ArrayList<Resource> resourcesToRemove) {
        for (Resource res : resourcesToRemove) {
-           if (getFirstFloor().getStoredResource().get().getType().equals(res.getType())) {
-               if (getFirstFloor().getStoredResource().get().getQnt() > 1) {
-                   if (getStrongBox().checkAvailabilityStrongBox(res))
-                       getStrongBox().removeResourceStrongBox(res);
-                   else
-                       throw new NoSuchElementException("Resource not Available");
+           if (getFirstFloor().getStoredResource().isPresent()) {
+               if (getFirstFloor().getStoredResource().get().getType().equals(res.getType())) {
+                       if (res.getQnt()==1) {
+                           getFirstFloor().setStoredResource(Optional.empty());
+                       }
+                       else {
+                           res.setQnt(res.getQnt()-1);
+                           if (getStrongBox().checkAvailabilityStrongBox(res)){
+                               getStrongBox().removeResourceStrongBox(res);
+                               getFirstFloor().setStoredResource(Optional.empty());
+                           } else
+                               throw new NoSuchElementException("Resource " + res.toString() + " not Available");
+                       }
                }
-               else getFirstFloor().getStoredResource().empty();
            }
-           if (getSecondFloor().getStoredResource().get().getType().equals(res.getType())) {
-               if (getSecondFloor().getStoredResource().get().getQnt() < res.getQnt()) {
-                   if (getStrongBox().checkAvailabilityStrongBox(res))
+           else if (getSecondFloor().getStoredResource().isPresent()) {
+               if (getSecondFloor().getStoredResource().get().getType().equals(res.getType())) {
+                   if (getSecondFloor().getStoredResource().get().getQnt() == 1) {
+                       if (res.getQnt()==1){
+                           getSecondFloor().setStoredResource(Optional.empty());
+                           res.setQnt(0);
+                       }//a
+                       else if (res.getQnt()>=2){
+                           res.setQnt(res.getQnt()-1);
+                           getSecondFloor().setStoredResource(Optional.empty());
+                       }//b,c
+                       else throw new RuntimeException();
+                   } //1
+                   else if(getSecondFloor().getStoredResource().get().getQnt() == 2){
+                       if (res.getQnt()==1){
+                           getSecondFloor().setStoredResource(res);
+                           res.setQnt(0);
+                       }//a
+                       else if (res.getQnt()==2){
+                           getSecondFloor().setStoredResource(Optional.empty());
+                           res.setQnt(0);
+                       }//b
+                       else {
+                           res.setQnt(res.getQnt()-2);
+                           getSecondFloor().setStoredResource(Optional.empty());
+                       }//c
+                   } //2
+
+                   if (getStrongBox().checkAvailabilityStrongBox(res)){
                        getStrongBox().removeResourceStrongBox(res);
-                   else
-                       throw new NoSuchElementException("Resource not Available");
+                   } else
+                       throw new NoSuchElementException("Resource " + res.toString() + " not Available");
+
                }
-               else getSecondFloor().getStoredResource().get().setQnt(getSecondFloor().getStoredResource().get().getQnt() - res.getQnt());
            }
-           if (getThirdFloor().getStoredResource().get().getType().equals(res.getType())) {
-               if (getThirdFloor().getStoredResource().get().getQnt() < res.getQnt()) {
-                   if (getStrongBox().checkAvailabilityStrongBox(res))
+           else if (getThirdFloor().getStoredResource().isPresent()) {
+               if (getThirdFloor().getStoredResource().get().getType().equals(res.getType())) {
+                   if (getThirdFloor().getStoredResource().get().getQnt()==1){
+                       if (res.getQnt()==1){
+                           getThirdFloor().setStoredResource(Optional.empty());
+                           res.setQnt(0);
+                       }
+                       else if(res.getQnt()>=2){
+                           res.setQnt(res.getQnt()-1);
+                           getThirdFloor().setStoredResource(Optional.empty());
+                       }
+                       else throw new RuntimeException();
+                   }//1
+                   else if (getThirdFloor().getStoredResource().get().getQnt()==2){
+                       if (res.getQnt()==1){
+                           getThirdFloor().setStoredResource(res);
+                           res.setQnt(0);
+                       }
+                       else if(res.getQnt()==2){
+                           getThirdFloor().setStoredResource(Optional.empty());
+                           res.setQnt(0);
+                       }
+                       else if (res.getQnt()>=3){
+                           getThirdFloor().setStoredResource(Optional.empty());
+                           res.setQnt(res.getQnt()-2);
+                       }
+                       else throw new RuntimeException();
+                   }//2
+                   else if (getThirdFloor().getStoredResource().get().getQnt()==3){
+                       if (res.getQnt()==1){
+                           res.setQnt(2);
+                           getThirdFloor().setStoredResource(res);
+                           res.setQnt(0);
+                       }
+                       else if (res.getQnt()==2){
+                           res.setQnt(1);
+                           getThirdFloor().setStoredResource(res);
+                           res.setQnt(0);
+                       }
+                       else if (res.getQnt()>=3){
+                           getThirdFloor().setStoredResource(Optional.empty());
+                           res.setQnt(res.getQnt()-3);
+                       }
+                       else throw new RuntimeException();
+                   }
+                   if (getStrongBox().checkAvailabilityStrongBox(res)){
                        getStrongBox().removeResourceStrongBox(res);
-                   else
-                       throw new NoSuchElementException("Resource not Available");
+                   } else
+                       throw new NoSuchElementException("Resource " + res.toString() + " not Available");
                }
-               else getThirdFloor().getStoredResource().get().setQnt(getSecondFloor().getStoredResource().get().getQnt() - res.getQnt());;
+           }
+           else {
+               if (getStrongBox().checkAvailabilityStrongBox(res)){
+                   getStrongBox().removeResourceStrongBox(res);
+               } else
+                   throw new NoSuchElementException("Resource " + res.toString() + " not Available");
            }
         }
     }
-
 
     //aggiungi risorse dal mercato ai floor
 

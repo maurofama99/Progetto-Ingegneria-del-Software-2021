@@ -1,13 +1,16 @@
 package it.polimi.ingsw.model.devcard;
 
+
+import com.google.gson.annotations.SerializedName;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DevCard {
-    private ArrayList<Resource> cost;
     private int level;
-    private Color cardColor;
+    @SerializedName("color")
+    private Color color;
     private int victoryPointsDevCard;
     private boolean isPlaced;
     private ArrayList<Resource> requirementsDevCard;
@@ -21,20 +24,12 @@ public class DevCard {
         this.production = production;
     }
 
-    public void setCost(ArrayList<Resource> cost) {
-        this.cost = cost;
-    }
-
-    public ArrayList<Resource> getCost() {
-        return cost;
-    }
-
     public int getLevel() {
         return level;
     }
 
     public Color getCardColor() {
-        return cardColor;
+        return color;
     }
 
     public int getVictoryPointsDevCard() {
@@ -53,11 +48,14 @@ public class DevCard {
         return production;
     }
 
-    public boolean checkRequirements(Player player){
+    public boolean checkRequirements(Player player) throws CloneNotSupportedException {
 
         boolean finded=false, goout=false;
         //copying required resources' array in here
-        ArrayList<Resource> requirements = new ArrayList<>(requirementsDevCard);
+        ArrayList<Resource> requirements = new ArrayList<>(requirementsDevCard.size());
+        for (Resource resource : requirementsDevCard) {
+            requirements.add((Resource) resource.clone());
+        }
 
         //checking one by one if the required resources are in the warehouse
         //-> if yes, replacing it with a white resource(in copied array)
@@ -137,4 +135,5 @@ public class DevCard {
 
     }
 
+    //TODO il metodo activateProduction va qui o nel controller?
 }

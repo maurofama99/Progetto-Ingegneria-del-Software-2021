@@ -11,6 +11,13 @@ public class Production {
     private ArrayList<Resource> input;
     private ArrayList<Resource> output;
 
+    public ArrayList<Resource> getInput() {
+        return input;
+    }
+
+    public ArrayList<Resource> getOutput() {
+        return output;
+    }
 
     public Production(String productionName, ArrayList<Resource> input, ArrayList<Resource> output) {
         this.productionName = productionName;
@@ -23,11 +30,14 @@ public class Production {
     }
 
     //per non ripetere il codice si potrebbe passare direttamente l'array di risorse come argomento
-    public boolean checkInputResource(Player player){
+    public boolean checkInputResource(Player player) throws CloneNotSupportedException {
 
         boolean finded=false, goout=false;
-        //copying required resources
-        ArrayList<Resource> requirements = new ArrayList<>(input);
+        //deep copying required resources
+        ArrayList<Resource> requirements = new ArrayList<>(input.size());
+        for (Resource resource : input) {
+            requirements.add((Resource) resource.clone());
+        }
 
         //checking one by one if the required resources are in the warehouse
         //-> if yes, replacing it with a white resource(in copied array)

@@ -11,6 +11,7 @@ public abstract class Floor {
     private final int space;
 
     public Floor(int space) {
+        this.storedResource = Optional.empty();
         this.space = space;
     }
 
@@ -22,9 +23,6 @@ public abstract class Floor {
         return storedResource;
     }
 
-    public int getSpace() {
-        return space;
-    }
 
     /* ****************************************************************
      NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE AI FLOOR
@@ -39,11 +37,12 @@ public abstract class Floor {
     //checks if there is space in the different floors for the extra resource that the player needs to place
     public boolean checkCorrectPlacement(Resource resourceToPlace) {
         //se c'è abbastanza spazio sul piano se la risorsa c'è gia
-        if (storedResource.isPresent() && (storedResource.get().getType() == resourceToPlace.getType())) {
-            return resourceToPlace.getQnt() <= (space - storedResource.get().getQnt());
-        }
-        else //then I need to check that there is a free floor with enough space
-            return storedResource.isEmpty() && resourceToPlace.getQnt() <= space;
+        if (storedResource.isPresent()){
+            if(storedResource.get().getType() == resourceToPlace.getType()) {
+                return resourceToPlace.getQnt() <= (space - storedResource.get().getQnt());
+            }
+        }//then I need to check that there is a free floor with enough space
+        return resourceToPlace.getQnt() <= space;
     }
 
 

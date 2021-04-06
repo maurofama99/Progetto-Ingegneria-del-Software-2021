@@ -17,5 +17,5 @@ public class Initializer implements TableState{
 
     public void selectFirstPlayer(){}
 
-
+    
 }

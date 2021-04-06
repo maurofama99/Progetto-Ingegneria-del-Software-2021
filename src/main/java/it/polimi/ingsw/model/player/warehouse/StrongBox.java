@@ -12,14 +12,6 @@ public class StrongBox {
     private Resource[] storedResources = new Resource[4];
 
 
-   /* public StrongBox(Resource[] storedResources) {
-        storedResources[0] = new Resource(0, ResourceType.COIN);
-        storedResources[1] = new Resource(0, ResourceType.SERVANT);
-        storedResources[2] = new Resource(0, ResourceType.SHIELD);
-        storedResources[3] = new Resource(0, ResourceType.STONE);
-        this.storedResources = storedResources;
-    }*/
-
     public StrongBox() {
         this.storedResources[0] = new Resource(0, ResourceType.COIN);
         this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
