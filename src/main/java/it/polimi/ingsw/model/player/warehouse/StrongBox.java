@@ -3,17 +3,28 @@ package it.polimi.ingsw.model.player.warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class StrongBox {
     //lo strongbox è un array delle 4 risorse in ordine alfabetico inizializzate con qnt = 0;
     private Resource[] storedResources = new Resource[4];
 
+
+   /* public StrongBox(Resource[] storedResources) {
+        storedResources[0] = new Resource(0, ResourceType.COIN);
+        storedResources[1] = new Resource(0, ResourceType.SERVANT);
+        storedResources[2] = new Resource(0, ResourceType.SHIELD);
+        storedResources[3] = new Resource(0, ResourceType.STONE);
+        this.storedResources = storedResources;
+    }*/
+
     public StrongBox() {
-        storedResources[0] = new Resource(0,ResourceType.COIN);
-        storedResources[1] = new Resource(0,ResourceType.SERVANT);
-        storedResources[2] = new Resource(0,ResourceType.SHIELD);
-        storedResources[3] = new Resource(0,ResourceType.STONE);
+        this.storedResources[0] = new Resource(0, ResourceType.COIN);
+        this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
+        this.storedResources[2] = new Resource(0, ResourceType.SHIELD);
+        this.storedResources[3] = new Resource(0, ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {
@@ -24,24 +35,28 @@ public class StrongBox {
         this.storedResources = storedResources;
     }
 
-    /* *********************************************************************
-     NON DEVE MAI ESSERE POSSIBILE AGGIUNGERE WHITERESOURCE ALLA STRONGBOX
-     **********************************************************************/
-    public void addResourceToStrongBox(Resource resourceToAdd){
-        if (resourceToAdd.getType().equals(ResourceType.COIN))
-            storedResources[0].setQnt(resourceToAdd.getQnt() +  storedResources[0].getQnt());
-        else if (resourceToAdd.getType().equals(ResourceType.SERVANT))
-            storedResources[1].setQnt(resourceToAdd.getQnt() +  storedResources[1].getQnt());
-        else if (resourceToAdd.getType().equals(ResourceType.SHIELD))
-            storedResources[2].setQnt(resourceToAdd.getQnt() +  storedResources[2].getQnt());
-        else if (resourceToAdd.getType().equals(ResourceType.STONE))
-            storedResources[3].setQnt(resourceToAdd.getQnt() +  storedResources[3].getQnt());
-        else
-            System.out.println("Error in reading type of resource");
+    //since  StrongBox has no limit in terms of how many resources can be stored.
+    // It does not need to check anything. This method adds resources to Strongbox
+
+    public void addResourceToStrongBox(ArrayList<Resource> resourcesToAdd){
+        for (Resource res : resourcesToAdd) {
+            if (res.getType().equals(ResourceType.COIN))
+                storedResources[0].setQnt(res.getQnt() + storedResources[0].getQnt());
+            else if (res.getType().equals(ResourceType.SERVANT))
+                storedResources[1].setQnt(res.getQnt() + storedResources[1].getQnt());
+            else if (res.getType().equals(ResourceType.SHIELD))
+                storedResources[2].setQnt(res.getQnt() + storedResources[2].getQnt());
+            else if (res.getType().equals(ResourceType.STONE))
+                storedResources[3].setQnt(res.getQnt() + storedResources[3].getQnt());
+            else
+                System.out.println("Error in reading type of resource");
+        }
     }
 
+    //This method is used to remove resources from the player's Strongbox. When the Resource
+    // is not available it prints that there are not enough Resources
 
-    public void removeResourceToStrongBox(Resource resourceToRemove){
+    public void removeResourceStrongBox(Resource resourceToRemove){
         if(checkAvailabilityStrongBox(resourceToRemove)) {
             if (resourceToRemove.getType().equals(ResourceType.COIN))
                 storedResources[0].setQnt(storedResources[0].getQnt() - resourceToRemove.getQnt());
@@ -53,28 +68,27 @@ public class StrongBox {
                 storedResources[3].setQnt(storedResources[3].getQnt() - resourceToRemove.getQnt());
         }
         else
-            System.out.println("There are not enough resources in StrongBox");
+           throw new NoSuchElementException("Resource requested is not available");
+
     }
 
-
+    //this method checks if a type of Resource is available in Strongbox.
     public boolean checkAvailabilityStrongBox(Resource resourceToCheck){
-
+        boolean available = false;
         if (resourceToCheck.getType().equals(ResourceType.COIN))
-            return resourceToCheck.getQnt() >= storedResources[0].getQnt();
+            available = (resourceToCheck.getQnt() <= storedResources[0].getQnt());
 
         else if (resourceToCheck.getType().equals(ResourceType.SERVANT))
-            return resourceToCheck.getQnt() >= storedResources[1].getQnt();
+            available = (resourceToCheck.getQnt() <= storedResources[1].getQnt());
 
         else if (resourceToCheck.getType().equals(ResourceType.SHIELD))
-            return resourceToCheck.getQnt() >= storedResources[2].getQnt();
+            available = (resourceToCheck.getQnt() <= storedResources[2].getQnt());
 
         else if (resourceToCheck.getType().equals(ResourceType.STONE))
-            return resourceToCheck.getQnt() >= storedResources[3].getQnt();
-        else
-            return false;
+            available =  (resourceToCheck.getQnt() <= storedResources[3].getQnt());
 
+        return available;
     }
 
-    //mancano metodi che aggiungono e rimuovono più di un tipo di risorsa
 }
 

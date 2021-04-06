@@ -9,9 +9,9 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import java.util.ArrayList;
 
 public class DevCardTest {
-
     Player p1;
 
+    Resource[] resources = new Resource[4];
     FirstFloor fF = new FirstFloor();
     SecondFloor sF = new SecondFloor();
     ThirdFloor tF = new ThirdFloor();
@@ -27,11 +27,11 @@ public class DevCardTest {
         p1 = new Player("Vale");
         p1.setPersonalBoard(pB);
 
-        requirements = new ArrayList<Resource>();
+        requirements = new ArrayList<>();
         requirements.add(new Resource(2,ResourceType.STONE));
         dC.setRequirementsDevCard(requirements);
 
-        input = new ArrayList<Resource>();
+        input = new ArrayList<>();
         input.add(new Resource(1, ResourceType.STONE));
         input.add(new Resource(2,ResourceType.COIN));
         prod.setInput(input);
