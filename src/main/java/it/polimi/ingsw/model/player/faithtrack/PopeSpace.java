@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.*;
 
-import java.util.ArrayList;
-
 public class PopeSpace extends Tile{
     private int section;
     private int points;
@@ -29,7 +27,7 @@ public class PopeSpace extends Tile{
 
         if(getSection()==1){
             if(ft.getTrack().get(currentPos).isFirstSection()) {
-                p.setVictoryPoints(p.getVictoryPoints() + 2);
+                p.setVictoryPoints(p.getVictoryPoints() + getPoints());
                 ft.setFirstFavorTile(true);
             }
             else {
@@ -39,7 +37,7 @@ public class PopeSpace extends Tile{
         }
         else if(getSection()==2){
             if(ft.getTrack().get(currentPos).isSecondSection()) {
-                p.setVictoryPoints(p.getVictoryPoints()+3);
+                p.setVictoryPoints(p.getVictoryPoints()+getPoints());
                 ft.setSecondFavorTile(true);
             }
             else {
@@ -49,7 +47,7 @@ public class PopeSpace extends Tile{
         }
         else if(getSection()==3){
             if(ft.getTrack().get(currentPos).isThirdSection()) {
-                p.setVictoryPoints(p.getVictoryPoints() + 4);
+                p.setVictoryPoints(p.getVictoryPoints() + getPoints());
                 ft.setThirdFavorTile(true);
             }
             else {

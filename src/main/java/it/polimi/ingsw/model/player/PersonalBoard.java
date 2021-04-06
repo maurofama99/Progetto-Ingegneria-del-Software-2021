@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 
 import java.util.Arrays;
@@ -7,6 +8,15 @@ import java.util.Arrays;
 public class PersonalBoard {
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
+    private FaithTrack faithTrack;
+
+    public void setFaithTrack(FaithTrack faithTrack) {
+        this.faithTrack = faithTrack;
+    }
+
+    public FaithTrack getFaithTrack() {
+        return faithTrack;
+    }
 
     public PersonalBoard(Warehouse warehouse) {
         this.warehouse = warehouse;

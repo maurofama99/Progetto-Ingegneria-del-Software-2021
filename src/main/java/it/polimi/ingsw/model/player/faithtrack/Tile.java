@@ -35,4 +35,8 @@ public class Tile {
     public int getPosition() {
         return position;
     }
+
+    public void turnFavorAddPoints(PopeSpace ps, FaithTrack ft, Player p){
+        ps.turnFavorAddPoints(ft, p);
+    }
 }
