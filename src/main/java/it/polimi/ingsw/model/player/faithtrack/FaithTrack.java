@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.singleplayer.*;
 
 import java.util.ArrayList;
 

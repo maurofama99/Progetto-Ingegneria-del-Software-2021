@@ -8,15 +8,13 @@ public class FaithMarker {
         this.position = position;
     }
 
-    //Function that sets marker at the start position. It is called by every player at the start of the game
-    public void initPosition(){
-        this.position = 0;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     //Function that moves the marker forward. Needs to be connected to FaithPnt
-    public void moveForward(FaithMarker fm){
-        position = fm.getPosition();
-        position++;
+    public void moveForward(FaithMarker fm, int faithToAdd){
+        fm.setPosition(fm.getPosition()+faithToAdd);
     }
 
     public int getPosition() {
