@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player.warehouse;
 
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -41,8 +42,8 @@ public class Warehouse {
 
     public void removeResources(ArrayList<Resource> resourcesToRemove) {
        for (Resource res : resourcesToRemove) {
-           if (getFirstFloor().getStoredResource().isPresent()) {
-               if (getFirstFloor().getStoredResource().get().getType().equals(res.getType())) {
+           if (getFirstFloor().getStoredResource().isPresent() && getFirstFloor().getStoredResource().get().getType().equals(res.getType())) {
+
                        if (res.getQnt()==1) {
                            getFirstFloor().setStoredResource(Optional.empty());
                        }
@@ -54,10 +55,10 @@ public class Warehouse {
                            } else
                                throw new NoSuchElementException("Resource " + res.toString() + " not Available");
                        }
-               }
+
            }
-           else if (getSecondFloor().getStoredResource().isPresent()) {
-               if (getSecondFloor().getStoredResource().get().getType().equals(res.getType())) {
+           else if (getSecondFloor().getStoredResource().isPresent() && getSecondFloor().getStoredResource().get().getType().equals(res.getType())) {
+
                    if (getSecondFloor().getStoredResource().get().getQnt() == 1) {
                        if (res.getQnt()==1){
                            getSecondFloor().setStoredResource(Optional.empty());
@@ -89,10 +90,11 @@ public class Warehouse {
                    } else
                        throw new NoSuchElementException("Resource " + res.toString() + " not Available");
 
-               }
+
            }
-           else if (getThirdFloor().getStoredResource().isPresent()) {
-               if (getThirdFloor().getStoredResource().get().getType().equals(res.getType())) {
+           else if (getThirdFloor().getStoredResource().isPresent() && getThirdFloor().getStoredResource().get().getType().equals(res.getType())) {
+
+
                    if (getThirdFloor().getStoredResource().get().getQnt()==1){
                        if (res.getQnt()==1){
                            getThirdFloor().setStoredResource(Optional.empty());
@@ -127,7 +129,8 @@ public class Warehouse {
                        }
                        else if (res.getQnt()==2){
                            res.setQnt(1);
-                           getThirdFloor().setStoredResource(res);
+                           Optional<Resource> tmp = Optional.of(new Resource(res.getQnt(), res.getType()));
+                           getThirdFloor().setStoredResource(tmp);
                            res.setQnt(0);
                        }
                        else if (res.getQnt()>=3){
@@ -140,7 +143,7 @@ public class Warehouse {
                        getStrongBox().removeResourceStrongBox(res);
                    } else
                        throw new NoSuchElementException("Resource " + res.toString() + " not Available");
-               }
+
            }
            else {
                if (getStrongBox().checkAvailabilityStrongBox(res)){

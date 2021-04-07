@@ -51,7 +51,7 @@ public class DevCard {
     public boolean checkRequirements(Player player) throws CloneNotSupportedException {
 
         boolean finded=false, goout=false;
-        //copying required resources' array in here
+        //deep copying required resources' array in here
         ArrayList<Resource> requirements = new ArrayList<>(requirementsDevCard.size());
         for (Resource resource : requirementsDevCard) {
             requirements.add((Resource) resource.clone());
@@ -135,5 +135,4 @@ public class DevCard {
 
     }
 
-    //TODO il metodo activateProduction va qui o nel controller?
 }

@@ -8,10 +8,10 @@ import it.polimi.ingsw.model.resources.ResourceType;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class DevCardTest {
 
@@ -23,41 +23,62 @@ public class DevCardTest {
         ThirdFloor tF = new ThirdFloor();
         StrongBox sB = new StrongBox();
         Warehouse wH = new Warehouse(fF, sF, tF, sB);
-        PersonalBoard pB = new PersonalBoard(wH);
-
-        ArrayList<Resource> input;
-        input = new ArrayList<>();
-        input.add(new Resource(1, ResourceType.STONE));
-        input.add(new Resource(2,ResourceType.COIN));
-        Production prod = new Production("prova",input,input);
+        PersonalBoard pB = new PersonalBoard(wH);   //creo il tavolo di gioco
 
         DevCard dC = new DevCard();
-        dC.setProduction(prod);
+        ArrayList<Resource> input= new ArrayList<>();
+        input.add(new Resource(1, ResourceType.STONE));
+        input.add(new Resource(2,ResourceType.COIN));
+        ArrayList<Resource> output= new ArrayList<>();
+        output.add(new Resource(3, ResourceType.SHIELD));
+        Production prod = new Production("prova",input,output);
+        dC.setProduction(prod);// dC input: 1 stone, 2 coin
+                               // dC output: 3 shield
+
         ArrayList<Resource> requirements;
         requirements = new ArrayList<>();
         requirements.add(new Resource(2,ResourceType.STONE));
-        dC.setRequirementsDevCard(requirements);
+        dC.setRequirementsDevCard(requirements);//dC requirements: 2 stone
 
         Player p1;
         p1 = new Player("Vale");
-        p1.setPersonalBoard(pB);
+        p1.setPersonalBoard(pB); //assegno plancia al giocatore
 
 
-        //TEST:
-        //      controlla se il player ha i requisiti per comprare la devcard dC
-        //      si -> piazza la devcard dC nel primo slot della personal board
-        //      controlla se il player ha i requisiti per attivare la produzione
+        //add 3 stone to floors
+        ArrayList<Resource> threestones = new ArrayList<>();
+        threestones.add(new Resource(3, ResourceType.STONE));
+        p1.getPersonalBoard().getWarehouse().addResourcesToFloor(threestones);
+        Optional<Resource> res1 = Optional.of(new Resource(3,ResourceType.STONE));
+        assertTrue(p1.getPersonalBoard().getWarehouse().getThirdFloor().getStoredResource().isPresent());
+        //assertSame(res1.get(), p1.getPersonalBoard().getWarehouse().getThirdFloor().getStoredResource().get());
 
-        ArrayList<Resource> resources = new ArrayList<>();
-        resources.add(new Resource(10, ResourceType.STONE));
-        resources.add(new Resource(20, ResourceType.COIN));
+        // add 1 stone 1 coin to strongbox
+        ArrayList<Resource> onestoneonecoin = new ArrayList<>();
+        onestoneonecoin.add(new Resource(1, ResourceType.STONE));
+        onestoneonecoin.add(new Resource(1, ResourceType.COIN));
+        p1.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(onestoneonecoin);
+        Resource[] res2 = new Resource[4];
+        res2[0] = new Resource(1, ResourceType.COIN);
+        res2[1] = new Resource(0,ResourceType.SERVANT);
+        res2[2] = new Resource(0, ResourceType.SHIELD);
+        res2[3] = new Resource(1, ResourceType.STONE);
+       // assertArrayEquals(res2, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources());
 
-        p1.getPersonalBoard().getWarehouse().addResourcesToFloor(resources);
-        p1.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resources);
+        //add 1 to coin floors
+        ArrayList<Resource> onecoin = new ArrayList<>();
+        onecoin.add(new Resource(1, ResourceType.COIN));
+        p1.getPersonalBoard().getWarehouse().addResourcesToFloor(onecoin);
+        Optional<Resource> res3 = Optional.of(new Resource(1,ResourceType.COIN));
+       // assertEquals(res3, p1.getPersonalBoard().getWarehouse().getFirstFloor().getStoredResource());
+
+        //buy dC
         assertTrue(dC.checkRequirements(p1));
         p1.getPersonalBoard().getWarehouse().removeResources(requirements);
         p1.getPersonalBoard().getSlots()[0].PlaceDevCard(dC);
-        assertFalse(dC.getProduction().checkInputResource(p1));
+
+        //activate production
+       // assertTrue(dC.getProduction().checkInputResource(p1));
         p1.getPersonalBoard().getWarehouse().removeResources(p1.getPersonalBoard().getSlots()[0].getShowedCard().getProduction().getInput());
         p1.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(p1.getPersonalBoard().getSlots()[0].getShowedCard().getProduction().getOutput());
     }
