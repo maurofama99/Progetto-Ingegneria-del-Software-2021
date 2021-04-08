@@ -8,4 +8,15 @@ public class ThirdFloor extends Floor {
         super(3);
     }
 
+    @Override
+    public boolean differentResources(Resource resourceToPlace) {
+        SecondFloor secondFloor = new SecondFloor();
+        FirstFloor firstFloor = new FirstFloor();
+
+        if (secondFloor.getStoredResource().isPresent() && secondFloor.getStoredResource().get().getType().equals(resourceToPlace.getType()))
+                return false;
+
+        return firstFloor.getStoredResource().isEmpty() || !firstFloor.getStoredResource().get().getType().equals(resourceToPlace.getType());
+
+    }
 }

@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.player.Player;
 
 public interface LeaderEffect{
 
-    void doEffect();
+    void doEffect(Player player);
 
     boolean checkRequirementsLeaderCard(Player player);
 

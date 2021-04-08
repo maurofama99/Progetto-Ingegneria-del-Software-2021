@@ -20,6 +20,7 @@ public class Warehouse {
         this.strongBox = strongBox;
     }
 
+
     public FirstFloor getFirstFloor() {
         return firstFloor;
     }
@@ -154,8 +155,8 @@ public class Warehouse {
         }
     }
 
-    //aggiungi risorse dal mercato ai floor
 
+    //aggiungi risorse dal mercato ai floor
     public void addResourcesToFloor(ArrayList<Resource> resourcesToAdd) {
         for (Resource res : resourcesToAdd) {
             if (firstFloor.checkCorrectPlacement(res)) {

@@ -14,6 +14,10 @@ public class Slot{
         this.slotNumber = slotNumber;
     }
 
+    public ArrayList<DevCard> getCards() {
+        return cards;
+    }
+
     public DevCard getShowedCard(){
         return this.cards.get(this.cards.size()-1);
     }
