@@ -13,7 +13,7 @@ public class Discount implements LeaderEffect {
     @Override
     public void doEffect(Player player) {
         //cambia il costo di una dev card
-        //penso che devo fare un setRequirementDevCard  e basta
+        //devo fare un setRequirementDevCard nelle devCard che richiedono questo tipo di risorsa
     }
 
     @Override

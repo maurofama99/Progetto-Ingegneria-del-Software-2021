@@ -2,8 +2,10 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.controller.TableState;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.Token;
 
+import java.rmi.MarshalException;
 import java.util.ArrayList;
 
 public class Table {
@@ -12,37 +14,41 @@ public class Table {
     private int currentTurn;
     private ArrayList<Token> tokenStack;
     private TableState state;
+    private MarketTray marketTray;
+    private Deck deck;
+
+    public Table(int numPlayers, ArrayList<Player> players, int currentTurn, ArrayList<Token> tokenStack, TableState state, MarketTray marketTray, Deck deck) {
+        this.numPlayers = numPlayers;
+        this.players = players;
+        this.currentTurn = currentTurn;
+        this.tokenStack = tokenStack;
+        this.state = state;
+        this.marketTray = marketTray;
+        this.deck = deck;
+    }
 
     public int getNumPlayers() {
         return numPlayers;
-    }
-
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
     }
 
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
-
     public int getCurrentTurn() {
         return currentTurn;
-    }
-
-    public void setCurrentTurn(int currentTurn) {
-        this.currentTurn = currentTurn;
     }
 
     public ArrayList<Token> getTokenStack() {
         return tokenStack;
     }
 
-    public void setTokenStack(ArrayList<Token> tokenStack) {
-        this.tokenStack = tokenStack;
+    public MarketTray getMarketTray() {
+        return marketTray;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
     public TableState getState() {
