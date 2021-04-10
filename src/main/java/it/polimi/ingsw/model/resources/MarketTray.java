@@ -40,6 +40,8 @@ public class MarketTray {
             tmptray[i] = (tray[i].clone());
         }
 
+
+
         if (row == 1){
             //adding row's resources in the array to be returned
             resources = new ArrayList<>(Arrays.asList(tray[0]));
@@ -148,7 +150,4 @@ public class MarketTray {
     }
 
 
-    //adding array "resources"'s resources to player "player"'s warehouses
-    public void giveResources(Player player, ArrayList<Resource> resources){
-    }
 }

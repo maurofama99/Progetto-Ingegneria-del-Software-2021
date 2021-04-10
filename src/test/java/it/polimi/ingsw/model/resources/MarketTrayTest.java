@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class MarketTrayTest {
 
-    /*@Test
+    @Test
       public void TestSelectRow() {
         int i;
         int j;
@@ -25,7 +25,6 @@ public class MarketTrayTest {
                 else if (j%4==0) market.getTray()[i][j]= new Resource(1,ResourceType.STONE);
                 else if (j%2==0) market.getTray()[i][j]= new Resource(1,ResourceType.FAITHPOINT);
                 else if (j%3==0) market.getTray()[i][j]= new Resource(1,ResourceType.COIN);
-                else if (j%7==0) market.getTray()[i][j]= new Resource(1,ResourceType.WHITERESOURCE);
                 else if (i%2==0) market.getTray()[i][j]= new Resource(1,ResourceType.WHITERESOURCE);
                 else market.getTray()[i][j]= new Resource(1,ResourceType.COIN);
                 System.out.print(market.getTray()[i][j].toString() + " ");
@@ -33,12 +32,12 @@ public class MarketTrayTest {
                 //STONE COIN FAITHPOINT COIN
                 //STONE WHITE FAITHPOINT COIN
             }
-            System.out.println("");
+            System.out.println();
         }
 
         ArrayList<Resource> result = market.selectColumn(2);
 
-        System.out.println("");
+        System.out.println();
         //stampa nuovo market
         for (i=0; i<3; i++){
             for(j=0; j<4; j++){
@@ -47,19 +46,19 @@ public class MarketTrayTest {
                 //STONE COIN FAITHPOINT COIN
                 //STONE WHITE FAITHPOINT COIN
             }
-            System.out.println("");
+            System.out.println();
         }
 
-        System.out.println("");
+        System.out.println();
         //stampa risultato
         for(i=0; i<3; i++){
             System.out.print(result.get(i) + " ");
         }
 
-        System.out.println("");
+        System.out.println();
         //stampa slider
         System.out.println(market.getSlide());
-    }   */
+    }
 
 
 

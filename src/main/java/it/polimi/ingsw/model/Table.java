@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.controller.TableState;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.singleplayer.Token;
+import it.polimi.ingsw.model.devcard.*;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,11 @@ public class Table {
     private int currentTurn;
     private ArrayList<Token> tokenStack;
     private TableState state;
+    private Deck devCardsDeck;
+
+    public Deck getDevCardsDeck() {
+        return devCardsDeck;
+    }
 
     public int getNumPlayers() {
         return numPlayers;

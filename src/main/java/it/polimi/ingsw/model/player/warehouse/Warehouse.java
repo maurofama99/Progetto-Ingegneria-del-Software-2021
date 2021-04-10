@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.player.warehouse;
 
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -54,7 +53,7 @@ public class Warehouse {
                                getStrongBox().removeResourceStrongBox(res);
                                getFirstFloor().setStoredResource(Optional.empty());
                            } else
-                               throw new NoSuchElementException("Resource " + res.toString() + " not Available");
+                               throw new NoSuchElementException("Resource " + res + " not Available");
                        }
 
            }
@@ -89,7 +88,7 @@ public class Warehouse {
                    if (getStrongBox().checkAvailabilityStrongBox(res)){
                        getStrongBox().removeResourceStrongBox(res);
                    } else
-                       throw new NoSuchElementException("Resource " + res.toString() + " not Available");
+                       throw new NoSuchElementException("Resource " + res + " not Available");
 
 
            }
@@ -143,14 +142,14 @@ public class Warehouse {
                    if (getStrongBox().checkAvailabilityStrongBox(res)){
                        getStrongBox().removeResourceStrongBox(res);
                    } else
-                       throw new NoSuchElementException("Resource " + res.toString() + " not Available");
+                       throw new NoSuchElementException("Resource " + res + " not Available");
 
            }
            else {
                if (getStrongBox().checkAvailabilityStrongBox(res)){
                    getStrongBox().removeResourceStrongBox(res);
                } else
-                   throw new NoSuchElementException("Resource " + res.toString() + " not Available");
+                   throw new NoSuchElementException("Resource " + res + " not Available");
            }
         }
     }
