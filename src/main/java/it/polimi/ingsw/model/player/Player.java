@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.faithtrack.FaithMarker;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
@@ -15,6 +16,11 @@ public class Player {
     private int victoryPoints;
     private FaithMarker playerFaithMarker;
     private PersonalBoard personalBoard;
+    private Table table;
+
+    public Table getTable() {
+        return table;
+    }
 
     public FaithMarker getPlayerFaithMarker() {
         return playerFaithMarker;

@@ -13,7 +13,7 @@ public class ExtraDepot implements LeaderEffect {
 
     @Override
     public void doEffect(Player player) {
-        //aggiunge un second floor in qualche modo
+        //aggiunge un second floor
 
     }
 

@@ -2,13 +2,18 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
+import it.polimi.ingsw.model.resources.Resource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PersonalBoard {
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
+    private Player player;
+
+    public Player getPlayer() { return player; }
 
     public void setFaithTrack(FaithTrack faithTrack) {
         this.faithTrack = faithTrack;
@@ -32,4 +37,17 @@ public class PersonalBoard {
     public Warehouse getWarehouse() {
         return warehouse;
     }
+
+    public void basicProduction(Resource firstInput, Resource secondInput, Resource Output){
+        ArrayList<Resource> resourceToRemove = new ArrayList<>();
+        resourceToRemove.add(firstInput);
+        resourceToRemove.add(secondInput);
+
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        resourcesToAdd.add(Output);
+
+        getWarehouse().removeResources(resourceToRemove);
+        getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+    }
+
 }
