@@ -23,7 +23,7 @@ public class Deck {
     }
 
     //rimuove e restituisce la carta selezionata tra quelle mostrate sul tavolo
-    //indici partono da 1 per l'utente (piùà intuitivo)
+    //indici partono da 1 per l'utente (più intuitivo)
     public DevCard removeAndGetCard(int row, int col){
         return fullDeck[row-1][col-1].pop();
     }

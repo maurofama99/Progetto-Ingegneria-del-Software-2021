@@ -1,18 +1,21 @@
 package it.polimi.ingsw.model.singleplayer;
 
+import it.polimi.ingsw.model.Table;
+
 public class Token {
     private TokenAction tokenAction;
     private boolean isTokenDiscarded;
+
+    public Token(TokenAction tokenAction, boolean isTokenDiscarded) {
+        this.tokenAction = tokenAction;
+        this.isTokenDiscarded = isTokenDiscarded;
+    }
 
     public TokenAction getTokenAction() {
         return tokenAction;
     }
 
-    public void setTokenAction(TokenAction tokenAction) {
-        this.tokenAction = tokenAction;
-    }
-
-    public boolean isTokenDiscarded() {
+    public boolean getIsTokenDiscarded() {
         return isTokenDiscarded;
     }
 
@@ -20,7 +23,14 @@ public class Token {
         isTokenDiscarded = tokenDiscarded;
     }
 
-    public void activateAction(TokenAction ta){
-        //activate the action and discards the token
+    public void activateAction(Table t){
+        //activate the action and discards the token if is not yet discarded (shouldn't happen, but checking is good)
+        if(!getIsTokenDiscarded()){
+            this.tokenAction.doAction(t);
+            setTokenDiscarded(true);
+        }
+        else
+            System.out.println("Token is already discarded. What happened?");
     }
+
 }
