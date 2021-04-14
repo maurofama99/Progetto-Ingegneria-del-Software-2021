@@ -2,14 +2,22 @@ package it.polimi.ingsw.model.devcard;
 
 import java.util.Stack;
 
+/**
+ * Class of dev. cards' deck.
+*/
 public class Deck {
 
-    //l'arraylist viene usato come pila di carte: l'ultima carta dell'arraylist è la showed card
+    /**
+     The arraylist is used as a stack of cards. The last one is the showed card
+     */
     Stack<DevCard>[][] fullDeck;
 
     //inizializzazione del deck con gson
 
-    //ritorna la matrice di carte mostrate sul tavolo
+    /**
+     * This method is literally a getter of the deck on the table
+     * @return the matrix of the cards still on the table (not taken by players or removed)
+     */
     public DevCard[][] ShowedDeck(){
 
         DevCard[][] result = new DevCard[3][4];
@@ -22,6 +30,12 @@ public class Deck {
         return result;
     }
 
+    /**
+     * This method will be used for buying and removing card with tokens.
+     * @param row row of the deck, from one (more intuitive)
+     * @param col column of the deck, from one (more intuitive)
+     * @return a pop of the deck, removing the selected card (the top one)
+     */
     //rimuove e restituisce la carta selezionata tra quelle mostrate sul tavolo
     //indici partono da 1 per l'utente (più intuitivo)
     public DevCard removeAndGetCard(int row, int col){

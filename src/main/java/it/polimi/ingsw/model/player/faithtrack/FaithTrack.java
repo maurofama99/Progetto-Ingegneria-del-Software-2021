@@ -5,7 +5,10 @@ import it.polimi.ingsw.model.singleplayer.*;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class that initializes and controls the track of every player. We made as every player
+ * has its own track to make it easier to use the Favor Tiles
+ */
 public class FaithTrack {
     private FaithMarker faithMarker;
     private BlackCross blackCross;
@@ -70,7 +73,10 @@ public class FaithTrack {
         return true;
     }
 
-    //Creates the track. Needs to know where to put the different tiles
+    /**
+     * This method initializes the track. Every tile can be modified, moved or deleted. Also creates the
+     * three sections.
+     */
     public void createTrack(){
         track = new ArrayList<Tile>();
 

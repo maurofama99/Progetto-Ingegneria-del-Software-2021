@@ -6,6 +6,10 @@ import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 
+/**
+ * This is the class Production. It is used for initializing dev. cards and put the production
+ * attribute in them.
+ */
 public class Production {
     private final String productionName;
     private ArrayList<Resource> input;
@@ -30,6 +34,13 @@ public class Production {
     }
 
     //per non ripetere il codice si potrebbe passare direttamente l'array di risorse come argomento
+
+    /**
+     * This method checks if the player has enough resources to start the production.
+     * @param player for knowing where to check from
+     * @return true if the requirements are met.
+     * @throws CloneNotSupportedException
+     */
     public boolean checkInputResource(Player player) throws CloneNotSupportedException {
 
         boolean finded=false, goout=false;

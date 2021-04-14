@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
-//this is normal Tile. It does nothing except existing
+/**
+ * Normal tile of the track. It just "exists" as a spot to place the marker.
+ */
 public class Normal extends Tile {
 
     public Normal(int position, boolean isFirstSection, boolean isSecondSection, boolean isThirdSection) {

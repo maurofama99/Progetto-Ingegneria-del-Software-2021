@@ -9,13 +9,18 @@ import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 
+/**
+ * Leader cards that give extra resources when getting white resources from the market
+ */
 public class SwapWhite implements LeaderEffect {
 
     private ArrayList<Color> cardColorRequired;
     private Resource newResource;
 
-
-    //al mercato la whiteResource viene cambiata con un tipo di risorsa
+    /**
+     * Method that changes the white marble in a resource.
+     * @param player owner of the card
+     */
     @Override
     public void doEffect(Player player) {
         int i, k;
@@ -29,6 +34,11 @@ public class SwapWhite implements LeaderEffect {
         }
     }
 
+    /**
+     * Checks if the player can actually place the leader card
+     * @param player owner of the card
+     * @return true if the card can be placed, false if not
+     */
     @Override
     public boolean checkRequirementsLeaderCard(Player player) {
         ArrayList<Color> checkColor = new ArrayList<>();

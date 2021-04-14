@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.controller.TableState;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
 
@@ -19,11 +20,20 @@ public class Table {
     private TableState state;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
+    private MarketTray marketTray;
 
     public Table(int numPlayers, ArrayList<Player> players, int currentTurn) {
         this.numPlayers = numPlayers;
         this.players = players;
         this.currentTurn = currentTurn;
+    }
+
+    public MarketTray getMarketTray() {
+        return marketTray;
+    }
+
+    public void setMarketTray(MarketTray marketTray) {
+        this.marketTray = marketTray;
     }
 
     public void setDevCardsDeck(Deck devCardsDeck) {

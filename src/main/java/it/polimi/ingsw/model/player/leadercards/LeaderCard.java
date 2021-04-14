@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
 
+/**
+ * General class of all the leader cards. It has the constructor to initialize them.
+ */
 public class LeaderCard {
     private int victoryPoints;
     static private String cardName;
@@ -37,7 +40,10 @@ public class LeaderCard {
         return isActive;
     }
 
-
+    /**
+     * Activates the effect of the card when it is played
+     * @param player owner of the card
+     */
     public void activateEffect(Player player) {
         isActive = true;
     }

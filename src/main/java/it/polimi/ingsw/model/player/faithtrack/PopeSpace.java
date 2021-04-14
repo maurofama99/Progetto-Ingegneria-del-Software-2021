@@ -2,6 +2,10 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.*;
 
+/**
+ * Pope space class, the tiles with the pope's hat on them to be clear. It decides if a player is
+ * in range to turn the favor tile and get some VP.
+ */
 public class PopeSpace extends Tile{
     private int section;
     private int points;
@@ -21,7 +25,12 @@ public class PopeSpace extends Tile{
         return points;
     }
 
-    //Check if player is in pope section and turns the tile if true. If false, removes the tile and gives zero
+    /**
+     * This method is used for checking if a player's FaithMarker is in range to turn the Favor Tile. It
+     * also adds the points if it is possible
+     * @param ft The track of the player whose position is being checked.
+     * @param p Player whose FaithMarker's position is being checked
+     */
     public void turnFavorAddPoints(FaithTrack ft, Player p){
         int currentPos = p.getPlayerFaithMarker().getPosition();
 

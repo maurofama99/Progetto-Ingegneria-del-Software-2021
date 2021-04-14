@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
 
+/**
+ * This is the general Tile class. It is the base of all others tiles.
+ */
 public class Tile {
     private int position;
     private boolean isFirstSection;
@@ -13,11 +16,6 @@ public class Tile {
         this.isFirstSection = isFirstSection;
         this.isSecondSection = isSecondSection;
         this.isThirdSection = isThirdSection;
-    }
-
-    //Function that add points to the player when a Tile is of type victory
-    public void addPoints(Victory v, Player p){
-        v.addPoints(v.getPoints(), p);
     }
 
     public boolean isFirstSection() {
@@ -36,6 +34,21 @@ public class Tile {
         return position;
     }
 
+    /**
+     * Method that add points when called on the track.
+     * @param v Victory Tile is needed to get the points to add
+     * @param p Player who will get the points
+     */
+    public void addPoints(Victory v, Player p){
+        v.addPoints(v.getPoints(), p);
+    }
+
+    /**
+     * Method called when a player reaches the pope's hats.
+     * @param ps which of the three hats the marker hit
+     * @param ft the track that is checked
+     * @param p to get the marker to check
+     */
     public void turnFavorAddPoints(PopeSpace ps, FaithTrack ft, Player p){
         ps.turnFavorAddPoints(ft, p);
     }
