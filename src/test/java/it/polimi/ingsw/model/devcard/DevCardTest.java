@@ -17,12 +17,10 @@ public class DevCardTest {
 
 
     @Test
-    public void Test1() throws IllegalAccessException, CloneNotSupportedException {
-        FirstFloor fF = new FirstFloor();
-        SecondFloor sF = new SecondFloor();
-        ThirdFloor tF = new ThirdFloor();
+    public void Test1() throws IllegalAccessException{
+        Depot depot = new Depot();
         StrongBox sB = new StrongBox();
-        Warehouse wH = new Warehouse(fF, sF, tF, sB);
+        Warehouse wH = new Warehouse(depot, sB);
         PersonalBoard pB = new PersonalBoard(wH);   //creo il tavolo di gioco
 
         DevCard dC = new DevCard();
@@ -45,13 +43,11 @@ public class DevCardTest {
         p1.setPersonalBoard(pB); //assegno plancia al giocatore
 
 
-        //add 3 stone to floors
-        ArrayList<Resource> threestones = new ArrayList<>();
-        threestones.add(new Resource(3, ResourceType.STONE));
-        p1.getPersonalBoard().getWarehouse().addResourcesToFloor(threestones);
-        Optional<Resource> res1 = Optional.of(new Resource(3,ResourceType.STONE));
-        assertTrue(p1.getPersonalBoard().getWarehouse().getThirdFloor().getStoredResource().isPresent());
-        //assertSame(res1.get(), p1.getPersonalBoard().getWarehouse().getThirdFloor().getStoredResource().get());
+        //add 3 stone to depot
+        Resource threestones = new Resource(3, ResourceType.STONE);
+        p1.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(threestones,3);
+        assertTrue(p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).isPresent());
+        //assertEquals(threestones, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get());
 
         // add 1 stone 1 coin to strongbox
         ArrayList<Resource> onestoneonecoin = new ArrayList<>();
@@ -63,14 +59,13 @@ public class DevCardTest {
         res2[1] = new Resource(0,ResourceType.SERVANT);
         res2[2] = new Resource(0, ResourceType.SHIELD);
         res2[3] = new Resource(1, ResourceType.STONE);
-       // assertArrayEquals(res2, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources());
+        //assertArrayEquals(res2, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources());
 
         //add 1 to coin floors
-        ArrayList<Resource> onecoin = new ArrayList<>();
-        onecoin.add(new Resource(1, ResourceType.COIN));
-        p1.getPersonalBoard().getWarehouse().addResourcesToFloor(onecoin);
-        Optional<Resource> res3 = Optional.of(new Resource(1,ResourceType.COIN));
-       // assertEquals(res3, p1.getPersonalBoard().getWarehouse().getFirstFloor().getStoredResource());
+        Resource onecoin = new Resource(1, ResourceType.COIN);
+        p1.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(onecoin,1);
+        assertTrue(p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(1).isPresent());
+        assertEquals(onecoin, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(1).get());
 
         //buy dC
         assertTrue(dC.checkRequirements(p1));
@@ -78,7 +73,7 @@ public class DevCardTest {
         p1.getPersonalBoard().getSlots()[0].PlaceDevCard(dC);
 
         //activate production
-       // assertTrue(dC.getProduction().checkInputResource(p1));
+        assertFalse(dC.getProduction().checkInputResource(p1));
         p1.getPersonalBoard().getWarehouse().removeResources(p1.getPersonalBoard().getSlots()[0].getShowedCard().getProduction().getInput());
         p1.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(p1.getPersonalBoard().getSlots()[0].getShowedCard().getProduction().getOutput());
     }

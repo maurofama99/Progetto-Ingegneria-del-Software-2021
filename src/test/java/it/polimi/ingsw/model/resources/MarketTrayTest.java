@@ -35,7 +35,7 @@ public class MarketTrayTest {
             System.out.println();
         }
 
-        ArrayList<Resource> result = market.selectColumn(2);
+        ArrayList<Resource> result = market.selectColumn(3);
 
         System.out.println();
         //stampa nuovo market

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class MarketTray {
     private Resource[][] tray;
@@ -40,8 +41,6 @@ public class MarketTray {
             tmptray[i] = (tray[i].clone());
         }
 
-
-
         if (row == 1){
             //adding row's resources in the array to be returned
             resources = new ArrayList<>(Arrays.asList(tray[0]));
@@ -75,6 +74,8 @@ public class MarketTray {
 
         else throw new IndexOutOfBoundsException();
 
+        //remove all white resources from the array
+        resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); //uses iterator
         return resources;
     }
 
@@ -101,7 +102,6 @@ public class MarketTray {
             this.slide = resources.get(resources.size()-1);
         }
 
-
         else if (col == 2) {
             for (i=0; i<3; i++){
                 resources.add(tray[i][1]);
@@ -114,7 +114,6 @@ public class MarketTray {
             tray[0][1] = slide;
             this.slide = resources.get(resources.size()-1);
         }
-
 
         else if (col == 3){
             for (i=0; i<3; i++){
@@ -129,12 +128,10 @@ public class MarketTray {
             this.slide = resources.get(resources.size()-1);
         }
 
-
         else if (col == 4){
             for (i=0; i<3; i++){
                 resources.add(tray[i][3]);
             }
-
 
             for (i=1; i<3; i++){
                 tray[i][3] = tmptray[i-1][3];
@@ -142,10 +139,9 @@ public class MarketTray {
             tray[0][3] = slide;
             this.slide = resources.get(resources.size()-1);
         }
-
-
         else throw new IndexOutOfBoundsException();
 
+        resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         return resources;
     }
 

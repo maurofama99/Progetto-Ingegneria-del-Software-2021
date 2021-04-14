@@ -7,29 +7,17 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class Warehouse {
-    private FirstFloor firstFloor;
-    private SecondFloor secondFloor;
-    private ThirdFloor thirdFloor;
+
+    private Depot depot;
     private StrongBox strongBox;
 
-    public Warehouse(FirstFloor firstFloor, SecondFloor secondFloor, ThirdFloor thirdFloor, StrongBox strongBox) {
-        this.firstFloor = firstFloor;
-        this.secondFloor = secondFloor;
-        this.thirdFloor = thirdFloor;
+    public Warehouse(Depot depot, StrongBox strongBox) {
+        this.depot = depot;
         this.strongBox = strongBox;
     }
 
-
-    public FirstFloor getFirstFloor() {
-        return firstFloor;
-    }
-
-    public SecondFloor getSecondFloor() {
-        return secondFloor;
-    }
-
-    public ThirdFloor getThirdFloor() {
-        return thirdFloor;
+    public Depot getDepot() {
+        return depot;
     }
 
     public StrongBox getStrongBox() {
