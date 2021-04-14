@@ -18,7 +18,8 @@ public class Discount implements LeaderEffect {
      * @param player owner of the leader cared
      */
     @Override
-    public void doEffect(Player player) {
+    public void doEffect(Player player){
+        //mancano cose in deck per farlo
         //cambia il costo di una dev card
         //devo fare un setRequirementDevCard nelle devCard che richiedono questo tipo di risorsa
     }

@@ -38,6 +38,12 @@ public class PersonalBoard {
         return warehouse;
     }
 
+    /**
+     * Method that swaps two resources chosen by the player to one single resource.
+     * @param firstInput one resource used to product the resource in output.
+     * @param secondInput one resource used to product the resource in output.
+     * @param Output one resource that the player gets by the production.
+     */
     public void basicProduction(Resource firstInput, Resource secondInput, Resource Output){
         ArrayList<Resource> resourceToRemove = new ArrayList<>();
         resourceToRemove.add(firstInput);

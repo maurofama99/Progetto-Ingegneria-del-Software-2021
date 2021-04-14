@@ -18,6 +18,7 @@ public class Table {
     private int currentTurn;
     private ArrayList<Token> tokenStack;
     private TableState state;
+    private MarketTray marketTray;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
     private MarketTray marketTray;
@@ -34,6 +35,10 @@ public class Table {
 
     public void setMarketTray(MarketTray marketTray) {
         this.marketTray = marketTray;
+    }
+
+    public MarketTray getMarketTray() {
+        return marketTray;
     }
 
     public void setDevCardsDeck(Deck devCardsDeck) {

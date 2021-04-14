@@ -14,6 +14,7 @@ public class ExtraDepot implements LeaderEffect {
     private Resource toStore;
     private ArrayList<Resource> resourceRequired;
 
+    //aggiunge un second floor di un certo tipo di risorsa
     /**
      * Add a second floor
      * @param player who will have the extra floor
@@ -24,6 +25,7 @@ public class ExtraDepot implements LeaderEffect {
 
     }
 
+    //necessarie 5 risorse(di un unico tipo) per attivarla
     /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card

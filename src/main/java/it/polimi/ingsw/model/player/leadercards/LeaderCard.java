@@ -45,6 +45,8 @@ public class LeaderCard {
      * @param player owner of the card
      */
     public void activateEffect(Player player) {
+        effect.doEffect(player);
         isActive = true;
+        player.setVictoryPoints(player.getVictoryPoints()+getVictoryPoints());
     }
 }
