@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.model.player.Player;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class MarketTray {
     private Resource[][] tray;
@@ -41,38 +38,17 @@ public class MarketTray {
             tmptray[i] = (tray[i].clone());
         }
 
-        if (row == 1){
+        if (row>=1 && row<=3) {
             //adding row's resources in the array to be returned
-            resources = new ArrayList<>(Arrays.asList(tray[0]));
+            resources = new ArrayList<>(Arrays.asList(tray[row - 1]));
 
-           //changes the tray disposition after using the slide
-            System.arraycopy(tmptray[0], 0, tray[0], 1, 3);
-            tray[0][0] = slide;
+            //changes the tray disposition after using the slide
+            System.arraycopy(tmptray[row - 1], 0, tray[row - 1], 1, 3);
+            tray[row - 1][0] = slide;
 
             //sets the new slide
-            this.slide = resources.get(resources.size()-1);
-        }
-
-        else if (row == 2) {
-
-            resources = new ArrayList<>(Arrays.asList(tray[1]));
-
-            System.arraycopy(tmptray[1], 0, tray[1], 1, 3);
-            this.tray[1][0]=slide;
-
-            this.setSlide(resources.get(resources.size()-1));
-        }
-
-        else if (row == 3){
-            resources = new ArrayList<>(Arrays.asList(tray[2]));
-
-            System.arraycopy(tmptray[2], 0, tray[2], 1, 3);
-            tray[2][0]=slide;
-
-            this.slide = resources.get(resources.size()-1);
-        }
-
-        else throw new IndexOutOfBoundsException();
+            this.slide = resources.get(resources.size() - 1);
+        } else throw new IndexOutOfBoundsException();
 
         //remove all white resources from the array
         resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); //uses iterator
@@ -89,57 +65,18 @@ public class MarketTray {
             tmptray[i] = (tray[i].clone());  //copying in tmptray the initial tray
         }
 
-        if (col == 1){
+        if (col >= 1 && col <= 3){
             for (i=0; i<3; i++){
-                resources.add(tray[i][0]);
+                resources.add(tray[i][col-1]);
             }
 
             for (i=1; i<3; i++){
-                tray[i][0] = tmptray[i-1][0];
+                tray[i][col-1] = tmptray[i-1][col-1];
             }
 
-            tray[0][0] = slide;
+            tray[0][col-1] = slide;
             this.slide = resources.get(resources.size()-1);
-        }
-
-        else if (col == 2) {
-            for (i=0; i<3; i++){
-                resources.add(tray[i][1]);
-            }
-
-
-            for (i=1; i<3; i++){
-                tray[i][1] = tmptray[i-1][1];
-            }
-            tray[0][1] = slide;
-            this.slide = resources.get(resources.size()-1);
-        }
-
-        else if (col == 3){
-            for (i=0; i<3; i++){
-                resources.add(tray[i][2]);
-            }
-
-
-            for (i=1; i<3; i++){
-                tray[i][2] = tmptray[i-1][2];
-            }
-            tray[0][2] = slide;
-            this.slide = resources.get(resources.size()-1);
-        }
-
-        else if (col == 4){
-            for (i=0; i<3; i++){
-                resources.add(tray[i][3]);
-            }
-
-            for (i=1; i<3; i++){
-                tray[i][3] = tmptray[i-1][3];
-            }
-            tray[0][3] = slide;
-            this.slide = resources.get(resources.size()-1);
-        }
-        else throw new IndexOutOfBoundsException();
+        }   else throw new IndexOutOfBoundsException();
 
         resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         return resources;

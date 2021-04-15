@@ -35,7 +35,7 @@ public class MarketTrayTest {
             System.out.println();
         }
 
-        ArrayList<Resource> result = market.selectColumn(3);
+        ArrayList<Resource> result = market.selectRow(3);
 
         System.out.println();
         //stampa nuovo market
@@ -59,7 +59,5 @@ public class MarketTrayTest {
         //stampa slider
         System.out.println(market.getSlide());
     }
-
-
 
 }

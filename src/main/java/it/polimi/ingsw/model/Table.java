@@ -21,16 +21,11 @@ public class Table {
     private MarketTray marketTray;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
-    private MarketTray marketTray;
 
     public Table(int numPlayers, ArrayList<Player> players, int currentTurn) {
         this.numPlayers = numPlayers;
         this.players = players;
         this.currentTurn = currentTurn;
-    }
-
-    public MarketTray getMarketTray() {
-        return marketTray;
     }
 
     public void setMarketTray(MarketTray marketTray) {
@@ -100,7 +95,7 @@ public class Table {
 
     //Creates the tokenStack, will prolly be moved later to controller or smth
     public void createTokenStack(){
-        tokenStack = new ArrayList<Token>();
+        tokenStack = new ArrayList<>();
 
         Token token0 = new Token(new RemoveCardsAction(Color.GREEN), false );
         Token token1 = new Token(new RemoveCardsAction(Color.BLUE), false);
