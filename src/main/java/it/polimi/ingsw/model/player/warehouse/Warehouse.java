@@ -43,11 +43,11 @@ public class Warehouse {
                         else
                             throw new NoSuchElementException("Resource " + res + " not Available");
 
-                        getDepot().getFloors().get(i).get().setType(ResourceType.WHITERESOURCE);
+                        getDepot().getFloors().set(i, Optional.empty());
                     } else {
                         getDepot().getFloors().get(i).get().setQnt(getDepot().getFloors().get(i).get().getQnt() - res.getQnt());
                         if (getDepot().getFloors().get(i).get().getQnt() == 0) {
-                            getDepot().getFloors().get(i).get().setType(ResourceType.WHITERESOURCE);
+                            getDepot().getFloors().set(i, Optional.empty());
                         }
                     }
                 }

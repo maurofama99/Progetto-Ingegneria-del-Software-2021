@@ -16,11 +16,6 @@ public class Player {
     private int victoryPoints;
     private FaithMarker playerFaithMarker;
     private PersonalBoard personalBoard;
-    private Table table;
-
-    public Table getTable() {
-        return table;
-    }
 
     public FaithMarker getPlayerFaithMarker() {
         return playerFaithMarker;
