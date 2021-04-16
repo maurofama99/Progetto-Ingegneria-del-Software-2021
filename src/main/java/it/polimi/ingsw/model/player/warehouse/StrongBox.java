@@ -7,8 +7,12 @@ import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * the strongbox is an array of the 4 resources that can be stored, in alfhabetic order and with
+ * an initialized quantity of 0. Only productions power store their things here
+ */
 public class StrongBox {
-    //lo strongbox è un array delle 4 risorse in ordine alfabetico inizializzate con qnt = 0;
+
     private Resource[] storedResources = new Resource[4];
 
 
@@ -27,9 +31,12 @@ public class StrongBox {
         this.storedResources = storedResources;
     }
 
-    //since  StrongBox has no limit in terms of how many resources can be stored.
-    // It does not need to check anything. This method adds resources to Strongbox
 
+    /**
+     * No check needed, since the strongbox is infinite. This method is simply called
+     * when a production is activated to add the resources
+     * @param resourcesToAdd what resource is added
+     */
     public void addResourceToStrongBox(ArrayList<Resource> resourcesToAdd){
         for (Resource res : resourcesToAdd) {
             if (res.getType().equals(ResourceType.COIN))
@@ -45,9 +52,11 @@ public class StrongBox {
         }
     }
 
-    //This method is used to remove resources from the player's Strongbox. When the Resource
-    // is not available it prints that there are not enough Resources
-
+    /**
+     * Method used to remove stuff from the strongbox, to buy or activate productions. If there
+     * aren't enough resources, it is printed
+     * @param resourceToRemove what resource we remove
+     */
     public void removeResourceStrongBox(Resource resourceToRemove){
         if(checkAvailabilityStrongBox(resourceToRemove)) {
             if (resourceToRemove.getType().equals(ResourceType.COIN))
@@ -64,7 +73,11 @@ public class StrongBox {
 
     }
 
-    //this method checks if a type of Resource is available in Strongbox.
+    /**
+     * it checks if a specific type of resource is preset in a quantity >0
+      * @param resourceToCheck which resource we are trying to find
+     * @return true if present, false if not
+     */
     public boolean checkAvailabilityStrongBox(Resource resourceToCheck){
         boolean available = false;
         if (resourceToCheck.getType().equals(ResourceType.COIN))

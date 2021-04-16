@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.resources;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Where the marbles are placed and players take resources
+ */
 public class MarketTray {
     private Resource[][] tray;
     private Resource slide;
@@ -24,10 +27,13 @@ public class MarketTray {
         return slide;
     }
 
-    //returns arraylist of resources in the row selected and uses the slide
-    //returned arraylist is made of selected resources with quantity=1
-    //returns also white resources (to be ignored when is time to store it)
-    //idem for selectColumn
+
+    /**
+     * This method is called when a player selects a row.
+     * @param row which row of the market is selected
+     * @return an arraylist of resources, white marbles are ignored when it is time to store
+     * @throws IndexOutOfBoundsException if the int is >3
+     */
     public ArrayList<Resource> selectRow(int row) throws IndexOutOfBoundsException{
         ArrayList<Resource> resources;
         Resource[][] tmptray = new Resource[3][4];
@@ -55,7 +61,12 @@ public class MarketTray {
         return resources;
     }
 
-    //returns an array list of the resources of selected column
+    /**
+     * This method is called when a player selects a column.
+     * @param col which column of the market is selected
+     * @return an arraylist of resources, white marbles are ignored when it is time to store
+     * @throws IndexOutOfBoundsException if the int is >4
+     */
     public ArrayList<Resource> selectColumn(int col){
         ArrayList<Resource> resources= new ArrayList<>();
         Resource[][] tmptray = new Resource[3][4];

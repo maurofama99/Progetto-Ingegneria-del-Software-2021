@@ -12,6 +12,10 @@ import java.util.Random;
 
 import static it.polimi.ingsw.model.devcard.Color.GREEN;
 
+/**
+ * Class of table, where all the stuff is placed. Player, decks, stacks of token, the market and
+ * boards and cards are all here
+ */
 public class Table {
     private int numPlayers;
     private ArrayList<Player> players;

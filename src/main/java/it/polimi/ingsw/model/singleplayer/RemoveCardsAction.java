@@ -22,6 +22,11 @@ public class RemoveCardsAction implements TokenAction {
     //Lorenzo's takes the cards removed, he can't play them of course. Visually easier to implement and
     //it's better to see.
 
+    /**
+     * Override of token action, here it removes the cards. Always two cards of level 1 of the color
+     * selected, if absent, the level increases
+     * @param t table where we are playing
+     */
     @Override
     public void doAction(Table t) {
         if(getDevCardColor()==Color.GREEN){

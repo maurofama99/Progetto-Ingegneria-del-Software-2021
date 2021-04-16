@@ -5,6 +5,10 @@ import it.polimi.ingsw.model.Table;
 
 import java.util.ArrayList;
 
+/**
+ * The "player" we fight against in single player. It is very different from a normal player
+ * and he plays at the end of any turn
+ */
 public class LorenzoIlMagnifico {
 
     private boolean isPlaying;
@@ -35,6 +39,10 @@ public class LorenzoIlMagnifico {
         this.blackCross = blackCross;
     }
 
+    /**
+     * Lorenzo's gameplay: turns the token and activates its effect. Nothing else, nothing more
+     * @param t table, used to get the token stack
+     */
     public void turnToken(Table t){
         //Sets the showed token and activates it
         setShowedToken(t.getTokenStack().get(0));

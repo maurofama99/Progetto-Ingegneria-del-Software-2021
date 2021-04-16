@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.Table;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Class for the two tokens that move the black cross
+ */
 public class MoveAction implements TokenAction{
 
     private int moveNumber;
@@ -17,6 +20,11 @@ public class MoveAction implements TokenAction{
         return moveNumber;
     }
 
+    /**
+     * here we have an override of token action. Checks how many steps to do and eventually
+     * if it is time to shuffle the stack
+     * @param t where the stack is placed, table
+     */
     @Override
     public void doAction(Table t) {
         if(getMoveNumber()==2){

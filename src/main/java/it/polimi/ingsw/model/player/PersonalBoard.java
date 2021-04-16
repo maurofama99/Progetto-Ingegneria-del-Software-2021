@@ -7,6 +7,10 @@ import it.polimi.ingsw.model.resources.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Class of the personal board of every player. It does things like setting the tracks,
+ * editing the slots...
+ */
 public class PersonalBoard {
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];

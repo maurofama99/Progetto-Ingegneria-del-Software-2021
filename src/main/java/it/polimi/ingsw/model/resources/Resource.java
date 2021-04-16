@@ -2,6 +2,10 @@ package it.polimi.ingsw.model.resources;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class of the resources in the game. Some need to be stored, some are used in effects
+ * Faith points are used to move the markers around
+ */
 public class Resource implements Cloneable{
     @SerializedName("type")
     private ResourceType type;

@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.devcard.DevCard;
 
 import java.util.ArrayList;
 
+/**
+ * Class of the slots in the personal board, where the dev cards are placed
+ */
 public class Slot{
     private ArrayList<DevCard> cards = new ArrayList<>();
     //created enum class for slot number

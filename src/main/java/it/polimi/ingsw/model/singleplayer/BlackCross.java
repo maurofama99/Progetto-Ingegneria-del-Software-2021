@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model.singleplayer;
 
+/**
+ * Essentially the FaithMarker of Lorenzo
+ */
 public class BlackCross {
     private int position;
+
 
     public BlackCross(int position) {
         this.position = position;
@@ -11,7 +15,11 @@ public class BlackCross {
         this.position = position;
     }
 
-    //Function that makes the cross go forward. Here is called only by the tokens of Lorenzo
+    /**
+     * Function that moves the black cross forward
+     * @param bc the blackcross
+     * @param steps how many steps it does
+     */
     public void moveForward(BlackCross bc, int steps) {
         bc.setPosition(bc.getPosition() + steps);
     }
