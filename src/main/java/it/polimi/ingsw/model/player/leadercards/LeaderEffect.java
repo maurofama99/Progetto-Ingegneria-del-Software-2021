@@ -1,23 +1,32 @@
 package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.warehouse.StrongBox;
 
-/**
- * Interface of the leader cards.
- */
-public interface LeaderEffect{
+public abstract class LeaderEffect {
+
+    private EffectType effectType;
+
+    public LeaderEffect(EffectType effectType) {
+        this.effectType = effectType;
+    }
+
+    public EffectType getEffectType() {
+        return effectType;
+    }
 
     /**
-     * Activates the effect of a card
-     * @param player owner of the card
+     * Special getter
+     * @return a characteristic of the leader card effect.
      */
-    void doEffect(Player player);
+    public abstract Object getObject();
 
     /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card
      * @return true if the card can be placed, false if not
      */
-    boolean checkRequirementsLeaderCard(Player player);
+    public abstract boolean checkRequirementsLeaderCard(Player player);
+
 
 }

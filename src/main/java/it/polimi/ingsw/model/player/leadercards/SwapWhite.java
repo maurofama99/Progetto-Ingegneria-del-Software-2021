@@ -1,37 +1,29 @@
 package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.devcard.Color;
-import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 
 /**
  * Leader cards that give extra resources when getting white resources from the market
  */
-public class SwapWhite implements LeaderEffect {
+public class SwapWhite extends LeaderEffect {
 
     private ArrayList<Color> cardColorRequired;
     private Resource newResource;
 
-    /**
-     * Method that changes the white marble in a resource.
-     * @param player owner of the card
-     */
+    public SwapWhite(String effectName, ArrayList<Color> cardColorRequired, Resource newResource) {
+        super(EffectType.SWAPWHITE);
+        this.cardColorRequired = cardColorRequired;
+        this.newResource = newResource;
+    }
+
+
     @Override
-    public void doEffect(Player player) {
-        int i, k;
-        for (i=0; i<3;i++){
-            for (k=0; k<4; k++) {
-                if (player.getTable().getMarketTray().selectRow(i).get(k).getType().equals(ResourceType.WHITERESOURCE))
-                    player.getTable().getMarketTray().selectRow(i).get(k).setType(newResource.getType());
-                if(player.getTable().getMarketTray().getSlide().getType().equals(ResourceType.WHITERESOURCE))
-                    player.getTable().getMarketTray().getSlide().setType(newResource.getType());
-            }
-        }
+    public Object getObject() {
+        return newResource;
     }
 
     /**
@@ -53,6 +45,8 @@ public class SwapWhite implements LeaderEffect {
         }
 
         return checkColor.containsAll(cardColorRequired);
-
     }
+
+
+
 }

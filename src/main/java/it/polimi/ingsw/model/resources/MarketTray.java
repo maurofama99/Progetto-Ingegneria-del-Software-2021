@@ -57,7 +57,7 @@ public class MarketTray {
         } else throw new IndexOutOfBoundsException();
 
         //remove all white resources from the array
-        resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); //uses iterator
+        //resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); //uses iterator
         return resources;
     }
 
@@ -89,7 +89,8 @@ public class MarketTray {
             this.slide = resources.get(resources.size()-1);
         }   else throw new IndexOutOfBoundsException();
 
-        resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
+
+        //resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); aggiungere anche if has bonus swapwhite
         return resources;
     }
 

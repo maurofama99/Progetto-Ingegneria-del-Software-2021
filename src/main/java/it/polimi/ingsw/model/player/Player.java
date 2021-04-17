@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.faithtrack.FaithMarker;
-import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.leadercards.*;
+import it.polimi.ingsw.model.resources.ResourceType;
+
 
 import java.util.ArrayList;
 
@@ -20,24 +22,13 @@ public class Player {
     private FaithMarker playerFaithMarker;
     private PersonalBoard personalBoard;
 
+
     public FaithMarker getPlayerFaithMarker() {
         return playerFaithMarker;
     }
 
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
-    }
-
-    public void setTurnOrder(Turn turnOrder) {
-        this.turnOrder = turnOrder;
-    }
-
-    public void setHasMoved(boolean hasMoved) {
-        this.hasMoved = hasMoved;
-    }
-
-    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
-        this.leaderCards = leaderCards;
     }
 
     public void setVictoryPoints(int victoryPoints) {
@@ -52,43 +43,12 @@ public class Player {
         this.personalBoard = personalBoard;
     }
 
-    public void setCurrentTurn(boolean currentTurn) {
-        isCurrentTurn = currentTurn;
-    }
-
     public Player(String nickname) {
         this.nickname = nickname;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public boolean isCurrentTurn() {
-        return isCurrentTurn;
-    }
-
-    public Turn getTurnOrder() {
-        return turnOrder;
-    }
-
-    public boolean isHasMoved() {
-        return hasMoved;
-    }
-
-    public ArrayList<LeaderCard> getLeaderCards() {
-        return leaderCards;
-    }
-
     public int getVictoryPoints() {
         return victoryPoints;
-    }
-
-    /**
-     * Added rule, adds VPs bonus
-     */
-    public void addInitialBonus(){
-
     }
 
     /**
@@ -97,63 +57,79 @@ public class Player {
      * @param leaderCard2 the second leader card
      */
     public void discardLeader(LeaderCard leaderCard1, LeaderCard leaderCard2){
-
+        leaderCards.remove(leaderCard1);
+        leaderCards.remove(leaderCard2);
     }
 
     /**
-     * The player selects a row and takes resources from the market
+     * Method that adds to Personal Board the card that the player wants to activate
+     * @param leaderCardToAct leader card to activate
      */
-    public void goesMarket(){
 
+    public void activateLeaderCard(LeaderCard leaderCardToAct){
+        if (!leaderCardToAct.getLeaderEffect().checkRequirementsLeaderCard(this))
+            throw new IllegalArgumentException ("You still don't have the requirements");
+        getPersonalBoard().getActiveLeaderCards().add(leaderCardToAct);
+        if (leaderCardToAct.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)){
+            if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).isEmpty()){
+                getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
+            }
+            else if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).isEmpty())
+                getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
+        }
     }
 
     /**
      * The player decides to buy a dev card and place it. Calls all the methods to check if
      * it can be bought.
      * @param devCardToBuy the card selected.
+     * @param slotNumber where the player wants to place the card he wants to buy.
      */
-    public void buyDevCard(DevCard devCardToBuy){
 
+    public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
+        if (hasEffect(EffectType.DISCOUNT)){
+            int i,k;
+            for (i=0; i<devCardToBuy.getRequirementsDevCard().size(); i++){
+                for (k=0; k<getPersonalBoard().getActiveLeaderCards().size();k++) {
+                    if (devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(k).getLeaderEffect().getObject()))
+                        devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
+                }
+            }
+        }
+        devCardToBuy.checkRequirements(this);
+        getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
     }
 
     /**
-     * The player activates the production of one or more dev cards
-     * @param devCardToAct dev card whose production will be used
+     * when the player wants to activate a production of a development car he owns.
+     * @param devCardToAct development card chosen by the player.
      */
     public void activateProd(DevCard devCardToAct){
-
+        devCardToAct.getProduction().checkInputResource(this);
+        getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
     }
 
+
     /**
-     * Instead of discarding it, the player decides to place the leader card. Requirements need to be
-     * checked
-     * @param leaderCardToUse which leader card will be checked and eventually placed
+     * Checks if the player has activated a type of leader card.
+     * @param effectType leader card's type of effect.
+     * @return If the player has activated effectType.
      */
-    public void useLeaderCard(LeaderCard leaderCardToUse){
 
+    public boolean hasEffect(EffectType effectType) {
+        int i;
+        for (i=0; i<getPersonalBoard().getActiveLeaderCards().size();i++) {
+            if (getPersonalBoard().getActiveLeaderCards().get(i).getLeaderEffect().getEffectType().equals(effectType))
+                return true;
+        }
+        return false;
     }
 
     /**
-     * A placed leader card is activated
-     * @param leaderCardToAct takes the leader effects and plays it
-     */
-    public void activateLeaderCard(LeaderCard leaderCardToAct){
-
-    }
-
-    /**
-     * When a condition is met, the player ends his turn
+     * Setting boolean isCurrentTurn to false to end player's turn.
      */
     public void endTurn(){
         this.isCurrentTurn = false;
     }
-
-/**
- * The game finishes and this method is called to calculate bonus VPs to add
- */
-    /*public int addPointFiveResources(PersonalBoard personalBoard){
-        return numberofresources/5;
-    }*/
-
 
 }

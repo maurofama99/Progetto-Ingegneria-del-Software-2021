@@ -7,21 +7,22 @@ import it.polimi.ingsw.model.resources.Resource;
 import java.util.ArrayList;
 
 /**
- * Class for the leader cards that give a discount when buying a dev. card
+ * Class for the leader cards that give a discount when buying a development card
  */
-public class Discount implements LeaderEffect {
+public class Discount extends LeaderEffect{
+
     private Resource discountOn;
     private ArrayList<Color> cardColorRequired;
 
-    /**
-     * Actively changes the cost a dev. card
-     * @param player owner of the leader cared
-     */
+    public Discount(Resource discountOn, ArrayList<Color> cardColorRequired) {
+        super(EffectType.DISCOUNT);
+        this.discountOn = discountOn;
+        this.cardColorRequired = cardColorRequired;
+    }
+
     @Override
-    public void doEffect(Player player){
-        //mancano cose in deck per farlo
-        //cambia il costo di una dev card
-        //devo fare un setRequirementDevCard nelle devCard che richiedono questo tipo di risorsa
+    public Object getObject() {
+        return discountOn.getType();
     }
 
     /**

@@ -70,7 +70,7 @@ public class DevCardTest {
         //buy dC
         assertTrue(dC.checkRequirements(p1));
         p1.getPersonalBoard().getWarehouse().removeResources(requirements);
-        p1.getPersonalBoard().getSlots()[0].PlaceDevCard(dC);
+        p1.getPersonalBoard().getSlots()[0].placeDevCard(dC);
 
         //activate production
         assertFalse(dC.getProduction().checkInputResource(p1));

@@ -32,52 +32,9 @@ public class Table {
         this.currentTurn = currentTurn;
     }
 
-    public void setMarketTray(MarketTray marketTray) {
-        this.marketTray = marketTray;
-    }
-
-    public MarketTray getMarketTray() {
-        return marketTray;
-    }
-
-    public void setDevCardsDeck(Deck devCardsDeck) {
-        this.devCardsDeck = devCardsDeck;
-    }
 
     public LorenzoIlMagnifico getLorenzoIlMagnifico() {
         return lorenzoIlMagnifico;
-    }
-
-    public void setLorenzoIlMagnifico(LorenzoIlMagnifico lorenzoIlMagnifico) {
-        this.lorenzoIlMagnifico = lorenzoIlMagnifico;
-    }
-
-    public Deck getDevCardsDeck() {
-        return devCardsDeck;
-    }
-
-    public int getNumPlayers() {
-        return numPlayers;
-    }
-
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
-    }
-
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
-
-    public int getCurrentTurn() {
-        return currentTurn;
-    }
-
-    public void setCurrentTurn(int currentTurn) {
-        this.currentTurn = currentTurn;
     }
 
     public ArrayList<Token> getTokenStack() {
@@ -88,13 +45,6 @@ public class Table {
         this.tokenStack = tokenStack;
     }
 
-    public TableState getState() {
-        return state;
-    }
-
-    public void setState(TableState state) {
-        this.state = state;
-    }
 
 
     //Creates the tokenStack, will prolly be moved later to controller or smth

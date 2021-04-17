@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
+import it.polimi.ingsw.model.player.leadercards.EffectType;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Class of the personal board of every player. It does things like setting the tracks,
@@ -16,6 +17,7 @@ public class PersonalBoard {
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
     private Player player;
+    private ArrayList<LeaderCard> activeLeaderCards;
 
     public Player getPlayer() { return player; }
 
@@ -32,6 +34,10 @@ public class PersonalBoard {
         slots[0] = new Slot(SlotNumber.FIRST);
         slots[1] = new Slot(SlotNumber.SECOND);
         slots[2] = new Slot(SlotNumber.THIRD);
+    }
+
+    public ArrayList<LeaderCard> getActiveLeaderCards() {
+        return activeLeaderCards;
     }
 
     public Slot[] getSlots() {
@@ -58,6 +64,22 @@ public class PersonalBoard {
 
         getWarehouse().removeResources(resourceToRemove);
         getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+    }
+
+    public void extraProduction(LeaderCard leaderCard, Resource resourceChosenByPlayer){
+        if (getPlayer().hasEffect(EffectType.ADDPRODUCTION)){
+            ArrayList<Resource> resourcesToRemove = new ArrayList<>();
+            ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+
+            resourcesToAdd.add(resourceChosenByPlayer);
+            resourcesToRemove.add((Resource) leaderCard.getLeaderEffect().getObject());
+
+            player.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+            player.getPersonalBoard().getWarehouse().removeResources(resourcesToRemove);
+
+            player.getPersonalBoard().getFaithTrack().getFaithMarker().moveForward(player.getPlayerFaithMarker(), 1);
+
+        }
     }
 
 }
