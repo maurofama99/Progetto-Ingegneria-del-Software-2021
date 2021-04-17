@@ -45,7 +45,9 @@ public class Table {
         this.tokenStack = tokenStack;
     }
 
-
+    public Deck getDevCardsDeck() {
+        return devCardsDeck;
+    }
 
     //Creates the tokenStack, will prolly be moved later to controller or smth
     public void createTokenStack(){
