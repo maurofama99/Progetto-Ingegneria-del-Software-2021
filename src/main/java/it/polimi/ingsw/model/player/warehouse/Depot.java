@@ -123,12 +123,21 @@ public class Depot {
     //@requires (source >=1 && source <=3) && (destination >=1 && destination <=3)
     public void switchFloors(int source, int destination) {
 
-        if (floors.get(source).isEmpty() || floors.get(destination).isEmpty())
-            throw new IllegalArgumentException("One of the floors you are trying to swap is empty (source: " + floors.get(source).isEmpty() + ", dest: " + floors.get(destination));
-
-        else if ((floors.get(source).get().getQnt() <= destination) && (floors.get(destination).get().getQnt() <= source)) {
+        if (floors.get(source).isEmpty() && floors.get(destination).isEmpty()) {
+            throw new IllegalArgumentException("You are trying to swap two empty floors");
+        } else if (floors.get(source).isEmpty() && floors.get(destination).isPresent()) {
+            if (floors.get(destination).get().getQnt() <= source) {
+                floors.set(source, floors.get(destination));
+                floors.set(destination, Optional.empty());
+            } else throw new IllegalArgumentException("There is not enough space to swap these floors");
+        } else if (floors.get(source).isPresent() && floors.get(destination).isEmpty()) {
+            if (floors.get(source).get().getQnt() <= destination) {
+                floors.set(destination, floors.get(source));
+                floors.set(source, Optional.empty());
+            } else throw new IllegalArgumentException("There is not enough space to swap these floors");
+        } else if ((floors.get(source).get().getQnt() <= destination) && (floors.get(destination).get().getQnt() <= source)) {
             Collections.swap(this.floors, source, destination);
-        }
+        } else throw new IllegalArgumentException("There is not enough space to swap these floors");
     }
 
 }
