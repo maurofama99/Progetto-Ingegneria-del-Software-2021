@@ -48,6 +48,7 @@ public class Deck {
      * @return a pop of the deck, removing the selected card (the top one)
      */
     public DevCard removeAndGetCard(int row, int col){
+
         return fullDeck[row-1][col-1].pop();
     }
 

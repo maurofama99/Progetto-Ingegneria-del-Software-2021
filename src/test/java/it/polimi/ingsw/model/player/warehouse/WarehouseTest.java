@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class WarehouseTest {
 
     /**
-     * Testing removeResources using methods of class strongBox and Depot
+     * Testing removeResources using methods of class StrongBox and Depot
      */
     @Test
     public void Test() {
