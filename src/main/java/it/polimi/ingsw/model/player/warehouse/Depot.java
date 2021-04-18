@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -37,6 +39,7 @@ public class Depot {
 
     /**
      * Sets a floor empty
+     *
      * @param floor floor to be set
      */
     public void setEmptyFloor(int floor) {
@@ -44,12 +47,12 @@ public class Depot {
     }
 
 
-
     /**
      * Places the selected resource in the floor. Need to check if floor is empty and if not, if it's
      * the same resource and if the floor is not full
+     *
      * @param resourceToPlace which resource goes in the depot
-     * @param floor which floor will store the resource
+     * @param floor           which floor will store the resource
      */
     //@requires floor >=1 && floor <=3
     public void addResourceToDepot(Resource resourceToPlace, int floor) {
@@ -88,8 +91,9 @@ public class Depot {
 
     /**
      * Method called when there is an extra floor (or two) and is used to store things in there
+     *
      * @param resourceToPlace which resource goes there
-     * @param floor where the resource will be stored
+     * @param floor           where the resource will be stored
      */
     public void addResourceToExtraDepot(Resource resourceToPlace, int floor) {
         floor = floor - 1;
@@ -112,6 +116,18 @@ public class Depot {
             if (extraFloors.get(floor).isPresent()) {
                 extraFloors.get(floor).get().setQnt(extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt());
             } else extraFloors.get(floor).get().setQnt(resourceToPlace.getQnt());
+        }
+    }
+
+    //switches resources between two floors if is a legal move
+    //@requires (source >=1 && source <=3) && (destination >=1 && destination <=3)
+    public void switchFloors(int source, int destination) {
+
+        if (floors.get(source).isEmpty() || floors.get(destination).isEmpty())
+            throw new IllegalArgumentException("One of the floors you are trying to swap is empty (source: " + floors.get(source).isEmpty() + ", dest: " + floors.get(destination));
+
+        else if ((floors.get(source).get().getQnt() <= destination) && (floors.get(destination).get().getQnt() <= source)) {
+            Collections.swap(this.floors, source, destination);
         }
     }
 
