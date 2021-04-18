@@ -31,19 +31,22 @@ public class Warehouse {
 
     /**
      * It removes resources when needed by the player.
+     *
      * @param resourcesToRemove Resources to remove from warehouse.
      */
 
     public void removeResources(ArrayList<Resource> resourcesToRemove) {
-        int i;
-
+        ArrayList<Resource> resourcesInFloor = new ArrayList<>();
         for (Resource res : resourcesToRemove) {
-            for (i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++) {
                 if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
                     if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt()) {
-                        if (getStrongBox().checkAvailabilityStrongBox(res))
+                        res.setQnt(res.getQnt()-getDepot().getFloors().get(i).get().getQnt());
+                        if (getStrongBox().checkAvailabilityStrongBox(res)) {
                             getStrongBox().removeResourceStrongBox(res);
-                        else
+                            resourcesInFloor.add(res);
+
+                        } else
                             throw new NoSuchElementException("Resource " + res + " not Available");
 
                         getDepot().getFloors().set(i, Optional.empty());
@@ -52,17 +55,17 @@ public class Warehouse {
                         if (getDepot().getFloors().get(i).get().getQnt() == 0) {
                             getDepot().getFloors().set(i, Optional.empty());
                         }
+                        resourcesInFloor.add(res);
                     }
                 }
             }
+            if (!resourcesInFloor.contains(res)) {
+                if (getStrongBox().checkAvailabilityStrongBox(res))
+                    getStrongBox().removeResourceStrongBox(res);
+                else
+                    throw new NoSuchElementException("Resource " + res + " not Available");
+            }
 
-
-            if (getStrongBox().checkAvailabilityStrongBox(res))
-                getStrongBox().removeResourceStrongBox(res);
-            else
-                throw new NoSuchElementException("Resource " + res + " not Available");
         }
     }
 }
-
-

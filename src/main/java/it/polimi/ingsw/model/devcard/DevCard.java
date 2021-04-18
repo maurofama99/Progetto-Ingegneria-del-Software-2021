@@ -55,10 +55,7 @@ public class DevCard {
     }
 
     /**
-     * This method is used to check if a player can activate a production or not. It copies the requirements
-     * in an array and starts changing them in WhiteResources if it finds the required resource in the
-     * player's warehouses. If all the copied array is made of WhiteResources when the method ends,
-     * the requirements are met.
+     * This method is used to check if a player can activate a production or not.
      * @param player is where the method will check for resources, both from his strongbox and deposit
      * @return true if the requirements are met, false otherwise
      */
