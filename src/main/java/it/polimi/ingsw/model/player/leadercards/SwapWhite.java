@@ -14,7 +14,7 @@ public class SwapWhite extends LeaderEffect {
     private ArrayList<Color> cardColorRequired;
     private Resource newResource;
 
-    public SwapWhite(String effectName, ArrayList<Color> cardColorRequired, Resource newResource) {
+    public SwapWhite(ArrayList<Color> cardColorRequired, Resource newResource) {
         super(EffectType.SWAPWHITE);
         this.cardColorRequired = cardColorRequired;
         this.newResource = newResource;

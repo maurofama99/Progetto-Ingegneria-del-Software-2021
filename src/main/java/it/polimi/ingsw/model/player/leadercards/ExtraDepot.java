@@ -38,5 +38,7 @@ public class ExtraDepot extends LeaderEffect {
         } catch (NoSuchElementException ex){
             return false;
         }
+
+
     }
 }

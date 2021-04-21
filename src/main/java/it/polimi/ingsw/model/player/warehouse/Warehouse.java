@@ -45,10 +45,8 @@ public class Warehouse {
                         if (getStrongBox().checkAvailabilityStrongBox(res)) {
                             getStrongBox().removeResourceStrongBox(res);
                             resourcesInFloor.add(res);
-
                         } else
                             throw new NoSuchElementException("Resource " + res + " not Available");
-
                         getDepot().getFloors().set(i, Optional.empty());
                     } else {
                         getDepot().getFloors().get(i).get().setQnt(getDepot().getFloors().get(i).get().getQnt() - res.getQnt());
