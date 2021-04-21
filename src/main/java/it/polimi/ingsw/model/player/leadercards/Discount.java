@@ -36,7 +36,7 @@ public class Discount extends LeaderEffect{
         for(Color cardColor: cardColorRequired){
             int i, k;
             for (i=0; i<3; i++){
-                for (k=0;k<3; k++){
+                for (k=0;k<player.getPersonalBoard().getSlots()[i].getCards().size(); k++){
                     if (player.getPersonalBoard().getSlots()[i].getCards().get(k).getCardColor().equals(cardColor))
                         checkColor.add(cardColor);
                 }

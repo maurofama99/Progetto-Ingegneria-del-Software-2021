@@ -16,10 +16,15 @@ public class PersonalBoard {
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
-    private Player player;
     private ArrayList<LeaderCard> activeLeaderCards;
 
-    public Player getPlayer() { return player; }
+    public PersonalBoard(Warehouse warehouse) {
+        this.warehouse = warehouse;
+        slots[0] = new Slot(SlotNumber.FIRST);
+        slots[1] = new Slot(SlotNumber.SECOND);
+        slots[2] = new Slot(SlotNumber.THIRD);
+        this.activeLeaderCards = new ArrayList<>();
+    }
 
     public void setFaithTrack(FaithTrack faithTrack) {
         this.faithTrack = faithTrack;
@@ -27,13 +32,6 @@ public class PersonalBoard {
 
     public FaithTrack getFaithTrack() {
         return faithTrack;
-    }
-
-    public PersonalBoard(Warehouse warehouse) {
-        this.warehouse = warehouse;
-        slots[0] = new Slot(SlotNumber.FIRST);
-        slots[1] = new Slot(SlotNumber.SECOND);
-        slots[2] = new Slot(SlotNumber.THIRD);
     }
 
     public ArrayList<LeaderCard> getActiveLeaderCards() {
@@ -46,6 +44,10 @@ public class PersonalBoard {
 
     public Warehouse getWarehouse() {
         return warehouse;
+    }
+
+    public void addLeaderCard(LeaderCard leaderCardToActivate){
+        activeLeaderCards.add(leaderCardToActivate);
     }
 
     /**
@@ -67,19 +69,36 @@ public class PersonalBoard {
     }
 
     public void extraProduction(LeaderCard leaderCard, Resource resourceChosenByPlayer){
-        if (getPlayer().hasEffect(EffectType.ADDPRODUCTION)){
+
+        if (hasEffect(EffectType.ADDPRODUCTION)){
             ArrayList<Resource> resourcesToRemove = new ArrayList<>();
             ArrayList<Resource> resourcesToAdd = new ArrayList<>();
 
             resourcesToAdd.add(resourceChosenByPlayer);
             resourcesToRemove.add((Resource) leaderCard.getLeaderEffect().getObject());
 
-            player.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-            player.getPersonalBoard().getWarehouse().removeResources(resourcesToRemove);
+            warehouse.getStrongBox().addResourceToStrongBox(resourcesToAdd);
+            warehouse.removeResources(resourcesToRemove);
 
-            player.getPersonalBoard().getFaithTrack().getFaithMarker().moveForward(player.getPlayerFaithMarker(), 1);
+            getFaithTrack().getFaithMarker().moveForward(faithTrack.getFaithMarker(), 1);
 
         }
+
+    }
+
+    /**
+     * Checks if the player has activated a type of leader card.
+     * @param effectType leader card's type of effect.
+     * @return If the player has activated effectType.
+     */
+
+    public boolean hasEffect(EffectType effectType) {
+        int i;
+        for (i=0; i<activeLeaderCards.size();i++) {
+            if (activeLeaderCards.get(i).getLeaderEffect().getEffectType().equals(effectType))
+                return true;
+        }
+        return false;
     }
 
 }

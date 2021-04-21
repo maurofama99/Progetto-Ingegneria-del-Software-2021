@@ -20,7 +20,14 @@ public class DevCard {
     private ArrayList<Resource> requirementsDevCard;
     private Production production;
 
-
+    public DevCard(int level, Color color, int victoryPointsDevCard, ArrayList<Resource> requirementsDevCard, Production production) {
+        this.level = level;
+        this.color = color;
+        this.victoryPointsDevCard = victoryPointsDevCard;
+        this.isPlaced = false;
+        this.requirementsDevCard = requirementsDevCard;
+        this.production = production;
+    }
 
     public void setRequirementsDevCard(ArrayList<Resource> requirementsDevCard) {
         this.requirementsDevCard = requirementsDevCard;

@@ -20,6 +20,7 @@ public class Warehouse {
         this.strongBox = strongBox;
     }
 
+
     public Depot getDepot() {
         return depot;
     }

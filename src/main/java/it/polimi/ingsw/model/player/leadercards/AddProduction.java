@@ -33,7 +33,7 @@ public class AddProduction extends LeaderEffect{
     public boolean checkRequirementsLeaderCard(Player player) {
         int i, k;
         for (i=0; i<3; i++){
-            for (k=0; k<3; k++){
+            for (k=0; k<player.getPersonalBoard().getSlots()[i].getCards().size(); k++){
                 if (player.getPersonalBoard().getSlots()[i].getCards().get(k).getLevel() == cardRequired.getLevel())
                     return true;
             }

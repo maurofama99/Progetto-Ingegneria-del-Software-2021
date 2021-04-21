@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.devcard;
 
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.Turn;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.*;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -23,29 +25,30 @@ public class DevCardTest {
         Warehouse wH = new Warehouse(depot, sB);
         PersonalBoard pB = new PersonalBoard(wH);   //creo il tavolo di gioco
 
-        DevCard dC = new DevCard();
+        ArrayList<Resource> requirements;
+        requirements = new ArrayList<>();
+        requirements.add(new Resource(2,ResourceType.STONE));
+
         ArrayList<Resource> input= new ArrayList<>();
         input.add(new Resource(2, ResourceType.STONE));
         input.add(new Resource(2,ResourceType.COIN));
         ArrayList<Resource> output= new ArrayList<>();
         output.add(new Resource(3, ResourceType.SHIELD));
         Production prod = new Production("prova",input,output);
-        dC.setProduction(prod);// dC input: 1 stone, 2 coin
-                               // dC output: 3 shield
 
-        ArrayList<Resource> requirements;
-        requirements = new ArrayList<>();
-        requirements.add(new Resource(2,ResourceType.STONE));
-        dC.setRequirementsDevCard(requirements);//dC requirements: 2 stone
+        // dC input: 1 stone, 2 coin
+        // dC output: 3 shield
+        // dC requirements: 2 stone
+        DevCard dC = new DevCard(1, Color.GREEN, 3, requirements, prod);
 
-        Player p1;
-        p1 = new Player("Vale");
-        p1.setPersonalBoard(pB); //assegno plancia al giocatore
+        ArrayList<LeaderCard> lCards= new ArrayList<>();
+
+        Player p1 = new Player("Vale", Turn.firstPlayer, pB);
 
 
         //add 3 stone to depot
-        Resource threestones = new Resource(3, ResourceType.STONE);
-        p1.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(threestones,3);
+        Resource threeStones = new Resource(3, ResourceType.STONE);
+        p1.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(threeStones,3);
         assertTrue(p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).isPresent());
         assertEquals(3, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get().getQnt());
         assertEquals(ResourceType.STONE, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get().getType());
@@ -72,8 +75,7 @@ public class DevCardTest {
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get().getQnt());
 
         //activate production
-        assertTrue(dC.getProduction().checkInputResource(p1));
-        p1.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(p1.getPersonalBoard().getSlots()[0].getShowedCard().getProduction().getOutput());
+        p1.activateProd(dC);
         assertTrue(p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).isEmpty());
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt());
     }

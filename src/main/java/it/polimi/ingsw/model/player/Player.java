@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.faithtrack.FaithMarker;
 import it.polimi.ingsw.model.player.leadercards.*;
+import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 
@@ -22,9 +23,21 @@ public class Player {
     private FaithMarker playerFaithMarker;
     private PersonalBoard personalBoard;
 
+    public Player(String nickname,  Turn turnOrder, PersonalBoard personalBoard) {
+        this.nickname = nickname;
+        this.isCurrentTurn = false;
+        this.turnOrder = turnOrder;
+        this.hasMoved = false;
+        this.leaderCards = new ArrayList<>();
+        this.personalBoard = personalBoard;
+    }
 
     public FaithMarker getPlayerFaithMarker() {
         return playerFaithMarker;
+    }
+
+    public ArrayList<LeaderCard> getLeaderCards() {
+        return leaderCards;
     }
 
     public PersonalBoard getPersonalBoard() {
@@ -69,7 +82,7 @@ public class Player {
     public void activateLeaderCard(LeaderCard leaderCardToAct){
         if (!leaderCardToAct.getLeaderEffect().checkRequirementsLeaderCard(this))
             throw new IllegalArgumentException ("You still don't have the requirements");
-        getPersonalBoard().getActiveLeaderCards().add(leaderCardToAct);
+        getPersonalBoard().addLeaderCard(leaderCardToAct);
         if (leaderCardToAct.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)){
             if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).isEmpty()){
                 getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
@@ -87,7 +100,7 @@ public class Player {
      */
 
     public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
-        if (hasEffect(EffectType.DISCOUNT)){
+        if (personalBoard.hasEffect(EffectType.DISCOUNT)){
             int i,k;
             for (i=0; i<devCardToBuy.getRequirementsDevCard().size(); i++){
                 for (k=0; k<getPersonalBoard().getActiveLeaderCards().size();k++) {
@@ -110,20 +123,7 @@ public class Player {
     }
 
 
-    /**
-     * Checks if the player has activated a type of leader card.
-     * @param effectType leader card's type of effect.
-     * @return If the player has activated effectType.
-     */
 
-    public boolean hasEffect(EffectType effectType) {
-        int i;
-        for (i=0; i<getPersonalBoard().getActiveLeaderCards().size();i++) {
-            if (getPersonalBoard().getActiveLeaderCards().get(i).getLeaderEffect().getEffectType().equals(effectType))
-                return true;
-        }
-        return false;
-    }
 
     /**
      * Setting boolean isCurrentTurn to false to end player's turn.
