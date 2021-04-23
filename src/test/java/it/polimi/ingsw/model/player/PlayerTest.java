@@ -28,7 +28,7 @@ public class PlayerTest{
 
         ArrayList<LeaderCard> lCards= new ArrayList<>();
 
-        Player player = new Player("Pippo", Turn.firstPlayer, pB);
+        Player player = new Player("Pippo",pB);
 
         ArrayList<Resource> requirements;
         requirements = new ArrayList<>();

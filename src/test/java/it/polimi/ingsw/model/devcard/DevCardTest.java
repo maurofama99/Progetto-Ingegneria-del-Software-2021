@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.devcard;
 
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.Turn;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.*;
 import it.polimi.ingsw.model.resources.Resource;
@@ -43,7 +42,7 @@ public class DevCardTest {
 
         ArrayList<LeaderCard> lCards= new ArrayList<>();
 
-        Player p1 = new Player("Vale", Turn.firstPlayer, pB);
+        Player p1 = new Player("Vale", pB);
 
 
         //add 3 stone to depot

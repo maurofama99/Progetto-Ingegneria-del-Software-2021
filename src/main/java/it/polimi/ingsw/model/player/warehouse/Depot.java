@@ -119,7 +119,7 @@ public class Depot {
         }
     }
 
-    //switches resources between two floors if is a legal move
+    //switches resources between two floors only if is a legal move
     //@requires (source >=1 && source <=3) && (destination >=1 && destination <=3)
     public void switchFloors(int source, int destination) {
     source -= 1;

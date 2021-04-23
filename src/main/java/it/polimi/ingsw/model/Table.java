@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.TableState;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
@@ -17,19 +16,33 @@ import static it.polimi.ingsw.model.devcard.Color.GREEN;
  * boards and cards are all here
  */
 public class Table {
-    private int numPlayers;
-    private ArrayList<Player> players;
+    private final int numPlayers;
+    private final ArrayList<Player> players;
     private int currentTurn;
     private ArrayList<Token> tokenStack;
-    private TableState state;
     private MarketTray marketTray;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
 
-    public Table(int numPlayers, ArrayList<Player> players, int currentTurn) {
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public MarketTray getMarketTray() {
+        return marketTray;
+    }
+    public Table(int numPlayers, ArrayList<Player> players) {
         this.numPlayers = numPlayers;
         this.players = players;
-        this.currentTurn = currentTurn;
+        this.currentTurn = 0;
     }
 
 

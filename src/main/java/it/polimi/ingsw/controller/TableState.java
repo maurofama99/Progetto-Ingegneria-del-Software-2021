@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
-public interface TableState {
-
-    void doAction();
+public enum TableState {
+    SETUP,
+    IN_GAME,
+    END
 }

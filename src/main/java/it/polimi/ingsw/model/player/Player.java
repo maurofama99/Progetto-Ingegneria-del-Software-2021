@@ -16,17 +16,16 @@ import java.util.ArrayList;
 public class Player {
     private final String nickname;
     private boolean isCurrentTurn;
-    private Turn turnOrder;
+
     private boolean hasMoved;
     private ArrayList<LeaderCard> leaderCards;
     private int victoryPoints;
     private FaithMarker playerFaithMarker;
     private PersonalBoard personalBoard;
 
-    public Player(String nickname,  Turn turnOrder, PersonalBoard personalBoard) {
+    public Player(String nickname, PersonalBoard personalBoard) {
         this.nickname = nickname;
         this.isCurrentTurn = false;
-        this.turnOrder = turnOrder;
         this.hasMoved = false;
         this.leaderCards = new ArrayList<>();
         this.personalBoard = personalBoard;
@@ -131,5 +130,6 @@ public class Player {
     public void endTurn(){
         this.isCurrentTurn = false;
     }
+
 
 }
