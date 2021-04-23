@@ -19,9 +19,8 @@ public class GameController {
     private Table table;
     private TableState tableState;
 
-    public GameController(Table table, TableState tableState) {
+    public void setTable(Table table) {
         this.table = table;
-        this.tableState = TableState.SETUP;
     }
 
     public void setTableState(TableState tableState) {
@@ -44,6 +43,10 @@ public class GameController {
     public void receiveMessage(Message msg){
 
         //a seconda dello stato in cui siamo (switch), richiama il metodo specifico per ogni stato che riceve il messaggio
+        System.out.println("Ciao, sono il Game Controller e sono pronto a fare cose");
+    }
+
+    public void sendMessage(Message msg){
 
     }
 

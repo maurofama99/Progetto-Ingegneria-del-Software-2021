@@ -16,6 +16,7 @@ public class Client implements Runnable
     private View currentView;*/
 
 
+    //sarà spostato in ClientApp
     public static void main(String[] args)
     {
         /* Instantiate a new Client. The main thread will become the

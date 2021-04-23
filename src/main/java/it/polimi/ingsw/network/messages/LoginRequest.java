@@ -7,14 +7,15 @@ import it.polimi.ingsw.network.Contents;
  */
 public class LoginRequest extends Message{
 
-    public LoginRequest(){
-        super(null, null, Contents.LOGIN_REQUEST);
+    public LoginRequest(String senderUser, Contents messageType) {
+        super(senderUser, messageType);
     }
 
     @Override
     public String toString(){
         return "Login request[" + "senderUser=" + getSenderUser() +
-                ", content =" + getMessageContents() +
+                ", type =" + getMessageType() +
                 "]";
     }
 }
+

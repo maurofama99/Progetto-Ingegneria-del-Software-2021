@@ -6,14 +6,12 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
 
-    private final String token;
     private final String senderUser;
-    private final Contents messageContents;
+    private final Contents messageType;
 
-    public Message(String token, String senderUser, Contents messageContents) {
-        this.token = token;
+    public Message(String senderUser, Contents messageType) {
         this.senderUser = senderUser;
-        this.messageContents = messageContents;
+        this.messageType = messageType;
     }
 
 
@@ -21,23 +19,15 @@ public class Message implements Serializable {
         return senderUser;
     }
 
-    public String getToken(){
-        return token;
-    }
-
-    public Contents getMessageContents(){
-        return messageContents;
-    }
-
-    public void processMessage(){
-
+    public Contents getMessageType() {
+        return messageType;
     }
 
     @Override
     public String toString(){
         return "Message[" +
                 "senderUser='" + senderUser + '\'' +
-                ", content=" + messageContents +
+                ", content=" + messageType +
                 ']';
     }
 }

@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.*;
 
-import it.polimi.ingsw.model.player.faithtrack.FaithMarker;
 import it.polimi.ingsw.network.messages.AnswerMsg;
 import it.polimi.ingsw.network.messages.CommandMsg;
 import it.polimi.ingsw.network.messages.Message;
@@ -20,21 +19,18 @@ import java.util.concurrent.TimeUnit;
  */
 public class ClientHandler implements Runnable
 {
+    private Server server;
     private Socket client;
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
     //get the table associated with this client
 
-    /**
-     * Initializes a new handler using a specific socket connected to
-     * a client.
-     * @param client The socket connection to the client.
-     */
-    ClientHandler(Socket client)
-    {
+    public ClientHandler(Server server, Socket client) {
+        this.server = server;
         this.client = client;
     }
+
 
     @Override
     public void run()
@@ -68,13 +64,8 @@ public class ClientHandler implements Runnable
             //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
             while (true) {
                 /* read commands from the client, process them, and send replies */
-                System.out.println("Il client handler sta andando");
-                Object next = input.readObject();
-                CommandMsg command = (CommandMsg) next;
-                command.processMessage(this);
-
-                //chiamare il metodo nel server che (passando come argomento command) chiama il game controller per risolvere command
-
+                Message msg = (Message) input.readObject();
+                server.receiveMessage(msg);
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             System.out.println("invalid stream from client");
@@ -89,6 +80,7 @@ public class ClientHandler implements Runnable
     public void sendAnswerMessage(Message answerMsg) throws IOException
     {
         output.writeObject(answerMsg);
+        output.flush(); //in caso non funziona sostituire con reset()
     }
 
 

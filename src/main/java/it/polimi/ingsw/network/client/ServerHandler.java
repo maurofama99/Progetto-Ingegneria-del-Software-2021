@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.messages.Message;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -38,14 +37,28 @@ public class ServerHandler implements Runnable
      * Connects to the server and runs the event loop.
      */
     @Override
-    public void run(){
-    //Qui c'è un problema e non sappiamo che sia
+    public void run()
+    {
         try {
             output = new ObjectOutputStream(serverSocket.getOutputStream());
             input = new ObjectInputStream(serverSocket.getInputStream());
         } catch (IOException e) {
-            System.out.println("(Client) could not open connection to " + serverSocket.getInetAddress());
+            System.out.println("could not open connection to " + serverSocket.getInetAddress());
+            return;
         }
+
+        try {
+            handleClientConnection();
+        } catch (IOException e) {
+            System.out.println("server " + serverSocket.getInetAddress() + " connection dropped");
+        }
+
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
