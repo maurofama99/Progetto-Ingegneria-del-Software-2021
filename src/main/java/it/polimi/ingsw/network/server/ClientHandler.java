@@ -20,11 +20,17 @@ public class ClientHandler implements Runnable
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
+    private boolean isConnected;
+    private boolean isLogged;
+
     //get the table associated with this client
 
     public ClientHandler(Server server, Socket client) {
         this.server = server;
         this.client = client;
+
+        this.isConnected = true;
+        this.isLogged = false;
     }
 
 
@@ -56,20 +62,40 @@ public class ClientHandler implements Runnable
         }
     }
 
+    public Server getServer() {
+        return server;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public boolean isLogged() {
+        return isLogged;
+    }
+
     private void handleClientConnection() throws IOException {
+
+        System.out.println("Connected to: " + client.getInetAddress());
+
         try {
             //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
             while (true) {
                 /* read commands from the client, process them, and send replies */
                 Message msg = (Message) input.readObject();
 
-                //se login reply allora esegui procedura di inserimento giocatore
-
-                server.receiveMessage(msg);
+                //Procedura inserimento player
+               if(msg.getMessageType() == Content.LOGIN && msg.getSenderUser() != null){
+                   isLogged = true;
+               }
+               server.receiveMessage(msg);
             }
         } catch (ClassNotFoundException | ClassCastException e) {
+            e.printStackTrace();
             System.out.println("invalid stream from client");
         }
+
+        client.close();
     }
 
     /**
@@ -78,8 +104,13 @@ public class ClientHandler implements Runnable
      * @throws IOException If a communication error occurs.
      */
     public void sendMessage(Message msg) throws IOException {
-        output.writeObject(msg);
-        output.flush(); //reset() o flush()?
+        try {
+            output.reset();
+            output.writeObject(msg);
+            output.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

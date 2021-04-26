@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.Message;
 
+import javax.security.auth.login.Configuration;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -43,15 +44,18 @@ public class Server implements Runnable {
             return;
         }
 
+
         while (true) {
             try {
                 /* accepts connections; for every connection we accept,
                  * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
+                //server timeout?
                 ClientHandler clientHandler = new ClientHandler(this, client);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();
             } catch (IOException e) {
+                System.out.println("Connection dropped");
                 System.out.println("Connection dropped");
             }
         }

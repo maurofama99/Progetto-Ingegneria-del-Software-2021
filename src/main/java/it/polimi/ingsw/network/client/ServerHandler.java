@@ -1,14 +1,13 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.cli.Cli;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -17,11 +16,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ServerHandler implements Runnable
 {
-    private Socket serverSocket;
+    private final Socket serverSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Client client;
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
+
+    private final List<ServerObserver> observers = new ArrayList<>();
 
 
     /**
@@ -33,6 +34,18 @@ public class ServerHandler implements Runnable
     {
         this.serverSocket = serverSocket;
         this.client = client;
+    }
+
+    public void addObserver(ServerObserver serverObserver){
+        synchronized (observers) {
+            observers.add(serverObserver);
+        }
+    }
+
+    public void removeObserver(ServerObserver observer) {
+        synchronized (observers) {
+            observers.remove(observer);
+        }
     }
 
 
@@ -51,8 +64,8 @@ public class ServerHandler implements Runnable
         }
 
         try {
-            handleClientConnection();
-        } catch (IOException e) {
+            handleServerConnection();
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("server " + serverSocket.getInetAddress() + " connection dropped");
         }
 
@@ -69,7 +82,7 @@ public class ServerHandler implements Runnable
      * them in the order they are received.
      * @throws IOException If a communication error occurs.
      */
-    private void handleClientConnection() throws IOException
+    private void handleServerConnection() throws IOException, ClassNotFoundException
     {
         try {
             boolean stop = false;

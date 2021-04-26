@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -13,7 +12,7 @@ import java.net.Socket;
  */
 public class Client implements Runnable
 {
-    private ServerHandler serverHandler;
+    ServerHandler serverHandler;
     private boolean shallTerminate;
     private PlayerController playerController;
 

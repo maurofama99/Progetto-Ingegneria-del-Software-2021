@@ -1,15 +1,17 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.network.Content;
-
 import java.io.Serializable;
 
-public abstract class Message implements Serializable {
-    private final String senderUser;
-    private final Content messageType;
+public class Message implements Serializable {
+    private String senderUser;
+    private Content messageType;
 
     public Message(String senderUser, Content messageType) {
         this.senderUser = senderUser;
+        this.messageType = messageType;
+    }
+
+    public Message(Content messageType){
         this.messageType = messageType;
     }
 

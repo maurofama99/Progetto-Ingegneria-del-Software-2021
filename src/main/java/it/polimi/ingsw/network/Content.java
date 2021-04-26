@@ -13,6 +13,7 @@ public enum Content {
 
 
     //c->s
+    LOGIN,
     LOGIN_DATA,
 
 
