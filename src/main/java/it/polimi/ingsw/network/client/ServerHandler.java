@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.client.messages.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

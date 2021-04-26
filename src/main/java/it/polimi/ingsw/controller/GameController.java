@@ -1,11 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.network.messages.Message;
-
-import java.util.ArrayList;
-import java.util.Random;
+import it.polimi.ingsw.network.client.messages.Message;
 
 //partita con minimo 2 giocatori
 public class GameController {

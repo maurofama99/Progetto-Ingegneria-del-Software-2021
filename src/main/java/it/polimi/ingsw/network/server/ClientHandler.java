@@ -1,17 +1,11 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.*;
-
-import it.polimi.ingsw.network.messages.AnswerMsg;
-import it.polimi.ingsw.network.messages.CommandMsg;
-import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.client.messages.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
 
 
 /**
