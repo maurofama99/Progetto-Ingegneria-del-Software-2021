@@ -7,7 +7,7 @@ public class GenericMessage extends Message{
     private String text;
 
     public GenericMessage(String token, String senderUser, Contents messageContents) {
-        super(token, senderUser, messageContents);
+        super(senderUser, messageContents);
     }
 
     public String getText() {

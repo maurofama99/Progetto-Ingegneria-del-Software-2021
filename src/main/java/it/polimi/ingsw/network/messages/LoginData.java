@@ -11,7 +11,7 @@ public class LoginData extends Message{
     private final int numPlayers;
 
     public LoginData(String nickname, int numPlayers){
-        super(null, nickname, Contents.LOGIN_DATA);
+        super(nickname, Contents.LOGIN_DATA);
         this.nickname=nickname;
         this.numPlayers=numPlayers;
     }
