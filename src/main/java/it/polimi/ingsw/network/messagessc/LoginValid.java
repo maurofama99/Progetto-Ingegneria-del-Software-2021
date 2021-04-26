@@ -7,7 +7,7 @@ public class LoginValid implements Answer{
         this.message = message;
     }
 
-    @Override
+
     public String getMessage() {
         return message;
     }

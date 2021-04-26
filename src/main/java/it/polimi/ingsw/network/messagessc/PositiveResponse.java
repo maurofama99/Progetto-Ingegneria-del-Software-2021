@@ -6,8 +6,6 @@ public class PositiveResponse implements Answer{
     public PositiveResponse(String message) {
         this.message = message;
     }
-
-    @Override
     public String getMessage() {
         return message;
     }
