@@ -1,6 +1,9 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.client.messages.Message;
+import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.cli.Cli;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +20,7 @@ public class ServerHandler implements Runnable
     private Socket serverSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private Client owner;
+    private Client client;
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
 
 
@@ -26,10 +29,10 @@ public class ServerHandler implements Runnable
      * a server.
      * @param serverSocket The socket connection to the server.
      */
-    ServerHandler(Socket serverSocket, Client owner)
+    ServerHandler(Socket serverSocket, Client client)
     {
         this.serverSocket = serverSocket;
-        this.owner = owner;
+        this.client = client;
     }
 
 
@@ -58,7 +61,6 @@ public class ServerHandler implements Runnable
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -75,9 +77,9 @@ public class ServerHandler implements Runnable
                 /* read commands from the server and process them */
                 try {
                     Object next = input.readObject();
-                    Message command = (Message) next;
-                    //dobbiamo passare il messaggio alla view, per adesso lo stampiamo
-                    System.out.println(command.toString());
+                    Message msg = (Message) next;
+                    client.receiveMessage(msg);
+
                 } catch (IOException e) {
                     /* Check if we were interrupted because another thread has asked us to stop */
                     if (shouldStop.get()) {
@@ -99,23 +101,21 @@ public class ServerHandler implements Runnable
      * The game instance associated with this client.
      * @return The game instance.
      */
-    public Client getClient()
-    {
-        return owner;
+    public Client getClient() {
+        return client;
     }
 
 
     /**
      * Sends a message to the server.
-     * @param commandMsg The message to be sent.
+     * @param msg The message to be sent.
      */
-    public void sendCommandMessage(Message commandMsg)
-    {
+    public void sendMessage(Message msg) {
         try {
-            output.writeObject(commandMsg);
+            output.writeObject(msg);
+            output.flush();
         } catch (IOException e) {
             System.out.println("Communication error");
-            //owner.terminate();
         }
     }
 
@@ -123,11 +123,12 @@ public class ServerHandler implements Runnable
     /**
      * Requires the run() method to stop as soon as possible.
      */
-    public void stop()
-    {
+    public void stop() {
         shouldStop.set(true);
         try {
             serverSocket.shutdownInput();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

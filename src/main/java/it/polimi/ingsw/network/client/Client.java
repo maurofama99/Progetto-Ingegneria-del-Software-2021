@@ -1,6 +1,9 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.server.Server;
+import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -12,9 +15,11 @@ public class Client implements Runnable
 {
     private ServerHandler serverHandler;
     private boolean shallTerminate;
-    /*private View nextView;
-    private View currentView;*/
+    private PlayerController playerController;
 
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
 
     //sarà spostato in ClientApp
     public static void main(String[] args)
@@ -29,10 +34,7 @@ public class Client implements Runnable
     @Override
     public void run()
     {
-        //chiedi ip da tastiera all'utente, noi penso che lo faremo con un file di configurazione
-        //Scanner scanner = new Scanner(System.in);
-
-        //System.out.println("IP address of server? Use 127.0.0.1 for now");
+        //todo: da inserire in args
         String ip = "127.0.0.1";
 
         /* Open connection to the server and start a thread for handling
@@ -50,14 +52,6 @@ public class Client implements Runnable
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
 
-        /* Run the state machine handling the views */
-        //nextView = new NextNumberView();
-        //runViewStateMachine();
-
-        /* We are going to stop the application, so ask the server thread
-         * to stop as well. Note that we are invoking the stop() method on
-         * ServerHandler, not on Thread */
-        //serverHandler.stop();
     }
 
 
@@ -65,72 +59,12 @@ public class Client implements Runnable
      * The handler object responsible for communicating with the server.
      * @return The server handler.
      */
-    public ServerHandler getServerHandler()
-    {
+    public ServerHandler getServerHandler() {
         return serverHandler;
     }
 
-
-    /**
-     * Calls the run() method on the current view until the application
-     * must be stopped.
-     * When no view should be displayed, and the application is not yet
-     * terminating, the IdleView is displayed.
-     * @apiNote The current view can be changed at any moment by using
-     * transitionToView().
-     */
-    /*private void runViewStateMachine()
-    {
-        boolean stop;
-
-        synchronized (this) {
-            stop = shallTerminate;
-            currentView = nextView;
-            nextView = null;
-        }
-        while (!stop) {
-            if (currentView == null) {
-                currentView = new IdleView();
-            }
-            currentView.setOwner(this);
-            currentView.run();
-
-            synchronized (this) {
-                stop = shallTerminate;
-                currentView = nextView;
-                nextView = null;
-            }
-        }
+    public void receiveMessage(Message msg){
+        playerController.receiveMessage(msg);
     }
-
-
-    /**
-     * Transitions the view thread to a given view.
-     * @param newView The view to transition to.
-     */
-
-    /*
-    public synchronized void transitionToView(View newView)
-    {
-        this.nextView = newView;
-        currentView.stopInteraction();
-    }
-
-
-    /**
-     * Terminates the application as soon as possible.
-     */
-
-    /*
-    public synchronized void terminate()
-    {
-        if (!shallTerminate) { */
-            /* Signal to the view handler loop that it should exit. */
-            /*shallTerminate = true;
-            currentView.stopInteraction();
-        }
-    }
-
-    */
 
 }

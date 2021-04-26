@@ -19,10 +19,6 @@ public interface View {
      */
     void fetchNickname();
 
-    /**
-     * Fetches how many players the creator of the lobby wants to play with
-     */
-    void fetchPlayersNumber();
 
     /**
      * Displays the result of an attempt of connection

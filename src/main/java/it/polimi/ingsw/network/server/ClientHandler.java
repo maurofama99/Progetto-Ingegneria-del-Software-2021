@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.network.client.messages.Message;
+import it.polimi.ingsw.network.Content;
+import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.messagessc.LoginRequest;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -41,6 +43,7 @@ public class ClientHandler implements Runnable
         System.out.println("Connected to " + client.getInetAddress());
 
         try {
+            sendMessage(new LoginRequest("server", Content.LOGIN_REQUEST));
             handleClientConnection();
         } catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");
@@ -59,6 +62,9 @@ public class ClientHandler implements Runnable
             while (true) {
                 /* read commands from the client, process them, and send replies */
                 Message msg = (Message) input.readObject();
+
+                //se login reply allora esegui procedura di inserimento giocatore
+
                 server.receiveMessage(msg);
             }
         } catch (ClassNotFoundException | ClassCastException e) {
@@ -68,13 +74,12 @@ public class ClientHandler implements Runnable
 
     /**
      * Sends a message to the client.
-     * @param answerMsg The message to be sent.
+     * @param msg The message to be sent.
      * @throws IOException If a communication error occurs.
      */
-    public void sendAnswerMessage(Message answerMsg) throws IOException
-    {
-        output.writeObject(answerMsg);
-        output.flush(); //in caso non funziona sostituire con reset()
+    public void sendMessage(Message msg) throws IOException {
+        output.writeObject(msg);
+        output.flush(); //reset() o flush()?
     }
 
 

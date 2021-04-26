@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.server.answers;
+package it.polimi.ingsw.network.messagessc;
 
 public class PositiveResponse implements Answer{
     public final String message;

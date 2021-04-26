@@ -1,0 +1,38 @@
+package it.polimi.ingsw.network;
+
+public enum Content {
+    //s->c
+    LOGIN_REQUEST,
+    NICKNAME_ERROR,
+    LOGIN_FAIL,
+    FULL_SERVER,
+    INVALID_INPUT,
+    ANOTHER_PLAYER_TURN,
+    GENERAL_NO_REQUIREMENTS,
+    START_GAME,
+
+
+    //c->s
+    LOGIN_DATA,
+
+
+    LOGIN_SUCCESSFUL,
+    INVALID_DATA,
+
+    RESPONSE,
+    DISCARD_LEADER,
+    ACTIVATE_LEADER,
+    LEADER_ACTIVATED,
+    GAME_STATE,
+    DONE_ACTION,
+    GOING_MARKET,
+    SELECT_LINE,
+    SEND_RESOURCE,
+    DISCARD_RES,
+    MOVE_RES,
+    STORE_RES,
+    POSITIVE,
+    ACTIVATE_PRODUCTION,
+    ASKTYPERESOURCE
+}
+

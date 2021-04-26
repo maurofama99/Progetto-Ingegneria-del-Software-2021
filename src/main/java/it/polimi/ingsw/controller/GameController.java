@@ -1,19 +1,21 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
-import it.polimi.ingsw.network.client.messages.Message;
+import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.network.Message;
+
+import java.util.ArrayList;
 
 //partita con minimo 2 giocatori
 public class GameController {
     private static final int MIN_OF_PLAYERS = 2;
     private static final int MAX_OF_PLAYERS = 4;
-
-    //game server here
-
+    private PlayerController playerController;
+    private ArrayList<Player> playersInGame;
     //creare una struttura dati che contiene le virtual view dei player
 
     private Table table;
-    private TableState tableState;
+    private TableState tableState = TableState.WAITING;
 
     public void setTable(Table table) {
         this.table = table;

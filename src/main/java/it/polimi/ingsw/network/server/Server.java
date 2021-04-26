@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.network.client.messages.Message;
+import it.polimi.ingsw.network.Message;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 /**
  * Server for Master of Renaissance game
  */
-public class Server implements Runnable{
+public class Server implements Runnable {
     /**
      * The socket port where the server listens to client connections
      */
@@ -30,7 +30,6 @@ public class Server implements Runnable{
         Server server = new Server(gameController);
         server.run();
     }
-
 
     //non può essere un main perchè deve essere passato al ClientHandler
     @Override
@@ -58,10 +57,9 @@ public class Server implements Runnable{
         }
     }
 
-    public void receiveMessage(Message msg){
+    public void receiveMessage(Message msg) {
         gameController.receiveMessage(msg);
     }
-
 
 }
 

@@ -1,9 +1,9 @@
-package it.polimi.ingsw.network.server.answers;
+package it.polimi.ingsw.network.messagessc;
 
-public class StartGame implements Answer {
+public class LoginRequest implements Answer {
     private final String message;
 
-    public StartGame(String message) {
+    public LoginRequest(String message) {
         this.message = message;
     }
 
