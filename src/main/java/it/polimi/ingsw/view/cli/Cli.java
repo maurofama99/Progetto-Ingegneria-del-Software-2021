@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.cli;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
@@ -9,11 +10,15 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.view.View;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Cli implements View {
     @Override
-    public void fetchNickname() {
-
+    public void fetchNickname(PlayerController playerController) {
+        System.out.println("What's your nickname?");
+        Scanner scanner = new Scanner(System.in);
+        String nickname = scanner.nextLine();
+        playerController.sendNickname(nickname);
     }
 
 

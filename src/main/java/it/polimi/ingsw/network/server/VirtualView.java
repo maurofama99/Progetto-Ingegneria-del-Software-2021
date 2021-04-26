@@ -4,6 +4,26 @@ import it.polimi.ingsw.commons.Listener;
 import it.polimi.ingsw.network.Message;
 
 
+
+
+
+
+
+
+
+
+//TODO: QUESTA CLASSE ESISTE GIA' NEL PACKAGE VIEW ED IMPLEMENTA L'INTERFACCIA VIEW
+
+
+
+
+
+
+
+
+
+
+
 public class VirtualView implements Listener<Message> {
 
     private Server server;

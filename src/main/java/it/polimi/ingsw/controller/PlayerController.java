@@ -1,34 +1,41 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.client.ServerHandler;
+import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.view.View;
 
-//controlla il singolo turno di un giocatore
 
 public class PlayerController {
 
-    private PlayerState playerState = PlayerState.IN_WAIT;
+    private ServerHandler serverHandler;
+    //la view verrà inizializzata CLI o GUI a seconda dei parametri passati, in questa parte di codice è invisibile la scelta
     private View view;
-
-    //TODO: TROVARE IL MODO DI COLLEGARE LA VIEW AL CONTROLLER
 
     public PlayerController(View view) {
         this.view = view;
     }
+
+    public void setServerHandler(ServerHandler serverHandler) {
+        this.serverHandler = serverHandler;
+    }
+
     //dal secondo turno quindi quando il gioco sarà in IN_GAME state
     //il giocatore può fare le sue solite azioni:
-    //
 
     public void receiveMessage(Message msg){
 
-        switch (playerState){
-            case IN_WAIT:
+        switch (msg.getMessageType()){
+            case LOGIN_REQUEST:
                 //se il messaggio ricevuto è di LOGIN REQUEST allora invia i tuoi login data
-                if(msg.getMessageType() == Content.LOGIN_REQUEST) {
+                view.fetchNickname(this); //questo metodo oltre al suo obiettivo deve anche chiamare il metodo che manda il messaggio di risposta
+                break;
 
-                }
         }
+    }
+
+    public void sendNickname(String nickname){
+        serverHandler.sendMessage(new LoginData(nickname));
     }
 
 

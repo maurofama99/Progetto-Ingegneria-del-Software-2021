@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.messagescs.LoginData;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,10 @@ public class GameController {
     public void receiveMessage(Message msg){
 
         //a seconda dello stato in cui siamo (switch), richiama il metodo specifico per ogni stato che riceve il messaggio
-        System.out.println("Ciao, sono il Game Controller e sono pronto a fare cose");
+        switch (msg.getMessageType()){
+            case LOGIN_DATA:
+                System.out.println(((LoginData) msg).getNickname() + " has joined");
+        }
     }
 
     public void sendMessage(Message msg){

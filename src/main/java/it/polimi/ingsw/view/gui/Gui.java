@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Table;
@@ -7,12 +7,11 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.view.View;
 
 import java.util.List;
 
-public class VirtualView implements View{
-
-
+public class Gui implements View {
     @Override
     public void fetchNickname(PlayerController playerController) {
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
@@ -17,7 +18,7 @@ public interface View {
     /**
      * Fetches nickname of player
      */
-    void fetchNickname();
+    void fetchNickname(PlayerController playerController);
 
 
     /**
