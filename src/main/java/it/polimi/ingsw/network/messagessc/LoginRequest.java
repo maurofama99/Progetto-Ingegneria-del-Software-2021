@@ -1,14 +1,17 @@
 package it.polimi.ingsw.network.messagessc;
 
-public class LoginRequest implements Answer {
-    private final String message;
+import it.polimi.ingsw.network.Content;
+import it.polimi.ingsw.network.Message;
 
-    public LoginRequest(String message) {
-        this.message = message;
+public class LoginRequest extends Message {
+    public LoginRequest(String senderUser, Content messageType) {
+        super(senderUser, Content.LOGIN_REQUEST);
     }
 
     @Override
-    public String getMessage() {
-        return message;
+    public String toString(){
+        return "Login request[" + "senderUser=" + getSenderUser() +
+                ", type =" + getMessageType() +
+                "]";
     }
 }

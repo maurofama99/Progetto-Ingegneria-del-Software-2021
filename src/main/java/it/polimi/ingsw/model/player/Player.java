@@ -31,6 +31,10 @@ public class Player {
         this.personalBoard = personalBoard;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public FaithMarker getPlayerFaithMarker() {
         return playerFaithMarker;
     }

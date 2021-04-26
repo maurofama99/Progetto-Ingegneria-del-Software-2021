@@ -29,14 +29,10 @@ public class GameController {
         //chiedere al client quale risorsa vuole aggiungere
         //assignInitialBonus(table.getPlayers());
 
-
-
-
-
-
-
         setTableState(TableState.IN_GAME);
     }
+
+    //metodo addInitialBonus ma come faccio a sapere quanti giocatori?
 
     public void receiveMessage(Message msg){
 

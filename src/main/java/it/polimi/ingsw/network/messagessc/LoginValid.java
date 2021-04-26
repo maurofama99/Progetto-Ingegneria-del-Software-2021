@@ -1,9 +1,13 @@
 package it.polimi.ingsw.network.messagessc;
 
-public class LoginValid implements Answer{
+import it.polimi.ingsw.network.Content;
+import it.polimi.ingsw.network.Message;
+
+public class LoginValid extends Message {
     private final String message;
 
     public LoginValid(String message) {
+        super("nickname/ip", Content.LOGIN_SUCCESSFUL);
         this.message = message;
     }
 

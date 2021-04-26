@@ -1,14 +1,14 @@
 package it.polimi.ingsw.network.messagessc;
 
-public class StartGame implements Answer {
-    private final String message;
+import it.polimi.ingsw.network.Content;
+import it.polimi.ingsw.network.Message;
 
-    public StartGame(String message) {
-        this.message = message;
+public class StartGame extends Message {
+
+    public StartGame(String senderUser, Content messageType) {
+        super(senderUser, Content.START_GAME);
     }
 
-    @Override
-    public String getMessage() {
-        return message;
-    }
+
+
 }

@@ -4,6 +4,8 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.view.View;
 
+//controlla il singolo turno di un giocatore
+
 public class PlayerController {
 
     private PlayerState playerState = PlayerState.IN_WAIT;
