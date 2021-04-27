@@ -4,35 +4,57 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.singleplayer.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Class that initializes and controls the track of every player. We made as every player
  * has its own track to make it easier to use the Favor Tiles
  */
 public class FaithTrack {
-    private FaithMarker faithMarker;
-    private BlackCross blackCross;
+    private int faithMarkerPosition;
+    private int blackCrossPosition;
     private ArrayList<Tile> track;
-    private ArrayList<Tile> firstSection;
-    private ArrayList<Tile> secondSection;
-    private ArrayList<Tile> thirdSection;
-    private boolean firstFavorTile=false;
-    private boolean secondFavorTile=false;
-    private boolean thirdFavorTile=false;
+    //private ArrayList<Tile> firstSection;
+    //private ArrayList<Tile> secondSection;
+    //private ArrayList<Tile> thirdSection;
+    private boolean firstFavorTile;
+    private boolean secondFavorTile;
+    private boolean thirdFavorTile;
 
-
-    public FaithMarker getFaithMarker() {
-        return faithMarker;
+    public FaithTrack() {
+        this.faithMarkerPosition = -1;
+        this.blackCrossPosition = -1;
+        this.track = new ArrayList<>();
+        //this.firstSection = firstSection;
+        //this.secondSection = secondSection;
+        //this.thirdSection = thirdSection;
+        this.firstFavorTile = false;
+        this.secondFavorTile = false;
+        this.thirdFavorTile = false;
     }
 
-    public BlackCross getBlackCross() {
-        return blackCross;
+    public int getFaithMarkerPosition() {
+        return faithMarkerPosition;
     }
+
+    public int getBlackCrossPosition() {
+        return blackCrossPosition;
+    }
+
+    public void setBlackCrossPosition(int blackCrossPosition) {
+        this.blackCrossPosition = blackCrossPosition;
+    }
+
+    public void setFaithMarkerPosition(int faithMarkerPosition) {
+        this.faithMarkerPosition = faithMarkerPosition;
+    }
+
 
     public ArrayList<Tile> getTrack() {
         return track;
     }
 
+    /*
     public ArrayList<Tile> getFirstSection() {
         return firstSection;
     }
@@ -69,16 +91,26 @@ public class FaithTrack {
         this.thirdFavorTile = thirdFavorTile;
     }
 
-    public boolean checkPosition(Player player){
-        return true;
+     */
+
+    /**
+     * This is the method that is called when faith points are produced. It moved the single marker forward
+     * @param faithToAdd Number of steps to make.
+     */
+    public void moveForward(int faithToAdd){
+        //Function that moves the marker forward. Needs to be connected to FaithPnt
+        setFaithMarkerPosition(faithMarkerPosition+faithToAdd);
     }
+
+
+
 
     /**
      * This method initializes the track. Every tile can be modified, moved or deleted. Also creates the
      * three sections.
      */
     public void createTrack(){
-        track = new ArrayList<Tile>();
+        track = new ArrayList<>();
 
         //Create the tiles. They can be easily modified.
         Tile tile0 = new Normal(0,false,false,false);
@@ -136,6 +168,7 @@ public class FaithTrack {
         track.add(tile24);
         //End of add
 
+        /*
         //Create the sections and adds to Lists
         firstSection = new ArrayList<Tile>();
         secondSection = new ArrayList<Tile>();
@@ -156,6 +189,8 @@ public class FaithTrack {
         thirdSection.add(tile23);
         thirdSection.add(tile24);
         //End of create sections
+
+         */
     }
 
 

@@ -80,7 +80,7 @@ public class PersonalBoard {
             warehouse.getStrongBox().addResourceToStrongBox(resourcesToAdd);
             warehouse.removeResources(resourcesToRemove);
 
-            getFaithTrack().getFaithMarker().moveForward(faithTrack.getFaithMarker(), 1);
+            getFaithTrack().moveForward(1);
 
         }
 

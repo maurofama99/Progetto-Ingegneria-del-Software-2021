@@ -23,7 +23,6 @@ public class Victory extends Tile {
      * @param p to whom we need to add the points
      */
     public void addPoints(int pointsToAdd, Player p) {
-        
         p.setVictoryPoints(p.getVictoryPoints()+pointsToAdd);
     }
 }

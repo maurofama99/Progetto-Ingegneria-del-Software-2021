@@ -11,6 +11,8 @@ public class FaithTrackTest {
 
     FaithTrack testFT = new FaithTrack();
 
+    /*
+
     @Test
     public void sayStuffOnTrack(){
         testFT.createTrack();
@@ -23,4 +25,5 @@ public class FaithTrackTest {
 
     }
 
+*/
 }

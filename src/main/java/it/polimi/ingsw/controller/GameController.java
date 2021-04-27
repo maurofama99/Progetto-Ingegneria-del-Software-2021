@@ -8,11 +8,14 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import java.util.ArrayList;
 
 //partita con minimo 2 giocatori
+//
 public class GameController {
     private static final int MIN_OF_PLAYERS = 2;
     private static final int MAX_OF_PLAYERS = 4;
     private PlayerController playerController;
     private ArrayList<Player> playersInGame;
+    private Player activePlayer;
+
     //creare una struttura dati che contiene le virtual view dei player
 
     private Table table;
@@ -27,13 +30,35 @@ public class GameController {
     }
 
     public void setUpGame(){
-        //chiedere al client quale risorsa vuole aggiungere
+        //playerState è in start --> chiedere al client quale risorsa vuole aggiungere
         //assignInitialBonus(table.getPlayers());
 
         setTableState(TableState.IN_GAME);
     }
 
     //metodo addInitialBonus ma come faccio a sapere quanti giocatori?
+    /*
+    public Message addInitialBonus(Player activePlayer){
+        switch (playersInGame.indexOf(activePlayer)){
+            case 0:
+                //salta turno
+            case 1:
+                //chiedi quale risorsa vuole, poi scarta risorsa leader
+            case 2:
+                //chiedi quale risorsa vuole e muovi di uno
+            case 3:
+                //chiedi quale risorsa vuole, chiedi quale altra risorsa vuole, muovi di uno
+        }
+    }
+    */
+
+    /*
+    public Message discardInitialLeaderCards(){
+     fa vedere le 4 carte e  2 verrano scartate
+    }
+     */
+
+
 
     public void receiveMessage(Message msg){
 

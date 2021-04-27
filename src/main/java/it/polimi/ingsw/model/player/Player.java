@@ -2,9 +2,7 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.model.player.faithtrack.FaithMarker;
 import it.polimi.ingsw.model.player.leadercards.*;
-import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 
@@ -16,11 +14,9 @@ import java.util.ArrayList;
 public class Player {
     private final String nickname;
     private boolean isCurrentTurn;
-
     private boolean hasMoved;
     private ArrayList<LeaderCard> leaderCards;
     private int victoryPoints;
-    private FaithMarker playerFaithMarker;
     private PersonalBoard personalBoard;
 
     public Player(String nickname, PersonalBoard personalBoard) {
@@ -35,10 +31,6 @@ public class Player {
         return nickname;
     }
 
-    public FaithMarker getPlayerFaithMarker() {
-        return playerFaithMarker;
-    }
-
     public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
@@ -49,10 +41,6 @@ public class Player {
 
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
-    }
-
-    public void setPlayerFaithMarker(FaithMarker playerFaithMarker) {
-        this.playerFaithMarker = playerFaithMarker;
     }
 
     public void setPersonalBoard(PersonalBoard personalBoard) {

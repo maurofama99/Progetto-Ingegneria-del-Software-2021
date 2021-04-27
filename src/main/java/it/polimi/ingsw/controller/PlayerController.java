@@ -6,6 +6,8 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.view.View;
 
 
+//gestisce tutti gli stati che il player può avere, comprese le mosse
+
 public class PlayerController {
 
     private ServerHandler serverHandler;
@@ -37,6 +39,13 @@ public class PlayerController {
     public void sendNickname(String nickname){
         serverHandler.sendMessage(new LoginData(nickname));
     }
+
+    //deve anche avere l'array list di player che sono nella partita
+    //così quando l'active player è nello stato done ("ho finito quel che dovevo fare")
+    // posso cambiare active player e scorrere array in avanti
+
+    //
+    //
 
 
 
