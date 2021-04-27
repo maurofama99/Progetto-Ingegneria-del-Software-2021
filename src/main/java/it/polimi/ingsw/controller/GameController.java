@@ -62,10 +62,11 @@ public class GameController {
 
     public void receiveMessage(Message msg){
 
-        //a seconda dello stato in cui siamo (switch), richiama il metodo specifico per ogni stato che riceve il messaggio
         switch (msg.getMessageType()){
             case LOGIN_DATA:
                 System.out.println(((LoginData) msg).getNickname() + " has joined");
+
+
         }
     }
 

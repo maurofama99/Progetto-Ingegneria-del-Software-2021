@@ -7,18 +7,27 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.network.client.ServerHandler;
+import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.view.View;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Cli implements View {
+
+    private ServerHandler serverHandler;
+
+    public void setServerHandler(ServerHandler serverHandler) {
+        this.serverHandler = serverHandler;
+    }
+
     @Override
-    public void fetchNickname(PlayerController playerController) {
+    public void fetchNickname() {
         System.out.println("What's your nickname?");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
-        playerController.sendNickname(nickname);
+        serverHandler.sendMessage(new LoginData(nickname));
     }
 
 

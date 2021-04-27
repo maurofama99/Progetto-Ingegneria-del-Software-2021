@@ -119,6 +119,14 @@ public class ServerHandler implements Runnable
     }
 
 
+    public ObjectOutputStream getOutput() {
+        return output;
+    }
+
+    public ObjectInputStream getInput() {
+        return input;
+    }
+
     /**
      * Sends a message to the server.
      * @param msg The message to be sent.

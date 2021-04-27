@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Gui implements View {
     @Override
-    public void fetchNickname(PlayerController playerController) {
+    public void fetchNickname() {
 
     }
 

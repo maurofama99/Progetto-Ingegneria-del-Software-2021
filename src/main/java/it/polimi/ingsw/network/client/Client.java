@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.server.Server;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.Gui;
 
@@ -15,10 +16,10 @@ import java.util.Scanner;
  */
 public class Client implements Runnable {
     private ServerHandler serverHandler;
-    private final PlayerController playerController;
+    private View view;
 
-    public Client(PlayerController playerController) {
-        this.playerController = playerController;
+    public Client(View view) {
+        this.view = view;
     }
 
     //sarà spostato in ClientApp
@@ -36,16 +37,14 @@ public class Client implements Runnable {
 
         if (cli){
             Cli view = new Cli();
-            PlayerController playerController = new PlayerController(view);
-            Client client = new Client(playerController);
+            Client client = new Client(view);
             client.run();
         } else {
             Gui view = new Gui(); //chiaramente non si inizializza così la GUI, messo solo per chiarezza
-            PlayerController playerController = new PlayerController(view);
-            Client client = new Client(playerController);
-            client.run();
+            //PlayerController playerController = new PlayerController(view);
+            //Client client = new Client(playerController);
+            //client.run();
         }
-
     }
 
     @Override
@@ -67,7 +66,6 @@ public class Client implements Runnable {
         System.out.println("Connected");
 
         serverHandler = new ServerHandler(server, this);
-        this.playerController.setServerHandler(serverHandler); //anche player controller deve essere un thread?
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
 
@@ -82,8 +80,23 @@ public class Client implements Runnable {
         return serverHandler;
     }
 
+    public void sendMessage(Message msg) {
+        try {
+            serverHandler.getOutput().writeObject(msg);
+            serverHandler.getOutput().flush();
+        } catch (IOException e) {
+            System.out.println("Communication error");
+        }
+    }
+
     public void receiveMessage(Message msg){
-        playerController.receiveMessage(msg);
+        switch (msg.getMessageType()){
+            case LOGIN_REQUEST:
+                //se il messaggio ricevuto è di LOGIN REQUEST allora invia i tuoi login data
+                view.fetchNickname(); //questo metodo oltre al suo obiettivo principale deve anche chiamare il metodo che manda il messaggio di risposta
+                break;
+
+        }
     }
 
 }

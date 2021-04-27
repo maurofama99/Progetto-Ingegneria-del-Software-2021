@@ -30,7 +30,7 @@ public class PlayerController {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
                 //se il messaggio ricevuto è di LOGIN REQUEST allora invia i tuoi login data
-                view.fetchNickname(this); //questo metodo oltre al suo obiettivo deve anche chiamare il metodo che manda il messaggio di risposta
+                view.fetchNickname(); //questo metodo oltre al suo obiettivo principale deve anche chiamare il metodo che manda il messaggio di risposta
                 break;
 
         }

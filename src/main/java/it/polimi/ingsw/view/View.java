@@ -18,7 +18,7 @@ public interface View {
     /**
      * Fetches nickname of player
      */
-    void fetchNickname(PlayerController playerController);
+    void fetchNickname();
 
 
     /**

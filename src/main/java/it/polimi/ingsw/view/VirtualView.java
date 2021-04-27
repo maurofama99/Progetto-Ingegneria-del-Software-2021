@@ -14,7 +14,7 @@ public class VirtualView implements View{
 
 
     @Override
-    public void fetchNickname(PlayerController playerController) {
+    public void fetchNickname() {
 
     }
 
