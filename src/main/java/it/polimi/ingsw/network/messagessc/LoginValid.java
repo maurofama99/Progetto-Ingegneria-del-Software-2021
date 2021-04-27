@@ -4,15 +4,9 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
 public class LoginValid extends Message {
-    private final String message;
 
-    public LoginValid(String message) {
-        super("nickname/ip", Content.LOGIN_SUCCESSFUL);
-        this.message = message;
+    public LoginValid() {
+        super("server", Content.LOGIN_SUCCESSFUL);
     }
 
-
-    public String getMessage() {
-        return message;
-    }
 }

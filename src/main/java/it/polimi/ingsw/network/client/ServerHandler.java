@@ -22,7 +22,6 @@ public class ServerHandler implements Runnable
     private Client client;
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
 
-    private final List<ServerObserver> observers = new ArrayList<>();
 
 
     /**
@@ -36,17 +35,6 @@ public class ServerHandler implements Runnable
         this.client = client;
     }
 
-    public void addObserver(ServerObserver serverObserver){
-        synchronized (observers) {
-            observers.add(serverObserver);
-        }
-    }
-
-    public void removeObserver(ServerObserver observer) {
-        synchronized (observers) {
-            observers.remove(observer);
-        }
-    }
 
 
     /**

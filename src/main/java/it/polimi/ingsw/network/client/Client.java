@@ -93,7 +93,15 @@ public class Client implements Runnable {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
                 //se il messaggio ricevuto è di LOGIN REQUEST allora invia i tuoi login data
-                view.fetchNickname(); //questo metodo oltre al suo obiettivo principale deve anche chiamare il metodo che manda il messaggio di risposta
+                view.fetchNickname(); //chiede al player il nickname e lo invia al server
+                break;
+            case NUM_PLAYERS_REQUEST:
+                view.fetchPlayersNumber();
+            case LOGIN_SUCCESSFUL:
+                view.waitFor();
+                break;
+            case LOGIN_FAIL:
+                view.fetchNickname();
                 break;
 
         }

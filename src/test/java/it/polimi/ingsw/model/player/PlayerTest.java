@@ -28,7 +28,9 @@ public class PlayerTest{
 
         ArrayList<LeaderCard> lCards= new ArrayList<>();
 
-        Player player = new Player("Pippo",pB);
+        Player player = new Player("Pippo");
+
+        player.setPersonalBoard(pB);
 
         ArrayList<Resource> requirements;
         requirements = new ArrayList<>();
@@ -99,7 +101,7 @@ public class PlayerTest{
 
         assertTrue(player.getPersonalBoard().hasEffect(EffectType.DISCOUNT));
         player.buyDevCard(dCard3, 1);
-        //assertEquals(1, player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt());
+        //todo assertEquals(1, player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt());
 
 
 

@@ -3,8 +3,8 @@ package it.polimi.ingsw.network;
 public enum Content {
     //s->c
     LOGIN_REQUEST,
-    NICKNAME_ERROR,
     LOGIN_FAIL,
+    NUM_PLAYERS_REQUEST,
     FULL_SERVER,
     INVALID_INPUT,
     ANOTHER_PLAYER_TURN,
@@ -15,6 +15,7 @@ public enum Content {
     //c->s
     LOGIN,
     LOGIN_DATA,
+    PLAYERS_NUMBER,
 
 
     LOGIN_SUCCESSFUL,

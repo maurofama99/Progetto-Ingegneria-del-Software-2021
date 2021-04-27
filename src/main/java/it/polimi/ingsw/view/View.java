@@ -20,6 +20,11 @@ public interface View {
      */
     void fetchNickname();
 
+    /**
+     * Put the player in a waiting state
+     */
+    void waitFor();
+
 
     /**
      * Displays the result of an attempt of connection
@@ -112,4 +117,5 @@ public interface View {
      */
     void displayWinningMsg(String win);
 
+    void fetchPlayersNumber();
 }

@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.LoginData;
+import it.polimi.ingsw.network.messagescs.PlayersNumber;
+import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
 import it.polimi.ingsw.view.View;
 
 import java.util.List;
@@ -24,10 +26,23 @@ public class Cli implements View {
 
     @Override
     public void fetchNickname() {
-        System.out.println("What's your nickname?");
+        System.out.println("What's your nickname? (Should be different from other players)");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
         serverHandler.sendMessage(new LoginData(nickname));
+    }
+
+    @Override
+    public void fetchPlayersNumber() {
+        System.out.println("Number of players?");
+        Scanner scanner = new Scanner(System.in);
+        int numPlayers = scanner.nextInt();
+        serverHandler.sendMessage(new PlayersNumber(numPlayers));
+    }
+
+    @Override
+    public void waitFor() {
+        System.out.println("Please wait...");
     }
 
 
@@ -100,4 +115,5 @@ public class Cli implements View {
     public void displayWinningMsg(String win) {
 
     }
+
 }

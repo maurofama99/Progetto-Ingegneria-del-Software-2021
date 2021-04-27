@@ -15,7 +15,6 @@ public class Message implements Serializable {
         this.messageType = messageType;
     }
 
-
     public String getSenderUser(){
         return senderUser;
     }

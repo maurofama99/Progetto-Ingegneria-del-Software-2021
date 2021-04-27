@@ -49,7 +49,7 @@ public class ClientHandler implements Runnable
         System.out.println("Connected to " + client.getInetAddress());
 
         try {
-            sendMessage(new LoginRequest("server", Content.LOGIN_REQUEST));
+            sendMessage(new LoginRequest());
             handleClientConnection();
         } catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");

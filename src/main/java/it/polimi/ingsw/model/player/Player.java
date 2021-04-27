@@ -19,12 +19,11 @@ public class Player {
     private int victoryPoints;
     private PersonalBoard personalBoard;
 
-    public Player(String nickname, PersonalBoard personalBoard) {
+    public Player(String nickname) {
         this.nickname = nickname;
         this.isCurrentTurn = false;
         this.hasMoved = false;
         this.leaderCards = new ArrayList<>();
-        this.personalBoard = personalBoard;
     }
 
     public String getNickname() {
@@ -45,10 +44,6 @@ public class Player {
 
     public void setPersonalBoard(PersonalBoard personalBoard) {
         this.personalBoard = personalBoard;
-    }
-
-    public Player(String nickname) {
-        this.nickname = nickname;
     }
 
     public int getVictoryPoints() {
