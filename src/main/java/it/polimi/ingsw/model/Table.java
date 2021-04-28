@@ -4,6 +4,11 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
+import it.polimi.ingsw.network.messagescs.PlayersNumber;
+import it.polimi.ingsw.network.messagessc.AskResourceType;
+import it.polimi.ingsw.network.messagessc.GenericMessage;
+import it.polimi.ingsw.network.messagessc.PositiveResponse;
+import it.polimi.ingsw.observerPattern.Observable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,17 +17,23 @@ import java.util.Random;
 import static it.polimi.ingsw.model.devcard.Color.GREEN;
 
 /**
- * Class of table, where all the stuff is placed. Player, decks, stacks of token, the market and
- * boards and cards are all here
+ * Class of table, where all the stuff is placed.
+ * Player, decks, stacks of token, the market and boards and cards are all here
  */
-public class Table {
-    private final int numPlayers;
-    private final ArrayList<Player> players;
+public class Table extends Observable {
+    private int numPlayers;
+    private ArrayList<Player> players;
     private int currentTurn;
     private ArrayList<Token> tokenStack;
     private MarketTray marketTray;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
+
+    public Table(int numPlayers, ArrayList<Player> players) {
+        this.numPlayers = numPlayers;
+        this.players = players;
+        this.currentTurn = 0;
+    }
 
     public int getNumPlayers() {
         return numPlayers;
@@ -36,14 +47,15 @@ public class Table {
         return currentTurn;
     }
 
+    public void setNumPlayers(int numPlayers) {
+        notifyObserver(new PlayersNumber(numPlayers));
+        this.numPlayers = numPlayers;
+    }
+
     public MarketTray getMarketTray() {
         return marketTray;
     }
-    public Table(int numPlayers, ArrayList<Player> players) {
-        this.numPlayers = numPlayers;
-        this.players = players;
-        this.currentTurn = 0;
-    }
+
 
 
     public LorenzoIlMagnifico getLorenzoIlMagnifico() {
@@ -61,6 +73,42 @@ public class Table {
     public Deck getDevCardsDeck() {
         return devCardsDeck;
     }
+
+    //aggiunge il giocatore alla partita
+    public void addPlayer(String nickname){
+        Player player = new Player(nickname);
+        players.add(player);
+
+        notifyObserver(new GenericMessage("heyyyyyyy"));
+    }
+
+
+    public void addSecondPlayerBonus(){
+        notifyObserver(new AskResourceType());
+    }
+
+    public void addThirdPlayerBonus() {
+        notifyObserver(new AskResourceType());
+        players.get(2).getPersonalBoard().getFaithTrack().moveForward(1);
+    }
+
+    public void addFourthPlayerBonus() {
+        notifyObserver(new AskResourceType());
+        notifyObserver(new AskResourceType());
+        players.get(3).getPersonalBoard().getFaithTrack().moveForward(1);
+    }
+
+
+    //metodo che rimuove un giocatore se si disconnette
+
+
+
+
+
+
+
+
+
 
     //Creates the tokenStack, will prolly be moved later to controller or smth
     public void createTokenStack(){
@@ -82,4 +130,7 @@ public class Table {
 
         Collections.shuffle(tokenStack, new Random());
     }
+
+
+
 }

@@ -42,7 +42,9 @@ public class DevCardTest {
 
         ArrayList<LeaderCard> lCards= new ArrayList<>();
 
-        Player p1 = new Player("Vale", pB);
+        Player p1 = new Player("Vale");
+
+        p1.setPersonalBoard(pB);
 
 
         //add 3 stone to depot

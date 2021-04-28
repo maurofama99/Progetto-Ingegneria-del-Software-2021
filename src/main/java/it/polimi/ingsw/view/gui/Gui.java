@@ -9,11 +9,17 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.view.View;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Gui implements View {
     @Override
     public void fetchNickname() {
+
+    }
+
+    @Override
+    public void displayGenericMessage(String genericMessage) throws IOException {
 
     }
 
@@ -84,6 +90,11 @@ public class Gui implements View {
 
     @Override
     public void displayWinningMsg(String win) {
+
+    }
+
+    @Override
+    public void fetchPlayersNumber() {
 
     }
 }

@@ -96,15 +96,19 @@ public class Client implements Runnable {
                 view.fetchNickname(); //chiede al player il nickname e lo invia al server
                 break;
             case NUM_PLAYERS_REQUEST:
-                view.fetchPlayersNumber();
+                //view.fetchPlayersNumber();
             case LOGIN_SUCCESSFUL:
-                view.waitFor();
+                //view.waitFor();
                 break;
             case LOGIN_FAIL:
-                view.fetchNickname();
+                //view.fetchNickname();
                 break;
 
         }
     }
 
+    @Override
+    public void update(Message message) {
+        serverHandler.sendMessage(message);
+    }
 }

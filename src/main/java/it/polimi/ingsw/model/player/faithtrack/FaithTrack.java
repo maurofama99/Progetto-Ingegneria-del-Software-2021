@@ -66,6 +66,7 @@ public class FaithTrack {
     public ArrayList<Tile> getThirdSection() {
         return thirdSection;
     }
+    */
 
     public boolean getIsFirstFavorTile() {
         return firstFavorTile;
@@ -91,7 +92,6 @@ public class FaithTrack {
         this.thirdFavorTile = thirdFavorTile;
     }
 
-     */
 
     /**
      * This is the method that is called when faith points are produced. It moved the single marker forward

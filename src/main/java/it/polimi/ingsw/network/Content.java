@@ -12,6 +12,11 @@ public enum Content {
     START_GAME,
 
 
+    //secondo me si devono raggruppare i tipi di messaggio
+    //cioè che i messaggi che vengono mostrati ad inizio partita sono tutti di un tipo
+
+    GENERIC_MESSAGE,
+
     //c->s
     LOGIN,
     LOGIN_DATA,

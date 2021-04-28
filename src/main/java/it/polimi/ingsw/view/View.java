@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,12 +19,12 @@ public interface View {
     /**
      * Fetches nickname of player
      */
-    void fetchNickname();
+    void fetchNickname() throws IOException;
 
     /**
      * Put the player in a waiting state
      */
-    void waitFor();
+    void displayGenericMessage(String genericMessage) throws IOException;
 
 
     /**

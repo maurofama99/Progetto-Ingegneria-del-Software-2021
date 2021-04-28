@@ -25,6 +25,10 @@ public class Server implements Runnable {
         playerClientHandlerHashMap = new HashMap<>();
     }
 
+    public GameController getGameController() {
+        return gameController;
+    }
+
     //questo sarà spostato in una classe ServerApp
     public static void main(String[] args) {
         GameController gameController = new GameController();
@@ -61,7 +65,7 @@ public class Server implements Runnable {
         }
     }
 
-    public void receiveMessage(Message msg) {
+    public void receiveMessage(Message msg) throws IOException {
         gameController.receiveMessage(msg);
     }
 

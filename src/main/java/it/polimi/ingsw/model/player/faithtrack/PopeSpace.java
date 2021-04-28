@@ -32,7 +32,7 @@ public class PopeSpace extends Tile{
      * @param p Player whose FaithMarker's position is being checked
      */
     public void turnFavorAddPoints(FaithTrack ft, Player p){
-        int currentPos = p.getPlayerFaithMarker().getPosition();
+        int currentPos = p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition();
 
         if(getSection()==1){
             if(ft.getTrack().get(currentPos).isFirstSection()) {

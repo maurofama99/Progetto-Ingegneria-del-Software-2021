@@ -104,13 +104,9 @@ public class ClientHandler implements Runnable
      * @throws IOException If a communication error occurs.
      */
     public void sendMessage(Message msg) throws IOException {
-        try {
             output.reset();
             output.writeObject(msg);
             output.flush();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
 

@@ -13,6 +13,7 @@ import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
 import it.polimi.ingsw.view.View;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,6 +34,11 @@ public class Cli implements View {
     }
 
     @Override
+    public void displayGenericMessage(String genericMessage) throws IOException {
+
+    }
+
+    @Override
     public void fetchPlayersNumber() {
         System.out.println("Number of players?");
         Scanner scanner = new Scanner(System.in);
@@ -40,10 +46,7 @@ public class Cli implements View {
         serverHandler.sendMessage(new PlayersNumber(numPlayers));
     }
 
-    @Override
-    public void waitFor() {
-        System.out.println("Please wait...");
-    }
+
 
 
     @Override

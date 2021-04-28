@@ -6,23 +6,18 @@ import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.observerPattern.Observer;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //partita con minimo 2 giocatori
 //
-public class GameController {
-    private static final int MIN_OF_PLAYERS = 2;
-    private static final int MAX_OF_PLAYERS = 4;
-    private PlayerController playerController;
-    private ArrayList<Player> playersInGame;
+public class GameController implements Observer {
     private Player activePlayer;
     private ClientHandler clientHandler;
-    private int numPlayers;
-
-    //creare una struttura dati che contiene le virtual view dei player
-
     private Table table;
     private TableState tableState = TableState.WAITING;
 
@@ -63,8 +58,9 @@ public class GameController {
     }
      */
 
-    public void receiveMessage(Message msg){
-        switch (tableState){
+    public void receiveMessage(Message msg) throws IOException {
+
+        switch (tableState) {
             case WAITING:
                 receiveMessageOnLogin(msg);
             case SETUP:
@@ -76,17 +72,9 @@ public class GameController {
         }
     }
 
-    private void receiveMessageOnEndGame(Message msg) {
-    }
+    public void receiveMessageOnLogin(Message msg) throws IOException {
 
-    private void receiveMessageInGame(Message msg) {
-    }
-
-    private void receiveMessageOnSetup(Message msg) {
-    }
-
-
-    public void receiveMessageOnLogin(Message msg){
+        VirtualView vv = vvMap.get(msg.getSenderUser());
 
         switch (msg.getMessageType()){
             case LOGIN_DATA:
@@ -96,15 +84,16 @@ public class GameController {
                 }
                 for (Player player : playersInGame) {
                     if (player.getNickname().equals(((LoginData) msg).getNickname())) {
-                        //deve mandare messaggio login_fail
+                        vv.fetchNickname();
                         break;
                     }
                 }
                 System.out.println(((LoginData) msg).getNickname() + " has joined");
-                playersInGame.add(new Player(((LoginData) msg).getNickname()));
-                //deve mandare messaggio login_succesful
-                //chiama metodo che verifica se la partita può iniziare --> manda mex start_game
+                table.addPlayer(((LoginData) msg).getNickname());
+                vv.displayGenericMessage("Please wait for other Players");
+                if (verifyNumPlayers()) startGame();
                 break;
+
             case PLAYERS_NUMBER:
                 if (((PlayersNumber) msg).getNum() < 1 || ((PlayersNumber) msg).getNum() > 4){
                     //manda messaggio invalid num players
@@ -116,13 +105,42 @@ public class GameController {
         }
     }
 
+    public void receiveMessageOnSetup(Message msg) {
 
-    //metodo che dice se array è dimensione max e
-
-    public void sendMessage(Message msg) throws IOException {
-            clientHandler.sendMessage(msg);
     }
 
+    public void startGame() throws IOException {
+        //vanno selezionate tutte le view e poi chiami displayGenericMessage("Game can start to be setup!");
+        setTableState(TableState.SETUP);
+    }
+
+    public void giveInitialBonus(String nickname) {
+
+    }
+
+
+    public void receiveMessageInGame(Message msg) {
+    }
+
+    public void receiveMessageOnEndGame(Message msg) {
+    }
+
+
+    //verifica se il numero d giocatori è corretto per iniziare la partita
+    public boolean verifyNumPlayers() {
+        return table.getNumPlayers() == table.getPlayers().size();
+    }
+
+
+
+    //riceve un update dal model, tipo da table??
+    //
+    @Override
+    public void update(Message message) throws IOException {
+        //tramite la virtual view manda messaggi in base al tipo di messaggio
+        //tipo chiedere nickname
+        //virtualView.fetchNickname
+    }
 
 }
 
