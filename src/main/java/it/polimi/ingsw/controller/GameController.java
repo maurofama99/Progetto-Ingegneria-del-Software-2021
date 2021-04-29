@@ -20,6 +20,12 @@ public class GameController implements Observer {
     private ClientHandler clientHandler;
     private Table table;
     private TableState tableState = TableState.WAITING;
+    private VirtualView virtualView;
+    private HashMap<String, VirtualView> vvMap;
+
+    public HashMap<String, VirtualView> getVvMap() {
+        return vvMap;
+    }
 
     public void setTable(Table table) {
         this.table = table;
@@ -29,7 +35,7 @@ public class GameController implements Observer {
         this.tableState = tableState;
     }
 
-    public void setUpGame(){
+    public void setUpGame() {
         //playerState è in start --> chiedere al client quale risorsa vuole aggiungere
         //assignInitialBonus(table.getPlayers());
 
@@ -76,13 +82,14 @@ public class GameController implements Observer {
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
 
-        switch (msg.getMessageType()){
+        switch (msg.getMessageType()) {
+
             case LOGIN_DATA:
-                if (playersInGame.size() == 0){
-                    //manda messaggio chiedendo il numero di player desiderati ask_player_number
+                if (table.getPlayers().size() == 0) {
+                    vv.fetchPlayersNumber();
                     break;
                 }
-                for (Player player : playersInGame) {
+                for (Player player : table.getPlayers()) {
                     if (player.getNickname().equals(((LoginData) msg).getNickname())) {
                         vv.fetchNickname();
                         break;
@@ -95,13 +102,14 @@ public class GameController implements Observer {
                 break;
 
             case PLAYERS_NUMBER:
-                if (((PlayersNumber) msg).getNum() < 1 || ((PlayersNumber) msg).getNum() > 4){
-                    //manda messaggio invalid num players
-                    break;
+                //TODO: SINGLEPLAYER?
+                if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
+                    vv.fetchPlayersNumber();
                 }
-                numPlayers = ((PlayersNumber) msg).getNum();
-                //single player??
-                //deve mandare messaggio login succesful
+                table.setNumPlayers(((PlayersNumber) msg).getNum());
+                vv.displayGenericMessage("Please wait for other Players");
+                break;
+
         }
     }
 
@@ -145,4 +153,4 @@ public class GameController implements Observer {
 }
 
 
-//inizializza nel serer(da costruttore in server app) la vv, a cui dopo passi l'handler una volta che è stato creato
+//todo: inizializza nel server(da costruttore in server app) la vv, a cui dopo passi l'handler una volta che è stato creato

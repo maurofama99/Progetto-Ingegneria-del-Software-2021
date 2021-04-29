@@ -11,13 +11,14 @@ import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Cli implements View {
+public class Cli extends ClientObservable implements View {
 
     private ServerHandler serverHandler;
 
@@ -30,7 +31,9 @@ public class Cli implements View {
         System.out.println("What's your nickname? (Should be different from other players)");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
-        serverHandler.sendMessage(new LoginData(nickname));
+        //notifica il client di mandare il messaggio
+        notifyObservers(new LoginData(nickname));
+        //serverHandler.sendMessage(new LoginData(nickname));
     }
 
     @Override

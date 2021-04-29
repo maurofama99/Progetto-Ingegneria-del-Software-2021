@@ -2,7 +2,9 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -81,14 +83,17 @@ public class ClientHandler implements Runnable
         try {
             //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
             while (true) {
-                /* read commands from the client, process them, and send replies */
+                /* read messages from the client, process them, and send replies */
                 Message msg = (Message) input.readObject();
-
-                //Procedura inserimento player
-               if(msg.getMessageType() == Content.LOGIN && msg.getSenderUser() != null){
-                   isLogged = true;
-               }
-               server.receiveMessage(msg);
+                //se arriva un messaggio login_data significa che un client si è appena connesso
+                //se un client si connette c'è bisogno di assegnargli una virtual view per comunicare
+                //la virtual view deve essere aggiunta alla mappa delle virtual view
+                if (msg.getMessageType() == Content.LOGIN_DATA){
+                    VirtualView vv = new VirtualView(this);
+                    server.getGameController().getVvMap().put(((LoginData)msg).getNickname(),vv);
+                    server.receiveMessage(msg);
+                }
+                server.receiveMessage(msg);
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();

@@ -118,5 +118,5 @@ public interface View {
      */
     void displayWinningMsg(String win);
 
-    void fetchPlayersNumber();
+    void fetchPlayersNumber() throws IOException;
 }

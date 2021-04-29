@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.leadercards.*;
 import it.polimi.ingsw.model.resources.ResourceType;

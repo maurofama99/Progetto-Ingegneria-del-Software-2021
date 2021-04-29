@@ -18,11 +18,9 @@ public class Server implements Runnable {
      */
     public final static int SOCKET_PORT = 1269;
     private GameController gameController;
-    private HashMap<String, ClientHandler> playerClientHandlerHashMap;
 
     public Server(GameController gameController) {
         this.gameController = gameController;
-        playerClientHandlerHashMap = new HashMap<>();
     }
 
     public GameController getGameController() {
@@ -59,7 +57,6 @@ public class Server implements Runnable {
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();
             } catch (IOException e) {
-                System.out.println("Connection dropped");
                 System.out.println("Connection dropped");
             }
         }

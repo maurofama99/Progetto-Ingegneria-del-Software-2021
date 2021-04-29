@@ -3,6 +3,8 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.server.Server;
+import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.Gui;
@@ -14,7 +16,8 @@ import java.util.Scanner;
 /**
  * Client for the Master of Renaissance game.
  */
-public class Client implements Runnable {
+
+public class Client implements Runnable, ClientObserver {
     private ServerHandler serverHandler;
     private View view;
 
@@ -90,7 +93,7 @@ public class Client implements Runnable {
         }
     }
 
-    public void receiveMessage(Message msg){
+    public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
                 //se il messaggio ricevuto è di LOGIN REQUEST allora invia i tuoi login data

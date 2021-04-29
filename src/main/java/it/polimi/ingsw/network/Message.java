@@ -11,11 +11,11 @@ public class Message implements Serializable {
         this.messageType = messageType;
     }
 
-    public Message(Content messageType){
+    public Message(Content messageType) {
         this.messageType = messageType;
     }
 
-    public String getSenderUser(){
+    public String getSenderUser() {
         return senderUser;
     }
 
@@ -24,7 +24,7 @@ public class Message implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Message[" +
                 "senderUser='" + senderUser + '\'' +
                 ", content=" + messageType +
