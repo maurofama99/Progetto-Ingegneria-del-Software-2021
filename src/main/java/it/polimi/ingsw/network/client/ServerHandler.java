@@ -121,6 +121,7 @@ public class ServerHandler implements Runnable
      */
     public void sendMessage(Message msg) {
         try {
+            output.reset();
             output.writeObject(msg);
             output.flush();
 

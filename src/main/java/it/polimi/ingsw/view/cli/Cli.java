@@ -26,6 +26,8 @@ public class Cli extends ClientObservable implements View {
         this.serverHandler = serverHandler;
     }
 
+
+
     @Override
     public void fetchNickname() {
         System.out.println("What's your nickname? (Should be different from other players)");
@@ -33,7 +35,6 @@ public class Cli extends ClientObservable implements View {
         String nickname = scanner.nextLine();
         //notifica il client di mandare il messaggio
         notifyObservers(new LoginData(nickname));
-        //serverHandler.sendMessage(new LoginData(nickname));
     }
 
     @Override

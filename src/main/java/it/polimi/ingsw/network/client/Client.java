@@ -41,6 +41,7 @@ public class Client implements Runnable, ClientObserver {
         if (cli){
             Cli view = new Cli();
             Client client = new Client(view);
+            view.addClientObserver(client);
             client.run();
         } else {
             Gui view = new Gui(); //chiaramente non si inizializza così la GUI, messo solo per chiarezza
@@ -53,9 +54,10 @@ public class Client implements Runnable, ClientObserver {
     @Override
     public void run() {
 
-        System.out.println("Insert the IP address of the server:");
+        /*System.out.println("Insert the IP address of the server:");
         Scanner scanner = new Scanner(System.in);
-        String ip = scanner.nextLine();
+        String ip = scanner.nextLine();*/
+        String ip = "localhost";
 
         /* Open connection to the server and start a thread for handling
          * communication. */

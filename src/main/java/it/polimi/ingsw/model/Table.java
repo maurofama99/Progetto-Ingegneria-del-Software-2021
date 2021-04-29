@@ -22,16 +22,14 @@ import static it.polimi.ingsw.model.devcard.Color.GREEN;
  */
 public class Table extends Observable {
     private int numPlayers;
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private int currentTurn;
     private ArrayList<Token> tokenStack;
     private MarketTray marketTray;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
 
-    public Table(int numPlayers, ArrayList<Player> players) {
-        this.numPlayers = numPlayers;
-        this.players = players;
+    public Table() {
         this.currentTurn = 0;
     }
 

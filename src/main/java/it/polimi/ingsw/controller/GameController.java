@@ -21,7 +21,7 @@ public class GameController implements Observer {
     private Table table;
     private TableState tableState = TableState.WAITING;
     private VirtualView virtualView;
-    private HashMap<String, VirtualView> vvMap;
+    private HashMap<String, VirtualView> vvMap = new HashMap<>();
 
     public HashMap<String, VirtualView> getVvMap() {
         return vvMap;
@@ -85,6 +85,7 @@ public class GameController implements Observer {
         switch (msg.getMessageType()) {
 
             case LOGIN_DATA:
+                table.addObserver(vv);
                 if (table.getPlayers().size() == 0) {
                     vv.fetchPlayersNumber();
                     break;
