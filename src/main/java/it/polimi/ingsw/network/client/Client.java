@@ -102,7 +102,7 @@ public class Client implements Runnable, ClientObserver {
                 view.fetchNickname(); //chiede al player il nickname e lo invia al server
                 break;
             case NUM_PLAYERS_REQUEST:
-                //view.fetchPlayersNumber();
+                view.fetchPlayersNumber();
             case LOGIN_SUCCESSFUL:
                 //view.waitFor();
                 break;

@@ -87,6 +87,7 @@ public class GameController implements Observer {
             case LOGIN_DATA:
                 table.addObserver(vv);
                 if (table.getPlayers().size() == 0) {
+                    System.out.println("arriva?");
                     vv.fetchPlayersNumber();
                     break;
                 }
