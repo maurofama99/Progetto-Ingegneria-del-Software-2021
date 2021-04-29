@@ -80,6 +80,7 @@ public class Client implements Runnable {
         return serverHandler;
     }
 
+    //secondo me questo metodo non serve perchè è già nel serverHandler
     public void sendMessage(Message msg) {
         try {
             serverHandler.getOutput().writeObject(msg);

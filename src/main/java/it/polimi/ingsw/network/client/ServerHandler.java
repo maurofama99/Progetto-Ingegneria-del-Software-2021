@@ -123,6 +123,7 @@ public class ServerHandler implements Runnable
         try {
             output.writeObject(msg);
             output.flush();
+
         } catch (IOException e) {
             System.out.println("Communication error");
         }
