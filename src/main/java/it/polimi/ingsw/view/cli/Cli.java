@@ -26,42 +26,33 @@ public class Cli extends ClientObservable implements View {
         this.serverHandler = serverHandler;
     }
 
-
+    @Override
+    public void fetchPlayersNumber() {
+        System.out.println("Number of players?");
+        Scanner scanner = new Scanner(System.in);
+        int numPlayers = scanner.nextInt();
+        notifyObservers(new PlayersNumber(nickname, numPlayers));
+    }
 
     @Override
     public void fetchNickname() {
         System.out.println("What's your nickname? (Should be different from other players)");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
-        //notifica il client di mandare il messaggio
+        this.nickname = nickname;
         notifyObservers(new LoginData(nickname));
     }
 
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
-
+        System.out.println(genericMessage);
     }
-
-    @Override
-    public void fetchPlayersNumber() {
-        System.out.println("Number of players?");
-        Scanner scanner = new Scanner(System.in);
-        int numPlayers = scanner.nextInt();
-        notifyObservers(new PlayersNumber(numPlayers));
-    }
-
-
-
 
     @Override
     public void displayLoginResult(boolean nicknameIsOk, boolean connectionIsOk, String nickname) {
 
     }
 
-    @Override
-    public void displayGenericMsg(String genericMessage) {
-
-    }
 
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
@@ -108,15 +99,6 @@ public class Cli extends ClientObservable implements View {
 
     }
 
-    @Override
-    public void displayWaitingRoom(List<String> nicknames, int numPlayers) {
-
-    }
-
-    @Override
-    public void fetchFirstPlayer(List<String> nicknames) {
-
-    }
 
     @Override
     public void displayWinningMsg(String win) {

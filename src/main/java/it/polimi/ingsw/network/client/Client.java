@@ -54,10 +54,9 @@ public class Client implements Runnable, ClientObserver {
     @Override
     public void run() {
 
-        /*System.out.println("Insert the IP address of the server:");
+        System.out.println("Insert the IP address of the server:");
         Scanner scanner = new Scanner(System.in);
-        String ip = scanner.nextLine();*/
-        String ip = "localhost";
+        String ip = scanner.nextLine();
 
         /* Open connection to the server and start a thread for handling
          * communication. */
@@ -85,27 +84,17 @@ public class Client implements Runnable, ClientObserver {
         return serverHandler;
     }
 
-    //secondo me questo metodo non serve perchè è già nel serverHandler
-    public void sendMessage(Message msg) {
-        try {
-            serverHandler.getOutput().writeObject(msg);
-            serverHandler.getOutput().flush();
-        } catch (IOException e) {
-            System.out.println("Communication error");
-        }
-    }
 
     public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
-            case LOGIN_REQUEST:
-                //se il messaggio ricevuto è di LOGIN REQUEST allora invia i tuoi login data
-                view.fetchNickname(); //chiede al player il nickname e lo invia al server
-                break;
             case NUM_PLAYERS_REQUEST:
                 view.fetchPlayersNumber();
-            case LOGIN_SUCCESSFUL:
-                //view.waitFor();
                 break;
+            case LOGIN_REQUEST:
+                view.fetchNickname(); //chiede al player il nickname e lo invia al server
+                break;
+            case GENERIC_MESSAGE:
+                view.displayGenericMessage(msg.toString());
             case LOGIN_FAIL:
                 //view.fetchNickname();
                 break;

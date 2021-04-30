@@ -11,4 +11,8 @@ public class GenericMessage extends Message {
         this.genericMessage = genericMessage;
     }
 
+    @Override
+    public String toString() {
+        return genericMessage;
+    }
 }

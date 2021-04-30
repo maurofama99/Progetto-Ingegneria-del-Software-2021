@@ -22,7 +22,8 @@ public interface View {
     void fetchNickname() throws IOException;
 
     /**
-     * Put the player in a waiting state
+     * Displays a generic message for the view
+     * @param genericMessage the message displayed
      */
     void displayGenericMessage(String genericMessage) throws IOException;
 
@@ -34,12 +35,6 @@ public interface View {
      * @param nickname nickname checked
      */
     void displayLoginResult(boolean nicknameIsOk, boolean connectionIsOk, String nickname);
-
-    /**
-     * Displays a generic message for the view
-     * @param genericMessage the message displayed
-     */
-    void displayGenericMsg(String genericMessage);
 
     /**
      * Displays the disconnected player
@@ -99,18 +94,6 @@ public interface View {
      */
     void displayMarket(MarketTray marketTray);
 
-    /**
-     * Shows a list of the players in the waiting room
-     * @param nicknames players' nicknames
-     * @param numPlayers number of players connected to the lobby
-     */
-    void displayWaitingRoom(List<String> nicknames, int numPlayers);
-
-    /**
-     * Fetches the first player of the game
-     * @param nicknames nicknames of all players connected
-     */
-    void fetchFirstPlayer(List<String> nicknames);
 
     /**
      * Ending message when a player wins

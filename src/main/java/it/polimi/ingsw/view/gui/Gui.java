@@ -29,11 +29,6 @@ public class Gui implements View {
     }
 
     @Override
-    public void displayGenericMsg(String genericMessage) {
-
-    }
-
-    @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
 
     }
@@ -78,15 +73,6 @@ public class Gui implements View {
 
     }
 
-    @Override
-    public void displayWaitingRoom(List<String> nicknames, int numPlayers) {
-
-    }
-
-    @Override
-    public void fetchFirstPlayer(List<String> nicknames) {
-
-    }
 
     @Override
     public void displayWinningMsg(String win) {

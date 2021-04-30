@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
+import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
+import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
@@ -93,7 +95,8 @@ public class ClientHandler implements Runnable
                     VirtualView vv = new VirtualView(this);
                     server.getGameController().getVvMap().put(((LoginData)msg).getNickname(),vv);
                     server.receiveMessage(msg);
-                } else server.receiveMessage(msg);
+                }
+                else server.receiveMessage(msg);
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();

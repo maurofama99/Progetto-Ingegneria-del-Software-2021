@@ -42,31 +42,12 @@ public class GameController implements Observer {
         setTableState(TableState.IN_GAME);
     }
 
-    //metodo addInitialBonus ma come faccio a sapere quanti giocatori?
-    /*
-    public Message addInitialBonus(Player activePlayer){
-        switch (playersInGame.indexOf(activePlayer)){
-            case 0:
-                //salta turno
-            case 1:
-                //chiedi quale risorsa vuole, poi scarta risorsa leader
-            case 2:
-                //chiedi quale risorsa vuole e muovi di uno
-            case 3:
-                //chiedi quale risorsa vuole, chiedi quale altra risorsa vuole, muovi di uno
-        }
-    }
-    */
-
-    /*
-    public Message discardInitialLeaderCards(){
-     fa vedere le 4 carte e  2 verrano scartate
-    }
-     */
-
     public void receiveMessage(Message msg) throws IOException {
 
         switch (tableState) {
+            case WAITING_FOR_FIRSTPLAYER:
+                receiveMessageOnFirstLogin(msg);
+                break;
             case WAITING:
                 receiveMessageOnLogin(msg);
             case SETUP:
@@ -78,6 +59,37 @@ public class GameController implements Observer {
         }
     }
 
+    public void receiveMessageOnFirstLogin(Message msg) throws IOException{
+
+        VirtualView vv = vvMap.get(msg.getSenderUser());
+
+        switch (msg.getMessageType()){
+            case LOGIN_DATA:
+                table.addObserver(vv);
+                System.out.println(((LoginData) msg).getNickname() + " has joined");
+                table.addPlayer(((LoginData) msg).getNickname());
+                if(firstPlayer.compareAndSet(true, false)) {
+                    vv.fetchPlayersNumber();
+                }
+                else {
+                    vv.displayGenericMessage("Please wait for other Players");
+                    if (verifyNumPlayers()) startGame();//due client entrano in questo case
+                }
+                break;
+
+
+            case PLAYERS_NUMBER:
+                //TODO: SINGLEPLAYER?
+                if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
+                    vv.fetchPlayersNumber();
+                    break;
+                }
+                table.setNumPlayers(((PlayersNumber) msg).getNum());
+                setTableState(TableState.WAITING);
+                vv.displayGenericMessage("Please wait for other Players");
+                break;
+        }
+    }
     public void receiveMessageOnLogin(Message msg) throws IOException {
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
@@ -86,30 +98,18 @@ public class GameController implements Observer {
 
             case LOGIN_DATA:
                 table.addObserver(vv);
-                if (table.getPlayers().size() == 0) {
-                    System.out.println("arriva?");
-                    vv.fetchPlayersNumber();
-                    break;
-                }
                 for (Player player : table.getPlayers()) {
                     if (player.getNickname().equals(((LoginData) msg).getNickname())) {
                         vv.fetchNickname();
                         break;
                     }
                 }
+
+                System.out.println("entri qui scemo?");
                 System.out.println(((LoginData) msg).getNickname() + " has joined");
                 table.addPlayer(((LoginData) msg).getNickname());
                 vv.displayGenericMessage("Please wait for other Players");
                 if (verifyNumPlayers()) startGame();
-                break;
-
-            case PLAYERS_NUMBER:
-                //TODO: SINGLEPLAYER?
-                if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
-                    vv.fetchPlayersNumber();
-                }
-                table.setNumPlayers(((PlayersNumber) msg).getNum());
-                vv.displayGenericMessage("Please wait for other Players");
                 break;
 
         }
