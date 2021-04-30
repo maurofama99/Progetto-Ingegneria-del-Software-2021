@@ -18,6 +18,7 @@ public class FaithTrack {
     private boolean secondFavorTile;
     private boolean thirdFavorTile;
 
+
     public FaithTrack() {
         this.faithMarkerPosition = -1;
         this.blackCrossPosition = -1;
