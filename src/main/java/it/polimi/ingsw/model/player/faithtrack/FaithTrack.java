@@ -14,9 +14,6 @@ public class FaithTrack {
     private int faithMarkerPosition;
     private int blackCrossPosition;
     private ArrayList<Tile> track;
-    //private ArrayList<Tile> firstSection;
-    //private ArrayList<Tile> secondSection;
-    //private ArrayList<Tile> thirdSection;
     private boolean firstFavorTile;
     private boolean secondFavorTile;
     private boolean thirdFavorTile;
@@ -25,9 +22,6 @@ public class FaithTrack {
         this.faithMarkerPosition = -1;
         this.blackCrossPosition = -1;
         this.track = new ArrayList<>();
-        //this.firstSection = firstSection;
-        //this.secondSection = secondSection;
-        //this.thirdSection = thirdSection;
         this.firstFavorTile = false;
         this.secondFavorTile = false;
         this.thirdFavorTile = false;
@@ -54,19 +48,7 @@ public class FaithTrack {
         return track;
     }
 
-    /*
-    public ArrayList<Tile> getFirstSection() {
-        return firstSection;
-    }
 
-    public ArrayList<Tile> getSecondSection() {
-        return secondSection;
-    }
-
-    public ArrayList<Tile> getThirdSection() {
-        return thirdSection;
-    }
-    */
 
     public boolean getIsFirstFavorTile() {
         return firstFavorTile;
@@ -168,29 +150,7 @@ public class FaithTrack {
         track.add(tile24);
         //End of add
 
-        /*
-        //Create the sections and adds to Lists
-        firstSection = new ArrayList<Tile>();
-        secondSection = new ArrayList<Tile>();
-        thirdSection = new ArrayList<Tile>();
-        firstSection.add(tile5);
-        firstSection.add(tile6);
-        firstSection.add(tile7);
-        firstSection.add(tile8);
-        secondSection.add(tile12);
-        secondSection.add(tile13);
-        secondSection.add(tile14);
-        secondSection.add(tile15);
-        secondSection.add(tile16);
-        thirdSection.add(tile19);
-        thirdSection.add(tile20);
-        thirdSection.add(tile21);
-        thirdSection.add(tile22);
-        thirdSection.add(tile23);
-        thirdSection.add(tile24);
-        //End of create sections
 
-         */
     }
 
 
