@@ -66,8 +66,6 @@ public class GameController{
         }
     }
 
-
-
     public void receiveMessageOnFirstLogin(Message msg) throws IOException{
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
@@ -86,7 +84,6 @@ public class GameController{
                 }
                 break;
 
-
             case PLAYERS_NUMBER:
                 if (((PlayersNumber) msg).getNum() == 1){
                     vv.displayGenericMessage("You choose Single Player Game");
@@ -102,7 +99,6 @@ public class GameController{
                 break;
         }
     }
-
 
     public void receiveMessageOnLogin(Message msg) throws IOException {
 
@@ -141,7 +137,6 @@ public class GameController{
     public void giveInitialBonus(String nickname) {
 
     }
-
 
     public void receiveMessageInGame(Message msg) {
     }
