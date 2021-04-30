@@ -13,6 +13,6 @@ public class VictoryTest {
         Player p = new Player("Test");
         p.setVictoryPoints(0);
         v.addPoints(v.getPoints(), p);
-        System.out.println(p.getVictoryPoints());
+        assertEquals(5, p.getVictoryPoints());
     }
 }
