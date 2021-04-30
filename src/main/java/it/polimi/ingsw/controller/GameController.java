@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 //partita con minimo 2 giocatori
-//
-public class GameController implements Observer {
+
+public class GameController{
     private Player activePlayer;
 
     private Table table;
@@ -88,7 +88,10 @@ public class GameController implements Observer {
 
 
             case PLAYERS_NUMBER:
-                //TODO: SINGLEPLAYER?
+                if (((PlayersNumber) msg).getNum() == 1){
+                    vv.displayGenericMessage("You choose Single Player Game");
+                    setTableState(TableState.SINGLEPLAYER);
+                }
                 if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
                     vv.fetchPlayersNumber();
                     break;
@@ -99,6 +102,8 @@ public class GameController implements Observer {
                 break;
         }
     }
+
+
     public void receiveMessageOnLogin(Message msg) throws IOException {
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
@@ -113,8 +118,6 @@ public class GameController implements Observer {
                         break;
                     }
                 }
-
-                System.out.println("entri qui scemo?");
                 System.out.println(((LoginData) msg).getNickname() + " has joined");
                 table.addPlayer(((LoginData) msg).getNickname());
                 vv.displayGenericMessage("Please wait for other Players");
@@ -129,7 +132,9 @@ public class GameController implements Observer {
     }
 
     public void startGame() throws IOException {
-        //vanno selezionate tutte le view e poi chiami displayGenericMessage("Game can start to be setup!");
+        for (String key: vvMap.keySet()){
+            vvMap.get(key).displayGenericMessage("All players are joined, game is loading...");
+        }
         setTableState(TableState.SETUP);
     }
 
@@ -154,16 +159,6 @@ public class GameController implements Observer {
         return table.getNumPlayers() == table.getPlayers().size();
     }
 
-
-
-    //riceve un update dal model, tipo da table??
-    //
-    @Override
-    public void update(Message message) throws IOException {
-        //tramite la virtual view manda messaggi in base al tipo di messaggio
-        //tipo chiedere nickname
-        //virtualView.fetchNickname
-    }
 
 }
 

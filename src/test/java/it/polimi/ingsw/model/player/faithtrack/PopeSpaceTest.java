@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
+import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.Test;
 
