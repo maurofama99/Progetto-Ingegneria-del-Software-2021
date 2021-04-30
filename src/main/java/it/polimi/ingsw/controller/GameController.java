@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +20,10 @@ public class GameController implements Observer {
     private Player activePlayer;
     private ClientHandler clientHandler;
     private Table table;
-    private TableState tableState = TableState.WAITING;
+    private TableState tableState = TableState.WAITING_FOR_FIRSTPLAYER;
     private VirtualView virtualView;
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
+    private AtomicBoolean firstPlayer = new AtomicBoolean(true);
 
     public HashMap<String, VirtualView> getVvMap() {
         return vvMap;
@@ -50,12 +52,16 @@ public class GameController implements Observer {
                 break;
             case WAITING:
                 receiveMessageOnLogin(msg);
+                break;
             case SETUP:
                 receiveMessageOnSetup(msg);
+                break;
             case IN_GAME:
                 receiveMessageInGame(msg);
+                break;
             case END:
                 receiveMessageOnEndGame(msg);
+                break;
         }
     }
 

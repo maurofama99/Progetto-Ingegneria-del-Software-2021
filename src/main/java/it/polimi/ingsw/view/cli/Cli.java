@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class Cli extends ClientObservable implements View {
 
     private ServerHandler serverHandler;
+    private String nickname;
 
     public void setServerHandler(ServerHandler serverHandler) {
         this.serverHandler = serverHandler;
