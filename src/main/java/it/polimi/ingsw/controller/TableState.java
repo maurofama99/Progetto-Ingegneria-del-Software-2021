@@ -5,5 +5,6 @@ public enum TableState {
     WAITING,
     SETUP,
     IN_GAME,
-    END
+    END,
+    SINGLEPLAYER
 }

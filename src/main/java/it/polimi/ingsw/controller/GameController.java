@@ -5,8 +5,6 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
-import it.polimi.ingsw.network.server.ClientHandler;
-import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -18,10 +16,10 @@ import java.util.HashMap;
 //
 public class GameController implements Observer {
     private Player activePlayer;
-    private ClientHandler clientHandler;
+
     private Table table;
     private TableState tableState = TableState.WAITING_FOR_FIRSTPLAYER;
-    private VirtualView virtualView;
+
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
     private AtomicBoolean firstPlayer = new AtomicBoolean(true);
 
@@ -62,8 +60,13 @@ public class GameController implements Observer {
             case END:
                 receiveMessageOnEndGame(msg);
                 break;
+            case SINGLEPLAYER:
+                receiveMessageOnSinglePlayer(msg);
+                break;
         }
     }
+
+
 
     public void receiveMessageOnFirstLogin(Message msg) throws IOException{
 
@@ -141,6 +144,10 @@ public class GameController implements Observer {
     public void receiveMessageOnEndGame(Message msg) {
     }
 
+    private void receiveMessageOnSinglePlayer(Message msg) {
+
+    }
+
 
     //verifica se il numero d giocatori è corretto per iniziare la partita
     public boolean verifyNumPlayers() {
@@ -160,5 +167,3 @@ public class GameController implements Observer {
 
 }
 
-
-//todo: inizializza nel server(da costruttore in server app) la vv, a cui dopo passi l'handler una volta che è stato creato
