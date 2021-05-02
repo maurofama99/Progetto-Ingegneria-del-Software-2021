@@ -39,12 +39,12 @@ public class Resource implements Cloneable{
 
     @Override
     public String toString() {
-        if (type.equals(ResourceType.SHIELD)) return "SHIELD";
-        else if (type.equals(ResourceType.COIN)) return "COIN";
-        else if (type.equals(ResourceType.STONE)) return "STONE";
-        else if (type.equals(ResourceType.SERVANT)) return "SERVANT";
-        else if (type.equals(ResourceType.FAITHPOINT)) return "FAITHPOINT";
-        else if (type.equals(ResourceType.WHITERESOURCE)) return "WHITE";
+        if (type.equals(ResourceType.SHIELD)) return qnt + " SHIELD";
+        else if (type.equals(ResourceType.COIN)) return qnt + " COIN";
+        else if (type.equals(ResourceType.STONE)) return qnt + " STONE";
+        else if (type.equals(ResourceType.SERVANT)) return qnt + " SERVANT";
+        else if (type.equals(ResourceType.FAITHPOINT)) return qnt + " FAITHPOINT";
+        else if (type.equals(ResourceType.WHITERESOURCE)) return qnt + " WHITE";
         else return "Error in Resource toString()";
     }
 }

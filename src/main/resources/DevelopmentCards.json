@@ -1,6 +1,4 @@
-{
-  "DevelopmentCards":[
-    {
+[   {
       "level" : 1,
       "cardColor": "2",
       "victoryPointsDevCard" : 1,
@@ -920,8 +918,7 @@
         ]
       }
     }
-  ]
-}
+]
 
 
 

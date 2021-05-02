@@ -55,8 +55,6 @@ public class Table extends Observable {
         return marketTray;
     }
 
-
-
     public LorenzoIlMagnifico getLorenzoIlMagnifico() {
         return lorenzoIlMagnifico;
     }

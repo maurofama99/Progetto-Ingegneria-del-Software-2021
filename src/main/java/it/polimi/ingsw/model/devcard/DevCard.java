@@ -13,8 +13,8 @@ import java.util.NoSuchElementException;
  */
 public class DevCard {
     private int level;
-    @SerializedName("color")
-    private Color color;
+    @SerializedName("cardColor")
+    private Color cardColor;
     private int victoryPointsDevCard;
     private boolean isPlaced;
     private ArrayList<Resource> requirementsDevCard;
@@ -22,7 +22,7 @@ public class DevCard {
 
     public DevCard(int level, Color color, int victoryPointsDevCard, ArrayList<Resource> requirementsDevCard, Production production) {
         this.level = level;
-        this.color = color;
+        this.cardColor = color;
         this.victoryPointsDevCard = victoryPointsDevCard;
         this.isPlaced = false;
         this.requirementsDevCard = requirementsDevCard;
@@ -42,7 +42,7 @@ public class DevCard {
     }
 
     public Color getCardColor() {
-        return color;
+        return cardColor;
     }
 
     public int getVictoryPointsDevCard() {
@@ -75,4 +75,14 @@ public class DevCard {
         }
     }
 
+    @Override
+    public String toString() {
+        return "DevCard{" +
+                "level=" + level +
+                ", cardColor=" + cardColor +
+                ", victoryPointsDevCard=" + victoryPointsDevCard +
+                ", requirementsDevCard=" + requirementsDevCard +
+                ", production=" + production +
+                '}';
+    }
 }

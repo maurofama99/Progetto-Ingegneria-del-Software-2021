@@ -46,4 +46,12 @@ public class Production {
         } catch (NoSuchElementException ex){ return false;}
     }
 
+    @Override
+    public String toString() {
+        return "Production{" +
+                "productionName='" + productionName + '\'' +
+                ", input=" + input +
+                ", output=" + output +
+                '}';
+    }
 }
