@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.devcard;
 
 import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  * Class of dev. cards' deck.
@@ -10,7 +11,9 @@ public class Deck {
     /**
      The arraylist is used as a stack of cards. The last one is the showed card
      */
-    Stack<DevCard>[][] fullDeck;
+    private Stack<DevCard>[][] fullDeck;
+
+    private ArrayList<DevCard> generalDeck;
 
     //inizializzazione del deck con gson
 

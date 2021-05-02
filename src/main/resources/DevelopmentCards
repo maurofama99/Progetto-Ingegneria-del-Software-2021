@@ -1,0 +1,932 @@
+{
+  "DevelopmentCards":[
+    {
+      "level" : 1,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 1,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToOneFaithPoint",
+        "input": [
+          { "qnt": 1, "type": "1" }              			 ],
+        "output": [
+          { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 4,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "3" }, { "qnt": 2 , "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinOneServantToTwoShieldsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "0" }, { "qnt": "1", "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 2,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 1, "type": "0" }, { "qnt": 1 , "type": "3" }, { "qnt": 1 , "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldToOneCoin",
+        "input": [
+          { "qnt": 1 , "type": "0" }              			 ],
+        "output": [
+          { "qnt": 1 , "type": "2" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 3,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "TwoStonesToOneCoinServantStone",
+        "input": [
+          { "qnt": 2 , "type": "0" }              			 ],
+        "output": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1 , "type": "1" }, { "qnt": 1 , "type": "3" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 7,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldToOneCoin",
+        "input": [
+          { "qnt": 2 , "type": "0" }              			 ],
+        "output": [
+          { "qnt": 2 , "type": "1" }, { "qnt": 2 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 6,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "3" }, { "qnt": 2, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneOneShieldToThreeCoins",
+        "input": [
+          { "qnt": 1 , "type": "0" }, { "qnt": 1 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 3 , "type": "2" }               			]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 8,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "0" }, { "qnt": 3, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldToTwoCoinsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "3" }, { "qnt": 1 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 5,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldToTwoFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 10,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "0" }, { "qnt": 2, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneOneServantToTwoCoinsShieldsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "0" }, { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "2" }, { "qnt": 2 , "type": "0" }, { "qnt": 1 , "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 3,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 9,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 6, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "TwoShieldsToThreeServantsTwoFaithPoints",
+        "input": [
+          { "qnt": 2 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 3 , "type": "1" }, { "qnt": 2 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 11,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 7, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldToOneServantThreeFaithPoints",
+        "input": [
+          { "qnt": 1 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 1 , "type": "1" }, { "qnt": 3 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "2",
+      "victoryPointsDevCard" : 12,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "0" }, { "qnt": 4, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToThreeServantsOneStone",
+        "input": [
+          { "qnt": 1 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 1 , "type": "3" }, { "qnt": 3 , "type": "1" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 4,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "0" }, { "qnt": 2, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneServantToTwoCoinsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "0" }, { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "2" }, { "qnt": 1 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 2,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 1, "type": "0" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToOneServant",
+        "input": [
+          { "qnt": 1 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 1 , "type": "1" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 1,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 1 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 3,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "TwoServantsToOneCoinShieldStone",
+        "input": [
+          { "qnt": 2 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1 , "type": "0" }, { "qnt": 1 , "type": "3" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 5,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToTwoFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 6,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "0" }, { "qnt": 2, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldServantToThreeStones",
+        "input": [
+          { "qnt": 1 , "type": "0" }, { "qnt": 1, "type": "1" }
+        ],
+        "output": [
+          { "qnt": 3 , "type": "3" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 8,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "0" }, { "qnt": 3, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToTwoShieldsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "0" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 7,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "TwoCoinsToTwoStonesTwoFaithPoints",
+        "input": [
+          { "qnt": 2 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 2 , "type": "3" }, { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 10,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "0" }, { "qnt": 2, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinServantToTwoShieldsStonesOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "0" }, { "qnt": 2, "type": "3" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 11,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 7, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneServantToOneCoinThreeFaithPoints",
+        "input": [
+          { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "2" }, { "qnt": 3, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 9,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 6, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "TwoServantsToThreeStonesTwoFaithPoints",
+        "input": [
+          { "qnt": 2 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "3" }, { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 3,
+      "cardColor": "0",
+      "victoryPointsDevCard" : 12,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "0" }, { "qnt": 4, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToThreeCoinOneShield",
+        "input": [
+          { "qnt": 1 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "2" }, { "qnt": 1, "type": "0" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 2,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 1, "type": "2" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneServantToStone",
+        "input": [
+          { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "3" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 3,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "TwoStonesToOneCoinServantShield",
+        "input": [
+          { "qnt": 2 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "2" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "0" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 4,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "2" }, { "qnt": 2, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldStoneToTwoServantsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "0" }, { "qnt": 1, "type": "3" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "1" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 1,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 1,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneShieldToOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "0" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 5,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneServantToTwoFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 8,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "2" }, { "qnt": 3, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneServantToOneFaithPointTwoStones",
+        "input": [
+          { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "3" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 6,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "2" }, { "qnt": 2, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinStoneToThreeServants",
+        "input": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "3" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "1" }
+        ]
+      }
+    },
+
+    {
+      "level" : 2,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 7,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "TwoServantsToTwoShieldsFaithPoint",
+        "input": [
+          { "qnt": 2 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "0" }, { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 9,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 6, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "TwoServantsToThreeShieldsTwoFaithPoints",
+        "input": [
+          { "qnt": 2 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "0" }, { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 10,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "2" }, { "qnt": 2, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinShieldToTwoServantsStonesOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "0" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "1" }, { "qnt": 2, "type": "3" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 11,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 7, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToOneShieldThreeFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "0" }, { "qnt": 3, "type": "5" }
+        ]
+      }
+    },
+
+    {
+      "level" : 3,
+      "cardColor": "1",
+      "victoryPointsDevCard" : 12,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "2" }, { "qnt": 4, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneServantToOneCoinThreeShields",
+        "input": [
+          { "qnt": 1 , "type": "1" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "2" }, { "qnt": 3, "type": "0" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 1,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 1,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 1,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 2,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 1, "type": "0" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToOneShield",
+        "input": [
+          { "qnt": 1 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "0" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 1,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 3,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "TwoCoinsToOneServantShieldStone",
+        "input": [
+          { "qnt": 2 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "0" }, { "qnt": 1, "type": "3" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 1,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 4,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 2, "type": "1" }, { "qnt": 2, "type": "3" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinShieldToTwoStonesOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "0" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "3" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 2,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 5,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToTwoFaithPoints",
+        "input": [
+          { "qnt": 1 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 2,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 6,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "1" }, { "qnt": 2, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinServantToThreeShields",
+        "input": [
+          { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "1" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "0" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 2,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 7,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "TwoStonesToTwoCoinsFaithPoints",
+        "input": [
+          { "qnt": 2 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "2" }, { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 2,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 8,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 3, "type": "1" }, { "qnt": 3, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneToTwoServantsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "1" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 3,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 9,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 6, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "TwoStonesToThreeCoinsTwoFaithPoints",
+        "input": [
+          { "qnt": 2 , "type": "3" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "2" }, { "qnt": 2, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 3,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 10,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 5, "type": "1" }, { "qnt": 2, "type": "2" }
+      ],
+      "production" :  {
+        "productionName": "OneStoneShieldToTwoCoinsServantsOneFaithPoint",
+        "input": [
+          { "qnt": 1 , "type": "3" }, { "qnt": 1, "type": "0" }
+        ],
+        "output": [
+          { "qnt": 2, "type": "2" }, { "qnt": 2, "type": "1" }, { "qnt": 1, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 3,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 11,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 7, "type": "1" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToOneStoneThreeFaithPoints",
+        "input": [
+          { "qnt": 1 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 1, "type": "3" }, { "qnt": 3, "type": "5" }
+        ]
+      }
+    },
+
+
+    {
+      "level" : 3,
+      "cardColor": "3",
+      "victoryPointsDevCard" : 12,
+      "isPlaced" : false,
+      "requirementsDevCard" : [
+        { "qnt": 4 , "type": "1" }, { "qnt": 4, "type": "0" }
+      ],
+      "production" :  {
+        "productionName": "OneCoinToThreeStonesOneServant",
+        "input": [
+          { "qnt": 1 , "type": "2" }
+        ],
+        "output": [
+          { "qnt": 3, "type": "3" }, { "qnt": 1, "type": "1" }
+        ]
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
+
