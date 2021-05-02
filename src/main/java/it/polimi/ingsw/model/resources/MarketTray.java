@@ -28,6 +28,10 @@ public class MarketTray {
     }
 
 
+    public void setUpMarket(){
+
+    }
+
     /**
      * This method is called when a player selects a row.
      * @param row which row of the market is selected

@@ -48,10 +48,9 @@ public class Production {
 
     @Override
     public String toString() {
-        return "Production{" +
-                "productionName='" + productionName + '\'' +
-                ", input=" + input +
-                ", output=" + output +
-                '}';
+        String text;
+        text = "°°°°°°°°°°°°°°°°°°°°°°°°°°°°\n| "
+                + input + " --> " + output +"\n| °°°°°°°°°°°°°°°°°°°°°°°°°°°°\n|";
+        return text;
     }
 }

@@ -101,13 +101,17 @@ public class Player {
      */
 
     public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
+
         if (personalBoard.hasEffect(EffectType.DISCOUNT)){
-            int i,k;
+            int i;
+            //todo da sistemare questo metodo
             for (i=0; i<devCardToBuy.getRequirementsDevCard().size(); i++){
-                for (k=0; k<getPersonalBoard().getActiveLeaderCards().size();k++) {
-                    if (devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(k).getLeaderEffect().getObject()))
+                if (personalBoard.getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT)
+                        && devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
                         devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
-                }
+
+                else if (devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
+                    devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
             }
         }
         devCardToBuy.checkRequirements(this);

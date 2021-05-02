@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.player.leadercards;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 
@@ -11,10 +12,10 @@ import java.util.ArrayList;
  */
 public class Discount extends LeaderEffect{
 
-    private Resource discountOn;
+    private ResourceType discountOn;
     private ArrayList<Color> cardColorRequired;
 
-    public Discount(Resource discountOn, ArrayList<Color> cardColorRequired) {
+    public Discount(ResourceType discountOn, ArrayList<Color> cardColorRequired) {
         super(EffectType.DISCOUNT);
         this.discountOn = discountOn;
         this.cardColorRequired = cardColorRequired;
@@ -22,7 +23,7 @@ public class Discount extends LeaderEffect{
 
     @Override
     public Object getObject() {
-        return discountOn.getType();
+        return discountOn;
     }
 
     /**
@@ -44,5 +45,22 @@ public class Discount extends LeaderEffect{
         }
 
         return checkColor.containsAll(cardColorRequired);
+    }
+
+
+
+    //discount:
+    //-1 scudo : una carta blu e una viola, 2pv
+    //-1 pietra : una carta verde e una blu, 2pv
+    //-1 moneta : una carta gialla e una viola , 2pv
+    //-1 servo : una carta gialla e una verde, 2pv
+
+
+    @Override
+    public String toString() {
+        return "Discount{" +
+                "discountOn=" + discountOn +
+                ", cardColorRequired=" + cardColorRequired +
+                '}';
     }
 }

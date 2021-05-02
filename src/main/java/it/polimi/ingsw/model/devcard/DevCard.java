@@ -76,14 +76,13 @@ public class DevCard {
     }
 
     @Override
-    public String toString() {
-        return "DevCard{" +
-                "level=" + level +
-                ", cardColor=" + cardColor +
-                ", victoryPointsDevCard=" + victoryPointsDevCard +
-                ", requirementsDevCard=" + requirementsDevCard +
-                ", production=" + production +
-                '}';
+    public String toString(){
+        String Text;
+        Text = "------------------------------\n| Level:" + this.level + "                 " + this.cardColor + "\n| Requirements:" +
+                this.requirementsDevCard + "\n|\n|           Production:\n| " +
+                this.getProduction() +
+                "\n-------------------------------\n\n";
+        return Text;
     }
 }
 

@@ -43,35 +43,38 @@ public class PlayerTest{
         output.add(new Resource(3, ResourceType.SHIELD));
         Production prod = new Production("prova",input,output);
 
-        // dC input: 1 stone, 2 coin
-        // dC output: 3 shield
-        // dC requirements: 2 stone
-        DevCard dCard1 = new DevCard(1, Color.GREEN, 3, requirements, prod);
-        Resource resourceRequired = new Resource(5, ResourceType.STONE);
-        Resource oneCoin = new Resource(1, ResourceType.COIN);
-
+        // dC1 input: 2 stone, 2 coin
+        // dC1 output: 3 shield
+        // dC1 requirements: 2 stone
+        DevCard dCard1 = new DevCard(1, Color.GREEN, 3, requirements,prod);
+        
+        // dC2 input: 2 stone, 2 coin
+        // dC2 output: 3 shield
+        // dC2 requirements: 2 stone
         DevCard dCard2 = new DevCard(2, Color.GREEN, 5, requirements, prod);
 
         Resource threeCoins = new Resource(3, ResourceType.COIN);
         requirements.add(threeCoins);
 
+        // dC3 input: 2 stone, 2 coin
+        // dC3 output: 3 shield
+        // dC3 requirements: 2 stone, 3coins
         DevCard dCard3 = new DevCard(1, Color.BLUE, 1, requirements, prod);
+
+        Resource resourceRequired = new Resource(5, ResourceType.STONE);
+        Resource oneCoin = new Resource(1, ResourceType.COIN);
 
         ArrayList<Color> colorsDevCards = new ArrayList<>();
         colorsDevCards.add(Color.GREEN);
-
-        ArrayList<Resource> resources= new ArrayList<>();
-        resources.add(resourceRequired);
-
-        LeaderEffect lC1Effect = new AddProduction(dCard2, resourceRequired);
-        LeaderEffect lC2Effect = new Discount(oneCoin, colorsDevCards);
+        LeaderEffect lC1Effect = new AddProduction(Color.GREEN, resourceRequired);
+        LeaderEffect lC2Effect = new Discount(oneCoin.getType(), colorsDevCards);
         LeaderEffect lC3Effect = new SwapWhite(colorsDevCards, oneCoin);
-        LeaderEffect lC4Effect = new ExtraDepot(oneCoin, resources);
+        LeaderEffect lC4Effect = new ExtraDepot(oneCoin.getType(), resourceRequired.getType());
 
-        LeaderCard lCard1 = new LeaderCard(2, lC1Effect);
-        LeaderCard lCard2 = new LeaderCard(1, lC2Effect);
-        LeaderCard lCard3 = new LeaderCard(3, lC3Effect);
-        LeaderCard lCard4 = new LeaderCard(4, lC4Effect);
+        LeaderCard lCard1 = new LeaderCard(2, lC1Effect); //AddProduction
+        LeaderCard lCard2 = new LeaderCard(1, lC2Effect); //Discount
+        LeaderCard lCard3 = new LeaderCard(3, lC3Effect); //SwapWhite
+        LeaderCard lCard4 = new LeaderCard(4, lC4Effect); //ExtraDepot
 
 
         player.getLeaderCards().add(lCard1);
@@ -79,26 +82,30 @@ public class PlayerTest{
         player.getLeaderCards().add(lCard3);
         player.getLeaderCards().add(lCard4);
 
+        //player discards two leader cards
         player.discardLeader(lCard3, lCard4);
         assertTrue(player.getLeaderCards().contains(lCard1) && player.getLeaderCards().contains(lCard2)
         && !player.getLeaderCards().contains(lCard3) && !player.getLeaderCards().contains(lCard4));
 
 
-
-        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        //add 20 stones and 3 coins to strongbox
         Resource res = new Resource(20, ResourceType.STONE);
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
         resourcesToAdd.add(res);
         resourcesToAdd.add(threeCoins);
         player.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
+        //buy dCard1 and dCard2:total cost 4 stones
         player.buyDevCard(dCard1, 0);
         player.buyDevCard(dCard2, 0);
         assertTrue(player.getPersonalBoard().getSlots()[0].getCards().contains(dCard1) && player.getPersonalBoard().getSlots()[0].getCards().contains(dCard2));
 
+        //activate two leader cards: addProduction and discount on Coin
         player.activateLeaderCard(lCard1);
         player.activateLeaderCard(lCard2);
         assertTrue(player.getPersonalBoard().getActiveLeaderCards().contains(lCard1) && player.getPersonalBoard().getActiveLeaderCards().contains(lCard2));
 
+        //check discount works
         assertTrue(player.getPersonalBoard().hasEffect(EffectType.DISCOUNT));
         player.buyDevCard(dCard3, 1);
         //todo assertEquals(1, player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt());

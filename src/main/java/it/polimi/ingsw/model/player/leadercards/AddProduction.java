@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player.leadercards;
 
+import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
@@ -9,12 +10,12 @@ import it.polimi.ingsw.model.resources.Resource;
  */
 public class AddProduction extends LeaderEffect{
 
-    private DevCard cardRequired;
+    private Color cardColorRequired;
     private Resource resourceRequired;
 
-    public AddProduction(DevCard cardRequired, Resource resourceRequired) {
+    public AddProduction(Color cardColorRequired, Resource resourceRequired) {
         super(EffectType.ADDPRODUCTION);
-        this.cardRequired = cardRequired;
+        this.cardColorRequired = cardColorRequired;
         this.resourceRequired = resourceRequired;
     }
 
@@ -34,7 +35,8 @@ public class AddProduction extends LeaderEffect{
         int i, k;
         for (i=0; i<3; i++){
             for (k=0; k<player.getPersonalBoard().getSlots()[i].getCards().size(); k++){
-                if (player.getPersonalBoard().getSlots()[i].getCards().get(k).getLevel() == cardRequired.getLevel())
+                if (player.getPersonalBoard().getSlots()[i].getCards().get(k).getLevel() == 2
+                        && player.getPersonalBoard().getSlots()[i].getCards().get(k).getCardColor().equals(cardColorRequired))
                     return true;
             }
         }

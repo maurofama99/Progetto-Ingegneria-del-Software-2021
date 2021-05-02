@@ -96,6 +96,8 @@ public class Depot {
      * @param floor           where the resource will be stored
      */
     public void addResourceToExtraDepot(Resource resourceToPlace, int floor) {
+
+        //todo da ricontrollare questo metodo
         floor = floor - 1;
         if (resourceToPlace.getType().equals(ResourceType.WHITERESOURCE))
             throw new IllegalArgumentException("It's not possible to add a white resource in depot");

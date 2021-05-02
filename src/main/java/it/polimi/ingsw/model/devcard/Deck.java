@@ -17,6 +17,7 @@ public class Deck {
     private Stack<DevCard>[][] fullDeck = new Stack[3][4];
     private ArrayList<DevCard> generalDeck;
 
+
     //when Deck class is created, generalDeck is already setted with all the devCards
     public Deck() {
         Gson gson = new Gson();

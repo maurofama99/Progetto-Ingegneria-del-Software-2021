@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -11,10 +12,10 @@ import java.util.NoSuchElementException;
  */
 public class ExtraDepot extends LeaderEffect {
 
-    private Resource toStore;
-    private ArrayList<Resource> resourceRequired;
+    private ResourceType toStore;
+    private ResourceType resourceRequired;
 
-    public ExtraDepot(Resource toStore, ArrayList<Resource> resourceRequired) {
+    public ExtraDepot(ResourceType toStore, ResourceType resourceRequired) {
         super(EffectType.EXTRADEPOT);
         this.toStore = toStore;
         this.resourceRequired = resourceRequired;
@@ -22,7 +23,7 @@ public class ExtraDepot extends LeaderEffect {
 
     @Override
     public Object getObject() {
-        return toStore.getType();
+        return toStore;
     }
 
     /**
@@ -32,13 +33,65 @@ public class ExtraDepot extends LeaderEffect {
      */
     @Override
     public boolean checkRequirementsLeaderCard(Player player) {
-        try {
-            player.getPersonalBoard().getWarehouse().removeResources(resourceRequired);
-            return true;
-        } catch (NoSuchElementException ex){
-            return false;
+        int cont = 0;
+        switch (resourceRequired) {
+            case COIN:
+                cont += player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt();
+                for (int i =0; i<3; i++){
+                    if (player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).isPresent()
+                    && player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getType().equals(ResourceType.COIN)){
+                        cont += player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getQnt();
+                    }
+                }
+                if (cont >= 5) return true;
+                break;
+
+            case SERVANT:
+                cont += player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[1].getQnt();
+                for (int i =0; i<3; i++){
+                    if (player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).isPresent()
+                            && player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getType().equals(ResourceType.SERVANT)){
+                        cont += player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getQnt();
+                    }
+                }
+                if (cont >= 5) return true;
+                break;
+            case SHIELD:
+                cont += player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[2].getQnt();
+                for (int i =0; i<3; i++){
+                    if (player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).isPresent()
+                            && player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getType().equals(ResourceType.SHIELD)){
+                        cont += player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getQnt();
+                    }
+                }
+                if (cont >= 5) return true;
+                break;
+            case STONE:
+                cont += player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt();
+                for (int i =0; i<3; i++){
+                    if (player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).isPresent()
+                            && player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getType().equals(ResourceType.STONE)){
+                        cont += player.getPersonalBoard().getWarehouse().getDepot().getFloors().get(i).get().getQnt();
+                    }
+                }
+                if (cont >= 5) return true;
+                break;
         }
+        return false;
+    }
+
+    //extra depot
+    //2 pietre: costo 5 monete, 3 pv
+    //2 servi: costo 5 pietre, 3pv
+    //2 scudi: costo 5 servi, 3pv
+    //2 monete: costo 5 scudi, 3pv
 
 
+    @Override
+    public String toString() {
+        return "ExtraDepot{" +
+                "toStore=" + toStore +
+                ", resourceRequired=" + resourceRequired +
+                '}';
     }
 }
