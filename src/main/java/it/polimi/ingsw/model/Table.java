@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import static it.polimi.ingsw.model.devcard.Color.GREEN;
 
 /**
  * Class of table, where all the stuff is placed.
@@ -38,7 +37,7 @@ public class Table extends Observable {
 
     public void setNumPlayers(int numPlayers) {
         System.out.println("Number of players set, players in game:" + players.size());
-        notifyObserver(new PlayersNumber("client",numPlayers));
+        notifyObserver(new PlayersNumber("server",numPlayers));
         this.numPlayers = numPlayers;
     }
 
@@ -67,20 +66,18 @@ public class Table extends Observable {
         Player player = new Player(nickname);
         players.add(player);
 
-        notifyObserver(new GenericMessage(nickname + " added to the game"));
+        notifyObserver(new GenericMessage(nickname + " has joined the game"));
     }
 
     /**
      * Method used to shuffle the order of the players.
      * Now TurnOrder is 1 for first player, 2 for second and so on.
      */
-
     public void setPlayersInGame(){
         Collections.shuffle(players);
         for (Player player : players){
             player.setTurnOrder(players.indexOf(player) + 1);
         }
-
     }
 
     public void nextPlayer(){

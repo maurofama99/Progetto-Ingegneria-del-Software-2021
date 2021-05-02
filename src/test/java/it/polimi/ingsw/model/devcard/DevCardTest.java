@@ -12,7 +12,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.Stack;
 
 public class DevCardTest {
 
@@ -79,6 +81,18 @@ public class DevCardTest {
         p1.activateProd(dC);
         assertTrue(p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).isEmpty());
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt());
+    }
+
+
+    @Test
+    public void placingTest(){
+        Deck deck = new Deck();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(deck.ShowedCards()[i][j]);
+            }
+            System.out.println("");
+        }
     }
 
 

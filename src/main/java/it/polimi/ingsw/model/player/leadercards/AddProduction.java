@@ -41,6 +41,24 @@ public class AddProduction extends LeaderEffect{
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "AddProduction{" +
+                "cardColorRequired=" + cardColorRequired +
+                ", resourceRequired=" + resourceRequired +
+                '}';
+    }
+
+    /*
+     AddProduction
+    1 servo --> una scelta + 1 faithP, costo: una blu livello 2 ,   4pv
+    1 pietra --> una scelta + 1 faithP, costo: una viola livello 2,  4pv
+    1 moneta --> una scelta + 1 faithP, costo: una verde livello 2, 4pv
+    1 scudo --> una scelta + 1faithP, costo: una verde livello 2, 4pv
+
+    */
+
+
 
 
 }

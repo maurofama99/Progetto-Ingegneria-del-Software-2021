@@ -49,4 +49,11 @@ public class SwapWhite extends LeaderEffect {
 
 
 
+    @Override
+    public String toString() {
+        return "SwapWhite{" +
+                "cardColorRequired=" + cardColorRequired +
+                ", newResource=" + newResource +
+                '}';
+    }
 }

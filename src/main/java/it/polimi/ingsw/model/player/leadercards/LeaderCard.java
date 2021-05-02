@@ -21,4 +21,13 @@ public class LeaderCard {
         return victoryPoints;
     }
 
+    @Override
+    public String toString() {
+        String text;
+        text = "\n-----------------------\n     " + this.victoryPoints + "\n";
+        return "LeaderCard{" +
+                "victoryPoints=" + victoryPoints +
+                ", leaderEffect=" + leaderEffect +
+                '}';
+    }
 }

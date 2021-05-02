@@ -35,13 +35,6 @@ public class GameController{
         this.tableState = tableState;
     }
 
-    public void setUpGame() {
-        //playerState è in start --> chiedere al client quale risorsa vuole aggiungere
-        //assignInitialBonus(table.getPlayers());
-
-        setTableState(TableState.IN_GAME);
-    }
-
     public void receiveMessage(Message msg) throws IOException {
 
         switch (tableState) {
@@ -79,14 +72,14 @@ public class GameController{
                     vv.fetchPlayersNumber();
                 }
                 else {
-                    vv.displayGenericMessage("Please wait for other Players");
+                    vv.displayGenericMessage("Please wait for other players to join...");
                     if (verifyNumPlayers()) startGame();//due client entrano in questo case
                 }
                 break;
 
             case PLAYERS_NUMBER:
                 if (((PlayersNumber) msg).getNum() == 1){
-                    vv.displayGenericMessage("You choose Single Player Game");
+                    vv.displayGenericMessage("You choose Single Player Mode");
                     setTableState(TableState.SINGLEPLAYER);
                 }
                 if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
@@ -95,7 +88,7 @@ public class GameController{
                 }
                 table.setNumPlayers(((PlayersNumber) msg).getNum());
                 setTableState(TableState.WAITING);
-                vv.displayGenericMessage("Please wait for other Players");
+                vv.displayGenericMessage("Please wait for other players to join...");
                 break;
         }
     }
@@ -116,7 +109,7 @@ public class GameController{
                 }
                 System.out.println(((LoginData) msg).getNickname() + " has joined");
                 table.addPlayer(((LoginData) msg).getNickname());
-                vv.displayGenericMessage("Please wait for other Players");
+                vv.displayGenericMessage("Please wait for other players to join...");
                 if (verifyNumPlayers()) startGame();
                 break;
 
@@ -132,6 +125,18 @@ public class GameController{
             vvMap.get(key).displayGenericMessage("All players are joined, game is loading...");
         }
         setTableState(TableState.SETUP);
+    }
+
+    public void setUpGame() {
+        table.setPlayersInGame(); //this method sets the turn of each player randomly
+
+
+
+
+
+
+
+        setTableState(TableState.IN_GAME);
     }
 
     public void giveInitialBonus(String nickname) {

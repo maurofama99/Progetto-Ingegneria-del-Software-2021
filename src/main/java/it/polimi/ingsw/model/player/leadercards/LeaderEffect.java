@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.warehouse.StrongBox;
 
 public abstract class LeaderEffect {
 

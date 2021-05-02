@@ -1,0 +1,163 @@
+[
+
+  {
+    "victoryPoints" : 4,
+    "leaderEffect" : {
+                        "effectType" : "addproduction",
+                        "cardColorRequired" : "1",
+                        "resourceRequired" : { "qnt": 1, "type": "1" }
+                        }
+  },
+
+  {
+    "victoryPoints" : 4,
+    "leaderEffect" : {
+      "effectType" : "addproduction",
+      "cardColorRequired" : "3",
+      "resourceRequired" : { "qnt": 1, "type": "3" }
+    }
+  },
+
+  {
+    "victoryPoints" : 4,
+    "leaderEffect" : {
+      "effectType" : "addproduction",
+      "cardColorRequired" : "0",
+      "resourceRequired" : { "qnt": 1, "type": "2" }
+    }
+  },
+
+  {
+    "victoryPoints" : 4,
+    "leaderEffect" : {
+      "effectType" : "addproduction",
+      "cardColorRequired" : "2",
+      "resourceRequired" : { "qnt": 1, "type": "0" }
+    }
+  },
+
+  {
+    "victoryPoints" : 2,
+    "leaderEffect" : {
+      "effectType" : "discount",
+      "discountOn" : "0",
+      "cardColorRequired" : ["1", "3"]
+    }
+  },
+
+  {
+    "victoryPoints" : 2,
+    "leaderEffect" : {
+      "effectType" : "discount",
+      "discountOn" : "3",
+      "cardColorRequired" : ["0", "1"]
+    }
+  },
+
+  {
+    "victoryPoints" : 2,
+    "leaderEffect" : {
+      "effectType" : "discount",
+      "discountOn" : "2",
+      "cardColorRequired" : ["2", "3"]
+    }
+  },
+
+  {
+    "victoryPoints" : 2,
+    "leaderEffect" : {
+      "effectType" : "discount",
+      "discountOn" : "1",
+      "cardColorRequired" : ["0", "2"]
+    }
+  },
+
+  {
+    "victoryPoints" : 3,
+    "leaderEffect" : {
+      "effectType" : "extradepot",
+      "toStore" : "3",
+      "resourceRequired" : "2"
+    }
+  },
+
+  {
+    "victoryPoints" : 3,
+    "leaderEffect" : {
+      "effectType" : "extradepot",
+      "toStore" : "1",
+      "resourceRequired" : "3"
+    }
+  },
+
+  {
+    "victoryPoints" : 3,
+    "leaderEffect" : {
+      "effectType" : "extradepot",
+      "toStore" : "0",
+      "resourceRequired" : "1"
+    }
+  },
+
+  {
+    "victoryPoints" : 3,
+    "leaderEffect" : {
+      "effectType" : "extradepot",
+      "toStore" : "2",
+      "resourceRequired" : "0"
+    }
+  },
+
+  {
+    "victoryPoints" : 5,
+    "leaderEffect" : {
+      "effectType" : "swapwhite",
+      "cardColorRequired" : ["2", "2", "1"],
+      "newResource" : { "qnt": 1, "type": "1" }
+    }
+  },
+
+  {
+    "victoryPoints" : 5,
+    "leaderEffect" : {
+      "effectType" : "swapwhite",
+      "cardColorRequired" : ["0", "0", "3"],
+      "newResource" : { "qnt": 1, "type": "0" }
+    }
+  },
+
+  {
+    "victoryPoints" : 5,
+    "leaderEffect" : {
+      "effectType" : "swapwhite",
+      "cardColorRequired" : ["1", "2", "1"],
+      "newResource" : { "qnt": 1, "type": "3" }
+    }
+  },
+
+  {
+    "victoryPoints" : 5,
+    "leaderEffect" : {
+      "effectType" : "swapwhite",
+      "cardColorRequired" : ["3", "3", "0"],
+      "newResource" : { "qnt": 1, "type": "2" }
+    }
+  }
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
