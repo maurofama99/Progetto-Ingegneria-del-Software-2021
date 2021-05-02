@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Player {
     private final String nickname;
     private boolean isCurrentTurn;
-    private boolean hasMoved;
+    private int turnOrder;
     private ArrayList<LeaderCard> leaderCards;
     private int victoryPoints;
     private PersonalBoard personalBoard;
@@ -21,12 +21,20 @@ public class Player {
     public Player(String nickname) {
         this.nickname = nickname;
         this.isCurrentTurn = false;
-        this.hasMoved = false;
+        this.turnOrder = 0;
         this.leaderCards = new ArrayList<>();
     }
 
     public String getNickname() {
         return nickname;
+    }
+
+    public boolean isCurrentTurn() {
+        return isCurrentTurn;
+    }
+
+    public int getTurnOrder() {
+        return turnOrder;
     }
 
     public ArrayList<LeaderCard> getLeaderCards() {
@@ -35,6 +43,14 @@ public class Player {
 
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
+    }
+
+    public void setCurrentTurn(boolean currentTurn) {
+        isCurrentTurn = currentTurn;
+    }
+
+    public void setTurnOrder(int turnOrder) {
+        this.turnOrder = turnOrder;
     }
 
     public void setVictoryPoints(int victoryPoints) {
@@ -106,9 +122,6 @@ public class Player {
         devCardToAct.getProduction().checkInputResource(this);
         getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
     }
-
-
-
 
     /**
      * Setting boolean isCurrentTurn to false to end player's turn.

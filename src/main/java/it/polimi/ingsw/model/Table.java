@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.devcard.*;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.messagessc.AskResourceType;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
-import it.polimi.ingsw.network.messagessc.PositiveResponse;
 import it.polimi.ingsw.observerPattern.Observable;
 
 import java.util.ArrayList;
@@ -23,15 +22,11 @@ import static it.polimi.ingsw.model.devcard.Color.GREEN;
 public class Table extends Observable {
     private int numPlayers;
     private ArrayList<Player> players = new ArrayList<>();
-    private int currentTurn;
+    private Player currentPlayer;
     private ArrayList<Token> tokenStack;
     private MarketTray marketTray;
     private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
-
-    public Table() {
-        this.currentTurn = 0;
-    }
 
     public int getNumPlayers() {
         return numPlayers;
@@ -39,10 +34,6 @@ public class Table extends Observable {
 
     public ArrayList<Player> getPlayers() {
         return players;
-    }
-
-    public int getCurrentTurn() {
-        return currentTurn;
     }
 
     public void setNumPlayers(int numPlayers) {
@@ -77,6 +68,23 @@ public class Table extends Observable {
         players.add(player);
 
         notifyObserver(new GenericMessage(nickname + " added to the game"));
+    }
+
+    /**
+     * Method used to shuffle the order of the players.
+     * Now TurnOrder is 1 for first player, 2 for second and so on.
+     */
+
+    public void setPlayersInGame(){
+        Collections.shuffle(players);
+        for (Player player : players){
+            player.setTurnOrder(players.indexOf(player) + 1);
+        }
+
+    }
+
+    public void nextPlayer(){
+
     }
 
 
