@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
@@ -63,33 +64,14 @@ public class GameController{
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
 
-        switch (msg.getMessageType()){
-            case LOGIN_DATA:
+        if (msg.getMessageType() == Content.LOGIN_DATA) {
+            if (firstPlayer.compareAndSet(true, false)) {
                 table.addObserver(vv);
                 System.out.println(((LoginData) msg).getNickname() + " has joined");
                 table.addPlayer(((LoginData) msg).getNickname());
-                if(firstPlayer.compareAndSet(true, false)) {
-                    vv.fetchPlayersNumber();
-                }
-                else {
-                    vv.displayGenericMessage("Please wait for other players to join...");
-                    if (verifyNumPlayers()) startGame();//due client entrano in questo case
-                }
-                break;
-
-            case PLAYERS_NUMBER:
-                if (((PlayersNumber) msg).getNum() == 1){
-                    vv.displayGenericMessage("You choose Single Player Mode");
-                    setTableState(TableState.SINGLEPLAYER);
-                }
-                if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
-                    vv.fetchPlayersNumber();
-                    break;
-                }
-                table.setNumPlayers(((PlayersNumber) msg).getNum());
-                setTableState(TableState.WAITING);
-                vv.displayGenericMessage("Please wait for other players to join...");
-                break;
+                vv.fetchPlayersNumber();
+            }
+            setTableState(TableState.WAITING);
         }
     }
 
@@ -99,18 +81,39 @@ public class GameController{
 
         switch (msg.getMessageType()) {
 
-            case LOGIN_DATA:
-                table.addObserver(vv);
-                for (Player player : table.getPlayers()) {
-                    if (player.getNickname().equals(((LoginData) msg).getNickname())) {
-                        vv.fetchNickname();
-                        break;
-                    }
+            case PLAYERS_NUMBER:
+                if (((PlayersNumber) msg).getNum() == 1){
+                    vv.displayGenericMessage("You choose Single Player Mode");
+                    setTableState(TableState.SINGLEPLAYER);
+                    break;
                 }
-                System.out.println(((LoginData) msg).getNickname() + " has joined");
-                table.addPlayer(((LoginData) msg).getNickname());
-                vv.displayGenericMessage("Please wait for other players to join...");
-                if (verifyNumPlayers()) startGame();
+                if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
+                    vv.fetchPlayersNumber();
+                }
+                table.setNumPlayers(((PlayersNumber) msg).getNum());
+                if (verifyNumPlayers()){
+                    startGame();
+                }
+                else{
+                    vv.displayGenericMessage("Please wait for other players to join...");
+                }
+                break;
+
+            case LOGIN_DATA:
+                Player existingNickname = table.getPlayers().stream()
+                        .filter(player -> player.getNickname().equals(((LoginData) msg).getNickname()))
+                        .findFirst().orElse(null);
+                if (existingNickname==null){
+                    table.addObserver(vv);
+                    System.out.println(((LoginData) msg).getNickname() + " has joined");
+                    table.addPlayer(((LoginData) msg).getNickname());
+                    if (verifyNumPlayers()) startGame();
+                    else vv.displayGenericMessage("Please wait for other players to join...");
+                }
+                else {
+                    vv.displayGenericMessage("This nickname is already taken by another player...\nTry again!");
+                    vv.fetchNickname();
+                }
                 break;
 
         }
@@ -122,7 +125,7 @@ public class GameController{
 
     public void startGame() throws IOException {
         for (String key: vvMap.keySet()){
-            vvMap.get(key).displayGenericMessage("All players are joined, game is loading...");
+            vvMap.get(key).displayGenericMessage("All the players joined the game.\n Game is loading...");
         }
         setTableState(TableState.SETUP);
     }

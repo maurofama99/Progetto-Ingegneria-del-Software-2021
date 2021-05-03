@@ -37,7 +37,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchNickname() {
-        System.out.println("What's your nickname? (Should be different from other players)");
+        System.out.println("What's your nickname?");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
         this.nickname = nickname;
