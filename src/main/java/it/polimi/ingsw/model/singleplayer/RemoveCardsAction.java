@@ -15,9 +15,6 @@ public class RemoveCardsAction implements TokenAction {
         return devCardColor;
     }
 
-    public void setDevCardColor(Color devCardColor) {
-        this.devCardColor = devCardColor;
-    }
 
     //Lorenzo's takes the cards removed, he can't play them of course. Visually easier to implement and
     //it's better to see.

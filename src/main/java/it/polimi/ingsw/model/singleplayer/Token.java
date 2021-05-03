@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.singleplayer;
 
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.Color;
 
 /**
  * General class of the tokens.
@@ -16,6 +17,10 @@ public class Token {
 
     public TokenAction getTokenAction() {
         return tokenAction;
+    }
+
+    public Color getRemoveColor(RemoveCardsAction removeCardsAction){
+        return removeCardsAction.getDevCardColor();
     }
 
     public boolean getIsTokenDiscarded() {
