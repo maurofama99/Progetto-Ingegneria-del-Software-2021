@@ -7,9 +7,7 @@ import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.network.messagessc.GenericMessage;
-import it.polimi.ingsw.network.messagessc.LoginRequest;
-import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
+import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observerPattern.Observer;
 
@@ -29,16 +27,26 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void displayGenericMessage(String genericMessage) throws IOException {
-        clientHandler.sendMessage(new GenericMessage(genericMessage));
-
-    }
-
-    @Override
     public void fetchPlayersNumber() throws IOException {
        clientHandler.sendMessage(new NumPlayersRequest());
     }
 
+    @Override
+    public void fetchResourceType() throws IOException {
+        clientHandler.sendMessage(new AskResourceType());
+    }
+
+    @Override
+    public void fetchResourcePlacement() throws IOException {
+        clientHandler.sendMessage(new AskResourcePlacement());
+    }
+
+
+    @Override
+    public void displayGenericMessage(String genericMessage) throws IOException {
+        clientHandler.sendMessage(new GenericMessage(genericMessage));
+
+    }
 
 
     @Override

@@ -5,6 +5,8 @@ public enum Content {
     LOGIN_REQUEST,
     LOGIN_FAIL,
     NUM_PLAYERS_REQUEST,
+    ASKTYPERESOURCE,
+    ASK_RESOURCE_PLACEMENT,
     FULL_SERVER,
     INVALID_INPUT,
     ANOTHER_PLAYER_TURN,
@@ -12,15 +14,15 @@ public enum Content {
     START_GAME,
 
 
-    //secondo me si devono raggruppare i tipi di messaggio
-    //cioè che i messaggi che vengono mostrati ad inizio partita sono tutti di un tipo
-
     GENERIC_MESSAGE,
 
     //c->s
     LOGIN,
     LOGIN_DATA,
     PLAYERS_NUMBER,
+    RESOURCE_TYPE,
+    RESOURCE_PLACEMENT,
+
 
 
     LOGIN_SUCCESSFUL,
@@ -40,6 +42,6 @@ public enum Content {
     STORE_RES,
     POSITIVE,
     ACTIVATE_PRODUCTION,
-    ASKTYPERESOURCE
+
 }
 

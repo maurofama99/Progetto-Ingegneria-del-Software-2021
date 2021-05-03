@@ -19,6 +19,16 @@ public class Gui implements View {
     }
 
     @Override
+    public void fetchResourceType() throws IOException {
+
+    }
+
+    @Override
+    public void fetchResourcePlacement() throws IOException {
+
+    }
+
+    @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
 
     }

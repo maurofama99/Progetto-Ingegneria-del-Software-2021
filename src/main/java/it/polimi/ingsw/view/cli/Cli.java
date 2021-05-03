@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.cli;
 
-import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
@@ -10,7 +9,8 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
-import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
+import it.polimi.ingsw.network.messagescs.ResourcePlacement;
+import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
@@ -43,6 +43,28 @@ public class Cli extends ClientObservable implements View {
         this.nickname = nickname;
         notifyObservers(new LoginData(nickname));
     }
+
+    @Override
+    public void fetchResourceType() throws IOException {
+        System.out.println("You can choose a type of resource you want:\n---------------------\n" +
+                        "Type '0' for a SHIELD\n" +
+                        "Type '1' for a SERVANT\n" +
+                        "Type '2' for a COIN\n" +
+                        "Type '3' for a STONE\n---------------------\n");
+        Scanner scanner = new Scanner(System.in);
+        int resourceType = Integer.parseInt(scanner.nextLine());
+        notifyObservers(new ResourceTypeChosen(nickname, resourceType));
+    }
+
+    @Override
+    public void fetchResourcePlacement() throws IOException {
+        System.out.println("Where do you want to place this resource? ");
+        //out print del depot
+        Scanner scanner = new Scanner(System.in);
+        int floor = Integer.parseInt(scanner.nextLine());
+        notifyObservers(new ResourcePlacement(nickname, floor));
+    }
+
 
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {

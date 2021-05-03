@@ -91,8 +91,11 @@ public class Client implements Runnable, ClientObserver {
             case GENERIC_MESSAGE:
                 view.displayGenericMessage(msg.toString());
                 break;
-            case LOGIN_FAIL:
-                //view.fetchNickname();
+            case ASKTYPERESOURCE:
+                view.fetchResourceType();
+                break;
+            case ASK_RESOURCE_PLACEMENT:
+                view.fetchResourcePlacement();
                 break;
 
         }

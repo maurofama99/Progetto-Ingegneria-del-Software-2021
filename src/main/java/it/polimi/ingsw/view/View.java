@@ -21,6 +21,10 @@ public interface View {
      */
     void fetchNickname() throws IOException;
 
+    void fetchResourceType() throws IOException;
+
+    void fetchResourcePlacement() throws IOException;
+
     /**
      * Displays a generic message for the view
      * @param genericMessage the message displayed

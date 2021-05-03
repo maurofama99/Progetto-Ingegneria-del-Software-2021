@@ -24,7 +24,7 @@ public class Table extends Observable {
     private Player currentPlayer;
     private ArrayList<Token> tokenStack;
     private MarketTray marketTray;
-    private Deck devCardsDeck;
+    private Deck devCardsDeck = new Deck();
     private LorenzoIlMagnifico lorenzoIlMagnifico;
 
     public int getNumPlayers() {

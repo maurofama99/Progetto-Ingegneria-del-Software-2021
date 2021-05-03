@@ -2,10 +2,14 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
+import it.polimi.ingsw.network.messagescs.ResourcePlacement;
+import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
 import it.polimi.ingsw.view.VirtualView;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -13,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//partita con minimo 2 giocatori
 
 public class GameController{
     private Player activePlayer;
@@ -119,31 +122,52 @@ public class GameController{
         }
     }
 
-    public void receiveMessageOnSetup(Message msg) {
+    public void receiveMessageOnSetup(Message msg) throws IOException {
+        VirtualView vv = vvMap.get(msg.getSenderUser());
+        Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
+        switch (msg.getMessageType()){
+            case RESOURCE_TYPE:
+                vv.displayGenericMessage("You chose: " + ((ResourceTypeChosen)msg).toString());
+                resourceChosen.setType(((ResourceTypeChosen)msg).getResourceType());
+                vv.fetchResourcePlacement();
+                break;
+            case RESOURCE_PLACEMENT:
+                for (Player player : table.getPlayers())
+                if (msg.getSenderUser().equals(player.getNickname()))
+                    player.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resourceChosen, ((ResourcePlacement)msg).getFloor());
+                break;
+        }
+
 
     }
 
     public void startGame() throws IOException {
         for (String key: vvMap.keySet()){
-            vvMap.get(key).displayGenericMessage("All the players joined the game.\n Game is loading...");
+            vvMap.get(key).displayGenericMessage("All the players joined the game.\n Game is loading...\n");
         }
         setTableState(TableState.SETUP);
+        setUpGame();
     }
 
-    public void setUpGame() {
-        table.setPlayersInGame(); //this method sets the turn of each player randomly
-
-
-
-
-
-
-
-        setTableState(TableState.IN_GAME);
+    public void setUpGame() throws IOException {
+        giveInitialBonus();
     }
 
-    public void giveInitialBonus(String nickname) {
+    public void giveInitialBonus() throws IOException {
+        table.setPlayersInGame();
+        vvMap.get(table.getPlayers().get(1).getNickname()).fetchResourceType();
 
+        if (table.getNumPlayers()>2){
+            vvMap.get(table.getPlayers().get(2).getNickname()).fetchResourceType();
+            table.getPlayers().get(2).getPersonalBoard().getFaithTrack().moveForward(1);
+            vvMap.get(table.getPlayers().get(2).getNickname()).displayGenericMessage("You also moved on faithTrack\n");
+        }
+        if (table.getNumPlayers()>3){
+            vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
+            table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(1);
+            vvMap.get(table.getPlayers().get(3).getNickname()).displayGenericMessage("You moved on faithTrack\n");
+            vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
+        }
     }
 
     public void receiveMessageInGame(Message msg) {

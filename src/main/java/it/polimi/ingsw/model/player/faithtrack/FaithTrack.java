@@ -26,6 +26,9 @@ public class FaithTrack {
         this.firstFavorTile = false;
         this.secondFavorTile = false;
         this.thirdFavorTile = false;
+
+
+
     }
 
     public int getFaithMarkerPosition() {

@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.leadercards.*;
+import it.polimi.ingsw.model.player.warehouse.Depot;
+import it.polimi.ingsw.model.player.warehouse.StrongBox;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 
@@ -23,6 +26,7 @@ public class Player {
         this.isCurrentTurn = false;
         this.turnOrder = 0;
         this.leaderCards = new ArrayList<>();
+        this.personalBoard = new PersonalBoard(new Warehouse(new Depot(), new StrongBox()));
     }
 
     public String getNickname() {

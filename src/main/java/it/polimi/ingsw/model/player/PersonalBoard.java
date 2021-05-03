@@ -23,6 +23,7 @@ public class PersonalBoard {
         slots[0] = new Slot(SlotNumber.FIRST);
         slots[1] = new Slot(SlotNumber.SECOND);
         slots[2] = new Slot(SlotNumber.THIRD);
+        this.faithTrack = new FaithTrack();
         this.activeLeaderCards = new ArrayList<>();
     }
 
