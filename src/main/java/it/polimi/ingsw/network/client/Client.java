@@ -1,9 +1,7 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
@@ -25,10 +23,7 @@ public class Client implements Runnable, ClientObserver {
         this.view = view;
     }
 
-    //sarà spostato in ClientApp
     public static void main(String[] args) {
-        /* Instantiate a new Client. The main thread will become the
-         * thread where user interaction is handled. */
         boolean cli = false;
 
         for (String el : args){
@@ -95,6 +90,7 @@ public class Client implements Runnable, ClientObserver {
                 break;
             case GENERIC_MESSAGE:
                 view.displayGenericMessage(msg.toString());
+                break;
             case LOGIN_FAIL:
                 //view.fetchNickname();
                 break;

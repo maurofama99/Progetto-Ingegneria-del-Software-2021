@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.Message;
 
 public class SendResource extends Message {
 
-    public SendResource(String senderUser, Content messageType) {
-        super(senderUser, messageType);
+    public SendResource(Content messageType) {
+        super("server", messageType);
     }
 }

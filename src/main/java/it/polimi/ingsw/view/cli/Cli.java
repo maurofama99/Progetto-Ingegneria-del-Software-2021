@@ -32,7 +32,7 @@ public class Cli extends ClientObservable implements View {
         System.out.println("Number of players?");
         Scanner scanner = new Scanner(System.in);
         int numPlayers = scanner.nextInt();
-        notifyObservers(new PlayersNumber(nickname, numPlayers));
+        notifyObservers(new PlayersNumber(numPlayers));
     }
 
     @Override

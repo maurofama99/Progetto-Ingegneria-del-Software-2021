@@ -9,7 +9,6 @@ public class AskResourceType extends Message {
 
     public AskResourceType() {
         super("server", Content.ASKTYPERESOURCE);
-
     }
 
 

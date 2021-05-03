@@ -7,7 +7,7 @@ public class PositiveResponse extends Message {
     public final String message;
 
     public PositiveResponse(String message) {
-        super("nickname/ip", Content.POSITIVE);
+        super("server", Content.POSITIVE);
         this.message = message;
     }
     public String getMessage() {

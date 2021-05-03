@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class LeaderCardTest {
 
     @Test
-    public void gsonTestSingleCard(){
+    public void gsonTestLeaderCards(){
 
         try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
 

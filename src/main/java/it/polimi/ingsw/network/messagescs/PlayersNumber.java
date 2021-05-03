@@ -7,8 +7,8 @@ public class PlayersNumber extends Message {
 
     int num;
 
-    public PlayersNumber(String nickName, int num) {
-        super(nickName, Content.PLAYERS_NUMBER);
+    public PlayersNumber(int num) {
+        super(Content.PLAYERS_NUMBER);
         this.num = num;
     }
 

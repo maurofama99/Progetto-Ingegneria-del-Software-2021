@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.network.Message;
 
-import javax.security.auth.login.Configuration;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,10 +13,11 @@ import java.util.HashMap;
  * Server for Master of Renaissance game
  */
 public class Server implements Runnable {
+
     /**
      * The socket port where the server listens to client connections
      */
-    public final static int SOCKET_PORT = 1269;
+    public static final int SOCKET_PORT = 1269;
     private GameController gameController;
 
     public Server(GameController gameController) {
@@ -28,15 +28,6 @@ public class Server implements Runnable {
         return gameController;
     }
 
-    //questo sarà spostato in una classe ServerApp
-    public static void main(String[] args) {
-        GameController gameController = new GameController();
-        Server server = new Server(gameController);
-        server.getGameController().setTable(new Table());
-        server.run();
-    }
-
-    //non può essere un main perchè deve essere passato al ClientHandler
     @Override
     public void run() {
         ServerSocket socket;
@@ -48,13 +39,11 @@ public class Server implements Runnable {
             return;
         }
 
-
         while (true) {
             try {
                 /* accepts connections; for every connection we accept,
                  * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
-                //server timeout?
                 ClientHandler clientHandler = new ClientHandler(this, client);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();

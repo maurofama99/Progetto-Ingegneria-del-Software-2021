@@ -37,7 +37,7 @@ public class Table extends Observable {
 
     public void setNumPlayers(int numPlayers) {
         System.out.println("Number of players set, players in game:" + players.size());
-        notifyObserver(new PlayersNumber("server",numPlayers));
+        notifyObserver(new PlayersNumber(numPlayers));
         this.numPlayers = numPlayers;
     }
 

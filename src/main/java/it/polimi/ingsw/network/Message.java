@@ -6,6 +6,10 @@ public class Message implements Serializable {
     private String senderUser;
     private Content messageType;
 
+    public void setSenderUser(String senderUser) {
+        this.senderUser = senderUser;
+    }
+
     public Message(String senderUser, Content messageType) {
         this.senderUser = senderUser;
         this.messageType = messageType;

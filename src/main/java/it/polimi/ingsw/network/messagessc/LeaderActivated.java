@@ -6,7 +6,7 @@ import it.polimi.ingsw.network.Message;
 public class LeaderActivated extends Message{
 
     public LeaderActivated(String senderUser, Content messageType) {
-        super(senderUser, messageType);
+        super("server", messageType);
     }
 
 }

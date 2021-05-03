@@ -24,20 +24,12 @@ public class ClientHandler implements Runnable
     private Socket client;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-
-    private boolean isConnected;
-    private boolean isLogged;
-
-    //get the table associated with this client
+    private String nickname;
 
     public ClientHandler(Server server, Socket client) {
         this.server = server;
         this.client = client;
-
-        this.isConnected = true;
-        this.isLogged = false;
     }
-
 
     @Override
     public void run()
@@ -63,6 +55,7 @@ public class ClientHandler implements Runnable
         try {
             client.close();
         } catch (IOException e) {
+            System.out.println("va qui?");
             e.printStackTrace();
         }
     }
@@ -71,13 +64,6 @@ public class ClientHandler implements Runnable
         return server;
     }
 
-    public boolean isConnected() {
-        return isConnected;
-    }
-
-    public boolean isLogged() {
-        return isLogged;
-    }
 
     private void handleClientConnection() throws IOException {
 
@@ -94,9 +80,12 @@ public class ClientHandler implements Runnable
                 if (msg.getMessageType() == Content.LOGIN_DATA){
                     VirtualView vv = new VirtualView(this);
                     server.getGameController().getVvMap().put(((LoginData)msg).getNickname(),vv);
+                    nickname = ((LoginData)msg).getNickname();
+                    server.receiveMessage(msg);
+                } else {
+                    msg.setSenderUser(nickname);
                     server.receiveMessage(msg);
                 }
-                else server.receiveMessage(msg);
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();

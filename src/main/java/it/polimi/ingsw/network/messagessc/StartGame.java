@@ -5,8 +5,8 @@ import it.polimi.ingsw.network.Message;
 
 public class StartGame extends Message {
 
-    public StartGame(String senderUser, Content messageType) {
-        super(senderUser, Content.START_GAME);
+    public StartGame() {
+        super("server", Content.START_GAME);
     }
 
 
