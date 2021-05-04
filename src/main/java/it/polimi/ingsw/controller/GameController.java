@@ -181,7 +181,10 @@ public class GameController{
     }
 
 
-    //verifica se il numero di giocatori è corretto per iniziare la partita
+    /**
+     * verifies the number of players to start the game
+     * @return true if the number is correct, false otherwise
+     */
     public boolean verifyNumPlayers() {
         return table.getNumPlayers() == table.getPlayers().size();
     }
