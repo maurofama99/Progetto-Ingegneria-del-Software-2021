@@ -2,10 +2,10 @@
 
 ## Studenti (Scaglione E-P)
 
-Valeria Detomas
+[Valeria Detomas](https://github.com/valeriadetomas)
 
-Mauro Famà
+[Mauro Famà](https://github.com/maurofama99)
 
-Christian Fabio Grazian
+[Christian Fabio Grazian](https://github.com/grazcri)
 
 
