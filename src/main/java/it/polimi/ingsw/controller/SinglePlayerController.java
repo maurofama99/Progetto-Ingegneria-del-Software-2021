@@ -5,8 +5,10 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.singleplayer.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
+import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -20,8 +22,11 @@ public class SinglePlayerController {
     private Table table;
     private int devCardsBought = 0;
     private ArrayList<Integer> devCardsRemoved;
+    private SinglePlayerTableState singlePlayerTableState = SinglePlayerTableState.SETUP;
 
-
+    public SinglePlayerTableState getSinglePlayerTableState() {
+        return singlePlayerTableState;
+    }
 
     public GameController getGameController() {
         return gameController;
@@ -51,6 +56,39 @@ public class SinglePlayerController {
         return devCardsRemoved;
     }
 
+    public void receiveSPMessage(Message msg) throws IOException {
+        switch(singlePlayerTableState){
+            case SETUP:
+                receiveSPMessageOnSetup(msg);
+                break;
+            case PLAYERS_TURN:
+                receiveSPMessageOnPlayer(msg);
+                break;
+            case LORENZOS_TURN:
+                receiveSPMessageOnLorenzo(msg);
+                break;
+            case END:
+                receiveSPMessageOnEnd(msg);
+                break;
+        }
+    }
+
+    public void receiveSPMessageOnSetup(Message msg) throws IOException{
+
+    }
+
+    public void receiveSPMessageOnPlayer(Message msg){
+
+    }
+
+    public void receiveSPMessageOnLorenzo(Message msg){
+
+    }
+
+    public void receiveSPMessageOnEnd(Message msg){
+
+    }
+
     /**
      * Setup of Lorenzo and the token stack in the table
      */
@@ -58,7 +96,7 @@ public class SinglePlayerController {
         lorenzoIlMagnifico = new LorenzoIlMagnifico();
         table.setNumPlayers(1);
         table.createTokenStack();
-        table.addPlayer("nickname");
+        table.addPlayer("Single_Player");
     }
 
     /**

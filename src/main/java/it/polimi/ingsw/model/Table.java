@@ -35,6 +35,10 @@ public class Table extends Observable {
         return players;
     }
 
+    /**
+     * Sets the number of player in game and notifies the observer about that
+     * @param numPlayers how many players will play the game
+     */
     public void setNumPlayers(int numPlayers) {
         System.out.println("Number of players set, players in game:" + players.size());
         notifyObserver(new PlayersNumber(numPlayers));
@@ -61,7 +65,10 @@ public class Table extends Observable {
         return devCardsDeck;
     }
 
-    //aggiunge il giocatore alla partita
+    /**
+     * Add player to the match
+     * @param nickname the nickname of the player
+     */
     public void addPlayer(String nickname){
         Player player = new Player(nickname);
         players.add(player);
@@ -85,6 +92,9 @@ public class Table extends Observable {
     }
 
 
+    /**
+     * This three methods add the bonus for second, third and fourth player.
+     */
     public void addSecondPlayerBonus(){
         notifyObserver(new AskResourceType());
     }
@@ -104,15 +114,9 @@ public class Table extends Observable {
     //metodo che rimuove un giocatore se si disconnette
 
 
-
-
-
-
-
-
-
-
-    //Creates the tokenStack, will prolly be moved later to controller or smth
+    /**
+     * Creates the token stack for the single player game.
+     */
     public void createTokenStack(){
         tokenStack = new ArrayList<>();
 
