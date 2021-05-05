@@ -43,31 +43,36 @@ public class WaitingRoom {
                 //aggiungi all'arraylist corrispondente il player
                 playerInWait(((LoginData)msg).getNickname(), ((LoginData)msg).getNumPlayers());
                 //controlla se puoi far iniziare un game
-                checkGameStart();
+                boolean bool = checkGameStart();
+                if (!bool) vv.displayGenericMessage("Please wait for other players to join...");
                 break;
         }
 
     }
 
-    private void checkGameStart() throws IOException {
+    private boolean checkGameStart() throws IOException {
         if (singlePlayerArray.size()==1){
             //crea singleplayer controller e butta dentro il player presente nell'array
             //pulisci arraylist
             singlePlayerArray.clear();
+            return true;
         }
         if (twoPlayersArray.size()==2){
             setupGameController(twoPlayersArray);
             twoPlayersArray.clear();
+            return true;
         }
         if (threePlayersArray.size()==3){
             setupGameController(threePlayersArray);
             twoPlayersArray.clear();
-
+            return true;
         }
         if (fourPlayersArray.size()==4){
             setupGameController(threePlayersArray);
             twoPlayersArray.clear();
+            return true;
         }
+        return false;
     }
 
     public void setupGameController(ArrayList<Player> playersArray) throws IOException {

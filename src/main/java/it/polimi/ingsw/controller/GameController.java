@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class GameController  {
+public class GameController{
     private Player activePlayer;
 
     private Table table;
@@ -28,6 +28,7 @@ public class GameController  {
     private Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
     private AtomicBoolean firstPlayer = new AtomicBoolean(true);
+    private boolean condition = false;
 
     public void setVvMap(HashMap<String, VirtualView> vvMap) {
         this.vvMap = vvMap;
@@ -52,12 +53,6 @@ public class GameController  {
     public void receiveMessage(Message msg) throws IOException {
 
         switch (tableState) {
-            /*case WAITING_FOR_FIRSTPLAYER:
-                receiveMessageOnFirstLogin(msg);
-                break;
-            case WAITING:
-                receiveMessageOnLogin(msg);
-                break;*/
             case SETUP:
                 receiveMessageOnSetup(msg);
                 break;
@@ -73,65 +68,6 @@ public class GameController  {
         }
     }
 
-    /*public void receiveMessageOnFirstLogin(Message msg) throws IOException{
-
-        VirtualView vv = vvMap.get(msg.getSenderUser());
-
-        if (msg.getMessageType() == Content.LOGIN_DATA) {
-            if (firstPlayer.compareAndSet(true, false)) {
-                table.addObserver(vv);
-                System.out.println(((LoginData) msg).getNickname() + " has joined");
-                table.addPlayer(((LoginData) msg).getNickname());
-                vv.fetchPlayersNumber();
-            }
-            setTableState(TableState.WAITING);
-        }
-    }
-
-    public void receiveMessageOnLogin(Message msg) throws IOException {
-
-        VirtualView vv = vvMap.get(msg.getSenderUser());
-
-        switch (msg.getMessageType()) {
-
-            case PLAYERS_NUMBER:
-                if (((PlayersNumber) msg).getNum() == 1){
-                    vv.displayGenericMessage("You chose Single Player Mode");
-                    setTableState(TableState.SINGLEPLAYER);
-                    break;
-                }
-                if (((PlayersNumber) msg).getNum() < 2 || ((PlayersNumber) msg).getNum() > 4) {
-                    vv.fetchPlayersNumber();
-                }
-                table.setNumPlayers(((PlayersNumber) msg).getNum());
-                if (verifyNumPlayers()){
-                    startGame();
-                }
-                else{
-                    vv.displayGenericMessage("Please wait for other players to join...");
-                }
-                break;
-
-            case LOGIN_DATA:
-                Player existingNickname = table.getPlayers().stream()
-                        .filter(player -> player.getNickname().equals(((LoginData) msg).getNickname()))
-                        .findFirst().orElse(null);
-                if (existingNickname==null){
-                    table.addObserver(vv);
-                    System.out.println(((LoginData) msg).getNickname() + " has joined");
-                    table.addPlayer(((LoginData) msg).getNickname());
-                    if (verifyNumPlayers()) startGame();
-                    else vv.displayGenericMessage("Please wait for other players to join...");
-                }
-                else {
-                    vv.displayGenericMessage("This nickname is already taken by another player...\nTry again!");
-                    vv.fetchNickname();
-                }
-                break;
-
-        }
-    }
-   */
     public void receiveMessageOnSetup(Message msg) throws IOException {
         VirtualView vv = vvMap.get(msg.getSenderUser());
 
