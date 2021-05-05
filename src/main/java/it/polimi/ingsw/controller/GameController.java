@@ -10,6 +10,8 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.messagescs.ResourcePlacement;
 import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
+import it.polimi.ingsw.network.messagessc.GenericMessage;
+import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.VirtualView;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class GameController{
+public class GameController  {
     private Player activePlayer;
 
     private Table table;
@@ -27,8 +29,16 @@ public class GameController{
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
     private AtomicBoolean firstPlayer = new AtomicBoolean(true);
 
+    public void setVvMap(HashMap<String, VirtualView> vvMap) {
+        this.vvMap = vvMap;
+    }
+
     public HashMap<String, VirtualView> getVvMap() {
         return vvMap;
+    }
+
+    public Table getTable() {
+        return table;
     }
 
     public void setTable(Table table) {
@@ -42,12 +52,12 @@ public class GameController{
     public void receiveMessage(Message msg) throws IOException {
 
         switch (tableState) {
-            case WAITING_FOR_FIRSTPLAYER:
+            /*case WAITING_FOR_FIRSTPLAYER:
                 receiveMessageOnFirstLogin(msg);
                 break;
             case WAITING:
                 receiveMessageOnLogin(msg);
-                break;
+                break;*/
             case SETUP:
                 receiveMessageOnSetup(msg);
                 break;
@@ -63,7 +73,7 @@ public class GameController{
         }
     }
 
-    public void receiveMessageOnFirstLogin(Message msg) throws IOException{
+    /*public void receiveMessageOnFirstLogin(Message msg) throws IOException{
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
 
@@ -86,7 +96,7 @@ public class GameController{
 
             case PLAYERS_NUMBER:
                 if (((PlayersNumber) msg).getNum() == 1){
-                    vv.displayGenericMessage("You choose Single Player Mode");
+                    vv.displayGenericMessage("You chose Single Player Mode");
                     setTableState(TableState.SINGLEPLAYER);
                     break;
                 }
@@ -121,7 +131,7 @@ public class GameController{
 
         }
     }
-
+   */
     public void receiveMessageOnSetup(Message msg) throws IOException {
         VirtualView vv = vvMap.get(msg.getSenderUser());
         Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);

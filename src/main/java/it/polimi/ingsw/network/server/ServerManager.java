@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.WaitingRoom;
 import it.polimi.ingsw.model.Table;
 
 import java.util.ArrayList;
@@ -9,15 +10,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class ServerManager {
 
-    public static ArrayList<GameController> gameControllers = new ArrayList<>();
+    //public static ArrayList<GameController> gameControllers = new ArrayList<>();
 
     public static void main(String[] args) {
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-            GameController gameController = new GameController();
-            Server server = new Server(gameController);
-            server.getGameController().setTable(new Table());
-            gameControllers.add(gameController);
+            //GameController gameController = new GameController();
+            Server server = new Server(new WaitingRoom());
+            //server.getGameController().setTable(new Table());
+            //gameControllers.add(gameController);
             executor.submit(server);
 
 

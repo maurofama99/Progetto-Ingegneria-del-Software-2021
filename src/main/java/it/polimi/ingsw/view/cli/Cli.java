@@ -20,12 +20,12 @@ import java.util.Scanner;
 
 public class Cli extends ClientObservable implements View {
 
-    private ServerHandler serverHandler;
+    //private ServerHandler serverHandler;
     private String nickname;
 
-    public void setServerHandler(ServerHandler serverHandler) {
-        this.serverHandler = serverHandler;
-    }
+    //public void setServerHandler(ServerHandler serverHandler) {
+      //  this.serverHandler = serverHandler;
+    //}
 
     @Override
     public void fetchPlayersNumber() {
@@ -41,7 +41,9 @@ public class Cli extends ClientObservable implements View {
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
         this.nickname = nickname;
-        notifyObservers(new LoginData(nickname));
+        System.out.println("How many players do you want to play with?");
+        int numPlayers = scanner.nextInt();
+        notifyObservers(new LoginData(nickname, numPlayers));
     }
 
     @Override
@@ -58,7 +60,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchResourcePlacement() throws IOException {
-        System.out.println("Where do you want to place this resource? ");
+        System.out.println("In which floor of the depot do you want to place this resource? ");
         //out print del depot
         Scanner scanner = new Scanner(System.in);
         int floor = Integer.parseInt(scanner.nextLine());

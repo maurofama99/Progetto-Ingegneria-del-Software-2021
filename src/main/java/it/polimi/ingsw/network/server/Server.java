@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.WaitingRoom;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.network.Message;
 
@@ -18,15 +19,19 @@ public class Server implements Runnable {
      * The socket port where the server listens to client connections
      */
     public static final int SOCKET_PORT = 1269;
-    private GameController gameController;
+    //private GameController gameController;
+    private final WaitingRoom waitingRoom;
 
-    public Server(GameController gameController) {
-        this.gameController = gameController;
+    public Server(WaitingRoom waitingRoom) {
+        this.waitingRoom = waitingRoom;
     }
+//public Server(GameController gameController) {
+        //this.gameController = gameController;
+    //}
 
-    public GameController getGameController() {
-        return gameController;
-    }
+    //public GameController getGameController() {
+      //  return gameController;
+    //}
 
     @Override
     public void run() {
@@ -44,7 +49,7 @@ public class Server implements Runnable {
                 /* accepts connections; for every connection we accept,
                  * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
-                ClientHandler clientHandler = new ClientHandler(this, client);
+                ClientHandler clientHandler = new ClientHandler(this, client, this.waitingRoom);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();
             } catch (IOException e) {
@@ -53,9 +58,6 @@ public class Server implements Runnable {
         }
     }
 
-    public void receiveMessage(Message msg) throws IOException {
-        gameController.receiveMessage(msg);
-    }
 
 }
 
