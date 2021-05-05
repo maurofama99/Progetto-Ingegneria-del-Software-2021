@@ -8,15 +8,15 @@ public class ResourceTypeChosen extends Message {
     int resourceType;
 
     public ResourceTypeChosen(String senderUser, int resourceType) {
-        super(senderUser, Content.RESOURCE_TYPE);
+        super(senderUser, "server", Content.RESOURCE_TYPE);
         this.resourceType = resourceType;
     }
 
     public ResourceType getResourceType() {
         ResourceType type;
         switch (resourceType){
-            case 0: 
-                type = ResourceType.SHIELD; 
+            case 0:
+                type = ResourceType.SHIELD;
                 break;
             case 1:
                 type = ResourceType.SERVANT;
@@ -30,7 +30,7 @@ public class ResourceTypeChosen extends Message {
             default:
                 throw new IllegalStateException("Unexpected value: " + resourceType);
         }
-        
+
         return type;
     }
 

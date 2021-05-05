@@ -5,10 +5,12 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 
+import java.io.Serializable;
+
 /**
  * Class for the leader cards that add a production power
  */
-public class AddProduction extends LeaderEffect{
+public class AddProduction extends LeaderEffect implements Serializable {
 
     private Color cardColorRequired;
     private Resource resourceRequired;
@@ -45,10 +47,9 @@ public class AddProduction extends LeaderEffect{
 
     @Override
     public String toString() {
-        return "AddProduction{" +
-                "cardColorRequired=" + cardColorRequired +
-                ", resourceRequired=" + resourceRequired +
-                '}';
+        return  "EXTRA PRODUCTION\n| " +
+                "COST:" + cardColorRequired + " devCard level 2\n| " +
+                "\n| " + resourceRequired + "   -->    " + "?   +   FaithPoint";
     }
 
     /*

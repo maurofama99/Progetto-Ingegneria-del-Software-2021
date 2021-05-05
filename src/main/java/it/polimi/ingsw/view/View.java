@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,14 +32,7 @@ public interface View {
      */
     void displayGenericMessage(String genericMessage) throws IOException;
 
-
-    /**
-     * Displays the result of an attempt of connection
-     * @param nicknameIsOk nickname checked for the connection
-     * @param connectionIsOk the connection was successful
-     * @param nickname nickname checked
-     */
-    void displayLoginResult(boolean nicknameIsOk, boolean connectionIsOk, String nickname);
+    void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException;
 
     /**
      * Displays the disconnected player

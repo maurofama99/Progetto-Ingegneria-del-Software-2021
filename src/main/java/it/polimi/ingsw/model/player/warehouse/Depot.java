@@ -146,4 +146,11 @@ public class Depot {
         } else throw new IllegalArgumentException("There is not enough space to swap these floors");
     }
 
+
+    @Override
+    public String toString() {
+        return "    " + floors.get(0).toString() + "\n    "
+                + floors.get(1).toString() + "\n    "
+                + floors.get(2).toString();
+    }
 }

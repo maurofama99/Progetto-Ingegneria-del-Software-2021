@@ -54,7 +54,7 @@ public class Deck {
      *
      * @return the matrix of the cards still on the table (not taken by players or removed)
      */
-    public DevCard[][] ShowedCards() {
+    public DevCard[][] showedCards() {
 
         DevCard[][] result = new DevCard[3][4];
 
@@ -87,5 +87,21 @@ public class Deck {
     public DevCard removeAndGetCard(int row, int col) {
         return fullDeck[row - 1][col - 1].pop();
     }
+
+    //todo toString of deck
+    @Override
+    public String toString() {
+        String text = null;
+        DevCard[][] result = showedCards();
+
+        for (int i=0; i<3; i++) {
+            for (int j = 0; j < 4; j++) {
+                text = result[i][j].toString() + "      ";
+            }
+            text = "\n";
+        }
+        return text;
+    }
+
 
 }

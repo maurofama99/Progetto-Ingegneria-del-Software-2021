@@ -7,6 +7,6 @@ public class Disconnect extends Message {
 
 
     public Disconnect(String senderUser, Content messageType) {
-        super(senderUser, messageType);
+        super(senderUser,"server", messageType);
     }
 }

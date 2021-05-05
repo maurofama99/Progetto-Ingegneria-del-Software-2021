@@ -6,14 +6,17 @@ import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.network.messagessc.DealLeaderCards;
+import it.polimi.ingsw.observerPattern.Observable;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Player's class. Used a lot to set and get in other methods and interfaces
  */
-public class Player {
+public class Player extends Observable implements Serializable {
     private final String nickname;
     private boolean isCurrentTurn;
     private int turnOrder;
@@ -74,9 +77,10 @@ public class Player {
      * @param leaderCard1 the first leader card
      * @param leaderCard2 the second leader card
      */
-    public void discardLeader(LeaderCard leaderCard1, LeaderCard leaderCard2){
+    public void discardLeader(int leaderCard1, int leaderCard2){
         leaderCards.remove(leaderCard1);
         leaderCards.remove(leaderCard2);
+        System.out.println(leaderCards);
     }
 
     /**

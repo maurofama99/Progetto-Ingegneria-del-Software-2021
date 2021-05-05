@@ -87,12 +87,8 @@ public class DevCardTest {
     @Test
     public void placingTest(){
         Deck deck = new Deck();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.print(deck.ShowedCards()[i][j]);
-            }
-            System.out.println("");
-        }
+
+        System.out.println(deck.toString());
     }
 
 

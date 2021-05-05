@@ -7,7 +7,7 @@ public class ResourcePlacement extends Message {
     int floor;
 
     public ResourcePlacement(String senderUser, int floor) {
-        super(senderUser, Content.RESOURCE_PLACEMENT);
+        super(senderUser, "server", Content.RESOURCE_PLACEMENT);
         this.floor=floor;
     }
 

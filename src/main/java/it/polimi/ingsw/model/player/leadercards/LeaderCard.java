@@ -1,12 +1,14 @@
 package it.polimi.ingsw.model.player.leadercards;
 
+import java.io.Serializable;
+
 /**
  * General class of all the leader cards. It has the constructor to initialize them.
  */
-public class LeaderCard {
+public class LeaderCard implements Serializable {
 
     private int victoryPoints;
-    private LeaderEffect leaderEffect;
+    private  LeaderEffect leaderEffect;
 
     public LeaderCard(int victoryPoints, LeaderEffect leaderEffect) {
         this.victoryPoints = victoryPoints;
@@ -24,10 +26,13 @@ public class LeaderCard {
     @Override
     public String toString() {
         String text;
-        text = "\n-----------------------\n     " + this.victoryPoints + "\n";
-        return "LeaderCard{" +
-                "victoryPoints=" + victoryPoints +
-                ", leaderEffect=" + leaderEffect +
-                '}';
+        text = "\n-----------------------\n| "
+                + leaderEffect.toString() +
+                "\n| VICTORY POINTS: " + this.victoryPoints +
+                "\n-----------------------\n" ;
+
+        return text;
     }
+
+
 }

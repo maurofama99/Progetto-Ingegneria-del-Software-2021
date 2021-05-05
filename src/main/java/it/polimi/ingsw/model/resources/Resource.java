@@ -2,11 +2,13 @@ package it.polimi.ingsw.model.resources;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Class of the resources in the game. Some need to be stored, some are used in effects
  * Faith points are used to move the markers around
  */
-public class Resource implements Cloneable{
+public class Resource implements Cloneable, Serializable {
     @SerializedName("type")
     private ResourceType type;
     private int qnt;
@@ -39,12 +41,13 @@ public class Resource implements Cloneable{
 
     @Override
     public String toString() {
-        if (type.equals(ResourceType.SHIELD)) return qnt + " SHIELD";
-        else if (type.equals(ResourceType.COIN)) return qnt + " COIN";
-        else if (type.equals(ResourceType.STONE)) return qnt + " STONE";
-        else if (type.equals(ResourceType.SERVANT)) return qnt + " SERVANT";
-        else if (type.equals(ResourceType.FAITHPOINT)) return qnt + " FAITHPOINT";
-        else if (type.equals(ResourceType.WHITERESOURCE)) return qnt + " WHITE";
+
+        if (type.equals(ResourceType.SHIELD)) return qnt + "  SHIELD";
+        else if (type.equals(ResourceType.COIN)) return qnt + "  COIN";
+        else if (type.equals(ResourceType.STONE)) return qnt + "  STONE";
+        else if (type.equals(ResourceType.SERVANT)) return qnt + "  SERVANT";
+        else if (type.equals(ResourceType.FAITHPOINT)) return qnt + "  FAITHPOINT";
+        else if (type.equals(ResourceType.WHITERESOURCE)) return qnt + "  WHITE";
         else return "Error in Resource toString()";
     }
 }

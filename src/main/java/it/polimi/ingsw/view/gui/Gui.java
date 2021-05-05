@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Gui implements View {
@@ -34,9 +35,10 @@ public class Gui implements View {
     }
 
     @Override
-    public void displayLoginResult(boolean nicknameIsOk, boolean connectionIsOk, String nickname) {
+    public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
 
     }
+
 
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {

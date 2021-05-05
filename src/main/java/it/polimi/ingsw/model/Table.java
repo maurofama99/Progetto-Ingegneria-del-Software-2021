@@ -1,14 +1,24 @@
 package it.polimi.ingsw.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
+import it.polimi.ingsw.model.player.leadercards.LeaderEffectJsonDeserializer;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
-import it.polimi.ingsw.network.messagescs.PlayersNumber;
-import it.polimi.ingsw.network.messagessc.AskResourceType;
+import it.polimi.ingsw.network.messagessc.DealLeaderCards;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -18,14 +28,43 @@ import java.util.Random;
  * Class of table, where all the stuff is placed.
  * Player, decks, stacks of token, the market and boards and cards are all here
  */
-public class Table extends Observable {
+public class Table extends Observable{
     private int numPlayers;
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players;
+    private ArrayList<LeaderCard> leaderCardsDeck;
     private Player currentPlayer;
     private ArrayList<Token> tokenStack;
     private MarketTray marketTray;
     private Deck devCardsDeck = new Deck();
     private LorenzoIlMagnifico lorenzoIlMagnifico;
+
+    public Table() {
+        this.numPlayers = 0;
+        this.players = new ArrayList<>();
+
+
+        try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
+
+            Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
+
+            Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
+
+            leaderCardsDeck = gson.fromJson(reader, leaderCardArrayListType);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        //todo manca inizializzazione marketray;
+        this.devCardsDeck = new Deck();
+    }
+
+    public Table (LorenzoIlMagnifico lorenzoIlMagnifico){
+        this.tokenStack = new ArrayList<>(); //todo manca json token
+    }
 
     public int getNumPlayers() {
         return numPlayers;
@@ -87,31 +126,29 @@ public class Table extends Observable {
         }
     }
 
+    //shuffle leader cards and deal them at the beginning of the game to each player
+
+    public void dealLeaderCards() {
+        Collections.shuffle(leaderCardsDeck);
+
+        int topCardIndex = 15;
+
+        for (Player player : players) {
+            for (int i = 0; i < 4; i++) {
+                player.getLeaderCards().add(leaderCardsDeck.get(topCardIndex));
+                leaderCardsDeck.remove(leaderCardsDeck.get(topCardIndex));
+                topCardIndex--;
+            }
+            notifyObserver(new DealLeaderCards(player.getLeaderCards(), player.getNickname()));
+        }
+    }
+
     public void nextPlayer(){
 
     }
 
 
-    /**
-     * This three methods add the bonus for second, third and fourth player.
-     */
-    public void addSecondPlayerBonus(){
-        notifyObserver(new AskResourceType());
-    }
-
-    public void addThirdPlayerBonus() {
-        notifyObserver(new AskResourceType());
-        players.get(2).getPersonalBoard().getFaithTrack().moveForward(1);
-    }
-
-    public void addFourthPlayerBonus() {
-        notifyObserver(new AskResourceType());
-        notifyObserver(new AskResourceType());
-        players.get(3).getPersonalBoard().getFaithTrack().moveForward(1);
-    }
-
-
-    //metodo che rimuove un giocatore se si disconnette
+    //todo metodo che rimuove un giocatore se si disconnette
 
 
     /**
@@ -138,5 +175,8 @@ public class Table extends Observable {
     }
 
 
-
+    @Override
+    public String toString() {
+        return devCardsDeck.toString();
+    }
 }

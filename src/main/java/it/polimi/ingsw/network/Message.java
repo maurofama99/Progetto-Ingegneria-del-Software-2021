@@ -15,8 +15,8 @@ public class Message implements Serializable {
         this.messageType = messageType;
     }
 
-    public Message(Content messageType) {
-        this.messageType = messageType;
+    public String getReceiverNickname() {
+        return receiverNickname;
     }
 
     public String getSenderUser() {

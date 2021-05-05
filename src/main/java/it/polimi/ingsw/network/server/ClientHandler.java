@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
-import it.polimi.ingsw.network.messagescs.PlayersNumber;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
 import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
 import it.polimi.ingsw.view.VirtualView;
@@ -35,6 +34,10 @@ public class ClientHandler implements Runnable
         this.server = server;
         this.client = client;
         this.waitingRoom = waitingRoom;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     public void setGameController(GameController gameController) {

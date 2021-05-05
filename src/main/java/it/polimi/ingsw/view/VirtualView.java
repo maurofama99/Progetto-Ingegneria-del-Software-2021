@@ -12,6 +12,7 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observerPattern.Observer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VirtualView implements View, Observer {
@@ -45,13 +46,13 @@ public class VirtualView implements View, Observer {
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
         clientHandler.sendMessage(new GenericMessage(genericMessage));
-
     }
-
 
     @Override
-    public void displayLoginResult(boolean nicknameIsOk, boolean connectionIsOk, String nickname) {
+    public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
+
     }
+
 
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
@@ -96,6 +97,8 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void update(Message message) throws IOException {
-        clientHandler.sendMessage(message);
+        if (clientHandler.getNickname().equals(message.getReceiverNickname())) {
+            clientHandler.sendMessage(message);
+        }
     }
 }

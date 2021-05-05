@@ -5,12 +5,13 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Class for the leader cards that give a discount when buying a development card
  */
-public class Discount extends LeaderEffect{
+public class Discount extends LeaderEffect implements Serializable {
 
     private ResourceType discountOn;
     private ArrayList<Color> cardColorRequired;
@@ -58,9 +59,8 @@ public class Discount extends LeaderEffect{
 
     @Override
     public String toString() {
-        return "Discount{" +
-                "discountOn=" + discountOn +
-                ", cardColorRequired=" + cardColorRequired +
-                '}';
+        return "DISCOUNT\n| " +
+                "COST: devCards color   "+ cardColorRequired +
+                "\n| -1 on " + discountOn;
     }
 }

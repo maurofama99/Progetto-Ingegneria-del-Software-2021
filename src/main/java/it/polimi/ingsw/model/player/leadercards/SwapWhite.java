@@ -4,12 +4,13 @@ import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Leader cards that give extra resources when getting white resources from the market
  */
-public class SwapWhite extends LeaderEffect {
+public class SwapWhite extends LeaderEffect implements Serializable {
 
     private ArrayList<Color> cardColorRequired;
     private Resource newResource;
@@ -56,9 +57,8 @@ public class SwapWhite extends LeaderEffect {
 
     @Override
     public String toString() {
-        return "SwapWhite{" +
-                "cardColorRequired=" + cardColorRequired +
-                ", newResource=" + newResource +
-                '}';
+        return "SWAP WHITE MARBLE\n| " +
+                "COST: devcard colors: " + cardColorRequired +
+                "\n|  WHITE     --->   " + newResource;
     }
 }

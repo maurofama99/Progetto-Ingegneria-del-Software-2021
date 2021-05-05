@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messagescs.Market;
+package it.polimi.ingsw.network.messagescs;
 
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;

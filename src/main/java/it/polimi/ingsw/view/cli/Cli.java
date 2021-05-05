@@ -6,15 +6,14 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.client.ServerHandler;
-import it.polimi.ingsw.network.messagescs.LoginData;
-import it.polimi.ingsw.network.messagescs.PlayersNumber;
-import it.polimi.ingsw.network.messagescs.ResourcePlacement;
-import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
+import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +31,6 @@ public class Cli extends ClientObservable implements View {
         System.out.println("Number of players?");
         Scanner scanner = new Scanner(System.in);
         int numPlayers = scanner.nextInt();
-        notifyObservers(new PlayersNumber(numPlayers));
     }
 
     @Override
@@ -54,7 +52,7 @@ public class Cli extends ClientObservable implements View {
                         "Type '2' for a COIN\n" +
                         "Type '3' for a STONE\n---------------------\n");
         Scanner scanner = new Scanner(System.in);
-        int resourceType = Integer.parseInt(scanner.nextLine());
+        int resourceType = scanner.nextInt();
         notifyObservers(new ResourceTypeChosen(nickname, resourceType));
     }
 
@@ -74,7 +72,15 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void displayLoginResult(boolean nicknameIsOk, boolean connectionIsOk, String nickname) {
+    public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
+        System.out.println("\nYou can choose two of these leaderCards that you are going to activate during the game!!");
+        System.out.println(leaderCards.toString());
+        System.out.println("Choose two LeaderCard you want to discard (Insert index, press enter): ");
+        Scanner scanner = new Scanner(System.in);
+        int index = scanner.nextInt();
+        Scanner scanner2 = new Scanner(System.in);
+        int index2 = scanner2.nextInt();
+        notifyObservers(new DiscardLeader(nickname, (index-1), (index2-1)));
 
     }
 

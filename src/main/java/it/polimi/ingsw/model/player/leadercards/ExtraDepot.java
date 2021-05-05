@@ -4,13 +4,14 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
  * Class of the leader cards that act as an extra floor to put resources in.
  */
-public class ExtraDepot extends LeaderEffect {
+public class ExtraDepot extends LeaderEffect implements Serializable {
 
     private ResourceType toStore;
     private ResourceType resourceRequired;
@@ -89,9 +90,9 @@ public class ExtraDepot extends LeaderEffect {
 
     @Override
     public String toString() {
-        return "ExtraDepot{" +
-                "toStore=" + toStore +
-                ", resourceRequired=" + resourceRequired +
-                '}';
+        return  "   EXTRA DEPOT\n| " +
+                "COST:  5 " +resourceRequired +"S\n| "+
+                "two extra spaces for:\n| " +
+                "    "+ toStore;
     }
 }

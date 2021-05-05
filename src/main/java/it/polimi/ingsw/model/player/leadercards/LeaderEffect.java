@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
 
-public abstract class LeaderEffect {
+import java.io.Serializable;
+
+public abstract class LeaderEffect implements Serializable {
 
     private EffectType effectType;
 
@@ -27,5 +29,8 @@ public abstract class LeaderEffect {
      */
     public abstract boolean checkRequirementsLeaderCard(Player player);
 
-
+    @Override
+    public String toString() {
+        return "EffectType=" + effectType + "\n" + getObject().toString()+ "\n";
+    }
 }

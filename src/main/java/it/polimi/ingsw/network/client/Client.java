@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.messagessc.DealLeaderCards;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
@@ -86,7 +87,7 @@ public class Client implements Runnable, ClientObserver {
                 view.fetchPlayersNumber();
                 break;
             case LOGIN_REQUEST:
-                view.fetchNickname(); //chiede al player il nickname e lo invia al server
+                view.fetchNickname(); 
                 break;
             case GENERIC_MESSAGE:
                 view.displayGenericMessage(msg.toString());
@@ -97,7 +98,9 @@ public class Client implements Runnable, ClientObserver {
             case ASK_RESOURCE_PLACEMENT:
                 view.fetchResourcePlacement();
                 break;
-
+            case DEAL_LEADERCARDS:
+                view.displayLeaderCards(((DealLeaderCards)msg).getLeaderCards());
+                break;
         }
     }
 
