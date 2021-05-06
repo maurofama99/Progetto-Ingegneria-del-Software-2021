@@ -27,7 +27,6 @@ public class GameController{
 
     private Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
-    private AtomicBoolean firstPlayer = new AtomicBoolean(true);
     private boolean condition = false;
 
     public void setVvMap(HashMap<String, VirtualView> vvMap) {

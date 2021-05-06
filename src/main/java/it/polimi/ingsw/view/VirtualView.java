@@ -27,10 +27,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new LoginRequest());
     }
 
-    @Override
-    public void fetchPlayersNumber() throws IOException {
-       clientHandler.sendMessage(new NumPlayersRequest());
-    }
 
     @Override
     public void fetchResourceType() throws IOException {

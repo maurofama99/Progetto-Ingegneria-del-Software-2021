@@ -83,9 +83,6 @@ public class Client implements Runnable, ClientObserver {
 
     public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
-            case NUM_PLAYERS_REQUEST:
-                view.fetchPlayersNumber();
-                break;
             case LOGIN_REQUEST:
                 view.fetchNickname(); 
                 break;

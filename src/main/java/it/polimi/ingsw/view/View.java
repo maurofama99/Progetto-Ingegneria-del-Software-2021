@@ -99,5 +99,4 @@ public interface View {
      */
     void displayWinningMsg(String win);
 
-    void fetchPlayersNumber() throws IOException;
 }

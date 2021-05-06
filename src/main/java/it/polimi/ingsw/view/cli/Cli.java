@@ -26,12 +26,6 @@ public class Cli extends ClientObservable implements View {
       //  this.serverHandler = serverHandler;
     //}
 
-    @Override
-    public void fetchPlayersNumber() {
-        System.out.println("Number of players?");
-        Scanner scanner = new Scanner(System.in);
-        int numPlayers = scanner.nextInt();
-    }
 
     @Override
     public void fetchNickname() {

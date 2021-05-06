@@ -19,19 +19,11 @@ public class Server implements Runnable {
      * The socket port where the server listens to client connections
      */
     public static final int SOCKET_PORT = 1269;
-    //private GameController gameController;
     private final WaitingRoom waitingRoom;
 
     public Server(WaitingRoom waitingRoom) {
         this.waitingRoom = waitingRoom;
     }
-//public Server(GameController gameController) {
-        //this.gameController = gameController;
-    //}
-
-    //public GameController getGameController() {
-      //  return gameController;
-    //}
 
     @Override
     public void run() {
@@ -57,7 +49,6 @@ public class Server implements Runnable {
             }
         }
     }
-
 
 }
 

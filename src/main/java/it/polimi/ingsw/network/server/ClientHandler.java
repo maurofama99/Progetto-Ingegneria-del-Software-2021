@@ -2,12 +2,10 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.WaitingRoom;
-import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
-import it.polimi.ingsw.network.messagessc.NumPlayersRequest;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
@@ -63,7 +61,6 @@ public class ClientHandler implements Runnable
         System.out.println("Connected to " + client.getInetAddress());
 
         try {
-            sendMessage(new LoginRequest());
             handleClientConnection();
         } catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");
@@ -72,7 +69,6 @@ public class ClientHandler implements Runnable
         try {
             client.close();
         } catch (IOException e) {
-            System.out.println("va qui?");
             e.printStackTrace();
         }
     }
@@ -85,6 +81,7 @@ public class ClientHandler implements Runnable
     private void handleClientConnection() throws IOException {
 
         System.out.println("Handling " + client.getInetAddress());
+        sendMessage(new LoginRequest());
 
         try {
             //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
@@ -92,24 +89,11 @@ public class ClientHandler implements Runnable
                 /* read messages from the client, process them, and send replies */
                 Message msg = (Message) input.readObject();
                 receiveMessage(msg);
-                //se arriva un messaggio login_data significa che un client si è appena connesso
-                //se un client si connette c'è bisogno di assegnargli una virtual view per comunicare
-                //la virtual view deve essere aggiunta alla mappa delle virtual view
-                /*if (msg.getMessageType() == Content.LOGIN_DATA){
-                    VirtualView vv = new VirtualView(this);
-                    gameController.getVvMap().put(((LoginData)msg).getNickname(),vv);
-                    nickname = ((LoginData)msg).getNickname();
-                    receiveMessage(msg);
-                } else {
-                    msg.setSenderUser(nickname);
-                    receiveMessage(msg);
-                }*/
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();
             System.out.println("invalid stream from client");
         }
-
         client.close();
     }
 
@@ -125,9 +109,8 @@ public class ClientHandler implements Runnable
     }
 
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
-    //oppure fai un booleano first messaage e nei messaggi non first cancelli la vv precedentemente creata
     public void receiveMessage(Message msg) throws IOException {
-        if (!started){
+        if (msg.getMessageType() == Content.LOGIN_DATA){
             VirtualView vv = new VirtualView(this);
             waitingRoom.getVvMap().put(((LoginData)msg).getNickname(),vv);
             nickname = ((LoginData)msg).getNickname();

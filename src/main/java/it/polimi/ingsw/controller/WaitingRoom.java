@@ -47,7 +47,6 @@ public class WaitingRoom {
                 if (!bool) vv.displayGenericMessage("Please wait for other players to join...");
                 break;
         }
-
     }
 
     private boolean checkGameStart() throws IOException {
@@ -64,12 +63,12 @@ public class WaitingRoom {
         }
         if (threePlayersArray.size()==3){
             setupGameController(threePlayersArray);
-            twoPlayersArray.clear();
+            threePlayersArray.clear();
             return true;
         }
         if (fourPlayersArray.size()==4){
-            setupGameController(threePlayersArray);
-            twoPlayersArray.clear();
+            setupGameController(fourPlayersArray);
+            fourPlayersArray.clear();
             return true;
         }
         return false;

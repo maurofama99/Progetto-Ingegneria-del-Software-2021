@@ -90,9 +90,4 @@ public class Gui implements View {
     public void displayWinningMsg(String win) {
 
     }
-
-    @Override
-    public void fetchPlayersNumber() {
-
-    }
 }

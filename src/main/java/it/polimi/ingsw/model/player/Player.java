@@ -12,6 +12,8 @@ import it.polimi.ingsw.observerPattern.Observable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Player's class. Used a lot to set and get in other methods and interfaces
@@ -78,9 +80,12 @@ public class Player extends Observable implements Serializable {
      * @param leaderCard2 the second leader card
      */
     public void discardLeader(int leaderCard1, int leaderCard2){
+        ArrayList<Integer> indexes = new ArrayList<>();
+        indexes.add(leaderCard1);
+        indexes.add(leaderCard2);
+        indexes.sort(Collections.reverseOrder());
         leaderCards.remove(leaderCard1);
         leaderCards.remove(leaderCard2);
-        System.out.println(leaderCards);
     }
 
     /**
