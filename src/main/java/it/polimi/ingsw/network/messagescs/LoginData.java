@@ -8,7 +8,7 @@ public class LoginData extends Message{
     private final int numPlayers;
 
     public LoginData(String nickname, int numPlayers) {
-        super(nickname, Content.LOGIN_DATA);
+        super(nickname, "server", Content.LOGIN_DATA);
         this.nickname = nickname;
         this.numPlayers = numPlayers;
     }

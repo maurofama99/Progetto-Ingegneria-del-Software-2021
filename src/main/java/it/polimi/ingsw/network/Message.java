@@ -3,6 +3,8 @@ package it.polimi.ingsw.network;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+
+    private String receiverNickname;
     private String senderUser;
     private Content messageType;
 
@@ -10,8 +12,9 @@ public class Message implements Serializable {
         this.senderUser = senderUser;
     }
 
-    public Message(String senderUser, Content messageType) {
+    public Message(String senderUser, String receiverNickname, Content messageType) {
         this.senderUser = senderUser;
+        this.receiverNickname = receiverNickname;
         this.messageType = messageType;
     }
 

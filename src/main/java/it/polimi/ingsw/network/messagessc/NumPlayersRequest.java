@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.Message;
 
 public class NumPlayersRequest extends Message {
     public NumPlayersRequest() {
-        super("server", Content.NUM_PLAYERS_REQUEST);
+        super("server", "client", Content.NUM_PLAYERS_REQUEST);
     }
 
 }

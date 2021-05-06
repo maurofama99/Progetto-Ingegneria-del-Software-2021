@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.Message;
 
 public class LoginRequest extends Message {
     public LoginRequest() {
-        super("server", Content.LOGIN_REQUEST);
+        super("server", "client", Content.LOGIN_REQUEST);
     }
 
     @Override

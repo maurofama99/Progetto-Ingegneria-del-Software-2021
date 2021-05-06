@@ -8,7 +8,7 @@ public class AskResourceType extends Message {
 
 
     public AskResourceType() {
-        super("server", Content.ASKTYPERESOURCE);
+        super("server", "client", Content.ASKTYPERESOURCE);
     }
 
 

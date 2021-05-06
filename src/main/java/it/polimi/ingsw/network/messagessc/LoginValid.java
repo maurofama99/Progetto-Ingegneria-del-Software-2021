@@ -6,7 +6,7 @@ import it.polimi.ingsw.network.Message;
 public class LoginValid extends Message {
 
     public LoginValid() {
-        super("server", Content.LOGIN_SUCCESSFUL);
+        super("server", "client", Content.LOGIN_SUCCESSFUL);
     }
 
 }

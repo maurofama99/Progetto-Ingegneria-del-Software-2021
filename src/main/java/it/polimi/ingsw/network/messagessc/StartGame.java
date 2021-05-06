@@ -6,7 +6,7 @@ import it.polimi.ingsw.network.Message;
 public class StartGame extends Message {
 
     public StartGame() {
-        super("server", Content.START_GAME);
+        super("server", "client", Content.START_GAME);
     }
 
 

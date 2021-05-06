@@ -7,7 +7,7 @@ public class GenericMessage extends Message {
     private String genericMessage;
 
     public GenericMessage(String genericMessage) {
-        super("server", Content.GENERIC_MESSAGE);
+        super("server", "client", Content.GENERIC_MESSAGE);
         this.genericMessage = genericMessage;
     }
 

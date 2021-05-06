@@ -6,6 +6,6 @@ import it.polimi.ingsw.network.Message;
 public class AskResourcePlacement extends Message {
 
     public AskResourcePlacement() {
-        super("server", Content.ASK_RESOURCE_PLACEMENT);
+        super("server", "client", Content.ASK_RESOURCE_PLACEMENT);
     }
 }
