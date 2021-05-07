@@ -4,18 +4,11 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.*;
-import it.polimi.ingsw.network.messagessc.DealLeaderCards;
-import it.polimi.ingsw.network.messagessc.GenericMessage;
-import it.polimi.ingsw.observerPattern.Observable;
-import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -50,7 +43,6 @@ public class GameController{
     }
 
     public void receiveMessage(Message msg) throws IOException {
-
         switch (tableState) {
             case SETUP:
                 receiveMessageOnSetup(msg);
@@ -146,7 +138,6 @@ public class GameController{
             table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(1);
             vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
         }
-
         condition = true;
     }
 }

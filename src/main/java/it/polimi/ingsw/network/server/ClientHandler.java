@@ -13,12 +13,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-
 /**
  * A class that represents the client inside the server.
  */
-public class ClientHandler implements Runnable
-{
+public class ClientHandler implements Runnable {
     private Server server;
     private Socket client;
     private ObjectOutputStream output;
@@ -38,6 +36,10 @@ public class ClientHandler implements Runnable
         return nickname;
     }
 
+    public Server getServer() {
+        return server;
+    }
+
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
     }
@@ -47,8 +49,7 @@ public class ClientHandler implements Runnable
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         //imposta in e out stream
         try {
             output = new ObjectOutputStream(client.getOutputStream());
@@ -73,13 +74,7 @@ public class ClientHandler implements Runnable
         }
     }
 
-    public Server getServer() {
-        return server;
-    }
-
-
     private void handleClientConnection() throws IOException {
-
         System.out.println("Handling " + client.getInetAddress());
         sendMessage(new LoginRequest());
 
@@ -99,6 +94,7 @@ public class ClientHandler implements Runnable
 
     /**
      * Sends a message to the client.
+     *
      * @param msg The message to be sent.
      * @throws IOException If a communication error occurs.
      */
@@ -110,10 +106,10 @@ public class ClientHandler implements Runnable
 
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
     public void receiveMessage(Message msg) throws IOException {
-        if (msg.getMessageType() == Content.LOGIN_DATA){
+        if (msg.getMessageType() == Content.LOGIN_DATA) {
             VirtualView vv = new VirtualView(this);
-            waitingRoom.getVvMap().put(((LoginData)msg).getNickname(),vv);
-            nickname = ((LoginData)msg).getNickname();
+            waitingRoom.getVvMap().put(((LoginData) msg).getNickname(), vv);
+            nickname = ((LoginData) msg).getNickname();
             waitingRoom.getPlayerClientHandlerHashMap().put(nickname, this);
             waitingRoom.receiveMessage(msg);
         } else gameController.receiveMessage(msg);

@@ -84,8 +84,8 @@ public class Player extends Observable implements Serializable {
         indexes.add(leaderCard1);
         indexes.add(leaderCard2);
         indexes.sort(Collections.reverseOrder());
-        leaderCards.remove(leaderCard1);
-        leaderCards.remove(leaderCard2);
+        for (int index : indexes)
+            leaderCards.remove(index);
     }
 
     /**

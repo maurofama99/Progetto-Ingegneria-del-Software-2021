@@ -18,11 +18,12 @@ public class Server implements Runnable {
     /**
      * The socket port where the server listens to client connections
      */
-    public static final int SOCKET_PORT = 1269;
+    private final int SOCKET_PORT;
     private final WaitingRoom waitingRoom;
 
-    public Server(WaitingRoom waitingRoom) {
+    public Server(WaitingRoom waitingRoom, int SOCKET_PORT) {
         this.waitingRoom = waitingRoom;
+        this.SOCKET_PORT = SOCKET_PORT;
     }
 
     @Override

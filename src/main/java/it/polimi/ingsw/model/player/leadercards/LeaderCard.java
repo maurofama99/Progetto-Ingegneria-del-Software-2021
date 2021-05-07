@@ -34,5 +34,4 @@ public class LeaderCard implements Serializable {
         return text;
     }
 
-
 }

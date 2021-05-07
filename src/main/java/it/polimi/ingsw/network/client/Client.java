@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagessc.DealLeaderCards;
-import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
@@ -15,13 +14,14 @@ import java.util.Scanner;
 /**
  * Client for the Master of Renaissance game.
  */
-
 public class Client implements Runnable, ClientObserver {
     private ServerHandler serverHandler;
     private View view;
+    private final int SOCKET_PORT;
 
-    public Client(View view) {
+    public Client(View view, int SOCKET_PORT) {
         this.view = view;
+        this.SOCKET_PORT = SOCKET_PORT;
     }
 
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class Client implements Runnable, ClientObserver {
 
         if (cli){
             Cli view = new Cli();
-            Client client = new Client(view);
+            Client client = new Client(view, Integer.parseInt(args[0]));
             view.addClientObserver(client);
             client.run();
         } else {
@@ -58,7 +58,7 @@ public class Client implements Runnable, ClientObserver {
          * communication. */
         Socket server;
         try {
-            server = new Socket(ip, Server.SOCKET_PORT);
+            server = new Socket(ip, SOCKET_PORT);
         } catch (IOException e) {
             System.out.println("server unreachable");
             return;
@@ -71,7 +71,6 @@ public class Client implements Runnable, ClientObserver {
 
     }
 
-
     /**
      * The handler object responsible for communicating with the server.
      * @return The server handler.
@@ -79,7 +78,6 @@ public class Client implements Runnable, ClientObserver {
     public ServerHandler getServerHandler() {
         return serverHandler;
     }
-
 
     public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
