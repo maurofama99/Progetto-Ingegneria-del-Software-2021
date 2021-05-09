@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -95,5 +97,10 @@ public class StrongBox {
         return available;
     }
 
+    @Override
+    public String toString() {
+        return Arrays.toString(storedResources);
+
+    }
 }
 

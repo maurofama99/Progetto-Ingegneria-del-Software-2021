@@ -83,7 +83,7 @@ public class PlayerTest{
         player.getLeaderCards().add(lCard4);
 
         //player discards two leader cards
-        player.discardLeader(lCards.indexOf(lCard3), lCards.indexOf(lCard4));
+        player.discardLeader(2, 3);
         assertTrue(player.getLeaderCards().contains(lCard1) && player.getLeaderCards().contains(lCard2)
         && !player.getLeaderCards().contains(lCard3) && !player.getLeaderCards().contains(lCard4));
 

@@ -158,7 +158,10 @@ public class FaithTrack {
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return "FAITHTRACK:\n"
+                + track +
+                "FAITHMARKER CURRENT POSITION: " + faithMarkerPosition;
+    }
 }

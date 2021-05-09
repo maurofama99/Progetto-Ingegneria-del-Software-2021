@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.network.messagessc.DealLeaderCards;
+import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
 
@@ -84,8 +84,10 @@ public class Player extends Observable implements Serializable {
         indexes.add(leaderCard1);
         indexes.add(leaderCard2);
         indexes.sort(Collections.reverseOrder());
-        for (int index : indexes)
+        for (int index : indexes){
             leaderCards.remove(index);
+        }
+        notifyObserver(new GenericMessage(leaderCards.toString()));
     }
 
     /**

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.Deck;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
@@ -15,80 +17,44 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VirtualView implements View, Observer {
+public class VirtualView implements Observer {
     private ClientHandler clientHandler;
 
     public VirtualView(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
     }
 
-    @Override
     public void fetchNickname() throws IOException {
         clientHandler.sendMessage(new LoginRequest());
     }
 
-
-    @Override
     public void fetchResourceType() throws IOException {
         clientHandler.sendMessage(new AskResourceType());
     }
 
-    @Override
     public void fetchResourcePlacement() throws IOException {
         clientHandler.sendMessage(new AskResourcePlacement());
     }
 
-
-    @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
         clientHandler.sendMessage(new GenericMessage(genericMessage));
     }
 
-    @Override
-    public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
 
+    public void fetchPlayerAction() throws IOException {
+        clientHandler.sendMessage(new AskAction());
+    }
+
+    public void displayMarketTray(MarketTray marketTray) throws IOException{
+        clientHandler.sendMessage(new DisplayMarket(marketTray));
+    }
+
+    public void displayDeck(){
     }
 
 
-    @Override
-    public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
-    }
-
-    @Override
-    public void displayErrorMsg(String errorMsg) {
-    }
-
-    @Override
-    public void displayPersonalBoard(PersonalBoard personalBoard) {
-    }
-
-    @Override
-    public void displayStatus(List<String> players, List<PersonalBoard> personalBoards, String playingPlayer) {
-    }
-
-    @Override
-    public void displayTable(Table t) {
-    }
-
-    @Override
-    public void displayEffect(LeaderCard leaderCard) {
-    }
-
-    @Override
-    public void fetchSlotChoice(List<Slot> slots) {
-    }
-
-    @Override
-    public void displayPopeSpaceActivation(PopeSpace popeSpace) {
-    }
-
-    @Override
-    public void displayMarket(MarketTray marketTray) {
-
-    }
-
-    @Override
-    public void displayWinningMsg(String win) {
+    public void displayPersonalBoard(PersonalBoard personalBoard) throws IOException {
+        clientHandler.sendMessage(new DisplayPersonalBoard(personalBoard));
     }
 
     @Override

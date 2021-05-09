@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.resources;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,17 +20,21 @@ public class MarketTray {
         return tray;
     }
 
-    public void setSlide(Resource slide) {
-        this.slide = slide;
-    }
 
-    public Resource getSlide() {
-        return slide;
-    }
-
-
-    public void setUpMarket(){
-
+    public ArrayList<Resource> createMarbles(){
+        ArrayList<Resource> marbles = new ArrayList<>();
+        for (int i=0; i<4; i++){
+            marbles.add(new Resource(1,ResourceType.WHITERESOURCE));
+        }
+        for (int i=0; i<2; i++){
+            marbles.add(new Resource(1,ResourceType.STONE));
+            marbles.add(new Resource(1, ResourceType.SHIELD));
+            marbles.add(new Resource(1, ResourceType.SERVANT));
+            marbles.add(new Resource(1, ResourceType.COIN));
+        }
+        marbles.add(new Resource(1, ResourceType.FAITHPOINT));
+        Collections.shuffle(marbles);
+        return marbles;
     }
 
     /**
@@ -98,5 +103,11 @@ public class MarketTray {
         return resources;
     }
 
+    @Override
+    public String toString() {
 
+        return "MARKET TRAY:"
+                + Arrays.toString(tray)+
+                "SLIDE: " + slide;
+    }
 }

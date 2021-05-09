@@ -6,13 +6,15 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class of the personal board of every player. It does things like setting the tracks,
  * editing the slots...
  */
-public class PersonalBoard {
+public class PersonalBoard implements Serializable {
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
@@ -102,4 +104,11 @@ public class PersonalBoard {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return  "\nFAITHTRACK: " + faithTrack +
+                "\nWAREHOUSE: \n" + warehouse.toString() +
+                "\nDEVELOPMENT CARD SLOTS: \n" + Arrays.toString(slots) +
+                "\nACTIVE LEADER CARDS: " + activeLeaderCards.toString();
+    }
 }

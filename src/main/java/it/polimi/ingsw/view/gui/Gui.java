@@ -39,6 +39,11 @@ public class Gui implements View {
 
     }
 
+    @Override
+    public void fetchPlayerAction(String message) throws IOException {
+
+    }
+
 
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {

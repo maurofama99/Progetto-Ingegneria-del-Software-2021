@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.player.leadercards.LeaderEffectJsonDeserializer;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
-import it.polimi.ingsw.network.messagessc.DealLeaderCards;
+import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
@@ -37,6 +37,8 @@ public class Table extends Observable{
     private MarketTray marketTray;
     private Deck devCardsDeck = new Deck();
     private LorenzoIlMagnifico lorenzoIlMagnifico;
+
+    int topCardIndex = 15;
 
     public Table() {
         this.numPlayers = 0;
@@ -72,6 +74,14 @@ public class Table extends Observable{
 
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**
@@ -120,6 +130,7 @@ public class Table extends Observable{
      */
     public void setPlayersInGame(){
         Collections.shuffle(players);
+        setCurrentPlayer(players.get(0));
         for (Player player : players){
             player.setTurnOrder(players.indexOf(player) + 1);
         }
@@ -127,23 +138,29 @@ public class Table extends Observable{
 
     //shuffle leader cards and deal them at the beginning of the game to each player
 
-    public void dealLeaderCards() {
+    public void dealLeaderCards(String playerNickname) {
         Collections.shuffle(leaderCardsDeck);
 
-        int topCardIndex = 15;
-
         for (Player player : players) {
-            for (int i = 0; i < 4; i++) {
-                player.getLeaderCards().add(leaderCardsDeck.get(topCardIndex));
-                leaderCardsDeck.remove(leaderCardsDeck.get(topCardIndex));
-                topCardIndex--;
+            if (player.getNickname().equals(playerNickname)) {
+                for (int i = 0; i < 4; i++) {
+                    player.getLeaderCards().add(leaderCardsDeck.get(topCardIndex));
+                    leaderCardsDeck.remove(leaderCardsDeck.get(topCardIndex));
+                    topCardIndex--;
+                }
+                notifyObserver(new DisplayLeaderCards(player.getLeaderCards(), playerNickname));
             }
-            notifyObserver(new DealLeaderCards(player.getLeaderCards(), player.getNickname()));
         }
     }
 
-    public void nextPlayer(){
 
+
+    public void nextPlayer(){
+        if (getPlayers().indexOf(currentPlayer) < (players.size()-1))
+            setCurrentPlayer(players.get(getPlayers().indexOf(currentPlayer) + 1));
+        else
+            setCurrentPlayer(players.get(0));
+        //notifyObserver con mex: quale azione?
     }
 
 

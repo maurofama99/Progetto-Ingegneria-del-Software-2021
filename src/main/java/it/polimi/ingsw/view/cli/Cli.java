@@ -9,12 +9,14 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.*;
+import it.polimi.ingsw.network.messagessc.AskAction;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Cli extends ClientObservable implements View {
@@ -72,6 +74,46 @@ public class Cli extends ClientObservable implements View {
 
     }
 
+    @Override
+    public void fetchPlayerAction(String message) throws IOException {
+        boolean rowOrCol;
+        int index;
+        System.out.println(message);
+        Scanner scanner = new Scanner(System.in);
+        String action = scanner.nextLine();
+        action = action.toUpperCase();
+        switch (action) {
+            case "MARKET":
+                System.out.println("Do you want to pick a row or a column of the tray? (row/col)");
+                Scanner scanner2 = new Scanner(System.in);
+                String decision = scanner2.nextLine();
+                if (decision.equals("row")) {
+                    rowOrCol = true;
+                    System.out.println("Which row do you want to pick? (1,2,3)");
+                    Scanner scanner3 = new Scanner(System.in);
+                    index = scanner3.nextInt();
+                } else if (decision.equals("col")){
+                    rowOrCol = false;
+                    System.out.println("Which column do you want to pick? (1,2,3,4)");
+                    Scanner scanner3 = new Scanner(System.in);
+                    index = scanner3.nextInt();
+                } else {
+                    //todo: gestire l'input errato
+                    index=0;
+                    rowOrCol=false;
+                }
+                notifyObservers(new GoingMarket(index, rowOrCol));
+                break;
+        }
+
+
+    }
+
+    @Override
+    public void displayPersonalBoard(PersonalBoard personalBoard) {
+        System.out.println(personalBoard.toString());
+    }
+
 
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
@@ -83,10 +125,7 @@ public class Cli extends ClientObservable implements View {
 
     }
 
-    @Override
-    public void displayPersonalBoard(PersonalBoard personalBoard) {
 
-    }
 
     @Override
     public void displayStatus(List<String> players, List<PersonalBoard> personalBoards, String playingPlayer) {
@@ -115,7 +154,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayMarket(MarketTray marketTray) {
-
+        System.out.println(marketTray);
     }
 
 

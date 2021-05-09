@@ -34,6 +34,7 @@ public interface View {
 
     void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException;
 
+    void fetchPlayerAction(String message) throws IOException;
     /**
      * Displays the disconnected player
      * @param nicknameWhoDisconnected
