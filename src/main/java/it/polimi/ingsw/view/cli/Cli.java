@@ -28,6 +28,7 @@ public class Cli extends ClientObservable implements View {
         System.out.println("What's your nickname?");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
+        nickname = nickname.replaceAll("\\s+","");
         this.nickname = nickname;
         System.out.println("How many players do you want to play with?");
         int numPlayers = scanner.nextInt();

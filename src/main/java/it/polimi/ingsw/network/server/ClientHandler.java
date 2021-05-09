@@ -104,14 +104,20 @@ public class ClientHandler implements Runnable {
         output.flush();
     }
 
+    //sfrutta il fatto che le vv sono tutte salvate e accoppiate al loro nickname per la resilienza alle disconnessioni:
+    //quando un player si riconnette e ha un nickname già associato alla virtual view, è la sua
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
     public void receiveMessage(Message msg) throws IOException {
         if (msg.getMessageType() == Content.LOGIN_DATA) {
+            if (waitingRoom.nicknameAlreadyPresent(((LoginData)msg).getNickname()) || ((((LoginData)msg).getNumPlayers() > 4 && ((LoginData)msg).getNumPlayers()<1))) {
+                sendMessage(new LoginRequest());
+            } else {
             VirtualView vv = new VirtualView(this);
             waitingRoom.getVvMap().put(((LoginData) msg).getNickname(), vv);
             nickname = ((LoginData) msg).getNickname();
             waitingRoom.getPlayerClientHandlerHashMap().put(nickname, this);
             waitingRoom.receiveMessage(msg);
+            }
         } else gameController.receiveMessage(msg);
     }
 

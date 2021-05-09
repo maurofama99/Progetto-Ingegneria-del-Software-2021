@@ -3,17 +3,28 @@ package it.polimi.ingsw.model.resources;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Where the marbles are placed and players take resources
  */
-public class MarketTray {
-    private Resource[][] tray;
+public class MarketTray implements Serializable{
+    private Resource[][] tray = new Resource[3][4];
     private Resource slide;
 
-    public MarketTray(Resource[][] tray, Resource slide) {
-        this.tray = tray;
-        this.slide = slide;
+    public MarketTray() {
+        int k=0;
+        ArrayList<Resource> marbles = createMarbles();
+        slide = marbles.get(12);
+        marbles.remove(12);
+
+        for (int i=0; i<3; i++) {
+            for (int j = 0; j < 4; j++) {
+                tray[i][j] = new Resource(marbles.get(k).getQnt(), marbles.get(k).getType());
+                k++;
+            }
+        }
+
     }
 
     public Resource[][] getTray() {
@@ -36,7 +47,6 @@ public class MarketTray {
         Collections.shuffle(marbles);
         return marbles;
     }
-
     /**
      * This method is called when a player selects a row.
      * @param row which row of the market is selected
