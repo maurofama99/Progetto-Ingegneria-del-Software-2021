@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.player.warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.Optional;
  * Deposit of the player. Three floors with specific rules to be used. Second floors can be added by
  * leader cards eventually
  */
-public class Depot {
+public class Depot implements Serializable {
 
     //il deposito è un arraylist di floor in cui i primi tre elementi sono rispettivamente 1st, 2nd e 3rd floor e si possono
     //eventualmente aggiungere dinamicamente degli extra floor

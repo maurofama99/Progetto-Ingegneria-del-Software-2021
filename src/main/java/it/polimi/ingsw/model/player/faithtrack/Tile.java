@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
 
+import java.io.Serializable;
+
 /**
  * This is the general Tile class. It is the base of all others tiles.
  */
-public class Tile {
+public class Tile implements Serializable {
     private int position;
     private boolean isFirstSection;
     private boolean isSecondSection;

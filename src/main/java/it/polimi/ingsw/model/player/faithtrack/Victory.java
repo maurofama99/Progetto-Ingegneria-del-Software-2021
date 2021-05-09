@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
 
+import java.io.Serializable;
+
 /**
  * Tiles that give VPs.
  */
-public class Victory extends Tile {
+public class Victory extends Tile implements Serializable {
     private int points;
 
     public Victory(int position, boolean isFirstSection, boolean isSecondSection, boolean isThirdSection, int points) {

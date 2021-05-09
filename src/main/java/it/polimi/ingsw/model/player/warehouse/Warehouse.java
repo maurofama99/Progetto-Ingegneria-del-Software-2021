@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.player.warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -10,7 +11,7 @@ import java.util.Optional;
 /**
  * Class of all player's place to store resources in general
  */
-public class Warehouse {
+public class Warehouse implements Serializable {
 
     private Depot depot;
     private StrongBox strongBox;

@@ -3,11 +3,12 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.devcard.DevCard;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Class of the slots in the personal board, where the dev cards are placed
  */
-public class Slot{
+public class Slot implements Serializable{
     private ArrayList<DevCard> cards = new ArrayList<>();
     //created enum class for slot number
     private SlotNumber slotNumber;

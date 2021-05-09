@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  * the strongbox is an array of the 4 resources that can be stored, in alfhabetic order and with
  * an initialized quantity of 0. Only productions power store their things here
  */
-public class StrongBox {
+public class StrongBox implements Serializable {
 
     private Resource[] storedResources = new Resource[4];
 

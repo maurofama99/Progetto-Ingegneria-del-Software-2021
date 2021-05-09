@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.player.faithtrack;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.singleplayer.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
  * Class that initializes and controls the track of every player. We made as every player
  * has its own track to make it easier to use the Favor Tiles
  */
-public class FaithTrack {
+public class FaithTrack implements Serializable {
     private int faithMarkerPosition;
     private int blackCrossPosition;
     private ArrayList<Tile> track;
