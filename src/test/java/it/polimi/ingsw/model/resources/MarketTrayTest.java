@@ -22,14 +22,11 @@ public class MarketTrayTest {
         for (i=0; i<3; i++){
             for(j=0; j<4; j++){
                 System.out.print(market.getTray()[i][j].toString() + " ");
-                //SERVANT SERVANT SERVANT SERVANT
-                //STONE COIN FAITHPOINT COIN
-                //STONE WHITE FAITHPOINT COIN
             }
             System.out.println();
         }
 
-        System.out.println(slider);
+        System.out.println("Slider: " + slider);
 
         /*ArrayList<Resource> result = market.selectRow(3);
 

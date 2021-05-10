@@ -64,8 +64,8 @@ public class Depot implements Serializable {
             throw new IllegalArgumentException("It's not possible to add a faith point in depot");
         else {//se la risorsa è già presente in un altro piano non puoi aggiungere resourceToPlace
             for (int i = 0; i < 3; i++) {
-                if (floors.get(i).isPresent() && floors.get(i).get().getType().equals(resourceToPlace.getType()))
-                    throw new IllegalArgumentException("Argument resourceToPlace " + resourceToPlace + " is already in floor " + i); //TODO eccezioni risorsa scartata restituisce faith point
+                if (floors.get(i).isPresent() && floors.get(i).get().getType().equals(resourceToPlace.getType()) && i!=(floor))
+                    throw new IllegalArgumentException("Argument resourceToPlace " + resourceToPlace + " is already in floor " + (i+1)); //TODO eccezioni risorsa scartata restituisce faith point
             }
             //se nel piano è presente un altro tipo di risorsa non puoi aggiungere resourceToPlace
             if (floors.get(floor).isPresent() && !floors.get(floor).get().getType().equals(resourceToPlace.getType()))

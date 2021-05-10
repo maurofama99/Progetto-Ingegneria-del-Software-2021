@@ -38,7 +38,6 @@ public class Table extends Observable implements Serializable{
     private MarketTray marketTray;
     private Deck devCardsDeck = new Deck();
     private LorenzoIlMagnifico lorenzoIlMagnifico;
-
     int topCardIndex = 15;
 
     public Table() {
@@ -67,6 +66,10 @@ public class Table extends Observable implements Serializable{
 
     public Table (LorenzoIlMagnifico lorenzoIlMagnifico){
         this.tokenStack = new ArrayList<>(); //todo manca json token
+    }
+
+    public ArrayList<LeaderCard> getLeaderCardsDeck() {
+        return leaderCardsDeck;
     }
 
     public int getNumPlayers() {

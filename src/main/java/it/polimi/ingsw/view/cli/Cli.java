@@ -96,12 +96,13 @@ public class Cli extends ClientObservable implements View {
                 System.out.println("Do you want to pick a row or a column of the tray? (row/col)");
                 Scanner scanner2 = new Scanner(System.in);
                 String decision = scanner2.nextLine();
-                if (decision.equals("row")) {
+                decision = decision.replaceAll("\\s+","");
+                if (decision.equalsIgnoreCase("row")) {
                     rowOrCol = true;
                     System.out.println("Which row do you want to pick? (1,2,3)");
                     Scanner scanner3 = new Scanner(System.in);
                     index = scanner3.nextInt();
-                } else if (decision.equals("col")){
+                } else if (decision.equalsIgnoreCase("col")){
                     rowOrCol = false;
                     System.out.println("Which column do you want to pick? (1,2,3,4)");
                     Scanner scanner3 = new Scanner(System.in);

@@ -2,15 +2,14 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.client.ServerHandler;
-import it.polimi.ingsw.network.messagescs.ActivateLeader;
-import it.polimi.ingsw.network.messagescs.BuyDevCard;
-import it.polimi.ingsw.network.messagescs.GoingMarket;
-import it.polimi.ingsw.network.messagescs.LoginData;
+import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -18,13 +17,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 
 //gestisce tutti gli stati che il player può avere, comprese le mosse
 
 public class PlayerController {
-    private GameController gameController;
+    private final GameController gameController;
     private PlayerAction playerAction;
+    private ArrayList<Resource> resources;
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -43,7 +44,7 @@ public class PlayerController {
 
         switch (playerAction){
             case GOTO_MARKET:
-                goToMarket(msg);
+                receiveMessageOnMarket(msg);
                 break;
 
             case ACTIVATE_LEADER:
@@ -74,11 +75,30 @@ public class PlayerController {
         }
     }
 
+    public void receiveMessageOnMarket(Message msg) throws IOException {
+        switch (msg.getMessageType()){
+            case GOING_MARKET:
+                goToMarket(msg);
+                break;
+            case RESOURCE_PLACEMENT:
+                gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size()-1), ((ResourcePlacement) msg).getFloor());
+                resources.remove(resources.get(resources.size()-1));
+                playerVirtualView().displayGenericMessage(resources.toString());
+                if (!resources.isEmpty()){
+                    playerVirtualView().displayGenericMessage(resources.get(resources.size()-1).toString() + "\n");
+                    playerVirtualView().fetchResourcePlacement();
+                } else {
+                    playerVirtualView().displayGenericMessage(""+gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+                    playerVirtualView().fetchDoneAction();
+                }
+        }
+    }
 
-    public void goToMarket(Message msg){
+
+    public void goToMarket(Message msg) throws IOException {
         int index  = ((GoingMarket)msg).getIndex();
         boolean rowOrCol = ((GoingMarket)msg).isRowOrColumn();
-        ArrayList<Resource> resources;
+        boolean doubleSwap = false;
 
         if (rowOrCol) { //selezione riga
             resources = gameController.getTable().getMarketTray().selectRow(index);
@@ -86,15 +106,42 @@ public class PlayerController {
             resources = gameController.getTable().getMarketTray().selectColumn(index);
         }
 
-        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().hasEffect(EffectType.SWAPWHITE)){
-            //sostituisci le white resources con la risorsa del leader effect
-            //gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject()
+        //SWAP WHITE
+        //se ha una sola swap white va bene quello già scritto
+        //se ha due leader swap white nel momento dell'assegnazione risorse chiedi in quale la vuole trasformare
 
-        } else {
+        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().size()==2){
+            if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE) &&
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
+                doubleSwap = true;
+            }
+        }
+
+        //applica effetto swap white se attivo
+        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().hasEffect(EffectType.SWAPWHITE) && !doubleSwap){
+            for(LeaderCard leaderCard : gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards()){
+                if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
+                    Resource newResource = (Resource) leaderCard.getLeaderEffect().getObject();
+                    for (Resource res : resources){
+                        if (res.getType().equals(ResourceType.WHITERESOURCE)){
+                            res.setType(newResource.getType());
+                        }
+                    }
+                }
+            }
+        } else if (!doubleSwap){ //altrimenti togli le white resources
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         }
 
+        //todo: rimuovi i faithpoint e mouvi il faith marker
+
+        //chiedi risorsa per risorsa dove la vuole posizionare
+        playerVirtualView().displayGenericMessage("You chose: " + resources.toString());
+        playerVirtualView().displayGenericMessage(resources.get(resources.size()-1).toString());
+        playerVirtualView().fetchResourcePlacement();
+
     }
+
 
     //quando il giocatore decide di attivare una delle sue leader card
     //devo mettere nella cli il display delle leader card

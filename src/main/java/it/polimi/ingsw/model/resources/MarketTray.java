@@ -63,6 +63,7 @@ public class MarketTray implements Serializable{
             tmptray[i] = (tray[i].clone());
         }
 
+
         if (row>=1 && row<=3) {
             //adding row's resources in the array to be returned
             resources = new ArrayList<>(Arrays.asList(tray[row - 1]));
@@ -75,8 +76,6 @@ public class MarketTray implements Serializable{
             this.slide = resources.get(resources.size() - 1);
         } else throw new IndexOutOfBoundsException();
 
-        //remove all white resources from the array
-        //resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); //uses iterator
         return resources;
     }
 
@@ -108,16 +107,19 @@ public class MarketTray implements Serializable{
             this.slide = resources.get(resources.size()-1);
         }   else throw new IndexOutOfBoundsException();
 
-
-        //resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE)); aggiungere anche if has bonus swapwhite
         return resources;
     }
 
+
+
+
+
+
     @Override
     public String toString() {
-
-        return "MARKET TRAY:"
-                + Arrays.toString(tray)+
-                "SLIDE: " + slide;
+        return ("MARKET TRAY: \n" +
+                Arrays.deepToString(tray) +
+                "SLIDER: \n" +
+                slide + "\n");
     }
 }
