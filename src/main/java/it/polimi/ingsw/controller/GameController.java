@@ -14,6 +14,7 @@ import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import java.io.IOException;
@@ -86,6 +87,10 @@ public class GameController implements Serializable {
             case RESOURCE_TYPE:
                 vv.displayGenericMessage("You chose: " + ((ResourceTypeChosen)msg).getResourceType());
                 resourceChosen.setType(((ResourceTypeChosen) msg).getResourceType());
+                for (Player player : table.getPlayers()) {
+                    if (msg.getSenderUser().equals(player.getNickname()))
+                        vv.displayGenericMessage(player.getPersonalBoard().getWarehouse().getDepot().toString());
+                }
                 vv.fetchResourcePlacement();
                 break;
 
@@ -112,7 +117,7 @@ public class GameController implements Serializable {
                     playerCounter=0;
                     setTableState(TableState.IN_GAME);
                     playerController = new PlayerController(this);
-                    vvMap.get(table.getCurrentPlayer().getNickname()).fetchPlayerAction();
+                    askPlayerAction(vvMap.get(table.getCurrentPlayer().getNickname()));
                 }
 
 
@@ -194,6 +199,15 @@ public class GameController implements Serializable {
     }
 
 
+    public void askPlayerAction(VirtualView vv) throws IOException {
+        vv.displayGenericMessage(Arrays.deepToString(table.getDevCardsDeck().showedCards())+"\n");
+        vv.displayMarketTray(table.getMarketTray());
+        vv.displayGenericMessage("\n" + table.getCurrentPlayer().getPersonalBoard().getFaithTrack().toString() +"\n");
+        vv.displayGenericMessage("\n" + table.getCurrentPlayer().getPersonalBoard().getWarehouse().toString()+"\n");
+        vv.displayGenericMessage("\n" + Arrays.toString(table.getCurrentPlayer().getPersonalBoard().getSlots())+"\n");
+        vv.displayGenericMessage(table.getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString()+"\n");
+        vv.fetchPlayerAction();
+    }
 
 }
 

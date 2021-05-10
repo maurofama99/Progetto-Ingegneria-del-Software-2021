@@ -61,7 +61,7 @@ public class Table extends Observable implements Serializable{
 
 
 
-        //todo manca inizializzazione marketray;
+        this.marketTray = new MarketTray();
         this.devCardsDeck = new Deck();
     }
 

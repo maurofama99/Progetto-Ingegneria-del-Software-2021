@@ -16,4 +16,9 @@ public class DisplayMarket extends Message {
     public MarketTray getMarketTray() {
         return marketTray;
     }
+
+    @Override
+    public String toString() {
+        return marketTray.toString();
+    }
 }

@@ -64,7 +64,10 @@ public class PlayerController {
 
             case WAITING:
                 playerVirtualView().displayGenericMessage
-                        ("-----------------------\n|    Please wait...    |\n-----------------------\n");
+                        (       "--------------------------------\n" +
+                                "|         Please wait...       |\n" +
+                                "|    It's not your turn yet    |\n" +
+                                "--------------------------------\n");
                 gameController.getTable().nextPlayer();
                 playerVirtualView().fetchPlayerAction();
                 break;
@@ -101,7 +104,7 @@ public class PlayerController {
         playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
     }
 
-    //quando il giocatore compra una carpa, lui seleziona quale e
+    //quando il giocatore compra una carta, lui seleziona quale (indici matrice) e slot
     public void buyDevCard(Message msg) throws IllegalAccessException, IOException {
         DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
         playerVirtualView().displayGenericMessage("You bought this development card: \n" +devCard.toString());

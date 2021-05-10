@@ -72,6 +72,10 @@ public class Cli extends ClientObservable implements View {
         Scanner scanner2 = new Scanner(System.in);
         int index2 = scanner2.nextInt();
         notifyObservers(new DiscardLeader(nickname, (index-1), (index2-1)));
+        leaderCards.remove(index-1);
+        leaderCards.remove(index2-1);
+        System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n\n" + leaderCards.toString());
+
 
     }
 
@@ -132,14 +136,14 @@ public class Cli extends ClientObservable implements View {
         System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
-        answer = answer.toUpperCase();
 
-        if (answer.equals("DONE")){
+        if (answer.equalsIgnoreCase("DONE")){
             notifyObservers(new DoneAction());
         }
 
-        //else if (action.equals("LEADER"));
-        //    notifyObservers(new ActivateLeader());
+        else if (answer.equalsIgnoreCase("LEADER")){
+            //notifyObservers(new ActivateLeader(L));
+        }
         else {
             System.out.println("Invalid String...\n");
             fetchDoneAction(message);
@@ -200,5 +204,7 @@ public class Cli extends ClientObservable implements View {
     public void displayWinningMsg(String win) {
 
     }
+
+
 
 }

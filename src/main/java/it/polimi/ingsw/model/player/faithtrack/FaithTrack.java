@@ -22,7 +22,7 @@ public class FaithTrack implements Serializable {
 
 
     public FaithTrack() {
-        this.faithMarkerPosition = -1;
+        this.faithMarkerPosition = 0;
         this.blackCrossPosition = -1;
         this.track = new ArrayList<>();
         this.firstFavorTile = false;
@@ -164,7 +164,7 @@ public class FaithTrack implements Serializable {
     public String toString() {
 
         return "FAITH TRACK:\n"
-                + track.stream().map( Tile::toString ).collect( Collectors.toList() ) +
+                + track.toString() +
                 "\n\nFAITH MARKER CURRENT POSITION: " + faithMarkerPosition;
     }
 }
