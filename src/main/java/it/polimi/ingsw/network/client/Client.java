@@ -1,10 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.network.messagessc.AskAction;
-import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
-import it.polimi.ingsw.network.messagessc.DisplayMarket;
-import it.polimi.ingsw.network.messagessc.DisplayPersonalBoard;
+import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
@@ -101,11 +98,16 @@ public class Client implements Runnable, ClientObserver {
                 break;
             case DISPLAY_MARKET:
                 view.displayMarket(((DisplayMarket)msg).getMarketTray());
+                break;
             case DISPLAY_PERSONALBOARD:
                 view.displayPersonalBoard(((DisplayPersonalBoard)msg).getPersonalBoard());
                 break;
             case ASK_ACTION:
                 view.fetchPlayerAction(((AskAction)msg).getQuestion());
+                break;
+            case ASK_DONE:
+                view.fetchDoneAction(((AskDone) msg).getQuestion());
+                break;
         }
     }
 

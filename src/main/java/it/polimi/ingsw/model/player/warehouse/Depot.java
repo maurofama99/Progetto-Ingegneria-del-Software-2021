@@ -150,9 +150,21 @@ public class Depot implements Serializable {
 
     @Override
     public String toString() {
+        String text1, text2, text3;
+        if (floors.get(0).isEmpty())
+            text1 = "---";
+        else text1 = floors.get(0).get().toString();
 
-        return "    " + floors.get(0).toString() + "\n    "
-                + floors.get(1).toString() + "\n    "
-                + floors.get(2).toString();
+        if (floors.get(1).isEmpty())
+            text2 = "-------";
+        else text2 = floors.get(1).get().toString();
+
+        if (floors.get(2).isEmpty())
+            text3 = "-----------";
+        else text3 = floors.get(2).get().toString();
+
+        return "    " + text1 + "\n    "
+                + text2 + "\n    "
+                + text3;
     }
 }

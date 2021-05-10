@@ -59,7 +59,7 @@ public class PlayerTest{
         // dC3 input: 2 stone, 2 coin
         // dC3 output: 3 shield
         // dC3 requirements: 2 stone, 3coins
-        DevCard dCard3 = new DevCard(1, Color.BLUE, 1, requirements, prod);
+        DevCard dCard3 = new DevCard(3, Color.BLUE, 1, requirements, prod);
 
         Resource resourceRequired = new Resource(5, ResourceType.STONE);
         Resource oneCoin = new Resource(1, ResourceType.COIN);
@@ -96,8 +96,8 @@ public class PlayerTest{
         player.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
         //buy dCard1 and dCard2:total cost 4 stones
-        player.buyDevCard(dCard1, 0);
-        player.buyDevCard(dCard2, 0);
+        player.buyDevCard(dCard1, 1);
+        player.buyDevCard(dCard2, 1);
         assertTrue(player.getPersonalBoard().getSlots()[0].getCards().contains(dCard1) && player.getPersonalBoard().getSlots()[0].getCards().contains(dCard2));
 
         //activate two leader cards: addProduction and discount on Coin

@@ -6,5 +6,5 @@ public enum PlayerAction {
     GOTO_MARKET,
     BUY_DEVCARD,
     ACTIVATE_PRODUCTION,
-    DONE_ACTION
+    WAITING
 }

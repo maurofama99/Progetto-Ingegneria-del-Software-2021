@@ -79,10 +79,12 @@ public class Cli extends ClientObservable implements View {
     public void fetchPlayerAction(String message) throws IOException {
         boolean rowOrCol;
         int index;
+        int row, col, slot;
         System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
         action = action.toUpperCase();
+
         switch (action) {
             case "MARKET":
                 System.out.println("Do you want to pick a row or a column of the tray? (row/col)");
@@ -105,13 +107,48 @@ public class Cli extends ClientObservable implements View {
                 }
                 notifyObservers(new GoingMarket(index, rowOrCol));
                 break;
+            case "BUY":
+                System.out.println("Select row of the devCard you want to buy: (1, 2, 3)");
+                Scanner scanner4 = new Scanner(System.in);
+                row = scanner4.nextInt();
+                System.out.println("Select column of the devCard you want to buy: (1, 2, 3, 4)");
+                Scanner scanner5 = new Scanner(System.in);
+                col = scanner5.nextInt();
+
+                System.out.println("Where do you want to place it: (Insert the number of the slot: 1, 2, 3)");
+                Scanner scanner6 = new Scanner(System.in);
+                slot = scanner6.nextInt();
+                notifyObservers(new BuyDevCard(row, col, slot));
+
+                //vuoi andare ancora o finire l'azione?
+                break;
         }
 
 
     }
 
     @Override
+    public void fetchDoneAction(String message) throws IOException {
+        System.out.println(message);
+        Scanner scanner = new Scanner(System.in);
+        String answer = scanner.nextLine();
+        answer = answer.toUpperCase();
+
+        if (answer.equals("DONE")){
+            notifyObservers(new DoneAction());
+        }
+
+        //else if (action.equals("LEADER"));
+        //    notifyObservers(new ActivateLeader());
+        else {
+            System.out.println("Invalid String...\n");
+            fetchDoneAction(message);
+        }
+    }
+
+    @Override
     public void displayPersonalBoard(PersonalBoard personalBoard) {
+        System.out.println("ho provato a stampare pb");
         System.out.println(personalBoard.toString());
     }
 

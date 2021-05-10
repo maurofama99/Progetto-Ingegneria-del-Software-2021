@@ -100,7 +100,6 @@ public class StrongBox implements Serializable {
     @Override
     public String toString() {
         return Arrays.toString(storedResources);
-
     }
 }
 

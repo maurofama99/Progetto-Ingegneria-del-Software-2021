@@ -22,9 +22,9 @@ public class PersonalBoard implements Serializable {
 
     public PersonalBoard(Warehouse warehouse) {
         this.warehouse = warehouse;
-        slots[0] = new Slot(SlotNumber.FIRST);
-        slots[1] = new Slot(SlotNumber.SECOND);
-        slots[2] = new Slot(SlotNumber.THIRD);
+        slots[0] = new Slot(1);
+        slots[1] = new Slot(2);
+        slots[2] = new Slot(3);
         this.faithTrack = new FaithTrack();
         this.activeLeaderCards = new ArrayList<>();
     }
@@ -106,7 +106,7 @@ public class PersonalBoard implements Serializable {
 
     @Override
     public String toString() {
-        return  "\nFAITHTRACK: " + faithTrack +
+        return  "\nFAITHTRACK: \n" + faithTrack +
                 "\nWAREHOUSE: \n" + warehouse.toString() +
                 "\nDEVELOPMENT CARD SLOTS: \n" + Arrays.toString(slots) +
                 "\nACTIVE LEADER CARDS: " + activeLeaderCards.toString();

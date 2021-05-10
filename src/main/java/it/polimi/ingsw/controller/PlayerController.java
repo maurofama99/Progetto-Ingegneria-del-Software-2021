@@ -1,12 +1,14 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.ActivateLeader;
+import it.polimi.ingsw.network.messagescs.BuyDevCard;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.view.View;
@@ -14,6 +16,7 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -25,7 +28,7 @@ public class PlayerController {
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
-        this.playerAction = PlayerAction.DONE_ACTION;
+        this.playerAction = PlayerAction.WAITING;
     }
 
     public void setPlayerAction(PlayerAction playerAction) {
@@ -36,7 +39,7 @@ public class PlayerController {
         return gameController.getVvMap().get(gameController.getTable().getCurrentPlayer().getNickname());
     }
 
-    public void receiveMessage(Message msg) throws IOException {
+    public void receiveMessage(Message msg) throws IOException, IllegalAccessException {
 
         switch (playerAction){
             case GOTO_MARKET:
@@ -59,7 +62,11 @@ public class PlayerController {
                 discardLeader(msg);
                 break;
 
-            case DONE_ACTION:
+            case WAITING:
+                playerVirtualView().displayGenericMessage
+                        ("-----------------------\n|    Please wait...    |\n-----------------------\n");
+                gameController.getTable().nextPlayer();
+                playerVirtualView().fetchPlayerAction();
                 break;
         }
     }
@@ -94,13 +101,18 @@ public class PlayerController {
         playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
     }
 
-    public void buyDevCard(Message msg){
-        //gameController.getTable().getDevCardsDeck().removeAndGetCard();
-
-
+    //quando il giocatore compra una carpa, lui seleziona quale e
+    public void buyDevCard(Message msg) throws IllegalAccessException, IOException {
+        DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
+        playerVirtualView().displayGenericMessage("You bought this development card: \n" +devCard.toString());
+        gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard)msg).getSlot());
+        playerVirtualView().displayGenericMessage("It's placed here: \n" + Arrays.toString(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots()));
+        playerVirtualView().fetchDoneAction();
     }
 
     public void activateProduction(Message msg){
+        //il giocatore scrive stringa di numeri tipo 101 per gli slot, se è 1 la vuole attivare se è 0 no
+        //per la produzione base scrive BASIC
     }
 
     public void discardLeader(Message msg){

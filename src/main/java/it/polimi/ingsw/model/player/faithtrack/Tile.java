@@ -54,4 +54,10 @@ public class Tile implements Serializable {
     public void turnFavorAddPoints(PopeSpace ps, FaithTrack ft, Player p){
         ps.turnFavorAddPoints(ft, p);
     }
+
+
+    @Override
+    public String toString() {
+        return String.valueOf(position);
+    }
 }

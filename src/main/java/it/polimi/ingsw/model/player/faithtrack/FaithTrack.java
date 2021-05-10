@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.singleplayer.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Class that initializes and controls the track of every player. We made as every player
@@ -161,8 +162,9 @@ public class FaithTrack implements Serializable {
 
     @Override
     public String toString() {
-        return "FAITHTRACK:\n"
-                + track +
-                "FAITHMARKER CURRENT POSITION: " + faithMarkerPosition;
+
+        return "FAITH TRACK:\n"
+                + track.stream().map( Tile::toString ).collect( Collectors.toList() ) +
+                "\n\nFAITH MARKER CURRENT POSITION: " + faithMarkerPosition;
     }
 }

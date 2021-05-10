@@ -8,6 +8,7 @@ public enum Content {
     START_GAME,
     DISPLAY_LEADERCARDS,
     ASK_ACTION,
+    ASK_DONE,
 
     DISPLAY_PERSONALBOARD,
     DISPLAY_MARKET,

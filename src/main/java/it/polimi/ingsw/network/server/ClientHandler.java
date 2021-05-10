@@ -85,7 +85,7 @@ public class ClientHandler implements Runnable {
                 Message msg = (Message) input.readObject();
                 receiveMessage(msg);
             }
-        } catch (ClassNotFoundException | ClassCastException e) {
+        } catch (ClassNotFoundException | ClassCastException | IllegalAccessException e) {
             e.printStackTrace();
             System.out.println("invalid stream from client");
         }
@@ -107,7 +107,7 @@ public class ClientHandler implements Runnable {
     //sfrutta il fatto che le vv sono tutte salvate e accoppiate al loro nickname per la resilienza alle disconnessioni:
     //quando un player si riconnette e ha un nickname già associato alla virtual view, è la sua
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
-    public void receiveMessage(Message msg) throws IOException {
+    public void receiveMessage(Message msg) throws IOException, IllegalAccessException {
         if (msg.getMessageType() == Content.LOGIN_DATA) {
             if (waitingRoom.nicknameAlreadyPresent(((LoginData)msg).getNickname()) || ((((LoginData)msg).getNumPlayers() > 4 && ((LoginData)msg).getNumPlayers()<1))) {
                 sendMessage(new LoginRequest());

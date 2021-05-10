@@ -12,6 +12,8 @@ import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
+
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class GameController{
+public class GameController implements Serializable {
     private PlayerController playerController;
 
     private Table table;
@@ -50,7 +52,7 @@ public class GameController{
         this.tableState = tableState;
     }
 
-    public void receiveMessage(Message msg) throws IOException {
+    public void receiveMessage(Message msg) throws IOException, IllegalAccessException {
 
         switch (tableState) {
             case SETUP:
@@ -156,7 +158,7 @@ public class GameController{
     }
 
 
-    public void receiveMessageInGame(Message msg) throws IOException {
+    public void receiveMessageInGame(Message msg) throws IOException, IllegalAccessException {
         switch (msg.getMessageType()){
             case GOING_MARKET:
                 playerController.setPlayerAction(PlayerAction.GOTO_MARKET);
@@ -175,7 +177,7 @@ public class GameController{
                 playerController.receiveMessage(msg);
                 break;
             case DONE_ACTION:
-                playerController.setPlayerAction(PlayerAction.DONE_ACTION);
+                playerController.setPlayerAction(PlayerAction.WAITING);
                 playerController.receiveMessage(msg);
                 break;
             default:

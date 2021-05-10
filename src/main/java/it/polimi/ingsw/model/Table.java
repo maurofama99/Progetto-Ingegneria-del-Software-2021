@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
 import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
+import it.polimi.ingsw.network.messagessc.DisplayPersonalBoard;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
@@ -28,7 +29,7 @@ import java.util.Random;
  * Class of table, where all the stuff is placed.
  * Player, decks, stacks of token, the market and boards and cards are all here
  */
-public class Table extends Observable{
+public class Table extends Observable implements Serializable{
     private int numPlayers;
     private ArrayList<Player> players;
     private ArrayList<LeaderCard> leaderCardsDeck;
@@ -134,6 +135,7 @@ public class Table extends Observable{
         for (Player player : players){
             player.setTurnOrder(players.indexOf(player) + 1);
         }
+
     }
 
     //shuffle leader cards and deal them at the beginning of the game to each player
@@ -193,6 +195,6 @@ public class Table extends Observable{
 
     @Override
     public String toString() {
-        return devCardsDeck.toString();
+        return marketTray.toString() + devCardsDeck.toString();
     }
 }

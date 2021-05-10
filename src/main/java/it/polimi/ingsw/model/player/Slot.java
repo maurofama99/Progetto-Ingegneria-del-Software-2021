@@ -11,10 +11,10 @@ import java.io.Serializable;
 public class Slot implements Serializable{
     private ArrayList<DevCard> cards = new ArrayList<>();
     //created enum class for slot number
-    private SlotNumber slotNumber;
+    private int slotNumber;
 
 
-    public Slot(SlotNumber slotNumber) {
+    public Slot(int slotNumber) {
         this.slotNumber = slotNumber;
     }
 
@@ -38,5 +38,18 @@ public class Slot implements Serializable{
     //TODO E' NECESSARIO METTERE IL METODO CHE AGGIUNGE I VICTORY POINTS NEL CONTROLLER (STATO BUYDEVCARD)
 
 
-
+    @Override
+    public String toString() {
+        if (cards.size() > 0)
+            return  " SLOT "+slotNumber+":\n" + cards.get(cards.size()-1).toString();
+        else
+            return "---------------------\n" +
+                    "|                     |\n" +
+                    "|                     |\n" +
+                    "|                     |\n" +
+                    "|                     |\n" +
+                    "|                     |\n" +
+                    "|                     |\n" +
+                    "---------------------\n";
+    }
 }

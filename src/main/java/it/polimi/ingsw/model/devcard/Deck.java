@@ -91,16 +91,19 @@ public class Deck {
     //todo toString of deck
     @Override
     public String toString() {
-        String text = null;
+        String text1, text2, text3;
         DevCard[][] result = showedCards();
 
-        for (int i=0; i<3; i++) {
-            for (int j = 0; j < 4; j++) {
-                text = result[i][j].toString() + "      ";
-            }
-            text = "\n";
-        }
-        return text;
+        text1 = result[0][0].toString() + "          " +result[0][1].toString()+
+                "          " +result[0][2].toString()+"          " +result[0][3].toString()+"\n";
+
+        text2 = result[1][0].toString() + "          " +result[1][1].toString()+
+                "          " +result[1][2].toString()+"          " +result[1][3].toString() +"\n";
+
+        text3 = result[2][0].toString() + "          " +result[2][1].toString()+
+                "          " +result[2][2].toString()+"          " +result[2][3].toString()+"\n";
+
+        return text1 + text2 + text3;
     }
 
 

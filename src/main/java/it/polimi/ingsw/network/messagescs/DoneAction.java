@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.Message;
 
 public class DoneAction extends Message {
 
-    public DoneAction(String senderUser) {
-        super(senderUser,"server", Content.DONE_ACTION);
+    public DoneAction() {
+        super("client","server", Content.DONE_ACTION);
     }
 }

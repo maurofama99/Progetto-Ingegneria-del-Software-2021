@@ -116,7 +116,7 @@ public class Player extends Observable implements Serializable {
      */
 
     public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
-
+        slotNumber = slotNumber -1;
         if (personalBoard.hasEffect(EffectType.DISCOUNT)){
             int i;
             //todo da sistemare questo metodo
