@@ -69,7 +69,7 @@ public class PlayerController {
                                 "|    It's not your turn yet    |\n" +
                                 "--------------------------------\n");
                 gameController.getTable().nextPlayer();
-                playerVirtualView().fetchPlayerAction();
+                gameController.askPlayerAction(playerVirtualView());
                 break;
         }
     }

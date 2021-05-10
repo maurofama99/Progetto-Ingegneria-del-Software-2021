@@ -14,10 +14,7 @@ import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Cli extends ClientObservable implements View {
 
@@ -72,8 +69,13 @@ public class Cli extends ClientObservable implements View {
         Scanner scanner2 = new Scanner(System.in);
         int index2 = scanner2.nextInt();
         notifyObservers(new DiscardLeader(nickname, (index-1), (index2-1)));
-        leaderCards.remove(index-1);
-        leaderCards.remove(index2-1);
+        ArrayList<Integer> indexes = new ArrayList<>();
+        indexes.add(index-1);
+        indexes.add(index2-1);
+        indexes.sort(Collections.reverseOrder());
+        for (int ind : indexes){
+            leaderCards.remove(ind);
+        }
         System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n\n" + leaderCards.toString());
 
 

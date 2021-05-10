@@ -43,7 +43,8 @@ public class Slot implements Serializable{
         if (cards.size() > 0)
             return  " SLOT "+slotNumber+":\n" + cards.get(cards.size()-1).toString();
         else
-            return "---------------------\n" +
+            return  " SLOT "+slotNumber+":\n" +
+                    "---------------------\n" +
                     "|                     |\n" +
                     "|                     |\n" +
                     "|                     |\n" +
