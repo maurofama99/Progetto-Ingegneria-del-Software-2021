@@ -163,7 +163,7 @@ public class Depot implements Serializable {
             text3 = "-----------";
         else text3 = floors.get(2).get().toString();
 
-        return "  1:  " + text1 + "\n  2:  "
+        return " 1:  " + text1 + "\n  2:  "
                 + text2 + "\n  3:  "
                 + text3;
     }

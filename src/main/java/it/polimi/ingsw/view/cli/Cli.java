@@ -49,7 +49,16 @@ public class Cli extends ClientObservable implements View {
         //out print del depot
         Scanner scanner = new Scanner(System.in);
         String floor = scanner.nextLine();
-        notifyObservers(new ResourcePlacement(nickname, floor));
+        floor = floor.replaceAll("\\s+","");
+        if (floor.equalsIgnoreCase("switch")){
+            System.out.print("Which floors do you want to switch?\nSource floor: ");
+            Scanner scanner2 = new Scanner(System.in);
+            int sourceFloor = scanner2.nextInt();
+            System.out.print("Destination floor: ");
+            Scanner scanner3 = new Scanner(System.in);
+            int destFloor = scanner3.nextInt();
+            notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
+        } else notifyObservers(new ResourcePlacement(nickname, floor));
     }
 
 

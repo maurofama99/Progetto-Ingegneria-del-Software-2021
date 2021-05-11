@@ -91,22 +91,25 @@ public class PlayerController {
                     //scarta la risorsa e aggiungi faith point
                     addFaithPointsToOpponents(1);
                     resources.remove(resources.get(resources.size() - 1));
+                } else if (answer.equalsIgnoreCase("switch")) {
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
                 } else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
                     //aggiungi la risorsa al deposito
                     gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
                     resources.remove(resources.get(resources.size() - 1));
                 } else {
-                    //gestisci input errato
+                    //todo: gestisci input errato
                 }
 
                 if (!resources.isEmpty()) {
                     playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                                                             "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents)");
+                                                             "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or Type SWITCH to switch two floors))");
                     playerVirtualView().fetchResourcePlacement();
                 } else {
                     playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
                     playerVirtualView().fetchDoneAction();
                 }
+                break;
         }
     }
 
@@ -123,9 +126,6 @@ public class PlayerController {
         } else { //selezione colonna
             resources.addAll(gameController.getTable().getMarketTray().selectColumn(index));
         }
-
-        //SWAP WHITE
-        //se ha due leader swap white nel momento dell'assegnazione risorse chiedi in quale la vuole trasformare
 
         if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().size()==2){
             if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE) &&
@@ -162,11 +162,11 @@ public class PlayerController {
         //chiedi risorsa per risorsa dove la vuole posizionare
         playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
                                                   "\n" + resources.get(resources.size() - 1).toString() +
-                                                  "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents)");
+                                                  "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
+                                                                                                                      "Type SWITCH to switch two floors)");
         playerVirtualView().fetchResourcePlacement();
 
         //todo: gestire doppia swap white
-        //todo: muovere le risorse nel piano
 
     }
 
