@@ -66,13 +66,15 @@ public class DevCard {
      * @param player is where the method will check for resources, both from his strongbox and deposit
      * @return true if the requirements are met, false otherwise
      */
-    public boolean checkRequirements(Player player) {
+    public boolean checkRequirements(Player player) throws CloneNotSupportedException {
         try {
             player.getPersonalBoard().getWarehouse().removeResources(requirementsDevCard);
-            return true;
-        } catch (NoSuchElementException ex){
+        }
+        catch (NoSuchElementException e){
             return false;
         }
+
+        return true;
     }
 
     @Override

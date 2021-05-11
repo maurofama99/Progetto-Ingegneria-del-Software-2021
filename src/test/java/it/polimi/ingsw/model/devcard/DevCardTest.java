@@ -20,7 +20,7 @@ public class DevCardTest {
 
 
     @Test
-    public void Test1() throws IllegalAccessException{
+    public void Test1() throws IllegalAccessException, CloneNotSupportedException {
         Depot depot = new Depot();
         StrongBox sB = new StrongBox();
         Warehouse wH = new Warehouse(depot, sB);
@@ -78,7 +78,7 @@ public class DevCardTest {
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get().getQnt());
 
         //activate production
-        p1.activateProd(dC);
+        p1.activateProd(0);
         assertTrue(p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).isEmpty());
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt());
     }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.leadercards.*;
 import it.polimi.ingsw.model.player.warehouse.Depot;
@@ -7,6 +8,7 @@ import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
+import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.observerPattern.Observable;
 
 
@@ -20,7 +22,6 @@ import java.util.List;
  */
 public class Player extends Observable implements Serializable {
     private final String nickname;
-    private boolean isCurrentTurn;
     private int turnOrder;
     private ArrayList<LeaderCard> leaderCards;
     private int victoryPoints;
@@ -28,7 +29,6 @@ public class Player extends Observable implements Serializable {
 
     public Player(String nickname) {
         this.nickname = nickname;
-        this.isCurrentTurn = false;
         this.turnOrder = 0;
         this.leaderCards = new ArrayList<>();
         this.personalBoard = new PersonalBoard(new Warehouse(new Depot(), new StrongBox()));
@@ -38,24 +38,12 @@ public class Player extends Observable implements Serializable {
         return nickname;
     }
 
-    public boolean isCurrentTurn() {
-        return isCurrentTurn;
-    }
-
-    public int getTurnOrder() {
-        return turnOrder;
-    }
-
     public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
-    }
-
-    public void setCurrentTurn(boolean currentTurn) {
-        isCurrentTurn = currentTurn;
     }
 
     public void setTurnOrder(int turnOrder) {
@@ -115,7 +103,7 @@ public class Player extends Observable implements Serializable {
      * @param slotNumber where the player wants to place the card he wants to buy.
      */
 
-    public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
+    public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException{
         slotNumber = slotNumber -1;
         if (personalBoard.hasEffect(EffectType.DISCOUNT)){
             int i;
@@ -129,24 +117,21 @@ public class Player extends Observable implements Serializable {
                     devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
             }
         }
-        devCardToBuy.checkRequirements(this);
+
         getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
     }
 
     /**
      * when the player wants to activate a production of a development car he owns.
-     * @param devCardToAct development card chosen by the player.
+     * @param slot slot chosen by the player.
      */
-    public void activateProd(DevCard devCardToAct){
-        devCardToAct.getProduction().checkInputResource(this);
-        getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
-    }
+    public void activateProd(int slot){
+        DevCard devCardToAct = getPersonalBoard().getSlots()[slot].getShowedCard();
 
-    /**
-     * Setting boolean isCurrentTurn to false to end player's turn.
-     */
-    public void endTurn(){
-        this.isCurrentTurn = false;
+        if (!devCardToAct.getProduction().checkInputResource(this))
+            notifyObserver(new NoAvailableResources(nickname));
+
+        getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
     }
 
 

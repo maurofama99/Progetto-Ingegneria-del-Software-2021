@@ -5,16 +5,20 @@ import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.network.messagessc.NoAvailableResources;
+import it.polimi.ingsw.observerPattern.Observable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Class of the personal board of every player. It does things like setting the tracks,
  * editing the slots...
  */
-public class PersonalBoard implements Serializable {
+public class PersonalBoard extends Observable implements Serializable {
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
@@ -57,21 +61,24 @@ public class PersonalBoard implements Serializable {
      * Method that swaps two resources chosen by the player to one single resource.
      * @param firstInput one resource used to product the resource in output.
      * @param secondInput one resource used to product the resource in output.
-     * @param Output one resource that the player gets by the production.
+     * @param output one resource that the player gets by the production.
      */
-    public void basicProduction(Resource firstInput, Resource secondInput, Resource Output){
+    public void basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
         ArrayList<Resource> resourceToRemove = new ArrayList<>();
-        resourceToRemove.add(firstInput);
-        resourceToRemove.add(secondInput);
+        resourceToRemove.add(new Resource(1, firstInput));
+        resourceToRemove.add(new Resource(1, secondInput));
 
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-        resourcesToAdd.add(Output);
+        resourcesToAdd.add(new Resource(1, output));
 
-        getWarehouse().removeResources(resourceToRemove);
+        try {getWarehouse().removeResources(resourceToRemove);}
+        catch (NoSuchElementException e ){
+            //notifyObserver(new NoAvailableResources());
+        }
         getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
     }
 
-    public void extraProduction(LeaderCard leaderCard, Resource resourceChosenByPlayer){
+    public void extraProduction(LeaderCard leaderCard, Resource resourceChosenByPlayer) throws CloneNotSupportedException {
 
         if (hasEffect(EffectType.ADDPRODUCTION)){
             ArrayList<Resource> resourcesToRemove = new ArrayList<>();
@@ -81,7 +88,12 @@ public class PersonalBoard implements Serializable {
             resourcesToRemove.add((Resource) leaderCard.getLeaderEffect().getObject());
 
             warehouse.getStrongBox().addResourceToStrongBox(resourcesToAdd);
-            warehouse.removeResources(resourcesToRemove);
+            try {
+                warehouse.removeResources(resourcesToRemove);
+            }
+            catch (NoSuchElementException e){
+                //notifyObserver
+            }
 
             getFaithTrack().moveForward(1);
 

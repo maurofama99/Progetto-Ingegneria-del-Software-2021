@@ -38,7 +38,7 @@ public class Cli extends ClientObservable implements View {
                         "Type '0' for a SHIELD\n" +
                         "Type '1' for a SERVANT\n" +
                         "Type '2' for a COIN\n" +
-                        "Type '3' for a STONE\n---------------------\n");
+                        "Type '3' for a STONE\n" + "---------------------\n");
         Scanner scanner = new Scanner(System.in);
         int resourceType = scanner.nextInt();
         notifyObservers(new ResourceTypeChosen(nickname, resourceType));
@@ -82,13 +82,13 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {
-        boolean rowOrCol;
-        int index;
+        boolean rowOrCol = false;
+        int index = 0;
         int row, col, slot;
         System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
-        action = action.toUpperCase();
+        action = action.toUpperCase().replaceAll("\\s+","");
 
         switch (action) {
             case "MARKET":
@@ -96,23 +96,27 @@ public class Cli extends ClientObservable implements View {
                 Scanner scanner2 = new Scanner(System.in);
                 String decision = scanner2.nextLine();
                 decision = decision.replaceAll("\\s+","");
+
+                if (!decision.equalsIgnoreCase("row") && ! decision.equalsIgnoreCase("col")){
+                    decision = scanner2.nextLine();
+                    decision = decision.replaceAll("\\s+","");
+                }
+
                 if (decision.equalsIgnoreCase("row")) {
                     rowOrCol = true;
                     System.out.println("Which row do you want to pick? (1,2,3)");
                     Scanner scanner3 = new Scanner(System.in);
                     index = scanner3.nextInt();
-                } else if (decision.equalsIgnoreCase("col")){
+                } else if (decision.equalsIgnoreCase("col")) {
                     rowOrCol = false;
                     System.out.println("Which column do you want to pick? (1,2,3,4)");
                     Scanner scanner3 = new Scanner(System.in);
                     index = scanner3.nextInt();
-                } else {
-                    //todo: gestire l'input errato
-                    index=0;
-                    rowOrCol=false;
                 }
+
                 notifyObservers(new GoingMarket(index, rowOrCol));
                 break;
+
             case "BUY":
                 System.out.println("Select row of the devCard you want to buy: (1, 2, 3)");
                 Scanner scanner4 = new Scanner(System.in);
@@ -126,8 +130,22 @@ public class Cli extends ClientObservable implements View {
                 slot = scanner6.nextInt();
                 notifyObservers(new BuyDevCard(row, col, slot));
 
-                //vuoi andare ancora o finire l'azione?
                 break;
+
+            case "PRODUCTION":
+                Scanner scanner7 = new Scanner(System.in);
+                System.out.println("Type 1 if you want to activate basic production, 0 if you don't");
+                int yesORnoB = scanner7.nextInt();
+                System.out.println("Type 1 if you want to activate the production, 0 if you don't:\n");
+                System.out.println("SLOT 1: ");
+                int yesORno1 = scanner7.nextInt();
+                System.out.println("SLOT 2: ");
+                int yesORno2 = scanner7.nextInt();
+                System.out.println("SLOT 3: ");
+                int yesORno3 = scanner7.nextInt();
+
+                notifyObservers(new ActivateProduction(yesORnoB, yesORno1, yesORno2, yesORno3));
+
         }
 
 

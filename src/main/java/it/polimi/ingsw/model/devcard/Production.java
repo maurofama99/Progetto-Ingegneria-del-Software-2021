@@ -42,8 +42,9 @@ public class Production {
     public boolean checkInputResource(Player player) {
         try {
             player.getPersonalBoard().getWarehouse().removeResources(input);
-            return true;
-        } catch (NoSuchElementException ex){ return false;}
+        } catch (NoSuchElementException | CloneNotSupportedException ex){ return false;}
+
+        return true;
     }
 
     @Override

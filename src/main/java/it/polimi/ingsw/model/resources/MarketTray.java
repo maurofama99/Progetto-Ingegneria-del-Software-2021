@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Where the marbles are placed and players take resources
@@ -94,7 +95,7 @@ public class MarketTray implements Serializable{
             tmptray[i] = (tray[i].clone());  //copying in tmptray the initial tray
         }
 
-        if (col >= 1 && col <= 3){
+        if (col >= 1 && col <= 4){
             for (i=0; i<3; i++){
                 resources.add(tray[i][col-1]);
             }
@@ -117,9 +118,15 @@ public class MarketTray implements Serializable{
 
     @Override
     public String toString() {
+        String text, text2;
+
+        text = Arrays.stream(tray)
+                .map(Arrays::toString )
+                .collect(Collectors.joining(System.lineSeparator()));
+
         return ("MARKET TRAY: \n" +
-                Arrays.deepToString(tray) +
-                "SLIDER: \n" +
+                text +
+                "\nSLIDER: \n" +
                 slide + "\n");
     }
 }

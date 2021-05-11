@@ -15,7 +15,7 @@ public class WarehouseTest {
      * Testing removeResources using methods of class StrongBox and Depot
      */
     @Test
-    public void Test() {
+    public void Test() throws CloneNotSupportedException {
         Depot depot = new Depot();
         StrongBox sB = new StrongBox();
         Warehouse wH = new Warehouse(depot, sB);
@@ -38,7 +38,7 @@ public class WarehouseTest {
         thrown = false;
         try {
             wH.removeResources(resourcesToRemove);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | CloneNotSupportedException e) {
             thrown = true;
         }
         assertTrue(thrown);

@@ -37,9 +37,12 @@ public class Warehouse implements Serializable {
      * @param resourcesToRemove Resources to remove from warehouse.
      */
 
-    public void removeResources(ArrayList<Resource> resourcesToRemove) {
+    public void removeResources(ArrayList<Resource> resourcesToRemove) throws CloneNotSupportedException {
         ArrayList<Resource> resourcesInFloor = new ArrayList<>();
-        for (Resource res : resourcesToRemove) {
+        ArrayList<Resource> resources = new ArrayList<>();
+        for (Resource resource : resourcesToRemove) resources.add((Resource) resource.clone());
+
+        for (Resource res : resources) {
             for (int i = 0; i < 3; i++) {
                 if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
                     if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt()) {

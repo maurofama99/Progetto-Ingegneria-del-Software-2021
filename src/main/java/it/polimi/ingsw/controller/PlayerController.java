@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.*;
+import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -27,6 +28,9 @@ public class PlayerController {
     private PlayerAction playerAction;
     private ArrayList<Resource> resources = new ArrayList<>();
 
+    int cont = 0;
+    ResourceType typeInput1, typeInput2, typeOut;
+
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
         this.playerAction = PlayerAction.WAITING;
@@ -40,7 +44,7 @@ public class PlayerController {
         return gameController.getVvMap().get(gameController.getTable().getCurrentPlayer().getNickname());
     }
 
-    public void receiveMessage(Message msg) throws IOException, IllegalAccessException {
+    public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
 
         switch (playerAction){
             case GOTO_MARKET:
@@ -167,6 +171,7 @@ public class PlayerController {
     }
 
 
+
     //quando il giocatore decide di attivare una delle sue leader card
     //devo mettere nella cli il display delle leader card
     public void activateLeaderCard(Message msg) throws IOException {
@@ -175,18 +180,72 @@ public class PlayerController {
         playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
     }
 
-    //quando il giocatore compra una carta, lui seleziona quale (indici matrice) e slot
-    public void buyDevCard(Message msg) throws IllegalAccessException, IOException {
-        DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
-        playerVirtualView().displayGenericMessage("You bought this development card: \n" +devCard.toString());
-        gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard)msg).getSlot());
-        playerVirtualView().displayGenericMessage("It's placed here: \n" + Arrays.toString(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots()));
-        playerVirtualView().fetchDoneAction();
+
+    /**
+     * When the player wants to buy a development card. This method removes the ard from the matrix and place it on a player's slot.
+     * @param msg It contains row, column of the matrix and a slot number of the player's personal board.
+     * @throws IllegalAccessException
+     * @throws IOException
+     */
+
+    public void buyDevCard(Message msg) throws IllegalAccessException, IOException, CloneNotSupportedException {
+        if (!gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(gameController.getTable().getCurrentPlayer()))
+            playerVirtualView().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+
+        else {
+            DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
+            playerVirtualView().displayGenericMessage("You bought this development card: \n" + devCard.toString());
+            gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
+            playerVirtualView().displayGenericMessage("It's placed here: \n" + Arrays.toString(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots()));
+            playerVirtualView().fetchDoneAction();
+        }
     }
 
-    public void activateProduction(Message msg){
-        //il giocatore scrive stringa di numeri tipo 101 per gli slot, se è 1 la vuole attivare se è 0 no
-        //per la produzione base scrive BASIC
+    public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
+        //todo se ha la leader card attiva
+        switch (msg.getMessageType()){
+            case ACTIVATE_PRODUCTION:
+
+                if (((ActivateProduction)msg).getSlot1()==1){
+                    gameController.getTable().getCurrentPlayer().activateProd(0);
+                }
+                if (((ActivateProduction)msg).getSlot2()==1){
+                    gameController.getTable().getCurrentPlayer().activateProd(1);
+                }
+                if (((ActivateProduction)msg).getSlot3()==1){
+                    gameController.getTable().getCurrentPlayer().activateProd(2);
+                }
+
+                playerVirtualView().displayGenericMessage("You activated production in slots!\n"
+                        + gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+
+                if (((ActivateProduction)msg).getBasic()==1){
+                    playerVirtualView().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n :");
+                    playerVirtualView().fetchResourceType();
+                }
+                break;
+
+            case RESOURCE_TYPE:
+                if (cont==0){
+                    typeInput1 =((ResourceTypeChosen) msg).getResourceType();
+                    cont ++;
+                    playerVirtualView().fetchResourceType();
+                }
+                if (cont==1){
+                    typeInput2 = ((ResourceTypeChosen) msg).getResourceType();
+                    cont ++;
+                    playerVirtualView().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!!\n");
+                    playerVirtualView().fetchResourceType();
+                }
+                else {
+                    typeOut = ((ResourceTypeChosen) msg).getResourceType();
+                    cont=0;
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().basicProduction(typeInput1, typeInput2, typeOut);
+                    playerVirtualView().fetchDoneAction();
+                }
+
+
+        }
     }
 
     public void discardLeader(Message msg){

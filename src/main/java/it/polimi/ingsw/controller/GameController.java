@@ -53,7 +53,7 @@ public class GameController implements Serializable {
         this.tableState = tableState;
     }
 
-    public void receiveMessage(Message msg) throws IOException, IllegalAccessException {
+    public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
 
         switch (tableState) {
             case SETUP:
@@ -164,7 +164,7 @@ public class GameController implements Serializable {
     }
 
 
-    public void receiveMessageInGame(Message msg) throws IOException, IllegalAccessException {
+    public void receiveMessageInGame(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         switch (msg.getMessageType()){
             case GOING_MARKET:
                 playerController.setPlayerAction(PlayerAction.GOTO_MARKET);
