@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class PlayerController {
     private final GameController gameController;
     private PlayerAction playerAction;
-    private ArrayList<Resource> resources;
+    private ArrayList<Resource> resources = new ArrayList<>();
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -76,23 +76,37 @@ public class PlayerController {
     }
 
     public void receiveMessageOnMarket(Message msg) throws IOException {
-        switch (msg.getMessageType()){
+        switch (msg.getMessageType()) {
             case GOING_MARKET:
                 goToMarket(msg);
                 break;
             case RESOURCE_PLACEMENT:
-                gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size()-1), ((ResourcePlacement) msg).getFloor());
-                resources.remove(resources.get(resources.size()-1));
-                playerVirtualView().displayGenericMessage(resources.toString());
-                if (!resources.isEmpty()){
-                    playerVirtualView().displayGenericMessage(resources.get(resources.size()-1).toString() + "\n");
+                String answer;
+                answer = ((ResourcePlacement) msg).getFloor().replaceAll("\\s+", "");
+                if (answer.equalsIgnoreCase("discard")) {
+                    //scarta la risorsa e aggiungi faith point
+                    addFaithPointsToOpponents(1);
+                    resources.remove(resources.get(resources.size() - 1));
+                } else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
+                    //aggiungi la risorsa al deposito
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
+                    resources.remove(resources.get(resources.size() - 1));
+                } else {
+                    //gestisci input errato
+                }
+
+                if (!resources.isEmpty()) {
+                    playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                                                             "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents)");
                     playerVirtualView().fetchResourcePlacement();
                 } else {
-                    playerVirtualView().displayGenericMessage(""+gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+                    playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
                     playerVirtualView().fetchDoneAction();
                 }
         }
     }
+
+
 
 
     public void goToMarket(Message msg) throws IOException {
@@ -101,13 +115,12 @@ public class PlayerController {
         boolean doubleSwap = false;
 
         if (rowOrCol) { //selezione riga
-            resources = gameController.getTable().getMarketTray().selectRow(index);
+            resources.addAll(gameController.getTable().getMarketTray().selectRow(index));
         } else { //selezione colonna
-            resources = gameController.getTable().getMarketTray().selectColumn(index);
+            resources.addAll(gameController.getTable().getMarketTray().selectColumn(index));
         }
 
         //SWAP WHITE
-        //se ha una sola swap white va bene quello già scritto
         //se ha due leader swap white nel momento dell'assegnazione risorse chiedi in quale la vuole trasformare
 
         if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().size()==2){
@@ -133,12 +146,23 @@ public class PlayerController {
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         }
 
-        //todo: rimuovi i faithpoint e mouvi il faith marker
+        //rimuovi i faithpoint e muovi il faith marker
+        for (Resource res : resources){
+            if(res.getType().equals(ResourceType.FAITHPOINT)){
+                gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(1);
+                res.setType(ResourceType.WHITERESOURCE);
+            }
+        }
+        resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
 
         //chiedi risorsa per risorsa dove la vuole posizionare
-        playerVirtualView().displayGenericMessage("You chose: " + resources.toString());
-        playerVirtualView().displayGenericMessage(resources.get(resources.size()-1).toString());
+        playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
+                                                  "\n" + resources.get(resources.size() - 1).toString() +
+                                                  "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents)");
         playerVirtualView().fetchResourcePlacement();
+
+        //todo: gestire doppia swap white
+        //todo: muovere le risorse nel piano
 
     }
 
@@ -167,6 +191,12 @@ public class PlayerController {
 
     public void discardLeader(Message msg){
 
+    }
+
+    public void addFaithPointsToOpponents(int faithpoints){
+        for(Player player : gameController.getTable().getPlayers()){
+            player.getPersonalBoard().getFaithTrack().moveForward(faithpoints);
+        }
     }
 
 

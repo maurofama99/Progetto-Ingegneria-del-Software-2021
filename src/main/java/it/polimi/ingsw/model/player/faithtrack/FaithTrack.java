@@ -28,9 +28,6 @@ public class FaithTrack implements Serializable {
         this.firstFavorTile = false;
         this.secondFavorTile = false;
         this.thirdFavorTile = false;
-
-
-
     }
 
     public int getFaithMarkerPosition() {
@@ -49,12 +46,9 @@ public class FaithTrack implements Serializable {
         this.faithMarkerPosition = faithMarkerPosition;
     }
 
-
     public ArrayList<Tile> getTrack() {
         return track;
     }
-
-
 
     public boolean getIsFirstFavorTile() {
         return firstFavorTile;
@@ -79,7 +73,6 @@ public class FaithTrack implements Serializable {
     public void setThirdFavorTile(boolean thirdFavorTile) {
         this.thirdFavorTile = thirdFavorTile;
     }
-
 
     /**
      * This is the method that is called when faith points are produced. It moved the single marker forward

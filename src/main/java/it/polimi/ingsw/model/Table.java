@@ -38,7 +38,7 @@ public class Table extends Observable implements Serializable{
     private MarketTray marketTray;
     private Deck devCardsDeck = new Deck();
     private LorenzoIlMagnifico lorenzoIlMagnifico;
-    int topCardIndex = 15;
+    private int topCardIndex = 15;
 
     public Table() {
         this.numPlayers = 0;

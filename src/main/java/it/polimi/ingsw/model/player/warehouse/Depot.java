@@ -54,8 +54,8 @@ public class Depot implements Serializable {
      *
      * @param resourceToPlace which resource goes in the depot
      * @param floor           which floor will store the resource
+     * @requires floor >=1 && floor <=3
      */
-    //@requires floor >=1 && floor <=3
     public void addResourceToDepot(Resource resourceToPlace, int floor) {
         floor = floor - 1;
         if (resourceToPlace.getType().equals(ResourceType.WHITERESOURCE))

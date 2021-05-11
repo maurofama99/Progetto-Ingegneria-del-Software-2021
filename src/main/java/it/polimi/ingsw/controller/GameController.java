@@ -88,8 +88,9 @@ public class GameController implements Serializable {
                 vv.displayGenericMessage("You chose: " + ((ResourceTypeChosen)msg).getResourceType());
                 resourceChosen.setType(((ResourceTypeChosen) msg).getResourceType());
                 for (Player player : table.getPlayers()) {
-                    if (msg.getSenderUser().equals(player.getNickname()))
-                        vv.displayGenericMessage(player.getPersonalBoard().getWarehouse().getDepot().toString());
+                    if (msg.getSenderUser().equals(player.getNickname())){
+                        vv.displayGenericMessage(player.getPersonalBoard().getWarehouse().getDepot().toString() + "\nIn which floor of the depot do you want to place this resource?");
+                    }
                 }
                 vv.fetchResourcePlacement();
                 break;
@@ -97,7 +98,7 @@ public class GameController implements Serializable {
             case RESOURCE_PLACEMENT:
                 for (Player player : table.getPlayers()) {
                     if (msg.getSenderUser().equals(player.getNickname()))
-                        player.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resourceChosen, ((ResourcePlacement) msg).getFloor());
+                        player.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resourceChosen, Integer.parseInt(((ResourcePlacement) msg).getFloor()));
                 }
 
                 if (condition)

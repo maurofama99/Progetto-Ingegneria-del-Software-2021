@@ -36,6 +36,10 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new AskResourcePlacement());
     }
 
+    public void fetchResourcePlacementOrDiscard() throws IOException{
+        clientHandler.sendMessage(new AskResourcePlacementOrDiscard());
+    }
+
     public void displayGenericMessage(String genericMessage) throws IOException {
         clientHandler.sendMessage(new GenericMessage(genericMessage));
     }

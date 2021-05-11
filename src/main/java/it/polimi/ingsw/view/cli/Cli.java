@@ -46,10 +46,9 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchResourcePlacement() throws IOException {
-        System.out.println("In which floor of the depot do you want to place this resource? ");
         //out print del depot
         Scanner scanner = new Scanner(System.in);
-        int floor = Integer.parseInt(scanner.nextLine());
+        String floor = scanner.nextLine();
         notifyObservers(new ResourcePlacement(nickname, floor));
     }
 
