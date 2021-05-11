@@ -4,6 +4,7 @@ import it.polimi.ingsw.network.Message;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 //used by model, to notify controller and virtual view
 
@@ -13,6 +14,10 @@ public abstract class Observable {
 
     public void addObserver(Observer observer){
         observers.add(observer);
+    }
+
+    public void addAllObservers(List<Observer> observerList) {
+        observers.addAll(observerList);
     }
 
     public void notifyObserver(Message message){
