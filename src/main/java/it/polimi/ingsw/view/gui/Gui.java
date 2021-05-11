@@ -7,13 +7,14 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gui implements View {
+public class Gui extends Observable implements View {
     @Override
     public void fetchNickname() {
 
