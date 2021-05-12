@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.*;
+import it.polimi.ingsw.network.messagessc.AskSwapWhite;
 import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
@@ -27,9 +28,10 @@ public class PlayerController {
     private final GameController gameController;
     private PlayerAction playerAction;
     private ArrayList<Resource> resources = new ArrayList<>();
-
-    int cont = 0;
-    ResourceType typeInput1, typeInput2, typeOut;
+    private int whiteCounter = 0;
+    private int cont = 0;
+    private ResourceType typeInput1, typeInput2, typeOut;
+    private ResourceType type1, type2; //usati per il dobbio swap
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -98,7 +100,7 @@ public class PlayerController {
                     gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
                     resources.remove(resources.get(resources.size() - 1));
                 } else {
-                    //todo: gestisci input errato
+                    throw new IllegalArgumentException("Wrong Input in market action");
                 }
 
                 if (!resources.isEmpty()) {
@@ -110,11 +112,39 @@ public class PlayerController {
                     playerVirtualView().fetchDoneAction();
                 }
                 break;
+            case SWAPPED_RESOURCE:
+                String type;
+                ResourceType resourceType;
+                type = ((SwappedResource) msg).getResourceType().replaceAll("\\s+", "");
+                switch (type) {
+                    case "servant":
+                        resourceType = ResourceType.SERVANT;
+                        break;
+                    case "shield":
+                        resourceType = ResourceType.SHIELD;
+                        break;
+                    case "stone":
+                        resourceType = ResourceType.STONE;
+                        break;
+                    case "coin":
+                        resourceType = ResourceType.COIN;
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + type);
+                }
+                resources.add(new Resource(1, resourceType));
+                whiteCounter--;
+                if (whiteCounter > 0){
+                    playerVirtualView().fetchSwapWhite(type1,type2);
+                } else {
+                    whiteCounter=0;
+                    playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                            "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
+                            "Type SWITCH to switch two floors)");
+                    playerVirtualView().fetchResourcePlacement();
+                }
         }
     }
-
-
-
 
     public void goToMarket(Message msg) throws IOException {
         int index  = ((GoingMarket)msg).getIndex();
@@ -154,19 +184,38 @@ public class PlayerController {
         for (Resource res : resources){
             if(res.getType().equals(ResourceType.FAITHPOINT)){
                 gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(1);
-                res.setType(ResourceType.WHITERESOURCE);
             }
         }
-        resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
+        resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
 
         //chiedi risorsa per risorsa dove la vuole posizionare
-        playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
-                                                  "\n" + resources.get(resources.size() - 1).toString() +
-                                                  "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
-                                                                                                                      "Type SWITCH to switch two floors)");
-        playerVirtualView().fetchResourcePlacement();
+        if (!doubleSwap) {
+            playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
+                    "\n" + resources.get(resources.size() - 1).toString() +
+                    "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
+                    "Type SWITCH to switch two floors)");
+            playerVirtualView().fetchResourcePlacement();
+        } else {
+            type1 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject();
+            type2 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(1).getLeaderEffect().getObject();
+            //conta quante biglie bianche ha selezionato
+            for (Resource resource : resources){
+                if (resource.getType().equals(ResourceType.WHITERESOURCE)) whiteCounter++;
+            }
+            playerVirtualView().displayGenericMessage("You chose: " + resources.toString());
+            resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
+            if (whiteCounter > 0){
+                playerVirtualView().displayGenericMessage("You selected " + whiteCounter + " white marbles, now choose for each marble which Leader Card you want to use to transform it in a new resource!");
+                //devi chiedere whiteCounter volte al player che tipo di risorsa vuole tra type1 o type 2 e poi la aggiungi all'array di risorse resources
+                playerVirtualView().fetchSwapWhite(type1,type2);
+            } else {
+                playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                        "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
+                        "Type SWITCH to switch two floors)");
+                playerVirtualView().fetchResourcePlacement();
+            }
+        }
 
-        //todo: gestire doppia swap white
 
     }
 
@@ -254,7 +303,8 @@ public class PlayerController {
 
     public void addFaithPointsToOpponents(int faithpoints){
         for(Player player : gameController.getTable().getPlayers()){
-            player.getPersonalBoard().getFaithTrack().moveForward(faithpoints);
+            if(!gameController.getTable().getCurrentPlayer().equals(player))
+                player.getPersonalBoard().getFaithTrack().moveForward(faithpoints);
         }
     }
 

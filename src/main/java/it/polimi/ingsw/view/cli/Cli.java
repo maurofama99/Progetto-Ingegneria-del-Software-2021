@@ -27,8 +27,12 @@ public class Cli extends ClientObservable implements View {
         String nickname = scanner.nextLine();
         nickname = nickname.replaceAll("\\s+","");
         this.nickname = nickname;
-        System.out.println("How many players do you want to play with?");
+        System.out.println("How many players do you want to play with? (Max 4 players. Type 1 for single player");
         int numPlayers = scanner.nextInt();
+        while(numPlayers<1 || numPlayers>4){
+            System.out.println("\nInvalid number");
+            numPlayers = scanner.nextInt();
+        }
         notifyObservers(new LoginData(nickname, numPlayers));
     }
 
@@ -41,6 +45,13 @@ public class Cli extends ClientObservable implements View {
                         "Type '3' for a STONE\n" + "---------------------\n");
         Scanner scanner = new Scanner(System.in);
         int resourceType = scanner.nextInt();
+        while (resourceType < 0 || resourceType > 3){
+            System.out.println("Invalid input\n\n---------------------\nType '0' for a SHIELD\n" +
+                                                "Type '1' for a SERVANT\n" +
+                                                "Type '2' for a COIN\n" +
+                                                "Type '3' for a STONE\n---------------------\n");
+            resourceType = scanner.nextInt();
+        }
         notifyObservers(new ResourceTypeChosen(nickname, resourceType));
     }
 
@@ -50,7 +61,12 @@ public class Cli extends ClientObservable implements View {
         Scanner scanner = new Scanner(System.in);
         String floor = scanner.nextLine();
         floor = floor.replaceAll("\\s+","");
-        if (floor.equalsIgnoreCase("switch")){
+        while(!floor.equalsIgnoreCase("switch") && !floor.equalsIgnoreCase("discard") && Integer.parseInt(floor) > 3 && Integer.parseInt(floor) < 1) {
+            System.out.println("\nInvalid Input");
+            floor = scanner.nextLine();
+            floor = floor.replaceAll("\\s+","");
+        }
+        if (floor.equalsIgnoreCase("switch")) {
             System.out.print("Which floors do you want to switch?\nSource floor: ");
             Scanner scanner2 = new Scanner(System.in);
             int sourceFloor = scanner2.nextInt();
@@ -59,6 +75,20 @@ public class Cli extends ClientObservable implements View {
             int destFloor = scanner3.nextInt();
             notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
         } else notifyObservers(new ResourcePlacement(nickname, floor));
+    }
+
+    @Override
+    public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException{
+        System.out.println("Do you want a " + type1 + " or a " + type2 + "?");
+        Scanner scanner = new Scanner(System.in);
+        String type = scanner.nextLine();
+        type = type.replaceAll("\\s+","");
+        while (!(type.equalsIgnoreCase("servant")) && !(type.equalsIgnoreCase("shield")) && !(type.equalsIgnoreCase("stone")) && !(type.equalsIgnoreCase("coin")) ){
+            System.out.println("\nInvalid input\nDo you want a " + type1 + " or a " + type2 + "?");
+            type = scanner.nextLine();
+            type = type.replaceAll("\\s+","");
+        }
+        notifyObservers(new SwappedResource(nickname, type));
     }
 
 
@@ -85,8 +115,6 @@ public class Cli extends ClientObservable implements View {
             leaderCards.remove(ind);
         }
         System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n\n" + leaderCards.toString());
-
-
     }
 
     @Override
@@ -105,24 +133,29 @@ public class Cli extends ClientObservable implements View {
                 Scanner scanner2 = new Scanner(System.in);
                 String decision = scanner2.nextLine();
                 decision = decision.replaceAll("\\s+","");
-
-                if (!decision.equalsIgnoreCase("row") && ! decision.equalsIgnoreCase("col")){
+                while (!decision.equalsIgnoreCase("row") && !decision.equalsIgnoreCase("col")){
+                    System.out.println("\nInvalid input");
                     decision = scanner2.nextLine();
                     decision = decision.replaceAll("\\s+","");
                 }
-
                 if (decision.equalsIgnoreCase("row")) {
                     rowOrCol = true;
                     System.out.println("Which row do you want to pick? (1,2,3)");
                     Scanner scanner3 = new Scanner(System.in);
                     index = scanner3.nextInt();
+                    while (index<1 || index>3){
+                        System.out.println("\nInvalid input");
+                        index = scanner3.nextInt();
+                    }
                 } else if (decision.equalsIgnoreCase("col")) {
-                    rowOrCol = false;
                     System.out.println("Which column do you want to pick? (1,2,3,4)");
                     Scanner scanner3 = new Scanner(System.in);
                     index = scanner3.nextInt();
+                    while (index<1 || index>4){
+                        System.out.println("\nInvalid input");
+                        index = scanner3.nextInt();
+                    }
                 }
-
                 notifyObservers(new GoingMarket(index, rowOrCol));
                 break;
 

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
 
@@ -27,6 +28,11 @@ public class Gui extends Observable implements View {
 
     @Override
     public void fetchResourcePlacement() throws IOException {
+
+    }
+
+    @Override
+    public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
 
     }
 

@@ -120,13 +120,9 @@ public class GameController implements Serializable {
                     playerController = new PlayerController(this);
                     askPlayerAction(vvMap.get(table.getCurrentPlayer().getNickname()));
                 }
-
-
                 break;
 
-
         }
-
 
     }
 
@@ -159,7 +155,6 @@ public class GameController implements Serializable {
             table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(1);
             vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
         }
-
         condition = true;
     }
 

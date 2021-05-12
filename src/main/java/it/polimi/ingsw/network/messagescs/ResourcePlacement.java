@@ -7,10 +7,11 @@ public class ResourcePlacement extends Message {
     String floor;
     int sourceFloor = 0;
     int destFloor = 0;
+    String type;
 
     public ResourcePlacement(String senderUser, String floor) {
         super(senderUser, "server", Content.RESOURCE_PLACEMENT);
-        this.floor=floor;
+        this.floor = floor;
     }
 
     public ResourcePlacement(String senderUser, String floor, int sourceFloor, int destFloor) {
@@ -18,6 +19,12 @@ public class ResourcePlacement extends Message {
         this.floor=floor;
         this.destFloor = destFloor;
         this.sourceFloor = sourceFloor;
+    }
+
+    public ResourcePlacement(String senderUser, String floor, String type) {
+        super(senderUser, "server", Content.RESOURCE_PLACEMENT);
+        this.floor = floor;
+        this.type = type;
     }
 
     public String getFloor() {
@@ -30,5 +37,9 @@ public class ResourcePlacement extends Message {
 
     public int getDestFloor() {
         return destFloor;
+    }
+
+    public String getType() {
+        return type;
     }
 }

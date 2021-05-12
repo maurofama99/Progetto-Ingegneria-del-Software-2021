@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.network.server.ClientHandler;
@@ -38,6 +39,10 @@ public class VirtualView implements Observer {
 
     public void fetchResourcePlacementOrDiscard() throws IOException{
         clientHandler.sendMessage(new AskResourcePlacementOrDiscard());
+    }
+
+    public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
+        clientHandler.sendMessage(new AskSwapWhite(type1, type2));
     }
 
     public void displayGenericMessage(String genericMessage) throws IOException {

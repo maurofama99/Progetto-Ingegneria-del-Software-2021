@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public interface View {
     void fetchResourceType() throws IOException;
 
     void fetchResourcePlacement() throws IOException;
+
+    void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException;
 
     /**
      * Displays a generic message for the view

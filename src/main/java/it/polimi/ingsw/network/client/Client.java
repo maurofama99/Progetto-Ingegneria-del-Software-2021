@@ -40,10 +40,7 @@ public class Client implements Runnable, ClientObserver {
             view.addClientObserver(client);
             client.run();
         } else {
-            Gui view = new Gui(); //chiaramente non si inizializza così la GUI, messo solo per chiarezza
-            //PlayerController playerController = new PlayerController(view);
-            //Client client = new Client(playerController);
-            //client.run();
+            //fai partire la GUI
         }
     }
 
@@ -111,6 +108,10 @@ public class Client implements Runnable, ClientObserver {
             case NORESOURCE_AVAILABLE:
                 view.fetchPlayerAction("\nYou don't have the requirements to do your action!!" +
                         "\nWhat do you wanna do now? (Type LEADER, MARKET, PRODUCTION, BUY)\n");
+                break;
+            case ASK_SWAP_WHITE:
+                view.fetchSwapWhite(((AskSwapWhite)msg).getType1(), ((AskSwapWhite)msg).getType2());
+                break;
         }
     }
 
