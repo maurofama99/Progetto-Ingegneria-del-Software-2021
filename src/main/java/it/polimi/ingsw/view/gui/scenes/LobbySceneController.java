@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.Observable;
+import it.polimi.ingsw.observerPattern.ViewObservable;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +9,7 @@ import javafx.scene.control.Label;
 
 import java.util.List;
 
-public class LobbySceneController extends Observable implements GenericSceneController {
+public class LobbySceneController extends ViewObservable implements GenericSceneController {
     private List<String> nicknames;
     private int maxPlayers;
 
@@ -20,7 +21,7 @@ public class LobbySceneController extends Observable implements GenericSceneCont
     private Button exitGameButton;
 
     @FXML
-    public void init(){
+    public void initialize(){
         playersLbl.setText(String.join(",", nicknames));
         numbersLbl.setText(nicknames.size() + "/" + maxPlayers);
 
