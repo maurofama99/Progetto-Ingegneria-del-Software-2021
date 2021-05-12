@@ -19,6 +19,7 @@
 
     <dependencies>
 
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -29,7 +30,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>11.0.2</version>
         </dependency>
-
         <!-- JUnit provides unit testing for Java applications -->
         <dependency>
             <groupId>junit</groupId>

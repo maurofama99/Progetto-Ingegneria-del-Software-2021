@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.Observable;
+import it.polimi.ingsw.observerPattern.ViewObservable;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 
-public class PlayerLoginSceneController extends Observable implements GenericSceneController{
+public class PlayerLoginSceneController extends ViewObservable implements GenericSceneController{
     @FXML
     private TextField nicknameField;
 
@@ -19,7 +20,7 @@ public class PlayerLoginSceneController extends Observable implements GenericSce
     private Button exitGameButton;
 
     @FXML
-    public void init(){
+    public void initialize(){
         joinGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinGameClick);
         exitGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onExitGameClick);
     }
