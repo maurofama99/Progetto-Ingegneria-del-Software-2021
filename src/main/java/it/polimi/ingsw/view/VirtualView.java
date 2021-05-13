@@ -54,8 +54,12 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new AskAction());
     }
 
-    public void fetchDoneAction() throws IOException {
-        clientHandler.sendMessage(new AskDone());
+    public void fetchDoneAction(ArrayList<LeaderCard> leaderCards) throws IOException {
+        clientHandler.sendMessage(new AskDone(leaderCards));
+    }
+
+    public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards) throws IOException{
+        clientHandler.sendMessage(new AskPlayLeader(leaderCards));
     }
 
     public void displayMarketTray(MarketTray marketTray) throws IOException{

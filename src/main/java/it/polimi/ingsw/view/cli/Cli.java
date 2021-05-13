@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.network.messagessc.AskAction;
+import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
@@ -185,29 +186,28 @@ public class Cli extends ClientObservable implements View {
                 Scanner scanner4 = new Scanner(System.in);
                 row = scanner4.nextInt();
                 System.out.println("Select column of the devCard you want to buy: (1, 2, 3, 4)");
-                Scanner scanner5 = new Scanner(System.in);
-                col = scanner5.nextInt();
+                col = scanner4.nextInt();
 
                 System.out.println("Where do you want to place it: (Insert the number of the slot: 1, 2, 3)");
-                Scanner scanner6 = new Scanner(System.in);
-                slot = scanner6.nextInt();
+                slot = scanner4.nextInt();
                 notifyObservers(new BuyDevCard(row, col, slot));
 
                 break;
 
             case "PRODUCTION":
-                Scanner scanner7 = new Scanner(System.in);
+                Scanner scanner5 = new Scanner(System.in);
                 System.out.println("Type 1 if you want to activate basic production, 0 if you don't");
-                int yesORnoB = scanner7.nextInt();
+                int yesORnoB = scanner5.nextInt();
                 System.out.println("Type 1 if you want to activate the production, 0 if you don't:\n");
                 System.out.println("SLOT 1: ");
-                int yesORno1 = scanner7.nextInt();
+                int yesORno1 = scanner5.nextInt();
                 System.out.println("SLOT 2: ");
-                int yesORno2 = scanner7.nextInt();
+                int yesORno2 = scanner5.nextInt();
                 System.out.println("SLOT 3: ");
-                int yesORno3 = scanner7.nextInt();
+                int yesORno3 = scanner5.nextInt();
 
                 notifyObservers(new ActivateProduction(yesORnoB, yesORno1, yesORno2, yesORno3));
+                break;
 
         }
 
@@ -215,7 +215,7 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void fetchDoneAction(String message) throws IOException {
+    public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
         System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
@@ -225,17 +225,54 @@ public class Cli extends ClientObservable implements View {
         }
 
         else if (answer.equalsIgnoreCase("LEADER")){
-            //notifyObservers(new ActivateLeader(L));
+            fetchPlayLeader(leaderCards, true);
         }
         else {
             System.out.println("Invalid String...\n");
-            fetchDoneAction(message);
+            fetchDoneAction(message, leaderCards);
         }
     }
 
     @Override
+    public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
+        System.out.println(leaderCards.toString() +"\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO )");
+        Scanner scanner = new Scanner(System.in);
+        String action = scanner.nextLine();
+        action.replaceAll("\\s+","");
+
+        if (action.equalsIgnoreCase("ACTIVATE")) {
+            System.out.println("Choose the leader card you want to activate (insert index)");
+            System.out.println(leaderCards.toString());
+            int index = scanner.nextInt();
+
+            notifyObservers(new ActivateLeader(leaderCards.get(index - 1)));
+
+        }
+
+        else if (action.equalsIgnoreCase("DISCARD")){
+
+            System.out.println("Choose the leader card you want to discard (insert index)");
+            System.out.println(leaderCards.toString());
+            int index = scanner.nextInt();
+
+            notifyObservers(new DiscardOneLeader(index - 1));
+        }
+
+        else if (action.equalsIgnoreCase("NO")){
+            afterLeaderAction(isEndTurn, leaderCards);
+        }
+
+    }
+
+    public void afterLeaderAction(boolean trueOrFalse, ArrayList<LeaderCard> leaderCards) throws IOException {
+        if (!trueOrFalse)
+            fetchPlayerAction("\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)\n");
+        else
+            fetchDoneAction("Type DONE", leaderCards);
+    }
+
+    @Override
     public void displayPersonalBoard(PersonalBoard personalBoard) {
-        System.out.println("ho provato a stampare pb");
         System.out.println(personalBoard.toString());
     }
 

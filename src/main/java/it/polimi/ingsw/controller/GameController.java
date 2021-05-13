@@ -177,6 +177,10 @@ public class GameController implements Serializable {
                 playerController.setPlayerAction(PlayerAction.ACTIVATE_LEADER);
                 playerController.receiveMessage(msg);
                 break;
+            case DISCARDED_LEADER:
+                playerController.setPlayerAction(PlayerAction.DISCARD_LEADER);
+                playerController.receiveMessage(msg);
+                break;
             case DONE_ACTION:
                 playerController.setPlayerAction(PlayerAction.WAITING);
                 playerController.receiveMessage(msg);
@@ -202,7 +206,11 @@ public class GameController implements Serializable {
         vv.displayGenericMessage("\n" + table.getCurrentPlayer().getPersonalBoard().getWarehouse().toString()+"\n");
         vv.displayGenericMessage("\n" + Arrays.toString(table.getCurrentPlayer().getPersonalBoard().getSlots())+"\n");
         vv.displayGenericMessage(table.getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString()+"\n");
-        vv.fetchPlayerAction();
+
+        if (table.getCurrentPlayer().getLeaderCards().size() > 0)
+            vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards());
+        else
+            vv.fetchPlayerAction();
     }
 
 }

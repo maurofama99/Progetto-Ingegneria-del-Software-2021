@@ -4,16 +4,15 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
-public class ActivateLeader extends Message {
+public class DiscardOneLeader extends Message {
+    private int leaderCard;
 
-    private LeaderCard leaderCard;
-
-    public ActivateLeader(LeaderCard leaderCard) {
-        super("client", "server", Content.ACTIVATE_LEADER);
+    public DiscardOneLeader(int leaderCard) {
+        super("client", "server", Content.DISCARDED_LEADER);
         this.leaderCard = leaderCard;
     }
 
-    public LeaderCard getLeaderCard() {
+    public int getLeaderCard() {
         return leaderCard;
     }
 }

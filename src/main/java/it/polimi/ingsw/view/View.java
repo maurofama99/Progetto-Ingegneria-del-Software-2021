@@ -39,7 +39,9 @@ public interface View {
 
     void fetchPlayerAction(String message) throws IOException;
 
-    void fetchDoneAction(String message) throws IOException;
+    void fetchDoneAction(String message,ArrayList<LeaderCard> leaderCards) throws IOException;
+
+    void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException;
 
     /**
      * Displays the disconnected player

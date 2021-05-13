@@ -52,7 +52,12 @@ public class Gui extends Observable implements View {
     }
 
     @Override
-    public void fetchDoneAction(String message) throws IOException {
+    public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
+
+    }
+
+    @Override
+    public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
 
     }
 

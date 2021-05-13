@@ -8,7 +8,7 @@ public class AskAction extends Message {
 
     public AskAction() {
         super("server", "client", Content.ASK_ACTION);
-        this.question = "It's your turn!\nWhat do you wanna do now? (Type LEADER, MARKET, PRODUCTION, BUY)";
+        this.question = "It's your turn!\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)";
     }
 
     public String getQuestion() {

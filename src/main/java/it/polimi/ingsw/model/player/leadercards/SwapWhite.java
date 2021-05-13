@@ -48,13 +48,6 @@ public class SwapWhite extends LeaderEffect implements Serializable {
         return checkColor.containsAll(cardColorRequired);
     }
 
-    //swap white
-    //1 servo : 2 carte gialle, 1 carta blu, 5pv
-    //1 scudo : 2 carte verdi, 1 carta viola, 5pv
-    //1 pietra : 2 carte blu, 1 carta gialla, 5pv
-    //1 monete : 2 carte viola, una carta verde, 5pv
-
-
     @Override
     public String toString() {
         return "SWAP WHITE MARBLE\n| " +

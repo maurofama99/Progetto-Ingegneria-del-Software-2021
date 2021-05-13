@@ -63,7 +63,7 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * The player can discard the leader card instead of placing them
+     * The player can discard two leader cards at the beginning of the game
      * @param leaderCard1 the first leader card
      * @param leaderCard2 the second leader card
      */
@@ -86,13 +86,14 @@ public class Player extends Observable implements Serializable {
     public void activateLeaderCard(LeaderCard leaderCardToAct){
         if (!leaderCardToAct.getLeaderEffect().checkRequirementsLeaderCard(this))
             throw new IllegalArgumentException ("You still don't have the requirements");
-        getPersonalBoard().addLeaderCard(leaderCardToAct);
-        if (leaderCardToAct.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)){
-            if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).isEmpty()){
-                getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
+        else {
+            getPersonalBoard().addLeaderCard(leaderCardToAct);
+            if (leaderCardToAct.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
+                if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).isEmpty()) {
+                    getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
+                } else if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).isEmpty())
+                    getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
             }
-            else if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).isEmpty())
-                getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
         }
     }
 

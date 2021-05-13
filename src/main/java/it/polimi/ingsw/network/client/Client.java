@@ -103,14 +103,17 @@ public class Client implements Runnable, ClientObserver {
                 view.fetchPlayerAction(((AskAction)msg).getQuestion());
                 break;
             case ASK_DONE:
-                view.fetchDoneAction(((AskDone) msg).getQuestion());
+                view.fetchDoneAction(((AskDone) msg).getQuestion(), ((AskDone) msg).getLeaderCards());
                 break;
             case NORESOURCE_AVAILABLE:
                 view.fetchPlayerAction("\nYou don't have the requirements to do your action!!" +
-                        "\nWhat do you wanna do now? (Type LEADER, MARKET, PRODUCTION, BUY)\n");
+                        "\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)\n");
                 break;
             case ASK_SWAP_WHITE:
                 view.fetchSwapWhite(((AskSwapWhite)msg).getType1(), ((AskSwapWhite)msg).getType2());
+                break;
+            case ASK_PLAYLEADER:
+                view.fetchPlayLeader(((AskPlayLeader)msg).getLeaderCardsNotActivated(), false);
                 break;
         }
     }

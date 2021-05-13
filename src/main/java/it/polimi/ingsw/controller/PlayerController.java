@@ -109,7 +109,7 @@ public class PlayerController {
                     playerVirtualView().fetchResourcePlacement();
                 } else {
                     playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
-                    playerVirtualView().fetchDoneAction();
+                    playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 break;
             case SWAPPED_RESOURCE:
@@ -224,9 +224,32 @@ public class PlayerController {
     //quando il giocatore decide di attivare una delle sue leader card
     //devo mettere nella cli il display delle leader card
     public void activateLeaderCard(Message msg) throws IOException {
-        gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((ActivateLeader)msg).getLeaderCard());
-        gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().add(((ActivateLeader)msg).getLeaderCard());
-        playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
+        boolean trueOrFalse = true;
+        try {
+            gameController.getTable().getCurrentPlayer().activateLeaderCard(((ActivateLeader)msg).getLeaderCard());
+        }
+        catch (IllegalArgumentException e){
+            playerVirtualView().displayGenericMessage("You don't have the requirements to activate it");
+            playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+            trueOrFalse = false;
+        }
+
+        if (trueOrFalse) {
+
+            playerVirtualView().displayGenericMessage("\nYou activated these leader cards!\n" +
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
+
+            playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards());
+        }
+    }
+
+    public void discardLeader(Message msg) throws IOException {
+
+        gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((DiscardOneLeader)msg).getLeaderCard());
+        gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(1);
+
+        playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+
     }
 
 
@@ -246,7 +269,7 @@ public class PlayerController {
             playerVirtualView().displayGenericMessage("You bought this development card: \n" + devCard.toString());
             gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
             playerVirtualView().displayGenericMessage("It's placed here: \n" + Arrays.toString(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots()));
-            playerVirtualView().fetchDoneAction();
+            playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
     }
 
@@ -265,6 +288,7 @@ public class PlayerController {
                     gameController.getTable().getCurrentPlayer().activateProd(2);
                 }
 
+
                 playerVirtualView().displayGenericMessage("You activated production in slots!\n"
                         + gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
 
@@ -272,6 +296,10 @@ public class PlayerController {
                     playerVirtualView().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n :");
                     playerVirtualView().fetchResourceType();
                 }
+                else{
+                    playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                }
+
                 break;
 
             case RESOURCE_TYPE:
@@ -290,16 +318,14 @@ public class PlayerController {
                     typeOut = ((ResourceTypeChosen) msg).getResourceType();
                     cont=0;
                     gameController.getTable().getCurrentPlayer().getPersonalBoard().basicProduction(typeInput1, typeInput2, typeOut);
-                    playerVirtualView().fetchDoneAction();
+                    playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
 
 
         }
     }
 
-    public void discardLeader(Message msg){
 
-    }
 
     public void addFaithPointsToOpponents(int faithpoints){
         for(Player player : gameController.getTable().getPlayers()){
