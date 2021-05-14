@@ -23,6 +23,12 @@ public abstract class LeaderEffect implements Serializable {
     public abstract Object getObject();
 
     /**
+     * Special getter
+     * @return requirements of leader card effect.
+     */
+    public abstract Object getRequirements();
+
+    /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card
      * @return true if the card can be placed, false if not
@@ -31,6 +37,17 @@ public abstract class LeaderEffect implements Serializable {
 
     @Override
     public String toString() {
-        return "EffectType=" + effectType + "\n" + getObject().toString()+ "\n";
+        switch (effectType){
+            case SWAPWHITE:
+                return "   SWAP WHITE MARBLE   ";
+            case EXTRADEPOT:
+                return "      EXTRA DEPOT      ";
+            case DISCOUNT:
+                return "       DISCOUNT        ";
+            case ADDPRODUCTION:
+                return "   EXTRA PRODUCTION    ";
+            default:
+                throw new IllegalStateException("Unexpected value: " + getEffectType());
+        }
     }
 }

@@ -42,12 +42,23 @@ public class Resource implements Cloneable, Serializable {
     @Override
     public String toString() {
 
-        if (type.equals(ResourceType.SHIELD)) return qnt + "  SHIELD";
-        else if (type.equals(ResourceType.COIN)) return qnt + "  COIN";
-        else if (type.equals(ResourceType.STONE)) return qnt + "  STONE";
-        else if (type.equals(ResourceType.SERVANT)) return qnt + "  SERVANT";
-        else if (type.equals(ResourceType.FAITHPOINT)) return qnt + "  FAITHPOINT";
-        else if (type.equals(ResourceType.WHITERESOURCE)) return qnt + "  WHITE";
-        else return "Error in Resource toString()";
+        switch (type) {
+            case COIN:
+                return qnt + "$";
+            case SHIELD:
+                return qnt + "♦︎";
+            case STONE:
+                return qnt + "◼︎";
+            case FAITHPOINT:
+                return qnt + "+";
+            case SERVANT:
+                return qnt + "₷";
+
+            case WHITERESOURCE:
+                return qnt + " ";
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
     }
 }
+//⬇︎⬇♦

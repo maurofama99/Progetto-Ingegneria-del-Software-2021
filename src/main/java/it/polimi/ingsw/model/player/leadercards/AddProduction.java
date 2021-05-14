@@ -26,6 +26,11 @@ public class AddProduction extends LeaderEffect implements Serializable {
         return resourceRequired;
     }
 
+    @Override
+    public Object getRequirements() {
+        return cardColorRequired;
+    }
+
     /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card
@@ -44,24 +49,4 @@ public class AddProduction extends LeaderEffect implements Serializable {
         }
         return false;
     }
-
-    @Override
-    public String toString() {
-        return  "EXTRA PRODUCTION\n| " +
-                "COST:" + cardColorRequired + " devCard level 2\n| " +
-                "\n| " + resourceRequired + "   -->    " + "?   +   FaithPoint";
-    }
-
-    /*
-     AddProduction
-    1 servo --> una scelta + 1 faithP, costo: una blu livello 2 ,   4pv
-    1 pietra --> una scelta + 1 faithP, costo: una viola livello 2,  4pv
-    1 moneta --> una scelta + 1 faithP, costo: una verde livello 2, 4pv
-    1 scudo --> una scelta + 1faithP, costo: una verde livello 2, 4pv
-
-    */
-
-
-
-
 }

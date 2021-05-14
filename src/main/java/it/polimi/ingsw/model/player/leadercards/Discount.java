@@ -27,6 +27,11 @@ public class Discount extends LeaderEffect implements Serializable {
         return discountOn;
     }
 
+    @Override
+    public Object getRequirements() {
+        return cardColorRequired;
+    }
+
     /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card
@@ -48,19 +53,4 @@ public class Discount extends LeaderEffect implements Serializable {
         return checkColor.containsAll(cardColorRequired);
     }
 
-
-
-    //discount:
-    //-1 scudo : una carta blu e una viola, 2pv
-    //-1 pietra : una carta verde e una blu, 2pv
-    //-1 moneta : una carta gialla e una viola , 2pv
-    //-1 servo : una carta gialla e una verde, 2pv
-
-
-    @Override
-    public String toString() {
-        return "DISCOUNT\n| " +
-                "COST: devCards color   "+ cardColorRequired +
-                "\n| -1 on " + discountOn;
-    }
 }

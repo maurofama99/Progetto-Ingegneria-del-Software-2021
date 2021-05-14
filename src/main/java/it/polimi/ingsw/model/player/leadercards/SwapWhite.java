@@ -27,6 +27,11 @@ public class SwapWhite extends LeaderEffect implements Serializable {
         return newResource;
     }
 
+    @Override
+    public Object getRequirements() {
+        return cardColorRequired;
+    }
+
     /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card
@@ -48,10 +53,4 @@ public class SwapWhite extends LeaderEffect implements Serializable {
         return checkColor.containsAll(cardColorRequired);
     }
 
-    @Override
-    public String toString() {
-        return "SWAP WHITE MARBLE\n| " +
-                "COST: devcard colors: " + cardColorRequired +
-                "\n|  WHITE     --->   " + newResource;
-    }
 }

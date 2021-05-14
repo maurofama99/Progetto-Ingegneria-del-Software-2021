@@ -23,15 +23,5 @@ public class LeaderCard implements Serializable {
         return victoryPoints;
     }
 
-    @Override
-    public String toString() {
-        String text;
-        text = "\n-----------------------\n| "
-                + leaderEffect.toString() +
-                "\n| VICTORY POINTS: " + this.victoryPoints +
-                "\n-----------------------\n" ;
-
-        return text;
-    }
 
 }

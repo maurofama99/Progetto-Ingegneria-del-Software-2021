@@ -10,5 +10,6 @@ public enum EffectType {
     @SerializedName("extradepot")
     EXTRADEPOT,
     @SerializedName("swapwhite")
-    SWAPWHITE
+    SWAPWHITE;
+
 }

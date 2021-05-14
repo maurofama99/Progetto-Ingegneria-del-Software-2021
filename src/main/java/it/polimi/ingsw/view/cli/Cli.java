@@ -19,7 +19,10 @@ import java.util.*;
 
 public class Cli extends ClientObservable implements View {
 
+
+    private CliGraphics cliGraphics = new CliGraphics();
     private String nickname;
+
 
     @Override
     public void fetchNickname() {
@@ -83,20 +86,23 @@ public class Cli extends ClientObservable implements View {
         Scanner scanner = new Scanner(System.in);
         String floor = scanner.nextLine();
         floor = floor.replaceAll("\\s+","");
-        while(!floor.equalsIgnoreCase("switch") && !floor.equalsIgnoreCase("discard") && Integer.parseInt(floor) > 3 && Integer.parseInt(floor) < 1) {
+
+        while(!floor.equalsIgnoreCase("switch")
+                && !floor.equalsIgnoreCase("discard")
+                && Integer.parseInt(floor) > 3 && Integer.parseInt(floor) < 1) {
             System.out.println("\nInvalid Input");
             floor = scanner.nextLine();
             floor = floor.replaceAll("\\s+","");
         }
+
         if (floor.equalsIgnoreCase("switch")) {
             System.out.print("Which floors do you want to switch?\nSource floor: ");
-            Scanner scanner2 = new Scanner(System.in);
-            int sourceFloor = scanner2.nextInt();
+            int sourceFloor = scanner.nextInt();
             System.out.print("Destination floor: ");
-            Scanner scanner3 = new Scanner(System.in);
-            int destFloor = scanner3.nextInt();
+            int destFloor = scanner.nextInt();
             notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
-        } else notifyObservers(new ResourcePlacement(nickname, floor));
+        }
+        else notifyObservers(new ResourcePlacement(nickname, floor));
     }
 
     @Override
@@ -122,12 +128,11 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
         System.out.println("\nYou can choose two of these leaderCards that you are going to activate during the game!!");
-        System.out.println(leaderCards.toString());
+        cliGraphics.showLeaderCards(leaderCards);
         System.out.println("Choose two LeaderCard you want to discard (Insert index, press enter): ");
         Scanner scanner = new Scanner(System.in);
         int index = scanner.nextInt();
-        Scanner scanner2 = new Scanner(System.in);
-        int index2 = scanner2.nextInt();
+        int index2 = scanner.nextInt();
         notifyObservers(new DiscardLeader(nickname, (index-1), (index2-1)));
         ArrayList<Integer> indexes = new ArrayList<>();
         indexes.add(index-1);
@@ -136,7 +141,8 @@ public class Cli extends ClientObservable implements View {
         for (int ind : indexes){
             leaderCards.remove(ind);
         }
-        System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n\n" + leaderCards.toString());
+        System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n");
+        cliGraphics.showLeaderCards(leaderCards);
     }
 
     @Override
@@ -152,30 +158,27 @@ public class Cli extends ClientObservable implements View {
         switch (action) {
             case "MARKET":
                 System.out.println("Do you want to pick a row or a column of the tray? (row/col)");
-                Scanner scanner2 = new Scanner(System.in);
-                String decision = scanner2.nextLine();
+                String decision = scanner.nextLine();
                 decision = decision.replaceAll("\\s+","");
                 while (!decision.equalsIgnoreCase("row") && !decision.equalsIgnoreCase("col")){
                     System.out.println("\nInvalid input");
-                    decision = scanner2.nextLine();
+                    decision = scanner.nextLine();
                     decision = decision.replaceAll("\\s+","");
                 }
                 if (decision.equalsIgnoreCase("row")) {
                     rowOrCol = true;
                     System.out.println("Which row do you want to pick? (1,2,3)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    index = scanner3.nextInt();
+                    index = scanner.nextInt();
                     while (index<1 || index>3){
                         System.out.println("\nInvalid input");
-                        index = scanner3.nextInt();
+                        index = scanner.nextInt();
                     }
                 } else if (decision.equalsIgnoreCase("col")) {
                     System.out.println("Which column do you want to pick? (1,2,3,4)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    index = scanner3.nextInt();
+                    index = scanner.nextInt();
                     while (index<1 || index>4){
                         System.out.println("\nInvalid input");
-                        index = scanner3.nextInt();
+                        index = scanner.nextInt();
                     }
                 }
                 notifyObservers(new GoingMarket(index, rowOrCol));
@@ -183,28 +186,26 @@ public class Cli extends ClientObservable implements View {
 
             case "BUY":
                 System.out.println("Select row of the devCard you want to buy: (1, 2, 3)");
-                Scanner scanner4 = new Scanner(System.in);
-                row = scanner4.nextInt();
+                row = scanner.nextInt();
                 System.out.println("Select column of the devCard you want to buy: (1, 2, 3, 4)");
-                col = scanner4.nextInt();
+                col = scanner.nextInt();
 
                 System.out.println("Where do you want to place it: (Insert the number of the slot: 1, 2, 3)");
-                slot = scanner4.nextInt();
+                slot = scanner.nextInt();
                 notifyObservers(new BuyDevCard(row, col, slot));
 
                 break;
 
             case "PRODUCTION":
-                Scanner scanner5 = new Scanner(System.in);
                 System.out.println("Type 1 if you want to activate basic production, 0 if you don't");
-                int yesORnoB = scanner5.nextInt();
+                int yesORnoB = scanner.nextInt();
                 System.out.println("Type 1 if you want to activate the production, 0 if you don't:\n");
                 System.out.println("SLOT 1: ");
-                int yesORno1 = scanner5.nextInt();
+                int yesORno1 = scanner.nextInt();
                 System.out.println("SLOT 2: ");
-                int yesORno2 = scanner5.nextInt();
+                int yesORno2 = scanner.nextInt();
                 System.out.println("SLOT 3: ");
-                int yesORno3 = scanner5.nextInt();
+                int yesORno3 = scanner.nextInt();
 
                 notifyObservers(new ActivateProduction(yesORnoB, yesORno1, yesORno2, yesORno3));
                 break;
@@ -235,14 +236,15 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
-        System.out.println(leaderCards.toString() +"\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO )");
+        cliGraphics.showLeaderCards(leaderCards);
+        System.out.println("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO )");
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
         action.replaceAll("\\s+","");
 
         if (action.equalsIgnoreCase("ACTIVATE")) {
             System.out.println("Choose the leader card you want to activate (insert index)");
-            System.out.println(leaderCards.toString());
+            cliGraphics.showLeaderCards(leaderCards);
             int index = scanner.nextInt();
 
             notifyObservers(new ActivateLeader(leaderCards.get(index - 1)));
@@ -252,7 +254,7 @@ public class Cli extends ClientObservable implements View {
         else if (action.equalsIgnoreCase("DISCARD")){
 
             System.out.println("Choose the leader card you want to discard (insert index)");
-            System.out.println(leaderCards.toString());
+            cliGraphics.showLeaderCards(leaderCards);
             int index = scanner.nextInt();
 
             notifyObservers(new DiscardOneLeader(index - 1));

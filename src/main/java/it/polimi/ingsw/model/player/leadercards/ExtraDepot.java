@@ -27,6 +27,11 @@ public class ExtraDepot extends LeaderEffect implements Serializable {
         return toStore;
     }
 
+    @Override
+    public Object getRequirements() {
+        return resourceRequired;
+    }
+
     /**
      * Checks if the player can actually place the leader card
      * @param player owner of the card
@@ -81,18 +86,4 @@ public class ExtraDepot extends LeaderEffect implements Serializable {
         return false;
     }
 
-    //extra depot
-    //2 pietre: costo 5 monete, 3 pv
-    //2 servi: costo 5 pietre, 3pv
-    //2 scudi: costo 5 servi, 3pv
-    //2 monete: costo 5 scudi, 3pv
-
-
-    @Override
-    public String toString() {
-        return  "   EXTRA DEPOT\n| " +
-                "COST:  5 " +resourceRequired +"S\n| "+
-                "two extra spaces for:\n| " +
-                "    "+ toStore;
-    }
 }
