@@ -26,33 +26,12 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchNickname() {
-        System.out.println("\n" +
-                "   ▄▄▄▄███▄▄▄▄      ▄████████    ▄████████     ███        ▄████████    ▄████████    ▄████████       ▄██████▄     ▄████████\n"+
-                " ▄██▀▀▀███▀▀▀██▄   ███    ███   ███    ███ ▀█████████▄   ███    ███   ███    ███   ███    ███      ███    ███   ███    ███\n"+
-                " ███   ███   ███   ███    ███   ███    █▀     ▀███▀▀██   ███    █▀    ███    ███   ███    █▀       ███    ███   ███    █▀ \n"+
-                " ███   ███   ███   ███    ███   ███            ███   ▀  ▄███▄▄▄      ▄███▄▄▄▄██▀   ███             ███    ███  ▄███▄▄▄    \n"+
-                " ███   ███   ███ ▀███████████ ▀███████████     ███     ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   ▀███████████      ███    ███ ▀▀███▀▀▀    \n"+
-                " ███   ███   ███   ███    ███          ███     ███       ███    █▄  ▀███████████          ███      ███    ███   ███       \n"+
-                " ███   ███   ███   ███    ███    ▄█    ███     ███       ███    ███   ███    ███    ▄█    ███      ███    ███   ███       \n"+
-                "  ▀█   ███   █▀    ███    █▀   ▄████████▀     ▄████▀     ██████████   ███    ███  ▄████████▀        ▀██████▀    ███       \n"+
-                "                                                                      ███    ███                                          \n\n\n"+
-
-                "         ▄████████    ▄████████ ███▄▄▄▄      ▄████████  ▄█     ▄████████    ▄████████    ▄████████ ███▄▄▄▄    ▄████████    ▄████████ \n" +
-                "         ███    ███   ███    ███ ███▀▀▀██▄   ███    ███ ███    ███    ███   ███    ███   ███    ███ ███▀▀▀██▄ ███    ███   ███    ███ \n" +
-                "         ███    ███   ███    █▀  ███   ███   ███    ███ ███▌   ███    █▀    ███    █▀    ███    ███ ███   ███ ███    █▀    ███    █▀  \n" +
-                "         ███    ███   ███    █▀  ███   ███   ███    ███ ███▌   ███    █▀    ███    █▀    ███    ███ ███   ███ ███    █▀    ███    █▀  \n" +
-                "        ▄███▄▄▄▄██▀  ▄███▄▄▄     ███   ███   ███    ███ ███▌   ███          ███          ███    ███ ███   ███ ███         ▄███▄▄▄     \n" +
-                "       ▀▀███▀▀▀▀▀   ▀▀███▀▀▀     ███   ███ ▀███████████ ███▌ ▀███████████ ▀███████████ ▀███████████ ███   ███ ███        ▀▀███▀▀▀     \n" +
-                "       ▀███████████   ███    █▄  ███   ███   ███    ███ ███           ███          ███   ███    ███ ███   ███ ███    █▄    ███    █▄  \n" +
-                "         ███    ███   ███    ███ ███   ███   ███    ███ ███     ▄█    ███    ▄█    ███   ███    ███ ███   ███ ███    ███   ███    ███ \n" +
-                "         ███    ███   ██████████  ▀█   █▀    ███    █▀  █▀    ▄████████▀   ▄████████▀    ███    █▀   ▀█   █▀  ████████▀    ██████████ \n" +
-                "         ███    ███       \n");
         System.out.println("What's your nickname?");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
         nickname = nickname.replaceAll("\\s+","");
         this.nickname = nickname;
-        System.out.println("How many players do you want to play with? (Max 4 players. Type 1 for single player");
+        System.out.println("How many players do you want to play with? (Max 4 players. Type 1 for single player)");
         int numPlayers = scanner.nextInt();
         while(numPlayers<1 || numPlayers>4){
             System.out.println("\nInvalid number");
@@ -90,16 +69,24 @@ public class Cli extends ClientObservable implements View {
         while(!floor.equalsIgnoreCase("switch")
                 && !floor.equalsIgnoreCase("discard")
                 && Integer.parseInt(floor) > 3 && Integer.parseInt(floor) < 1) {
-            System.out.println("\nInvalid Input");
+            System.out.println("\nInvalid Input, retry");
             floor = scanner.nextLine();
             floor = floor.replaceAll("\\s+","");
         }
 
         if (floor.equalsIgnoreCase("switch")) {
-            System.out.print("Which floors do you want to switch?\nSource floor: ");
+            System.out.print("Which floors do you want to switch?\nSource floor (1,2,3): ");
             int sourceFloor = scanner.nextInt();
-            System.out.print("Destination floor: ");
+            while(sourceFloor < 1 || sourceFloor > 3){
+                System.out.println("\nInvalid Input, retry");
+                sourceFloor = scanner.nextInt();
+            }
+            System.out.print("Destination floor (1,2,3): ");
             int destFloor = scanner.nextInt();
+            while(destFloor < 1 || destFloor > 3){
+                System.out.println("\nInvalid Input, retry");
+                destFloor = scanner.nextInt();
+            }
             notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
         }
         else notifyObservers(new ResourcePlacement(nickname, floor));
@@ -132,7 +119,15 @@ public class Cli extends ClientObservable implements View {
         System.out.println("Choose two LeaderCard you want to discard (Insert index, press enter): ");
         Scanner scanner = new Scanner(System.in);
         int index = scanner.nextInt();
+        while(index < 1 || index > 4){
+            System.out.println("\nInvalid Input, retry");
+            index = scanner.nextInt();
+        }
         int index2 = scanner.nextInt();
+        while(index2 < 1 || index2 > 4 || index2==index){
+            System.out.println("\nInvalid Input, retry");
+            index2 = scanner.nextInt();
+        }
         notifyObservers(new DiscardLeader(nickname, (index-1), (index2-1)));
         ArrayList<Integer> indexes = new ArrayList<>();
         indexes.add(index-1);
@@ -154,6 +149,11 @@ public class Cli extends ClientObservable implements View {
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
         action = action.toUpperCase().replaceAll("\\s+","");
+        while (!(action.equalsIgnoreCase("market")) && !(action.equalsIgnoreCase("buy")) && !(action.equalsIgnoreCase("production"))){
+            System.out.println("Invalid input\n" + message);
+            action = scanner.nextLine();
+            action = action.replaceAll("\\s+","");
+        }
 
         switch (action) {
             case "MARKET":
@@ -185,34 +185,57 @@ public class Cli extends ClientObservable implements View {
                 break;
 
             case "BUY":
-                System.out.println("Select row of the devCard you want to buy: (1, 2, 3)");
+                System.out.println("Select row of the devCard you want to buy: (1,2,3)");
                 row = scanner.nextInt();
-                System.out.println("Select column of the devCard you want to buy: (1, 2, 3, 4)");
+                while (row<1 || row>3){
+                    System.out.println("\nInvalid input");
+                    row = scanner.nextInt();
+                }
+                System.out.println("Select column of the devCard you want to buy: (1,2,3,4)");
                 col = scanner.nextInt();
-
-                System.out.println("Where do you want to place it: (Insert the number of the slot: 1, 2, 3)");
+                while (col<1 || col>4){
+                    System.out.println("\nInvalid input");
+                    col = scanner.nextInt();
+                }
+                System.out.println("Where do you want to place it: (Insert the number of the slot: 1,2,3)");
                 slot = scanner.nextInt();
+                while (slot<1 || slot>3){
+                    System.out.println("\nInvalid input");
+                    slot = scanner.nextInt();
+                }
                 notifyObservers(new BuyDevCard(row, col, slot));
-
                 break;
 
             case "PRODUCTION":
                 System.out.println("Type 1 if you want to activate basic production, 0 if you don't");
                 int yesORnoB = scanner.nextInt();
+                while (yesORnoB!=0 && yesORnoB!=1){
+                    System.out.println("\nInvalid input");
+                    yesORnoB = scanner.nextInt();
+                }
                 System.out.println("Type 1 if you want to activate the production, 0 if you don't:\n");
-                System.out.println("SLOT 1: ");
+                System.out.print("SLOT 1:  >");
                 int yesORno1 = scanner.nextInt();
-                System.out.println("SLOT 2: ");
+                while (yesORno1!=0 && yesORno1!=1){
+                    System.out.println("\nInvalid input");
+                    yesORno1 = scanner.nextInt();
+                }
+                System.out.print("  SLOT 2:  >");
                 int yesORno2 = scanner.nextInt();
-                System.out.println("SLOT 3: ");
+                while (yesORno2!=0 && yesORno2!=1){
+                    System.out.println("\nInvalid input");
+                    yesORno2 = scanner.nextInt();
+                }
+                System.out.print("  SLOT 3:  >");
                 int yesORno3 = scanner.nextInt();
-
+                while (yesORno3!=0 && yesORno3!=1){
+                    System.out.println("\nInvalid input");
+                    yesORno3 = scanner.nextInt();
+                }
                 notifyObservers(new ActivateProduction(yesORnoB, yesORno1, yesORno2, yesORno3));
                 break;
 
         }
-
-
     }
 
     @Override
@@ -220,47 +243,52 @@ public class Cli extends ClientObservable implements View {
         System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
+        answer = answer.replaceAll("\\s+","");
+        while (!answer.equalsIgnoreCase("done") && !answer.equalsIgnoreCase("leader")){
+            System.out.println("\nInvalid input");
+            answer = scanner.nextLine();
+            answer = answer.replaceAll("\\s+","");
+        }
 
         if (answer.equalsIgnoreCase("DONE")){
             notifyObservers(new DoneAction());
-        }
-
-        else if (answer.equalsIgnoreCase("LEADER")){
+        } else if (answer.equalsIgnoreCase("LEADER")){
             fetchPlayLeader(leaderCards, true);
-        }
-        else {
-            System.out.println("Invalid String...\n");
-            fetchDoneAction(message, leaderCards);
         }
     }
 
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
         cliGraphics.showLeaderCards(leaderCards);
-        System.out.println("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO )");
+        System.out.println("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)");
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
-        action.replaceAll("\\s+","");
+        action = action.replaceAll("\\s+","");
+        while (!action.equalsIgnoreCase("activate") && !action.equalsIgnoreCase("discard") && !action.equalsIgnoreCase("no")){
+            System.out.println("\nInvalid input");
+            action = scanner.nextLine();
+            action = action.replaceAll("\\s+","");
+        }
 
         if (action.equalsIgnoreCase("ACTIVATE")) {
             System.out.println("Choose the leader card you want to activate (insert index)");
             cliGraphics.showLeaderCards(leaderCards);
             int index = scanner.nextInt();
-
+            while (index > leaderCards.size() || index < 1){
+                System.out.println("\nInvalid input");
+                index = scanner.nextInt();
+            }
             notifyObservers(new ActivateLeader(leaderCards.get(index - 1)));
-
-        }
-
-        else if (action.equalsIgnoreCase("DISCARD")){
-
+        } else if (action.equalsIgnoreCase("DISCARD")){
             System.out.println("Choose the leader card you want to discard (insert index)");
             cliGraphics.showLeaderCards(leaderCards);
             int index = scanner.nextInt();
-
+            while (index > leaderCards.size() || index < 1){
+                System.out.println("\nInvalid input");
+                index = scanner.nextInt();
+            }
             notifyObservers(new DiscardOneLeader(index - 1));
-        }
-
-        else if (action.equalsIgnoreCase("NO")){
+        } else if (action.equalsIgnoreCase("NO")){
             afterLeaderAction(isEndTurn, leaderCards);
         }
 
@@ -270,7 +298,7 @@ public class Cli extends ClientObservable implements View {
         if (!trueOrFalse)
             fetchPlayerAction("\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)\n");
         else
-            fetchDoneAction("Type DONE", leaderCards);
+            fetchDoneAction("Type DONE (attenzione: potrebbe scrivere anche leader, è giusto?", leaderCards);
     }
 
     @Override
@@ -288,8 +316,6 @@ public class Cli extends ClientObservable implements View {
     public void displayErrorMsg(String errorMsg) {
 
     }
-
-
 
     @Override
     public void displayStatus(List<String> players, List<PersonalBoard> personalBoards, String playingPlayer) {

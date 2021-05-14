@@ -69,7 +69,7 @@ public class Depot implements Serializable {
             }
             //se nel piano è presente un altro tipo di risorsa non puoi aggiungere resourceToPlace
             if (floors.get(floor).isPresent() && !floors.get(floor).get().getType().equals(resourceToPlace.getType()))
-                throw new IllegalArgumentException("In the requested floor (" + floor + ")" + " there is another type of resource (toPlace:" + resourceToPlace.getType() + " present: " + floors.get(floor).get().getType());
+                throw new IllegalArgumentException("In the requested floor (" + (floor+1) + ")" + " there is another type of resource (toPlace:" + resourceToPlace.getType() + " present: " + floors.get(floor).get().getType());
             //se la risorsa eccede di quantità ripetto al piano non puoi aggiungere resourceToPlace
             if (floors.get(floor).isPresent() && ((floors.get(floor).get().getQnt() + resourceToPlace.getQnt()) > floor + 1))
                 throw new IllegalArgumentException("There is not enough space in the floor");
@@ -101,20 +101,20 @@ public class Depot implements Serializable {
         //todo da ricontrollare questo metodo
         floor = floor - 1;
         if (resourceToPlace.getType().equals(ResourceType.WHITERESOURCE))
-            throw new IllegalArgumentException("It's not possible to add a white resource in depot");
+            throw new IllegalArgumentException("It's not possible to add a white resource in depot.");
         else if (resourceToPlace.getType().equals(ResourceType.FAITHPOINT))
-            throw new IllegalArgumentException("It's not possible to add a faith point in depot");
+            throw new IllegalArgumentException("It's not possible to add a faith point in depot.");
         else if (extraFloors.get(floor).isEmpty())
-            throw new IllegalArgumentException("Extra floor " + floor + " is not activted");
+            throw new IllegalArgumentException("Extra floor " + floor + " is not activted.");
         else if (extraFloors.get(floor).isPresent() && !extraFloors.get(floor).get().getType().equals(resourceToPlace.getType()))
-            throw new IllegalArgumentException("This extra floor can contain only " + extraFloors.get(floor).get().getType() + " and you are trying to place " + resourceToPlace.getType());
+            throw new IllegalArgumentException("This extra floor can contain only " + extraFloors.get(floor).get().getType() + " and you are trying to place " + resourceToPlace.getType() + ".");
         else {
             //se la risorsa eccede di quantità ripetto al piano non puoi aggiungere resourceToPlace
             if (extraFloors.get(floor).isPresent() && ((extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt()) > 2))
                 throw new IllegalArgumentException("There is not enough space in the extra floor");
             //se il piano è vuoto e la risorsa è in quantità maggiore alla capacità del piano non puoi aggiungere resourceToPlace
             if (extraFloors.get(floor).isEmpty() && resourceToPlace.getQnt() > 2)
-                throw new IllegalArgumentException("There is not enough space in the extra floor");
+                throw new IllegalArgumentException("There is not enough space in the extra floor.");
 
             if (extraFloors.get(floor).isPresent()) {
                 extraFloors.get(floor).get().setQnt(extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt());
@@ -128,23 +128,23 @@ public class Depot implements Serializable {
     source -= 1;
     destination -= 1;
         if (floors.get(source).isEmpty() && floors.get(destination).isEmpty()) {
-            throw new IllegalArgumentException("You are trying to swap two empty floors");
+            throw new IllegalArgumentException("You are trying to swap two empty floors.");
         }
         else if (floors.get(source).isEmpty() && floors.get(destination).isPresent()) {
             if (floors.get(destination).get().getQnt() <= source + 1) {
                 floors.set(source, floors.get(destination));
                 floors.set(destination, Optional.empty());
-            } else throw new IllegalArgumentException("There is not enough space to swap these floors");
+            } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
         }
         else if (floors.get(source).isPresent() && floors.get(destination).isEmpty()) {
             if (floors.get(source).get().getQnt() <= destination + 1) {
                 floors.set(destination, floors.get(source));
                 floors.set(source, Optional.empty());
-            } else throw new IllegalArgumentException("There is not enough space to swap these floors");
+            } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
         }
         else if ((floors.get(source).get().getQnt() <= destination + 1 ) && (floors.get(destination).get().getQnt() <= source+1)) {
             Collections.swap(this.floors, source, destination);
-        } else throw new IllegalArgumentException("There is not enough space to swap these floors");
+        } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
     }
 
 

@@ -87,6 +87,7 @@ public class PlayerController {
                 goToMarket(msg);
                 break;
             case RESOURCE_PLACEMENT:
+                boolean goAhead = true;
                 String answer;
                 answer = ((ResourcePlacement) msg).getFloor().replaceAll("\\s+", "");
                 if (answer.equalsIgnoreCase("discard")) {
@@ -94,12 +95,23 @@ public class PlayerController {
                     addFaithPointsToOpponents(1);
                     resources.remove(resources.get(resources.size() - 1));
                 } else if (answer.equalsIgnoreCase("switch")) {
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
+                    try{
+                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
+                    } catch (IllegalArgumentException e){
+                        playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                    }
                 } else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
                     //aggiungi la risorsa al deposito
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
-                    resources.remove(resources.get(resources.size() - 1));
-                } else {
+                    try{
+                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
+                    } catch (IllegalArgumentException e){
+                        goAhead = false;
+                        playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                    }
+                    if (goAhead) {
+                        resources.remove(resources.get(resources.size() - 1));
+                    }
+                } else { //should not enter here
                     throw new IllegalArgumentException("Wrong Input in market action");
                 }
 

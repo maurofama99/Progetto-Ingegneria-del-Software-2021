@@ -18,6 +18,8 @@ public class Client implements Runnable, ClientObserver {
     private ServerHandler serverHandler;
     private View view;
     private final int SOCKET_PORT;
+    boolean connected = false;
+    Socket server;
 
     public Client(View view, int SOCKET_PORT) {
         this.view = view;
@@ -47,18 +49,36 @@ public class Client implements Runnable, ClientObserver {
     @Override
     public void run() {
 
-        System.out.println("Insert the IP address of the server:");
-        Scanner scanner = new Scanner(System.in);
-        String ip = scanner.nextLine();
+        System.out.println("\n" +
+                "   ▄▄▄▄███▄▄▄▄      ▄████████    ▄████████     ███        ▄████████    ▄████████    ▄████████       ▄██████▄     ▄████████\n"+
+                " ▄██▀▀▀███▀▀▀██▄   ███    ███   ███    ███ ▀█████████▄   ███    ███   ███    ███   ███    ███      ███    ███   ███    ███\n"+
+                " ███   ███   ███   ███    ███   ███    █▀     ▀███▀▀██   ███    █▀    ███    ███   ███    █▀       ███    ███   ███    █▀ \n"+
+                " ███   ███   ███   ███    ███   ███            ███   ▀  ▄███▄▄▄      ▄███▄▄▄▄██▀   ███             ███    ███  ▄███▄▄▄    \n"+
+                " ███   ███   ███ ▀███████████ ▀███████████     ███     ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   ▀███████████      ███    ███ ▀▀███▀▀▀    \n"+
+                " ███   ███   ███   ███    ███          ███     ███       ███    █▄  ▀███████████          ███      ███    ███   ███       \n"+
+                " ███   ███   ███   ███    ███    ▄█    ███     ███       ███    ███   ███    ███    ▄█    ███      ███    ███   ███       \n"+
+                "  ▀█   ███   █▀    ███    █▀   ▄████████▀     ▄████▀     ██████████   ███    ███  ▄████████▀        ▀██████▀    ███       \n"+
+                "                                                                      ███    ███                                          \n\n\n"+
+
+                "         ▄████████    ▄████████ ███▄▄▄▄      ▄████████  ▄█     ▄████████    ▄████████    ▄████████ ███▄▄▄▄    ▄████████    ▄████████ \n" +
+                "         ███    ███   ███    ███ ███▀▀▀██▄   ███    ███ ███    ███    ███   ███    ███   ███    ███ ███▀▀▀██▄ ███    ███   ███    ███ \n" +
+                "         ███    ███   ███    █▀  ███   ███   ███    ███ ███▌   ███    █▀    ███    █▀    ███    ███ ███   ███ ███    █▀    ███    █▀  \n" +
+                "         ███    ███   ███    █▀  ███   ███   ███    ███ ███▌   ███    █▀    ███    █▀    ███    ███ ███   ███ ███    █▀    ███    █▀  \n" +
+                "        ▄███▄▄▄▄██▀  ▄███▄▄▄     ███   ███   ███    ███ ███▌   ███          ███          ███    ███ ███   ███ ███         ▄███▄▄▄     \n" +
+                "       ▀▀███▀▀▀▀▀   ▀▀███▀▀▀     ███   ███ ▀███████████ ███▌ ▀███████████ ▀███████████ ▀███████████ ███   ███ ███        ▀▀███▀▀▀     \n" +
+                "       ▀███████████   ███    █▄  ███   ███   ███    ███ ███           ███          ███   ███    ███ ███   ███ ███    █▄    ███    █▄  \n" +
+                "         ███    ███   ███    ███ ███   ███   ███    ███ ███     ▄█    ███    ▄█    ███   ███    ███ ███   ███ ███    ███   ███    ███ \n" +
+                "         ███    ███   ██████████  ▀█   █▀    ███    █▀  █▀    ▄████████▀   ▄████████▀    ███    █▀   ▀█   █▀  ████████▀    ██████████ \n" +
+                "         ███    ███       \n");
+
 
         /* Open connection to the server and start a thread for handling
          * communication. */
-        Socket server;
-        try {
-            server = new Socket(ip, SOCKET_PORT);
-        } catch (IOException e) {
-            System.out.println("server unreachable");
-            return;
+        while(!connected) {
+            System.out.println("Insert the IP address of the server:");
+            Scanner scanner = new Scanner(System.in);
+            String ip = scanner.nextLine();
+            tryConnection(ip, SOCKET_PORT);
         }
         System.out.println("Connected");
 
@@ -115,6 +135,16 @@ public class Client implements Runnable, ClientObserver {
             case ASK_PLAYLEADER:
                 view.fetchPlayLeader(((AskPlayLeader)msg).getLeaderCardsNotActivated(), false);
                 break;
+        }
+    }
+
+    public void tryConnection(String ip, int SOCKET_PORT){
+        try {
+            server = new Socket(ip, SOCKET_PORT);
+            connected = true;
+        } catch (IOException e) {
+            System.out.println("Server unreachable, try with another address.");
+            connected = false;
         }
     }
 
