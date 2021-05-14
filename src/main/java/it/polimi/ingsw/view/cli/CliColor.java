@@ -9,7 +9,7 @@ public enum CliColor {
         ANSI_PURPLE("\u001B[35m"),
         ANSI_GRAY("\u001B[37m");
 
-        static final String RESET = "\u001B[0m";
+        public static final String RESET = "\u001B[0m";
 
         private String escape;
 

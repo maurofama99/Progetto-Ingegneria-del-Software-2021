@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
+import it.polimi.ingsw.view.cli.CliColor;
 import it.polimi.ingsw.view.gui.Gui;
 
 import java.io.IOException;
@@ -27,23 +28,50 @@ public class Client implements Runnable, ClientObserver {
     }
 
     public static void main(String[] args) {
+        int i = 0;
+        String arg;
+        int SOCKET_PORT = -1;
         boolean cli = false;
+        boolean gui = false;
 
-        for (String el : args){
-            if (el.equals("-c")) {
-                cli = true;
-                break;
+        while (i < args.length && args[i].startsWith("-")) {
+            arg = args[i++];
+
+            switch (arg) {
+                case "-port":
+                    if (i < args.length)
+                        SOCKET_PORT = Integer.parseInt(args[i++]);
+                    else
+                        System.err.println("-port requires a port number\nUsage: Client -port portNumber [-cli | -gui]");
+                    break;
+                case "-cli":
+                    cli = true;
+                    break;
+                case "-gui":
+                    if (cli) {
+                        System.err.println("You can't start the program in both CLI and GUI mode\nUsage: Client -port portNumber [-cli | -gui]");
+                        break;
+                    }
+                    gui = true;
+                    System.err.println("GUI mode not implemented yet, please start the application in CLI mode\nUsage: Client -port portNumber [-cli | -gui]");
+                    break;
             }
+
         }
+        if (i == args.length)
+            System.err.println("Usage: Client -port portNumber [-cli | -gui]");
 
         if (cli){
             Cli view = new Cli();
-            Client client = new Client(view, Integer.parseInt(args[0]));
+            Client client = new Client(view, SOCKET_PORT);
             view.addClientObserver(client);
             client.run();
-        } else {
-            //fai partire la GUI
         }
+
+        if (gui){
+            //GUI mode ancora non implementata
+        }
+
     }
 
     @Override
@@ -153,3 +181,19 @@ public class Client implements Runnable, ClientObserver {
         serverHandler.sendMessage(message);
     }
 }
+
+/*if (arg.equals("-port")) {
+                if (i < args.length)
+                    SOCKET_PORT = Integer.parseInt(args[i++]);
+                else
+                    System.err.println("-port requires a port number");
+            }
+
+            else if (arg.equals("-cli")) {
+                cli=true;
+            }
+
+            else if (arg.equals("-gui")) {
+                gui = true;
+                System.err.println("GUI mode not implemented yet, please start the application in CLI mode\nUsage: Client -port portNumber [-cli]");
+            }*/
