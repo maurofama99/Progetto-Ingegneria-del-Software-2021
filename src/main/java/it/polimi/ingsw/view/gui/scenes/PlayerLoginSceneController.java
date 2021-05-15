@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.observerPattern.ViewObservable;
 import javafx.event.Event;
@@ -9,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 
-public class PlayerLoginSceneController extends ViewObservable implements GenericSceneController{
+public class PlayerLoginSceneController extends ClientObservable implements GenericSceneController{
     @FXML
     private TextField nicknameField;
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.observerPattern.ViewObservable;
 import javafx.event.Event;
@@ -9,7 +10,7 @@ import javafx.scene.control.Label;
 
 import java.util.List;
 
-public class LobbySceneController extends ViewObservable implements GenericSceneController {
+public class LobbySceneController extends ClientObservable implements GenericSceneController {
     private List<String> nicknames;
     private int maxPlayers;
 

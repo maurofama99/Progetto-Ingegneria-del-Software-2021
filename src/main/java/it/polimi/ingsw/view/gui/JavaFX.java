@@ -20,7 +20,7 @@ public class JavaFX extends Application {
         //view.addObserver();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/StartScene.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/start_scene.fxml"));
         Parent rootLayout = null;
         try{
             rootLayout = loader.load();

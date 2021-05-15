@@ -8,17 +8,24 @@ import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gui extends Observable implements View {
+public class Gui extends ClientObservable implements View {
+
+    private final static  String ERROR = "ERROR";
+    private final static String START_SCENE = "start_scene.fxml";
+
+
     @Override
     public void fetchNickname() {
-
+        Platform.runLater(()->SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
     }
 
     @Override

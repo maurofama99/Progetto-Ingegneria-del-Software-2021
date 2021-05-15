@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
@@ -11,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 
-public class ConnectionSceneController extends ViewObservable implements GenericSceneController {
+public class ConnectionSceneController extends ClientObservable implements GenericSceneController {
 
     @FXML
     private Parent Rootpane;
@@ -36,6 +37,6 @@ public class ConnectionSceneController extends ViewObservable implements Generic
 
     private void exitButtonClick(Event event){
 
-        SceneController.changeRootPane(observers, event, "StartScene.fxml");
+        SceneController.changeRootPane(clientObservers, event, "start_scene.fxml");
     }
 }

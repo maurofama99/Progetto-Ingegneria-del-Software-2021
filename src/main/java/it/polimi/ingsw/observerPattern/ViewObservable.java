@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+//Probably going to be deleted
 public abstract class ViewObservable {
 
     protected final List<ViewObserver> observers = new ArrayList<>();
