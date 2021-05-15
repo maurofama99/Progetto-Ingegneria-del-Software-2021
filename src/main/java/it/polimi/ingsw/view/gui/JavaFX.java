@@ -15,9 +15,6 @@ public class JavaFX extends Application {
 
     @Override
     public void start(Stage stage) {
-        Gui view = new Gui();
-        GameController gameController = new GameController();
-        //view.addObserver();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/start_scene.fxml"));

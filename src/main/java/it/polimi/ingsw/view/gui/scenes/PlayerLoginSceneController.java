@@ -18,6 +18,9 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     private Button joinGameButton;
 
     @FXML
+    private TextField numberOfPlayersField;
+
+    @FXML
     private Button exitGameButton;
 
     @FXML
@@ -30,6 +33,11 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         joinGameButton.setDisable(true);
 
         String nickname = nicknameField.getText();
+        nickname = nickname.replaceAll("\\s+","");
+        int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
+
+
+
     }
 
     private void onExitGameClick(Event event){
