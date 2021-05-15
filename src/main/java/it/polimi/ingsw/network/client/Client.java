@@ -40,7 +40,11 @@ public class Client implements Runnable, ClientObserver {
             switch (arg) {
                 case "-port":
                     if (i < args.length)
-                        SOCKET_PORT = Integer.parseInt(args[i++]);
+                        try {
+                            SOCKET_PORT = Integer.parseInt(args[i++]);
+                        } catch (NumberFormatException e){
+                            System.err.println("-port requires a port number\nUsage: Client -port portNumber [-cli | -gui]");
+                        }
                     else
                         System.err.println("-port requires a port number\nUsage: Client -port portNumber [-cli | -gui]");
                     break;
@@ -58,8 +62,10 @@ public class Client implements Runnable, ClientObserver {
             }
 
         }
-        if (i == args.length)
-            System.err.println("Usage: Client -port portNumber [-cli | -gui]");
+        if (i == 0 || (!cli && !gui) || SOCKET_PORT==-1) {
+            System.err.println("Usage: Client -port " + "portNumber" + " [-cli | -gui]");
+            return;
+        }
 
         if (cli){
             Cli view = new Cli();
