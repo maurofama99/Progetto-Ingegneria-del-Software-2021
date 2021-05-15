@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.cli.CliColor;
 import it.polimi.ingsw.view.gui.Gui;
+import it.polimi.ingsw.view.gui.JavaFX;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -21,10 +22,21 @@ public class Client implements Runnable, ClientObserver {
     private final int SOCKET_PORT;
     boolean connected = false;
     Socket server;
+    String ip;
+    private boolean cli = false;
+    private boolean gui = false;
 
     public Client(View view, int SOCKET_PORT) {
         this.view = view;
         this.SOCKET_PORT = SOCKET_PORT;
+        this.cli = true;
+    }
+
+    public Client(View view, int SOCKET_PORT, String ip) {
+        this.view = view;
+        this.SOCKET_PORT = SOCKET_PORT;
+        this.ip = ip;
+        this.gui=true;
     }
 
     public static void main(String[] args) {
@@ -57,7 +69,6 @@ public class Client implements Runnable, ClientObserver {
                         break;
                     }
                     gui = true;
-                    System.err.println("GUI mode not implemented yet, please start the application in CLI mode\nUsage: Client -port portNumber [-cli | -gui]");
                     break;
             }
 
@@ -75,7 +86,7 @@ public class Client implements Runnable, ClientObserver {
         }
 
         if (gui){
-            //GUI mode ancora non implementata
+            JavaFX.main(args);
         }
 
     }
@@ -106,15 +117,19 @@ public class Client implements Runnable, ClientObserver {
                 "         ███    ███       \n");
 
 
-        /* Open connection to the server and start a thread for handling
-         * communication. */
-        while(!connected) {
-            System.out.println("Insert the IP address of the server:");
-            Scanner scanner = new Scanner(System.in);
-            String ip = scanner.nextLine();
-            tryConnection(ip, SOCKET_PORT);
+        if(cli) {
+            while (!connected) {
+                System.out.println("Insert the IP address of the server:");
+                Scanner scanner = new Scanner(System.in);
+                String ip = scanner.nextLine();
+                tryConnection(ip, SOCKET_PORT);
+            }
+            System.out.println("Connected");
         }
-        System.out.println("Connected");
+
+        if(gui) {
+            tryConnection(this.ip, SOCKET_PORT);
+        }
 
         serverHandler = new ServerHandler(server, this);
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
@@ -187,19 +202,3 @@ public class Client implements Runnable, ClientObserver {
         serverHandler.sendMessage(message);
     }
 }
-
-/*if (arg.equals("-port")) {
-                if (i < args.length)
-                    SOCKET_PORT = Integer.parseInt(args[i++]);
-                else
-                    System.err.println("-port requires a port number");
-            }
-
-            else if (arg.equals("-cli")) {
-                cli=true;
-            }
-
-            else if (arg.equals("-gui")) {
-                gui = true;
-                System.err.println("GUI mode not implemented yet, please start the application in CLI mode\nUsage: Client -port portNumber [-cli]");
-            }*/

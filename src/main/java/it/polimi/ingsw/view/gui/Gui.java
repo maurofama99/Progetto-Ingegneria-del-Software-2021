@@ -8,9 +8,11 @@ import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -21,11 +23,11 @@ public class Gui extends ClientObservable implements View {
 
     private final static  String ERROR = "ERROR";
     private final static String START_SCENE = "start_scene.fxml";
-
+    private String nickname;
 
     @Override
     public void fetchNickname() {
-        Platform.runLater(()->SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
+        PlayerLoginSceneController plsc = new PlayerLoginSceneController();
     }
 
     @Override
