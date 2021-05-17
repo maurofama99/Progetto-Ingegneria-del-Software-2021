@@ -5,8 +5,10 @@ import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
+import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
@@ -25,9 +27,6 @@ public class VirtualView implements Observer {
         this.clientHandler = clientHandler;
     }
 
-    public void fetchNickname() throws IOException {
-        clientHandler.sendMessage(new LoginRequest());
-    }
 
     public void fetchResourceType() throws IOException {
         clientHandler.sendMessage(new AskResourceType());
@@ -37,10 +36,6 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new AskResourcePlacement());
     }
 
-    public void fetchResourcePlacementOrDiscard() throws IOException{
-        clientHandler.sendMessage(new AskResourcePlacementOrDiscard());
-    }
-
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
         clientHandler.sendMessage(new AskSwapWhite(type1, type2));
     }
@@ -48,7 +43,6 @@ public class VirtualView implements Observer {
     public void displayGenericMessage(String genericMessage) throws IOException {
         clientHandler.sendMessage(new GenericMessage(genericMessage));
     }
-
 
     public void fetchPlayerAction() throws IOException {
         clientHandler.sendMessage(new AskAction());
@@ -66,12 +60,20 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new DisplayMarket(marketTray));
     }
 
-    public void displayDeck(){
+    public void displayDeck(DevCard[][] showedDeck)throws IOException{
+        clientHandler.sendMessage(new DisplayDevCards(showedDeck));
     }
 
+    public void displayWarehouse(Warehouse warehouse) throws IOException {
+        clientHandler.sendMessage(new DisplayWarehouse(warehouse));
+    }
 
-    public void displayPersonalBoard(PersonalBoard personalBoard) throws IOException {
-        clientHandler.sendMessage(new DisplayPersonalBoard(personalBoard));
+    public void displayFaithTrack(FaithTrack faithTrack) throws IOException{
+        clientHandler.sendMessage(new DisplayFaithTrack(faithTrack));
+    }
+
+    public void displaySlots(Slot[] slots) throws IOException{
+        clientHandler.sendMessage(new DisplaySlots(slots));
     }
 
     @Override

@@ -6,10 +6,9 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.network.messagessc.NoAvailableResources;
+
 import it.polimi.ingsw.observerPattern.Observable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -18,7 +17,7 @@ import java.util.NoSuchElementException;
  * Class of the personal board of every player. It does things like setting the tracks,
  * editing the slots...
  */
-public class PersonalBoard extends Observable implements Serializable {
+public class PersonalBoard extends Observable{
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
@@ -78,7 +77,7 @@ public class PersonalBoard extends Observable implements Serializable {
         getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
     }
 
-    public void extraProduction(LeaderCard leaderCard, Resource resourceChosenByPlayer) throws CloneNotSupportedException {
+    public void extraProduction(Player player, LeaderCard leaderCard, Resource resourceChosenByPlayer) throws CloneNotSupportedException {
 
         if (hasEffect(EffectType.ADDPRODUCTION)){
             ArrayList<Resource> resourcesToRemove = new ArrayList<>();
@@ -95,7 +94,7 @@ public class PersonalBoard extends Observable implements Serializable {
                 //notifyObserver
             }
 
-            getFaithTrack().moveForward(1);
+            getFaithTrack().moveForward(player, 1);
 
         }
 

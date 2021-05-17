@@ -20,17 +20,4 @@ public class DisplayLeaderCards extends Message {
         return leaderCards;
     }
 
-    @Override
-    public String toString() {
-
-        int i=0;
-        String text = " ";
-        while (i<4) {
-            text = leaderCards.get(i).toString() + "      ";
-            i++;
-        }
-
-
-        return text;
-    }
 }

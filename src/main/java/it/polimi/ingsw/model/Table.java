@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
 import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
-import it.polimi.ingsw.network.messagessc.DisplayPersonalBoard;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
@@ -30,6 +29,9 @@ import java.util.Random;
  * Player, decks, stacks of token, the market and boards and cards are all here
  */
 public class Table extends Observable implements Serializable{
+
+    private static final long serialVersionUID = 719340001294526493L;
+
     private int numPlayers;
     private ArrayList<Player> players;
     private ArrayList<LeaderCard> leaderCardsDeck;
@@ -178,19 +180,12 @@ public class Table extends Observable implements Serializable{
     public void createTokenStack(){
         tokenStack = new ArrayList<>();
 
-        Token token0 = new Token(new RemoveCardsAction(Color.GREEN), false );
-        Token token1 = new Token(new RemoveCardsAction(Color.BLUE), false);
-        Token token2 = new Token(new RemoveCardsAction(Color.YELLOW), false);
-        Token token3 = new Token(new RemoveCardsAction(Color.PURPLE), false);
-        Token token4 = new Token(new MoveAction(2), false);
-        Token token5 = new Token(new MoveAction(1), false);
-
-        tokenStack.add(token0);
-        tokenStack.add(token1);
-        tokenStack.add(token2);
-        tokenStack.add(token3);
-        tokenStack.add(token4);
-        tokenStack.add(token5);
+        tokenStack.add(new Token(new RemoveCardsAction(Color.GREEN), false));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.BLUE), false));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.YELLOW), false));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.PURPLE), false));
+        tokenStack.add(new Token(new MoveAction(2), false));
+        tokenStack.add(new Token(new MoveAction(1), false));
 
         Collections.shuffle(tokenStack, new Random());
     }

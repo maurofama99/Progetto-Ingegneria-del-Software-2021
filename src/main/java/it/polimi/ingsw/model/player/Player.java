@@ -15,12 +15,12 @@ import it.polimi.ingsw.observerPattern.Observable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Player's class. Used a lot to set and get in other methods and interfaces
  */
 public class Player extends Observable implements Serializable {
+
     private final String nickname;
     private int turnOrder;
     private ArrayList<LeaderCard> leaderCards;

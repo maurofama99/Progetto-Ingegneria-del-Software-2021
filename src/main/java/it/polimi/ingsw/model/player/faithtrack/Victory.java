@@ -21,10 +21,11 @@ public class Victory extends Tile implements Serializable {
 
     /**
      * Method that adds the points when the marker hits the spot
-      * @param pointsToAdd how many points to add
      * @param p to whom we need to add the points
      */
-    public void addPoints(int pointsToAdd, Player p) {
-        p.setVictoryPoints(p.getVictoryPoints()+pointsToAdd);
+    @Override
+    public void addPoints(Player p) {
+        p.setVictoryPoints(p.getVictoryPoints()+points);
     }
+
 }

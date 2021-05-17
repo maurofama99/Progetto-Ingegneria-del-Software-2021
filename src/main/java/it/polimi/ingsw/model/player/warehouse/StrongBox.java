@@ -3,17 +3,15 @@ package it.polimi.ingsw.model.player.warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
-import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
-import java.io.Serializable;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
  * the strongbox is an array of the 4 resources that can be stored, in alfhabetic order and with
  * an initialized quantity of 0. Only productions power store their things here
  */
-public class StrongBox implements Serializable {
+public class StrongBox{
 
     private Resource[] storedResources = new Resource[4];
 
@@ -99,7 +97,11 @@ public class StrongBox implements Serializable {
 
     @Override
     public String toString() {
-        return Arrays.toString(storedResources);
+        String text;
+        text = "\n----------------------\n"+
+                "| " + storedResources[0] + " | " + storedResources[1]+ " | " + storedResources[2]+ " | " + storedResources[3]+ " |\n"+
+                "----------------------";
+        return text;
     }
 }
 

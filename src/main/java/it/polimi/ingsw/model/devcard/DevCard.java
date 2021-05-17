@@ -4,6 +4,8 @@ package it.polimi.ingsw.model.devcard;
 import com.google.gson.annotations.SerializedName;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -11,7 +13,10 @@ import java.util.NoSuchElementException;
 /**
  * This is the class of the single dev. card. Every card has its own stats to get initialized
  */
-public class DevCard {
+public class DevCard implements Serializable{
+
+    private static final long serialVersionUID = -2556498201540838238L;
+
     private int level;
     @SerializedName("cardColor")
     private Color cardColor;
@@ -77,14 +82,5 @@ public class DevCard {
         return true;
     }
 
-    @Override
-    public String toString(){
-        String Text;
-        Text = "------------------------------\n| Level:" + this.level + "                 " + this.cardColor + "\n| Requirements:" +
-                this.requirementsDevCard + "\n|\n|           Production:\n| " +
-                this.getProduction() +
-                "\n-------------------------------\n\n";
-        return Text;
-    }
 }
 

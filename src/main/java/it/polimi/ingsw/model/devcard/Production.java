@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -11,7 +12,9 @@ import java.util.NoSuchElementException;
  * This is the class Production. It is used for initializing dev. cards and put the production
  * attribute in them.
  */
-public class Production {
+public class Production implements Serializable {
+    private static final long serialVersionUID = -7532159946421192623L;
+
     private final String productionName;
     private ArrayList<Resource> input;
     private ArrayList<Resource> output;
@@ -47,11 +50,4 @@ public class Production {
         return true;
     }
 
-    @Override
-    public String toString() {
-        String text;
-        text = "°°°°°°°°°°°°°°°°°°°°°°°°°°°°\n| "
-                + input + " --> " + output +"\n| °°°°°°°°°°°°°°°°°°°°°°°°°°°°\n|";
-        return text;
-    }
 }

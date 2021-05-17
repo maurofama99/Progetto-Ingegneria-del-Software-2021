@@ -1,16 +1,15 @@
 package it.polimi.ingsw.view.cli;
 
-import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
+import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.*;
-import it.polimi.ingsw.network.messagessc.AskAction;
-import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
@@ -19,9 +18,9 @@ import java.util.*;
 
 public class Cli extends ClientObservable implements View {
 
-
     private CliGraphics cliGraphics = new CliGraphics();
     private String nickname;
+    private ModelView modelView;
 
     @Override
     public void fetchNickname() {
@@ -105,6 +104,9 @@ public class Cli extends ClientObservable implements View {
         notifyObservers(new SwappedResource(nickname, type));
     }
 
+    public Cli() {
+        this.modelView = new ModelView(this);
+    }
 
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
@@ -140,6 +142,29 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
+    public void displayDevCards(DevCard[][] devCards) throws IOException {
+        cliGraphics.showDevCardsDeck(devCards);
+        modelView.setShowedDeck(devCards);
+    }
+
+    @Override
+    public void displaySlots(Slot[] slots) throws IOException {
+        System.out.println(slots.toString());
+        modelView.setSlots(slots);
+    }
+
+    @Override
+    public void displayFaithTrack(FaithTrack faithTrack) throws IOException {
+        System.out.println(faithTrack.toString());
+        modelView.setFaithTrack(faithTrack);
+    }
+
+    @Override
+    public void displayWarehouse(Warehouse warehouse) throws IOException {
+        System.out.println(warehouse.toString());
+    }
+
+    @Override
     public void fetchPlayerAction(String message) throws IOException {
         boolean rowOrCol = false;
         int index = 0;
@@ -156,6 +181,7 @@ public class Cli extends ClientObservable implements View {
 
         switch (action) {
             case "MARKET":
+                cliGraphics.showMarketTray(modelView.getMarketTray());
                 System.out.println("Do you want to pick a row or a column of the tray? (row/col)");
                 String decision = scanner.nextLine();
                 decision = decision.replaceAll("\\s+","");
@@ -300,10 +326,6 @@ public class Cli extends ClientObservable implements View {
             fetchDoneAction("Type DONE (attenzione: potrebbe scrivere anche leader, è giusto?", leaderCards);
     }
 
-    @Override
-    public void displayPersonalBoard(PersonalBoard personalBoard) {
-        System.out.println(personalBoard.toString());
-    }
 
 
     @Override
@@ -317,24 +339,10 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void displayStatus(List<String> players, List<PersonalBoard> personalBoards, String playingPlayer) {
+    public void displayPersonalBoard(PersonalBoard personalBoard) {
 
     }
 
-    @Override
-    public void displayTable(Table t) {
-
-    }
-
-    @Override
-    public void displayEffect(LeaderCard leaderCard) {
-
-    }
-
-    @Override
-    public void fetchSlotChoice(List<Slot> slots) {
-
-    }
 
     @Override
     public void displayPopeSpaceActivation(PopeSpace popeSpace) {
@@ -343,7 +351,8 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayMarket(MarketTray marketTray) {
-        System.out.println(marketTray);
+        cliGraphics.showMarketTray(marketTray);
+        modelView.setMarketTray(marketTray);
     }
 
 

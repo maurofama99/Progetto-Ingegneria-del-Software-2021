@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * This is the general Tile class. It is the base of all others tiles.
  */
-public class Tile implements Serializable {
+public abstract class Tile implements Serializable {
     private int position;
     private boolean isFirstSection;
     private boolean isSecondSection;
@@ -38,21 +38,49 @@ public class Tile implements Serializable {
 
     /**
      * Method that add points when called on the track.
-     * @param v Victory Tile is needed to get the points to add
      * @param p Player who will get the points
      */
-    public void addPoints(Victory v, Player p){
-        v.addPoints(v.getPoints(), p);
-    }
+    public abstract void addPoints(Player p);
+
 
     /**
-     * Method called when a player reaches the pope's hats.
-     * @param ps which of the three hats the marker hit
-     * @param ft the track that is checked
-     * @param p to get the marker to check
+     * This method is used for checking if a player's FaithMarker is in range to turn the Favor Tile. It
+     * also adds the points if it is possible
+     * @param p Player whose FaithMarker's position is being checked
      */
-    public void turnFavorAddPoints(PopeSpace ps, FaithTrack ft, Player p){
-        ps.turnFavorAddPoints(ft, p);
+
+    public void turnFavorAddPoints(Player p){
+        int currentPos = p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition();
+
+        if(isFirstSection && !(p.getPersonalBoard().getFaithTrack().isFirstFavorTile())){
+            p.getPersonalBoard().getFaithTrack().setFirstFavorTile(true);
+            if(p.getPersonalBoard().getFaithTrack().getTrack().get(currentPos).isFirstSection()) {
+                p.setVictoryPoints(p.getVictoryPoints() + 2);
+                p.getPersonalBoard().getFaithTrack().setFirstFavorTile(true);
+            }
+            else {
+                System.out.println("Not in range");
+            }
+        }
+        else if(isSecondSection && !(p.getPersonalBoard().getFaithTrack().isSecondFavorTile())){
+            p.getPersonalBoard().getFaithTrack().setSecondFavorTile(true);
+            if(p.getPersonalBoard().getFaithTrack().getTrack().get(currentPos).isSecondSection()) {
+                p.setVictoryPoints(p.getVictoryPoints()+3);
+            }
+            else {
+                System.out.println("Not in range");
+            }
+        }
+        else if(isThirdSection && !(p.getPersonalBoard().getFaithTrack().isThirdFavorTile())){
+            p.getPersonalBoard().getFaithTrack().setThirdFavorTile(true);
+            if(p.getPersonalBoard().getFaithTrack().getTrack().get(currentPos).isThirdSection()) {
+                p.setVictoryPoints(p.getVictoryPoints() + 4);
+            }
+            else {
+                System.out.println("Not in range");
+            }
+
+        }
     }
 
 

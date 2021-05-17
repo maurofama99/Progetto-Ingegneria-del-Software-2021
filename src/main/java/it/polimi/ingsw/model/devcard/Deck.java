@@ -6,13 +6,16 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.*;
 
 /**
  * Class of dev. cards' deck.
  */
-public class Deck {
+public class Deck implements Serializable {
+
+    private static final long serialVersionUID = -4782394927810413440L;
 
     private Stack<DevCard>[][] fullDeck = new Stack[3][4];
     private ArrayList<DevCard> generalDeck;
@@ -86,24 +89,6 @@ public class Deck {
      */
     public DevCard removeAndGetCard(int row, int col) {
         return fullDeck[row - 1][col - 1].pop();
-    }
-
-    //todo toString of deck
-    @Override
-    public String toString() {
-        String text1, text2, text3;
-        DevCard[][] result = showedCards();
-
-        text1 = result[0][0].toString() + "          " +result[0][1].toString()+
-                "          " +result[0][2].toString()+"          " +result[0][3].toString()+"\n";
-
-        text2 = result[1][0].toString() + "          " +result[1][1].toString()+
-                "          " +result[1][2].toString()+"          " +result[1][3].toString() +"\n";
-
-        text3 = result[2][0].toString() + "          " +result[2][1].toString()+
-                "          " +result[2][2].toString()+"          " +result[2][3].toString()+"\n";
-
-        return text1 + text2 + text3;
     }
 
 

@@ -5,8 +5,6 @@ import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
-import it.polimi.ingsw.view.cli.CliColor;
-import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.JavaFX;
 
 import java.io.IOException;
@@ -165,8 +163,17 @@ public class Client implements Runnable, ClientObserver {
             case DISPLAY_MARKET:
                 view.displayMarket(((DisplayMarket)msg).getMarketTray());
                 break;
-            case DISPLAY_PERSONALBOARD:
-                view.displayPersonalBoard(((DisplayPersonalBoard)msg).getPersonalBoard());
+            case DISPLAY_WAREHOUSE:
+                view.displayWarehouse(((DisplayWarehouse)msg).getWarehouse());
+                break;
+            case DISPLAY_DEVCARDS:
+                view.displayDevCards(((DisplayDevCards)msg).getShowedCards());
+                break;
+            case DISPLAY_SLOTS:
+                view.displaySlots(((DisplaySlots)msg).getSlots());
+                break;
+            case DISPLAY_FAITHTRACK:
+                view.displayFaithTrack(((DisplayFaithTrack)msg).getFaithTrack());
                 break;
             case ASK_ACTION:
                 view.fetchPlayerAction(((AskAction)msg).getQuestion());

@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Faith points are used to move the markers around
  */
 public class Resource implements Cloneable, Serializable {
+
     @SerializedName("type")
     private ResourceType type;
     private int qnt;

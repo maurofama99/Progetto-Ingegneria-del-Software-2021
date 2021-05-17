@@ -32,6 +32,9 @@ public class MarketTray implements Serializable{
         return tray;
     }
 
+    public Resource getSlide() {
+        return slide;
+    }
 
     public ArrayList<Resource> createMarbles(){
         ArrayList<Resource> marbles = new ArrayList<>();
@@ -63,7 +66,6 @@ public class MarketTray implements Serializable{
         for (i=0; i<3; i++){
             tmptray[i] = (tray[i].clone());
         }
-
 
         if (row>=1 && row<=3) {
             //adding row's resources in the array to be returned

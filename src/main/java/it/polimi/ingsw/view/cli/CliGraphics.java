@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
+import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import javafx.scene.control.Tab;
@@ -15,6 +16,13 @@ import java.util.ArrayList;
 
 public class CliGraphics {
     private CliColor cliColor;
+
+    public static void main(String[] args) {
+        CliGraphics cliGraphics = new CliGraphics();
+        Table table = new Table();
+
+        cliGraphics.showDevCardsDeck(table.getDevCardsDeck().showedCards());
+    }
 
 
 
@@ -129,62 +137,111 @@ public class CliGraphics {
             s.append("     |    ");
     }
 
-
-    public void showDevCardsDeck(Deck devCardDeck){
-        DevCard[][] showedCard = devCardDeck.showedCards();
-
+    public void showMarketTray(MarketTray marketTray){
         StringBuilder s = new StringBuilder();
 
-        for (int i = 0; i<3; i++) {
-            s.append(CliColor.ANSI_GREEN.escape()).append("| ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅̅ ̅̅ ̅̅ ̅ ̅|  ").append(CliColor.ANSI_BLUE.escape()).append("   | ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅̅ ̅̅ ̅̅ ̅ ̅|  ").append(CliColor.ANSI_YELLOW.escape()).append("   | ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅̅ ̅̅ ̅̅ ̅ ̅|  ").append(CliColor.ANSI_PURPLE.escape()).append("   | ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅̅ ̅̅ ̅̅ ̅ ̅|\n");
+        s.append("\n      1  2  3  4 ");
+        s.append("\n  ").append(printMarbles(marketTray.getSlide())).append("  ▼  ▼  ▼  ▼ ");
+        s.append("\n     ----------- \n");
+        for (int i=0; i<3; i++){
+            s.append(i+1).append("︎ ▶ | ").append(printMarbles(marketTray.getTray()[i][0])).append(" ")
+                    .append(printMarbles(marketTray.getTray()[i][1])).append(" ")
+                    .append(printMarbles(marketTray.getTray()[i][2])).append(" ")
+                    .append(printMarbles(marketTray.getTray()[i][3])).append(" |\n");
 
-            s.append(CliColor.ANSI_GREEN.escape()).append        ("|       LEVEL: ").append(showedCard[i][0].getLevel()).append("         |     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append  ("|       LEVEL: ").append(showedCard[i][1].getLevel()).append("         |     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("|       LEVEL: ").append(showedCard[i][2].getLevel()).append("         |     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("|       LEVEL: ").append(showedCard[i][3].getLevel()).append("         |\n");
+        }
+        s.append("     ----------- \n");
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("|").append(CliColor.RESET).append(" COST:  ").append(printResources(showedCard[i][0].getRequirementsDevCard())).append(CliColor.ANSI_GREEN.escape()).append("       |     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append("|").append(CliColor.RESET).append(" COST:  ").append(printResources(showedCard[i][1].getRequirementsDevCard())).append(CliColor.ANSI_BLUE.escape()).append("       |     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("|").append(CliColor.RESET).append(" COST:  ").append(printResources(showedCard[i][2].getRequirementsDevCard())).append(CliColor.ANSI_YELLOW.escape()).append("      |     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("|").append(CliColor.RESET).append(" COST:  ").append(printResources(showedCard[i][3].getRequirementsDevCard())).append(CliColor.ANSI_PURPLE.escape()).append("      |\n");
+        System.out.println(s);
+    }
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("|                        |  ").append(CliColor.ANSI_BLUE.escape()).append("   |                       |  ").append(CliColor.ANSI_YELLOW.escape()).append("   |                       |  ").append(CliColor.ANSI_PURPLE.escape()).append("   |                       |\n");
-            s.append(CliColor.ANSI_GREEN.escape()).append("|   °°°°°°°°°°°°°°°°    |  ").append(CliColor.ANSI_BLUE.escape()).append("   |   °°°°°°°°°°°°°°°°    |  ").append(CliColor.ANSI_YELLOW.escape()).append("   |   °°°°°°°°°°°°°°°°    |  ").append(CliColor.ANSI_PURPLE.escape()).append("   |   °°°°°°°°°°°°°°°°    |\n");
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("|").append(CliColor.RESET).append(" ").append(printResources(showedCard[i][0].getProduction().getInput())).append("  ➡︎ ").append(printResources(showedCard[i][0].getProduction().getOutput())).append(CliColor.ANSI_GREEN.escape()).append("    |     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append("|").append(CliColor.RESET).append("  ").append(printResources(showedCard[i][1].getProduction().getInput())).append("  ➡︎ ").append(printResources(showedCard[i][1].getProduction().getOutput())).
-                    append(CliColor.ANSI_BLUE.escape()).append("    |     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("|").append(CliColor.RESET).append("  ").append(printResources(showedCard[i][2].getProduction().getInput())).append("  ➡︎ ").append(printResources(showedCard[i][2].getProduction().getOutput())).
-                    append(CliColor.ANSI_YELLOW.escape()).append("    |     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("|").append(CliColor.RESET).append("  ").append(printResources(showedCard[i][3].getProduction().getInput())).append("  ➡︎ ").append(printResources(showedCard[i][3].getProduction().getOutput())).
-                    append(CliColor.ANSI_PURPLE.escape()).append("    |\n");
-            s.append(CliColor.ANSI_GREEN.escape()).append("|   °°°°°°°°°°°°°°°°    |  ").append(CliColor.ANSI_BLUE.escape()).append("   |   °°°°°°°°°°°°°°°°    |  ").append(CliColor.ANSI_YELLOW.escape()).append("   |   °°°°°°°°°°°°°°°°    |  ").append(CliColor.ANSI_PURPLE.escape()).append("   |   °°°°°°°°°°°°°°°°    |\n");
+    public StringBuilder printMarbles(Resource res) {
+        StringBuilder s = new StringBuilder();
 
-            s.append(CliColor.ANSI_GREEN.escape()).append        ("|   VICTORY POINTS: ").append(showedCard[i][0].getVictoryPointsDevCard()).append("         |     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append  ("|   VICTORY POINTS: ").append(showedCard[i][1].getVictoryPointsDevCard()).append("         |     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("|   VICTORY POINTS: ").append(showedCard[i][2].getVictoryPointsDevCard()).append("         |     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("|   VICTORY POINTS: ").append(showedCard[i][3].getVictoryPointsDevCard()).append("         |\n");
+        switch (res.getType()) {
+            case SERVANT:
+                return s.append(CliColor.ANSI_PURPLE.escape()).append("⓿").append(CliColor.RESET);
+            case COIN:
+                return s.append(CliColor.ANSI_YELLOW.escape()).append("⓿").append(CliColor.RESET);
+            case SHIELD:
+                return s.append(CliColor.ANSI_BLUE.escape()).append("⓿").append(CliColor.RESET);
+            case FAITHPOINT:
+                return s.append(CliColor.ANSI_RED.escape()).append("⓿").append(CliColor.RESET);
+            case STONE:
+                return s.append(CliColor.ANSI_GRAY.escape()).append("⓿").append(CliColor.RESET);
+            case WHITERESOURCE:
+                return s.append("⓿");
+            default:
+                throw new IllegalStateException("Unexpected value: " + res.getType());
+        }
+    }
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("|_______________________|  ").append(CliColor.ANSI_BLUE.escape()).append("   |_______________________|  ").append(CliColor.ANSI_YELLOW.escape()).append("   |_______________________|  ").append(CliColor.ANSI_PURPLE.escape()).append("   |_______________________|\n");
 
+    public void showDevCardsDeck(DevCard[][] showedCard){
+
+        StringBuilder s = new StringBuilder();
+        int i = 0;
+
+        while (i<3) {
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n");
+
+            s.append(CliColor.ANSI_GREEN.escape()).append        ("▕        LEVEL: ").append(showedCard[i][0].getLevel()).append("         ▏     ")
+                    .append(CliColor.ANSI_BLUE.escape()).append  ("▕        LEVEL: ").append(showedCard[i][1].getLevel()).append("         ▏     ")
+                    .append(CliColor.ANSI_YELLOW.escape()).append("▕        LEVEL: ").append(showedCard[i][2].getLevel()).append("         ▏     ")
+                    .append(CliColor.ANSI_PURPLE.escape()).append("▕        LEVEL: ").append(showedCard[i][3].getLevel()).append("         ▏\n");
+
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][0].getRequirementsDevCard())).append(CliColor.ANSI_GREEN.escape()).append("    ▏     ")
+                    .append(CliColor.ANSI_BLUE.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][1].getRequirementsDevCard())).append(CliColor.ANSI_BLUE.escape()).append("    ▏     ")
+                    .append(CliColor.ANSI_YELLOW.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][2].getRequirementsDevCard())).append(CliColor.ANSI_YELLOW.escape()).append("    ▏     ")
+                    .append(CliColor.ANSI_PURPLE.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][3].getRequirementsDevCard())).append(CliColor.ANSI_PURPLE.escape()).append("    ▏\n");
+
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕                         ▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕                         ▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕                         ▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕                         ▏\n");
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏\n");
+
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][0].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][0].getProduction().getOutput()))
+                    .append(CliColor.ANSI_GREEN.escape()).append("  ▏     ")
+                    .append(CliColor.ANSI_BLUE.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][1].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][1].getProduction().getOutput())).
+                    append(CliColor.ANSI_BLUE.escape()).append("  ▏     ")
+                    .append(CliColor.ANSI_YELLOW.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][2].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][2].getProduction().getOutput())).
+                    append(CliColor.ANSI_YELLOW.escape()).append("  ▏     ")
+                    .append(CliColor.ANSI_PURPLE.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][3].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][3].getProduction().getOutput())).
+                    append(CliColor.ANSI_PURPLE.escape()).append("  ▏\n");
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏\n");
+
+            s.append(CliColor.ANSI_GREEN.escape()).append        ("▕          VP: ").append(showedCard[i][0].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_GREEN.escape() + "        ▏     ")
+                    .append(CliColor.ANSI_BLUE.escape()).append  ("▕          VP: ").append(showedCard[i][1].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_BLUE.escape() + "        ▏     ")
+                    .append(CliColor.ANSI_YELLOW.escape()).append("▕          VP: ").append(showedCard[i][2].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_YELLOW.escape() + "        ▏     ")
+                    .append(CliColor.ANSI_PURPLE.escape()).append("▕          VP: ").append(showedCard[i][3].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_PURPLE.escape() + "        ▏\n");
+
+            s.append(CliColor.ANSI_GREEN.escape()).append("▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  \n");
 
             s.append(CliColor.RESET).append("\n");
-            System.out.println(s.toString());
+            i++;
         }
+
+        System.out.println(s.toString());
 
     }
 
     public StringBuilder printResources(ArrayList<Resource> res) {
         StringBuilder s = new StringBuilder();
-        if (res.size() == 2)
-            s.append("   ");
+
         if (res.size() == 1)
-            s.append("  ");
+            s.append("   ");
+
+        if (res.size() == 2)
+            s.append(" ");
 
         for (Resource resource : res) {
             s = s.append(resource.getQnt());
             printSymbol(resource, s);
         }
+
+        if (res.size() == 2)
+            s.append("  ");
+        if (res.size() == 1)
+            s.append("   ");
 
         return s;
     }
@@ -198,13 +255,13 @@ public class CliGraphics {
                 s.append(CliColor.ANSI_BLUE.escape()).append("♦ ︎").append(CliColor.RESET);
                 break;
             case STONE:
-                s.append(CliColor.ANSI_GRAY.escape()).append("◼︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_GRAY.escape()).append("︎▲ ").append(CliColor.RESET);
                 break;
             case FAITHPOINT:
                 s.append(CliColor.ANSI_RED.escape()).append("† ").append(CliColor.RESET);
                 break;
             case SERVANT:
-                s.append(CliColor.ANSI_PURPLE.escape()).append("S︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_PURPLE.escape()).append("◼︎ ").append(CliColor.RESET);
                 break;
         }
     }
@@ -216,4 +273,5 @@ public class CliGraphics {
 
         return s;
     }
+
 }

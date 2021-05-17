@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
@@ -8,18 +7,14 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.network.messagescs.*;
-import it.polimi.ingsw.network.messagessc.AskSwapWhite;
 import it.polimi.ingsw.network.messagessc.NoAvailableResources;
-import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.stream.Collectors;
+
 
 
 //gestisce tutti gli stati che il player può avere, comprese le mosse
@@ -195,7 +190,7 @@ public class PlayerController {
         //rimuovi i faithpoint e muovi il faith marker
         for (Resource res : resources){
             if(res.getType().equals(ResourceType.FAITHPOINT)){
-                gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(1);
+                gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
             }
         }
         resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
@@ -264,7 +259,7 @@ public class PlayerController {
     public void discardLeader(Message msg) throws IOException {
 
         gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((DiscardOneLeader)msg).getLeaderCard());
-        gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(1);
+        gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
 
         playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
 
@@ -346,9 +341,11 @@ public class PlayerController {
     public void addFaithPointsToOpponents(int faithpoints){
         for(Player player : gameController.getTable().getPlayers()){
             if(!gameController.getTable().getCurrentPlayer().equals(player))
-                player.getPersonalBoard().getFaithTrack().moveForward(faithpoints);
+                player.getPersonalBoard().getFaithTrack().moveForward(player, faithpoints);
         }
     }
+
+
 
 
 }

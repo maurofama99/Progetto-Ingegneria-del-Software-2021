@@ -4,25 +4,19 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.*;
-import it.polimi.ingsw.network.messagessc.AskAction;
-import it.polimi.ingsw.network.messagessc.GenericMessage;
-import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 
-public class GameController implements Serializable {
+public class GameController implements Observer, Serializable {
     private PlayerController playerController;
 
     private Table table;
@@ -129,9 +123,6 @@ public class GameController implements Serializable {
 
     public void setUpGame() throws IOException {
         table.setPlayersInGame();
-        for (Player player : table.getPlayers()) {
-            //vvMap.get(player.getNickname()).displayPersonalBoard(player.getPersonalBoard());
-        }
         giveInitialBonus();
 
     }
@@ -147,12 +138,12 @@ public class GameController implements Serializable {
         if (table.getNumPlayers() > 2) {
             vvMap.get(table.getPlayers().get(2).getNickname()).displayGenericMessage("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
             vvMap.get(table.getPlayers().get(2).getNickname()).fetchResourceType();
-            table.getPlayers().get(2).getPersonalBoard().getFaithTrack().moveForward(1);
+            table.getPlayers().get(2).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(2), 1);
         }
         if (table.getNumPlayers() > 3) {
             vvMap.get(table.getPlayers().get(3).getNickname()).displayGenericMessage("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
             vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
-            table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(1);
+            table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(3), 1);
             vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
         }
         condition = true;
@@ -200,18 +191,36 @@ public class GameController implements Serializable {
 
 
     public void askPlayerAction(VirtualView vv) throws IOException {
-        vv.displayGenericMessage(Arrays.deepToString(table.getDevCardsDeck().showedCards())+"\n");
         vv.displayMarketTray(table.getMarketTray());
-        vv.displayGenericMessage("\n" + table.getCurrentPlayer().getPersonalBoard().getFaithTrack().toString() +"\n");
-        vv.displayGenericMessage("\n" + table.getCurrentPlayer().getPersonalBoard().getWarehouse().toString()+"\n");
-        vv.displayGenericMessage("\n" + Arrays.toString(table.getCurrentPlayer().getPersonalBoard().getSlots())+"\n");
-        vv.displayGenericMessage(table.getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString()+"\n");
+        vv.displayGenericMessage(table.getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+        vv.displayDeck(table.getDevCardsDeck().showedCards());
+        vv.displayFaithTrack(table.getCurrentPlayer().getPersonalBoard().getFaithTrack());
+        vv.displaySlots(table.getCurrentPlayer().getPersonalBoard().getSlots());
 
         if (table.getCurrentPlayer().getLeaderCards().size() > 0)
             vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards());
         else
             vv.fetchPlayerAction();
     }
+
+    @Override
+    public void update(Message message) throws IOException {
+        switch (message.getMessageType()){
+            case TURN_FAVORTILE:
+                for (Player player : table.getPlayers()){
+                    if (!player.getNickname().equals(message.getSenderUser())){
+                        player.getPersonalBoard().getFaithTrack().getTrack().get(player.getPersonalBoard().getFaithTrack().getFaithMarkerPosition()).turnFavorAddPoints(player);
+                    }
+                }
+                break;
+
+            case END_GAME:
+                setTableState(TableState.END);
+                break;
+
+        }
+    }
+
 
 }
 

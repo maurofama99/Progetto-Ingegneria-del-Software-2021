@@ -2,10 +2,13 @@ package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
+import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.LoginData;
@@ -61,6 +64,26 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
+    public void displayDevCards(DevCard[][] devCards) throws IOException {
+
+    }
+
+    @Override
+    public void displaySlots(Slot[] slots) throws IOException {
+
+    }
+
+    @Override
+    public void displayFaithTrack(FaithTrack faithTrack) throws IOException {
+
+    }
+
+    @Override
+    public void displayWarehouse(Warehouse warehouse) throws IOException {
+
+    }
+
+    @Override
     public void fetchPlayerAction(String message) throws IOException {
 
     }
@@ -91,25 +114,6 @@ public class Gui extends ClientObservable implements View {
 
     }
 
-    @Override
-    public void displayStatus(List<String> players, List<PersonalBoard> personalBoards, String playingPlayer) {
-
-    }
-
-    @Override
-    public void displayTable(Table t) {
-
-    }
-
-    @Override
-    public void displayEffect(LeaderCard leaderCard) {
-
-    }
-
-    @Override
-    public void fetchSlotChoice(List<Slot> slots) {
-
-    }
 
     @Override
     public void displayPopeSpaceActivation(PopeSpace popeSpace) {

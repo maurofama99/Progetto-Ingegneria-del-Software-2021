@@ -1,12 +1,10 @@
 package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
+
 
 /**
  * Class of the leader cards that act as an extra floor to put resources in.

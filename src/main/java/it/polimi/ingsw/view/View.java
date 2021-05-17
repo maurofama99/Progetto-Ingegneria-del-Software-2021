@@ -2,10 +2,13 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
+import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
 
@@ -29,6 +32,12 @@ public interface View {
 
     void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException;
 
+    void fetchPlayerAction(String message) throws IOException;
+
+    void fetchDoneAction(String message,ArrayList<LeaderCard> leaderCards) throws IOException;
+
+    void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException;
+
     /**
      * Displays a generic message for the view
      * @param genericMessage the message displayed
@@ -37,11 +46,19 @@ public interface View {
 
     void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException;
 
-    void fetchPlayerAction(String message) throws IOException;
+    void displayDevCards(DevCard[][] devCards) throws IOException;
 
-    void fetchDoneAction(String message,ArrayList<LeaderCard> leaderCards) throws IOException;
+    void displaySlots(Slot[] slots) throws IOException;
 
-    void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException;
+    void displayFaithTrack(FaithTrack faithTrack) throws IOException;
+
+    void displayWarehouse(Warehouse warehouse) throws IOException;
+
+    /**
+     * Shows the market to the player to let him choose the line to buy
+     * @param marketTray the current market tray
+     */
+    void displayMarket(MarketTray marketTray);
 
     /**
      * Displays the disconnected player
@@ -63,31 +80,6 @@ public interface View {
      */
     void displayPersonalBoard(PersonalBoard personalBoard);
 
-    /**
-     * Displays a general status of the match and the player who's turn is being played
-     * @param players all the players connected to the match
-     * @param personalBoards all the personal boards of the players
-     * @param playingPlayer the player who is playing currently
-     */
-    void displayStatus(List<String> players, List<PersonalBoard> personalBoards, String playingPlayer);
-
-    /**
-     * Displays the table with all his contents, including various decks and the market
-     * @param t
-     */
-    void displayTable(Table t);
-
-    /**
-     * Displays the effect of a leader card
-     * @param leaderCard the leader card's effect
-     */
-    void displayEffect(LeaderCard leaderCard);
-
-    /**
-     * Asks the user where to put the DevCard bought
-     * @param slots the three slots in the personal board
-     */
-    void fetchSlotChoice(List<Slot> slots);
 
     /**
      * Displays that a player reached a pope space and positions will be checked
@@ -95,11 +87,7 @@ public interface View {
      */
     void displayPopeSpaceActivation(PopeSpace popeSpace);
 
-    /**
-     * Shows the market to the player to let him choose the line to buy
-     * @param marketTray the current market tray
-     */
-    void displayMarket(MarketTray marketTray);
+
 
 
     /**
