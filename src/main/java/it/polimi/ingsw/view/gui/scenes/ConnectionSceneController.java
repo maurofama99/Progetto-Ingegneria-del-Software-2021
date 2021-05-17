@@ -33,6 +33,9 @@ public class ConnectionSceneController extends ClientObservable implements Gener
     }
 
     private void connectButtonClick(Event event){
+        connectButton.setDisable(true);
+        exitButton.setDisable(true);
+
         String ip = serverAddress.getText();
         int port = Integer.parseInt(serverPort.getText());
 
@@ -50,6 +53,9 @@ public class ConnectionSceneController extends ClientObservable implements Gener
     }
 
     private void exitButtonClick(Event event){
+        connectButton.setDisable(true);
+        exitButton.setDisable(true);
+
         SceneController.changeRootPane(clientObservers, event, "start_scene.fxml");
     }
 }

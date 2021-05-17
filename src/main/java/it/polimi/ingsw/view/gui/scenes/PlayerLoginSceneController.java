@@ -2,6 +2,8 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.gui.Gui;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,8 +32,11 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
     private void onJoinGameClick(Event event){
         joinGameButton.setDisable(true);
+        exitGameButton.setDisable(true);
+        //vedere se non disabilitar il back nel caso
 
-        String nickname = nicknameField.getText();
+        SceneController.showPopup("Wait...", "Waiting for other players to join...");
+        nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
         int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
 
@@ -43,5 +48,7 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     private void onExitGameClick(Event event){
         joinGameButton.setDisable(true);
         exitGameButton.setDisable(true);
+
+        SceneController.changeRootPane(clientObservers, event, "connection_scene.fxml");
     }
 }

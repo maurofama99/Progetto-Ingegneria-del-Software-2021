@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'Alger_Cond';
+    src: url("../fonts/algerian_extra_condensed.ttf");
+}
+
+.customText {
+    -fx-font-family: 'Alger_Cond';
+    -fx-text-fill: #ffffff;
+}
+
+.customTextAlt{
+    -fx-font-family: 'Alger_Cond';
+    -fx-text-fill: #333399;
+}
+
+.okButton{
+    -fx-background-image: url("/other/ok_button.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no repeat;
+}
+
+.backButton{
+    -fx-background-image: url("/other/back_button.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no repeat;
+}
+
+.backButton:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.okButton:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}

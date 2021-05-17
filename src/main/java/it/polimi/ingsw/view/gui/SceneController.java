@@ -2,12 +2,15 @@ package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.observerPattern.*;
 import it.polimi.ingsw.view.gui.scenes.GenericSceneController;
+import it.polimi.ingsw.view.gui.scenes.PopupSceneController;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -77,5 +80,24 @@ public class SceneController extends ClientObservable {
         changeRootPane(controller, onGoingScene, fxml);
     }
 
+    public static void showPopup(String title, String message){
+        FXMLLoader popLoader = new FXMLLoader(SceneController.class.getResource("/fxml/popup_scene.fxml"));
+
+        Parent parent;
+        try {
+            parent = popLoader.load();
+        } catch (IOException exception){
+            System.out.println(exception);
+            return;
+        }
+
+        PopupSceneController psc =popLoader.getController();
+        Scene popupScene = new Scene(parent);
+        psc.setScene(popupScene);
+        psc.setTitleLabel(title);
+        psc.setMessageOfLabel(message);
+        psc.showPopUp();
+
+    }
 
 }

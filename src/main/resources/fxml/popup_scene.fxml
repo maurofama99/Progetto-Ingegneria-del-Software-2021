@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PopupSceneController">
+   <top>
+      <AnchorPane prefHeight="408.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="titleLabel" layoutX="62.0" layoutY="14.0" prefHeight="32.0" prefWidth="445.0" text="Title" textAlignment="CENTER" styleClass="customTextAlt"/>
+            <Label fx:id="messageOfLabel" layoutX="63.0" layoutY="184.0" prefHeight="70.0" prefWidth="485.0" text="Message" textAlignment="CENTER" styleClass="customTextAlt"/>
+            <Button fx:id="ConfirmButton" layoutX="225.0" layoutY="295.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="151.0" styleClass="okButton" />
+         </children>
+         <stylesheets>
+            <URL value="@../css/popup_scene.css"/>
+            <URL value="@../css/general.css"/>
+         </stylesheets>
+      </AnchorPane>
+   </top>
+</BorderPane>

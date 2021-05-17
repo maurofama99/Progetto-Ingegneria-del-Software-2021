@@ -19,11 +19,16 @@ public class StartSceneController extends ClientObservable implements GenericSce
 
     @FXML
     public void initialize(){
+
         startButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onStartButtonClick);
         exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> System.exit(0) );
     }
 
     private void onStartButtonClick(Event event){
+
+        startButton.setDisable(true);
+        exitButton.setDisable(true);
+
         SceneController.changeRootPane(clientObservers, event,  "connection_scene.fxml");
     }
 }
