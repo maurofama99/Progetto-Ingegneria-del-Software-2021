@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.VirtualView;
+import org.w3c.dom.CDATASection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class PlayerController {
     private int cont = 0;
     private ResourceType typeInput1, typeInput2, typeOut;
     private ResourceType type1, type2; //usati per il dobbio swap
+    private boolean hasExtra = false;
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -94,6 +96,16 @@ public class PlayerController {
                         gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
                     } catch (IllegalArgumentException e){
                         playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                    }
+                } else if (answer.equalsIgnoreCase("extra")){
+                    try{
+                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToExtraDepot(resources.get(resources.size() - 1));
+                    } catch (IllegalArgumentException e){
+                        goAhead = false;
+                        playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                    }
+                    if (goAhead) {
+                        resources.remove(resources.get(resources.size() - 1));
                     }
                 } else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
                     //aggiungi la risorsa al deposito
@@ -173,27 +185,13 @@ public class PlayerController {
 
         //applica effetto swap white se attivo
         if (gameController.getTable().getCurrentPlayer().getPersonalBoard().hasEffect(EffectType.SWAPWHITE) && !doubleSwap){
-            for(LeaderCard leaderCard : gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards()){
-                if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
-                    Resource newResource = (Resource) leaderCard.getLeaderEffect().getObject();
-                    for (Resource res : resources){
-                        if (res.getType().equals(ResourceType.WHITERESOURCE)){
-                            res.setType(newResource.getType());
-                        }
-                    }
-                }
-            }
+            singleSwapWhite();
         } else if (!doubleSwap){ //altrimenti togli le white resources
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         }
 
         //rimuovi i faithpoint e muovi il faith marker
-        for (Resource res : resources){
-            if(res.getType().equals(ResourceType.FAITHPOINT)){
-                gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
-            }
-        }
-        resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
+        faithFilter();
 
         //chiedi risorsa per risorsa dove la vuole posizionare
         if (!doubleSwap) {
@@ -203,6 +201,8 @@ public class PlayerController {
                         resources.get(resources.size() - 1).toString()
                         + "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
                         "Type SWITCH to switch two floors)");
+                //nel caso in cui abbia extradepot attivato
+                extraDepotAlert();
             } catch (IndexOutOfBoundsException e){
                 playerVirtualView().displayGenericMessage("You don't have resource to place");
                 playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
@@ -226,14 +226,46 @@ public class PlayerController {
                 playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
                         "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
                         "Type SWITCH to switch two floors)");
+                extraDepotAlert();
                 playerVirtualView().fetchResourcePlacement();
             }
         }
-
-
     }
 
+    private void singleSwapWhite(){
+        for(LeaderCard leaderCard : gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards()){
+            if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
+                Resource newResource = (Resource) leaderCard.getLeaderEffect().getObject();
+                for (Resource res : resources){
+                    if (res.getType().equals(ResourceType.WHITERESOURCE)){
+                        res.setType(newResource.getType());
+                    }
+                }
+            }
+        }
+    }
 
+    private void faithFilter() {
+        for (Resource res : resources){
+            if(res.getType().equals(ResourceType.FAITHPOINT)){
+                gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+            }
+        }
+        resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
+    }
+
+    public void extraDepotAlert() throws IOException {
+        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().hasEffect(EffectType.EXTRADEPOT)){
+            ResourceType extraDepotResource;
+            hasExtra = true;
+            for(LeaderCard leaderCard : gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards()) {
+                if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
+                    extraDepotResource = (ResourceType) leaderCard.getLeaderEffect().getObject();
+                    if (resources.get(resources.size() - 1).getType() == extraDepotResource) playerVirtualView().displayGenericMessage("Type \"extra\" to place this resource in the extra depot");
+                }
+            }
+        }
+    }
 
     //quando il giocatore decide di attivare una delle sue leader card
     //devo mettere nella cli il display delle leader card

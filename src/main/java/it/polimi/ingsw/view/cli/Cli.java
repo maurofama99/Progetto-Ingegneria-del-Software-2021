@@ -66,6 +66,7 @@ public class Cli extends ClientObservable implements View {
 
         while(!floor.equalsIgnoreCase("switch")
                 && !floor.equalsIgnoreCase("discard")
+                && !floor.equalsIgnoreCase("extra")
                 && Integer.parseInt(floor) > 3 && Integer.parseInt(floor) < 1) {
             System.out.println("\nInvalid Input, retry");
             floor = scanner.nextLine();

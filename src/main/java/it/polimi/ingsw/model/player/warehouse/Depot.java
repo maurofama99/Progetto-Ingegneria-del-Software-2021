@@ -17,9 +17,9 @@ public class Depot {
     //eventualmente aggiungere dinamicamente degli extra floor
     //per controllare la capacità del piano si usa l'indice+1 solo per i primi 3 piani, gli eventuali restanti sono extradepot da 2 risorse
 
-    private ArrayList<Optional<Resource>> floors = new ArrayList<>();
+    private final ArrayList<Optional<Resource>> floors = new ArrayList<>();
     //gli extra floors vengono inizializzati ad empty, la leader card ExtraDepot (quando attivata) provvederà a piazzare il tipo di risorsa con quantità 0
-    private ArrayList<Optional<Resource>> extraFloors = new ArrayList<>();
+    private final ArrayList<Optional<Resource>> extraFloors = new ArrayList<>();
 
     public Depot() {
         for (int i = 0; i < 3; i++) {
@@ -92,36 +92,44 @@ public class Depot {
      * Method called when there is an extra floor (or two) and is used to store things in there
      *
      * @param resourceToPlace which resource goes there
-     * @param floor           where the resource will be stored
      */
-    public void addResourceToExtraDepot(Resource resourceToPlace, int floor) {
+    public void addResourceToExtraDepot(Resource resourceToPlace) {
+        boolean secondTime = false;
 
-        //todo da ricontrollare questo metodo
-        floor = floor - 1;
-        if (resourceToPlace.getType().equals(ResourceType.WHITERESOURCE))
-            throw new IllegalArgumentException("It's not possible to add a white resource in depot.");
-        else if (resourceToPlace.getType().equals(ResourceType.FAITHPOINT))
-            throw new IllegalArgumentException("It's not possible to add a faith point in depot.");
-        else if (extraFloors.get(floor).isEmpty())
-            throw new IllegalArgumentException("Extra floor " + floor + " is not activted.");
-        else if (extraFloors.get(floor).isPresent() && !extraFloors.get(floor).get().getType().equals(resourceToPlace.getType()))
-            throw new IllegalArgumentException("This extra floor can contain only " + extraFloors.get(floor).get().getType() + " and you are trying to place " + resourceToPlace.getType() + ".");
-        else {
-            //se la risorsa eccede di quantità ripetto al piano non puoi aggiungere resourceToPlace
-            if (extraFloors.get(floor).isPresent() && ((extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt()) > 2))
-                throw new IllegalArgumentException("There is not enough space in the extra floor");
-            //se il piano è vuoto e la risorsa è in quantità maggiore alla capacità del piano non puoi aggiungere resourceToPlace
-            if (extraFloors.get(floor).isEmpty() && resourceToPlace.getQnt() > 2)
-                throw new IllegalArgumentException("There is not enough space in the extra floor.");
+        for(int floor=0; floor<2; floor++) {
 
-            if (extraFloors.get(floor).isPresent()) {
-                extraFloors.get(floor).get().setQnt(extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt());
-            } else extraFloors.get(floor).get().setQnt(resourceToPlace.getQnt());
+            if (resourceToPlace.getType().equals(ResourceType.WHITERESOURCE)){
+                if (secondTime) throw new IllegalArgumentException("It's not possible to add a white resource in depot.");
+                else secondTime = true;
+            } else if (resourceToPlace.getType().equals(ResourceType.FAITHPOINT))
+                //todo da ricontrollare questo metodo, mancano tutti gli if seconditme
+                throw new IllegalArgumentException("It's not possible to add a faith point in depot.");
+            else if (extraFloors.get(floor).isEmpty())
+                throw new IllegalArgumentException("Extra floor " + floor + " is not activated.");
+            else if (extraFloors.get(floor).isPresent() && !extraFloors.get(floor).get().getType().equals(resourceToPlace.getType()))
+                throw new IllegalArgumentException("This extra floor can contain only " + extraFloors.get(floor).get().getType() + " and you are trying to place " + resourceToPlace.getType() + ".");
+            else {
+                //se la risorsa eccede di quantità ripetto al piano non puoi aggiungere resourceToPlace
+                if (extraFloors.get(floor).isPresent() && ((extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt()) > 2))
+                    throw new IllegalArgumentException("There is not enough space in the extra floor");
+                //se il piano è vuoto e la risorsa è in quantità maggiore alla capacità del piano non puoi aggiungere resourceToPlace
+                if (extraFloors.get(floor).isEmpty() && resourceToPlace.getQnt() > 2)
+                    throw new IllegalArgumentException("There is not enough space in the extra floor.");
+
+                if (extraFloors.get(floor).isPresent()) {
+                    extraFloors.get(floor).get().setQnt(extraFloors.get(floor).get().getQnt() + resourceToPlace.getQnt());
+                } else {
+                    extraFloors.get(floor).get().setQnt(resourceToPlace.getQnt());
+                }
+            }
         }
     }
 
-    //switches resources between two floors only if is a legal move
-    //@requires (source >=1 && source <=3) && (destination >=1 && destination <=3)
+    /**
+     * Switches resources between two floors only if is a legal move
+     *
+     * @requires (source >=1 && source <=3) && (destination >=1 && destination <=3)
+     */
     public void switchFloors(int source, int destination) {
     source -= 1;
     destination -= 1;
