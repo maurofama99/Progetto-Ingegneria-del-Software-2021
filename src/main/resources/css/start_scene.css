@@ -5,7 +5,7 @@
 }
 
 .startButton{
--fx-background-image: url("/other/button_sfondo.png");
+-fx-background-image: url("/other/play_button.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -21,7 +21,7 @@
 }
 
 .exitButton{
-    -fx-background-image: url("/other/button_sfondo.png");
+    -fx-background-image: url("/other/quit_button.png");
 
     -fx-border-color: transparent;
     -fx-border-width: 0;

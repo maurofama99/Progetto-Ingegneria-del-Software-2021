@@ -4,7 +4,7 @@
 }
 
 .joinBtn{
-    -fx-background-image: url("/other/button_sfondo.png");
+    -fx-background-image: url("/other/join_button.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -19,7 +19,7 @@
 }
 
 .backBtn{
-    -fx-background-image: url("/other/button_sfondo.png");
+    -fx-background-image: url("/other/back_button.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;

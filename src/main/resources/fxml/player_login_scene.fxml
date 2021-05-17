@@ -2,27 +2,36 @@
 
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../css/player_login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController">
+<StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../css/player_login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController">
    <children>
-      <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+      <Group>
          <children>
-            <AnchorPane layoutX="-149.0" layoutY="-139.0" prefHeight="411.0" prefWidth="458.0">
+            <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="joinGameButton" layoutX="161.0" layoutY="316.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0" text="𝓙𝓸𝓲𝓷" stylesheets="@../css/player_login.css" styleClass="joinBtn"/>
-                  <Button fx:id="exitGameButton" layoutX="149.0" layoutY="416.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="161.0" text="𝓑𝓪𝓬𝓴 𝓽𝓸 𝓒𝓸𝓷𝓷𝓮𝓬𝓽𝓲𝓸𝓷" stylesheets="@../css/player_login.css" styleClass="backBtn"/>
-                  <TextField fx:id="nicknameField" layoutX="126.0" layoutY="118.0" prefHeight="31.0" prefWidth="210.0" />
-                  <TextField fx:id="numberOfPlayersField" layoutX="129.0" layoutY="228.0" prefHeight="31.0" prefWidth="210.0" />
-                  <Text fill="WHITE" layoutX="164.0" layoutY="92.0" stroke="#082383" strokeType="OUTSIDE" strokeWidth="2.0" text="𝓝𝓲𝓬𝓴𝓷𝓪𝓶𝓮">
+                  <Button fx:id="joinGameButton" layoutX="300.0" layoutY="344.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
                      <font>
-                        <Font size="24.0" />
-                     </font></Text>
-                  <Text fill="WHITE" layoutX="113.0" layoutY="204.0" stroke="#082383" strokeType="OUTSIDE" strokeWidth="2.0" text="𝓟𝓵𝓪𝔂𝓮𝓻𝓼 𝓝𝓾𝓶𝓫𝓮𝓻?">
+                        <Font name="Informal Roman" size="16.0" />
+                     </font></Button>
+                  <Button fx:id="exitGameButton" layoutX="300.0" layoutY="463.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="backBtn" stylesheets="@../css/player_login.css">
                      <font>
-                        <Font size="24.0" />
-                     </font></Text>
+                        <Font name="Informal Roman" size="16.0" />
+                     </font></Button>
+                  <TextField fx:id="nicknameField" layoutX="250.0" layoutY="120.0" prefHeight="40.0" prefWidth="300.0" />
+                  <TextField fx:id="numberOfPlayersField" layoutX="250.0" layoutY="289.0" prefHeight="40.0" prefWidth="300.0" />
+                  <ImageView fitHeight="100.0" fitWidth="288.0" layoutX="267.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../other/nickname.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="123.0" fitWidth="319.0" layoutX="240.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../other/player_number.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children></Group>
