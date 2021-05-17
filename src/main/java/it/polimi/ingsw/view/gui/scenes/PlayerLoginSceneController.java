@@ -12,6 +12,10 @@ import javafx.scene.input.MouseEvent;
 
 
 public class PlayerLoginSceneController extends ClientObservable implements GenericSceneController{
+
+    private final Gui gui;
+    private String nickname;
+
     @FXML
     private TextField nicknameField;
 
@@ -23,6 +27,10 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
     @FXML
     private Button exitGameButton;
+
+    public PlayerLoginSceneController(Gui gui) {
+        this.gui = gui;
+    }
 
     @FXML
     public void initialize(){
@@ -38,9 +46,9 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         SceneController.showPopup("Wait...", "Waiting for other players to join...");
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
+        gui.setNickname(nickname);
         int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
 
-        //todo è molto importante che i tasti possano essere premuti una volta sola: non devono essere chiamate notifyObservers a caso
         notifyObservers(new LoginData(nickname, numberOfPlayers));
 
     }
@@ -50,5 +58,9 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         exitGameButton.setDisable(true);
 
         SceneController.changeRootPane(clientObservers, event, "connection_scene.fxml");
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }

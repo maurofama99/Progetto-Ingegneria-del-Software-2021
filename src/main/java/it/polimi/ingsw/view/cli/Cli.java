@@ -23,7 +23,6 @@ public class Cli extends ClientObservable implements View {
     private CliGraphics cliGraphics = new CliGraphics();
     private String nickname;
 
-
     @Override
     public void fetchNickname() {
         System.out.println("What's your nickname?");

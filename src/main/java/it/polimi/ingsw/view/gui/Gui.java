@@ -25,9 +25,13 @@ public class Gui extends ClientObservable implements View {
     private final static String START_SCENE = "start_scene.fxml";
     private String nickname;
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public void fetchNickname() {
-        PlayerLoginSceneController plsc = new PlayerLoginSceneController();
+        PlayerLoginSceneController plsc = new PlayerLoginSceneController(this);
         plsc.addAllClientObservers(this.clientObservers);
     }
 
