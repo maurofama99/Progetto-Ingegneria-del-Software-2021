@@ -35,11 +35,6 @@ public class WaitingRoom {
 
         switch (msg.getMessageType()){
             case LOGIN_DATA:
-                //se il numero non è valido o il nome non è valido (già presente), rimanda login request
-                //if (nicknameAlreadyPresent(((LoginData)msg).getNickname()) || ((((LoginData)msg).getNumPlayers() > 4 && ((LoginData)msg).getNumPlayers()<1))){
-                // vv.fetchNickname();
-                  //  break;
-                //}
                 //aggiungi all'arraylist corrispondente il player
                 playerInWait(((LoginData)msg).getNickname(), ((LoginData)msg).getNumPlayers());
                 //controlla se puoi far iniziare un game

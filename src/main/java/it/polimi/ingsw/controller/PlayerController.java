@@ -202,10 +202,17 @@ public class PlayerController {
 
         //chiedi risorsa per risorsa dove la vuole posizionare
         if (!doubleSwap) {
-            playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
-                    "\n" + resources.get(resources.size() - 1).toString() +
-                    "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
-                    "Type SWITCH to switch two floors)");
+            try {
+                playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
+                        "\n" +
+                        resources.get(resources.size() - 1).toString()
+                        + "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
+                        "Type SWITCH to switch two floors)");
+            } catch (IndexOutOfBoundsException e){
+                playerVirtualView().displayGenericMessage("You don't have resource to place");
+                playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+                playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+            }
             playerVirtualView().fetchResourcePlacement();
         } else {
             type1 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject();
@@ -247,7 +254,6 @@ public class PlayerController {
         }
 
         if (trueOrFalse) {
-
             playerVirtualView().displayGenericMessage("\nYou activated these leader cards!\n" +
                     gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
 
@@ -336,8 +342,6 @@ public class PlayerController {
 
         }
     }
-
-
 
     public void addFaithPointsToOpponents(int faithpoints){
         for(Player player : gameController.getTable().getPlayers()){

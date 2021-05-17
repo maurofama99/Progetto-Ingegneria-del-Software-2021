@@ -93,7 +93,7 @@ public class Client implements Runnable, ClientObserver {
 
     @Override
     public void run() {
-
+        if(cli) {
         System.out.println("\n" +
                 "   ▄▄▄▄███▄▄▄▄      ▄████████    ▄████████     ███        ▄████████    ▄████████    ▄████████       ▄██████▄     ▄████████\n"+
                 " ▄██▀▀▀███▀▀▀██▄   ███    ███   ███    ███ ▀█████████▄   ███    ███   ███    ███   ███    ███      ███    ███   ███    ███\n"+
@@ -117,7 +117,7 @@ public class Client implements Runnable, ClientObserver {
                 "         ███    ███       \n");
 
 
-        if(cli) {
+
             while (!connected) {
                 System.out.println("Insert the IP address of the server:");
                 Scanner scanner = new Scanner(System.in);

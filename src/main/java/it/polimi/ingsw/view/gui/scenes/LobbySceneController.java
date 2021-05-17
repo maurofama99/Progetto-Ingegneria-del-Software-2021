@@ -1,8 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.ClientObservable;
-import it.polimi.ingsw.observerPattern.Observable;
-import it.polimi.ingsw.observerPattern.ViewObservable;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,9 +23,6 @@ public class LobbySceneController extends ClientObservable implements GenericSce
     public void initialize(){
         playersLbl.setText(String.join(",", nicknames));
         numbersLbl.setText(nicknames.size() + "/" + maxPlayers);
-
-
-
     }
 
     private void onExitGameClick(Event event){

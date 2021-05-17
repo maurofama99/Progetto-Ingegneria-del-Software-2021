@@ -6,5 +6,4 @@ public interface ClientObserver {
 
     void update (Message message);
 
-
 }

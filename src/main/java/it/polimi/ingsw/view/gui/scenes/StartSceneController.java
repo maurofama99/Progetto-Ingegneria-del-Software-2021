@@ -1,8 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.ClientObservable;
-import it.polimi.ingsw.observerPattern.Observable;
-import it.polimi.ingsw.observerPattern.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.fxml.FXML;

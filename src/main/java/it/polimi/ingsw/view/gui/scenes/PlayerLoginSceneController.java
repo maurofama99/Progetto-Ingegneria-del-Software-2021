@@ -2,8 +2,6 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
-import it.polimi.ingsw.observerPattern.Observable;
-import it.polimi.ingsw.observerPattern.ViewObservable;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,14 +35,13 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         nickname = nickname.replaceAll("\\s+","");
         int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
 
-
+        //todo è molto importante che i tasti possano essere premuti una volta sola: non devono essere chiamate notifyObservers a caso
+        notifyObservers(new LoginData(nickname, numberOfPlayers));
 
     }
 
     private void onExitGameClick(Event event){
         joinGameButton.setDisable(true);
         exitGameButton.setDisable(true);
-
-
     }
 }

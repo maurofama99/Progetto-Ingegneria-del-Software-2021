@@ -28,6 +28,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void fetchNickname() {
         PlayerLoginSceneController plsc = new PlayerLoginSceneController();
+        plsc.addAllClientObservers(this.clientObservers);
     }
 
     @Override
