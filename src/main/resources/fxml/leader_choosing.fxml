@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController">
+   <children>
+      <Group>
+         <children>
+            <AnchorPane prefHeight="600.0" prefWidth="900.0">
+               <children>
+                  <ImageView fitHeight="268.0" fitWidth="790.0" layoutX="93.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../other/what_leader.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="firstBtn" layoutX="37.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="firstButton" />
+                  <Button fx:id="secondBtn" layoutX="233.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="secondButton" />
+                  <Button fx:id="thirdBtn" layoutX="497.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="thirdButton" />
+                  <Button fx:id="fourthBtn" layoutX="698.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="fourthButton" />
+                  <ImageView fitHeight="250.0" fitWidth="175.0" layoutX="37.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                     </ImageView>
+                  <ImageView fitHeight="250.0" fitWidth="175.0" layoutX="233.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                    </ImageView>
+                  <ImageView fitHeight="250.0" fitWidth="175.0" layoutX="497.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                     </ImageView>
+                  <ImageView fitHeight="250.0" fitWidth="175.0" layoutX="698.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                     </ImageView>
+               </children></AnchorPane>
+         </children>
+      </Group>
+   </children>
+   <stylesheets><URL value="@../css/leader_choosing.css" /></stylesheets>
+</StackPane>

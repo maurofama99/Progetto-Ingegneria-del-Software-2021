@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.observerPattern.*;
+import it.polimi.ingsw.view.gui.scenes.DepositPopupSceneController;
 import it.polimi.ingsw.view.gui.scenes.GenericSceneController;
 import it.polimi.ingsw.view.gui.scenes.PopupSceneController;
 import javafx.event.Event;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -97,6 +99,25 @@ public class SceneController extends ClientObservable {
         psc.setTitleLabel(title);
         psc.setMessageOfLabel(message);
         psc.showPopUp();
+
+    }
+
+    public static void showDepositPopup(String resource){
+        FXMLLoader depoPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/deposit_popup.fxml"));
+
+        Parent parent;
+        try {
+            parent = depoPopLoader.load();
+        } catch (IOException exception){
+            System.out.println(exception);
+            return;
+        }
+
+        DepositPopupSceneController dpsc =depoPopLoader.getController();
+        Scene popupScene = new Scene(parent);
+        dpsc.setScene(popupScene);
+        dpsc.setResourceLbl(resource);
+        dpsc.showPopUp();
 
     }
 
