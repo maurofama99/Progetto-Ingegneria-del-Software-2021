@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VirtualView implements Observer {
-    private ClientHandler clientHandler;
+    private final ClientHandler clientHandler;
 
     public VirtualView(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
@@ -64,7 +65,7 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new DisplayDevCards(showedDeck));
     }
 
-    public void displayWarehouse(Warehouse warehouse) throws IOException {
+    public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
         clientHandler.sendMessage(new DisplayWarehouse(warehouse));
     }
 

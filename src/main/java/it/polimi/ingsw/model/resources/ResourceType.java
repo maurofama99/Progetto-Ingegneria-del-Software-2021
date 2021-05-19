@@ -19,7 +19,8 @@ public enum ResourceType {
     @SerializedName("4")
     WHITERESOURCE,
     @SerializedName("5")
-    FAITHPOINT;
-
+    FAITHPOINT,
+    @SerializedName("6")
+    NULLRESOURCE;
 
 }

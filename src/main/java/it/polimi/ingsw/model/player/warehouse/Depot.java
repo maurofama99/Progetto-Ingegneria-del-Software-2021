@@ -34,7 +34,17 @@ public class Depot {
         return floors;
     }
 
-    //@requires floor >=1 && floor <=3
+    public ArrayList<Resource> serializableFloorStamp(ArrayList<Optional<Resource>> resources){
+        ArrayList<Resource> result = new ArrayList<>();
+
+        for (Optional<Resource> res : resources){
+            if (res.isEmpty()) result.add(new Resource(0, ResourceType.NULLRESOURCE));
+            else res.ifPresent(resource -> result.add(new Resource(1, resource.getType())));
+        }
+
+        return result;
+    }
+
 
     /**
      * Sets a floor empty

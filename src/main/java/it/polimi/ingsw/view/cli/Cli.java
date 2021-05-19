@@ -1,11 +1,13 @@
 package it.polimi.ingsw.view.cli;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -25,6 +27,9 @@ public class Cli extends ClientObservable implements View {
     public Cli() {
         this.modelView = new ModelView(this);
     }
+
+
+    //TODO CATCHARE LE ECCEZIONI THROWATE DALLO SCANNER E DAI PARSER DEGLI INT
 
     @Override
     public void fetchNickname() {
@@ -161,7 +166,7 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void displayWarehouse(Warehouse warehouse) throws IOException {
+    public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
         System.out.println(warehouse.toString());
     }
 

@@ -54,12 +54,12 @@ public class Resource implements Cloneable, Serializable {
                 return qnt + "+";
             case SERVANT:
                 return qnt + "₷";
-
             case WHITERESOURCE:
                 return qnt + " ";
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
     }
+
 }
 //⬇︎⬇♦

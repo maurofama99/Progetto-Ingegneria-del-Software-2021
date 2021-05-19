@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -90,7 +91,7 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void displayWarehouse(Warehouse warehouse) throws IOException {
+    public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
 
     }
 

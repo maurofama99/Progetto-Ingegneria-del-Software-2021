@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -52,7 +53,7 @@ public interface View {
 
     void displayFaithTrack(FaithTrack faithTrack) throws IOException;
 
-    void displayWarehouse(Warehouse warehouse) throws IOException;
+    void displayWarehouse(SerializableWarehouse warehouse) throws IOException;
 
     /**
      * Shows the market to the player to let him choose the line to buy

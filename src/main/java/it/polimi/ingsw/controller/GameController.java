@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
@@ -192,6 +193,7 @@ public class GameController implements Observer, Serializable {
 
     public void askPlayerAction(VirtualView vv) throws IOException {
         vv.displayMarketTray(table.getMarketTray());
+        vv.displayWarehouse(new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
         vv.displayGenericMessage(table.getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
         vv.displayDeck(table.getDevCardsDeck().showedCards());
         vv.displayFaithTrack(table.getCurrentPlayer().getPersonalBoard().getFaithTrack());
