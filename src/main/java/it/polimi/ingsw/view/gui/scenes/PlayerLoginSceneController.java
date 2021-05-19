@@ -13,8 +13,12 @@ import javafx.scene.input.MouseEvent;
 
 public class PlayerLoginSceneController extends ClientObservable implements GenericSceneController{
 
-    private final Gui gui;
+    private int numberOfPlayers;
     private String nickname;
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
 
     @FXML
     private TextField nicknameField;
@@ -28,9 +32,6 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     @FXML
     private Button exitGameButton;
 
-    public PlayerLoginSceneController(Gui gui) {
-        this.gui = gui;
-    }
 
     @FXML
     public void initialize(){
@@ -41,16 +42,13 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     private void onJoinGameClick(Event event){
         joinGameButton.setDisable(true);
         exitGameButton.setDisable(true);
-        //vedere se non disabilitar il back nel caso
+        //vedere se non disabilitare il back nel caso
 
         SceneController.showPopup("Wait...", "Waiting for other players to join...");
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
-        gui.setNickname(nickname);
-        int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
-
+        numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
         notifyObservers(new LoginData(nickname, numberOfPlayers));
-
     }
 
     private void onExitGameClick(Event event){

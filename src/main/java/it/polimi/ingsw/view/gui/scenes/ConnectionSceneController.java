@@ -34,22 +34,16 @@ public class ConnectionSceneController extends ClientObservable implements Gener
 
     private void connectButtonClick(Event event){
         connectButton.setDisable(true);
-        exitButton.setDisable(true);
+        //exitButton.setDisable(true);
 
         String ip = serverAddress.getText();
         int port = Integer.parseInt(serverPort.getText());
 
         Gui view = new Gui();
         Client client = new Client(view, port, ip);
+        view.setClient(client);
         view.addClientObserver(client);
         client.run();
-
-        exitButton.setDisable(true);
-        connectButton.setDisable(true);
-
-        //funziona anche senza platform run alter credo
-        SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
-
     }
 
     private void exitButtonClick(Event event){

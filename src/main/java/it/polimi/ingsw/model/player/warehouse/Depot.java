@@ -94,18 +94,14 @@ public class Depot {
      * @param resourceToPlace which resource goes there
      */
     public void addResourceToExtraDepot(Resource resourceToPlace) {
-        boolean secondTime = false;
 
-        for(int floor=0; floor<2; floor++) {
-
+        for (int floor=0; floor<2; floor++) {
             if (resourceToPlace.getType().equals(ResourceType.WHITERESOURCE)){
-                if (secondTime) throw new IllegalArgumentException("It's not possible to add a white resource in depot.");
-                else secondTime = true;
-            } else if (resourceToPlace.getType().equals(ResourceType.FAITHPOINT))
-                //todo da ricontrollare questo metodo, mancano tutti gli if seconditme
+                throw new IllegalArgumentException("It's not possible to add a white resource in depot.");
+            } else if (resourceToPlace.getType().equals(ResourceType.FAITHPOINT)){
                 throw new IllegalArgumentException("It's not possible to add a faith point in depot.");
-            else if (extraFloors.get(floor).isEmpty())
-                throw new IllegalArgumentException("Extra floor " + floor + " is not activated.");
+            } else if (extraFloors.get(floor).isEmpty())
+                throw new IllegalArgumentException("You don't have extra floors activated.");
             else if (extraFloors.get(floor).isPresent() && !extraFloors.get(floor).get().getType().equals(resourceToPlace.getType()))
                 throw new IllegalArgumentException("This extra floor can contain only " + extraFloors.get(floor).get().getType() + " and you are trying to place " + resourceToPlace.getType() + ".");
             else {

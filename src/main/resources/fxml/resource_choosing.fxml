@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane styleClass="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
-           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerResourceChoosingController" fx:id="rootPane">
+           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane">
+            <!--fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerResourceChoosingController"-->
    <children>
       <Group>
          <children>

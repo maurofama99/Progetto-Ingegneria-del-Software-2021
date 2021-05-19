@@ -10,7 +10,6 @@ import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.VirtualView;
-import org.w3c.dom.CDATASection;
 
 import java.io.IOException;
 import java.util.ArrayList;

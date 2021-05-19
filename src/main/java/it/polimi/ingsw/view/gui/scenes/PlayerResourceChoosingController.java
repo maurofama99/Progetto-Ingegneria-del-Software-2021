@@ -1,11 +1,19 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
-public class PlayerResourceChoosingController implements GenericSceneController {
+public class PlayerResourceChoosingController extends ClientObservable implements GenericSceneController {
+
+    private int resourceType;
+
+    public int getResourceType() {
+        return resourceType;
+    }
 
     @FXML
     private StackPane rootPane;
@@ -26,19 +34,28 @@ public class PlayerResourceChoosingController implements GenericSceneController 
         shieldBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShieldClicked);
     }
 
-    private void whenCoinClicked(MouseEvent event){
-
-    }
-
-    private void whenStoneClicked(MouseEvent event){
-
+    //dopo che ne viene cliccato uno devono essere disabilitati tutti
+    private void whenShieldClicked(MouseEvent event){
+        resourceType = 0;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
     }
 
     private void whenServantClicked(MouseEvent event){
-
+        resourceType = 1;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
     }
 
-    private void whenShieldClicked(MouseEvent event){
-
+    private void whenCoinClicked(MouseEvent event){
+        resourceType = 2;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
     }
+
+    private void whenStoneClicked(MouseEvent event){
+        resourceType = 3;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
+    }
+
+
+
+
 }

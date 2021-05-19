@@ -22,6 +22,10 @@ public class Cli extends ClientObservable implements View {
     private String nickname;
     private ModelView modelView;
 
+    public Cli() {
+        this.modelView = new ModelView(this);
+    }
+
     @Override
     public void fetchNickname() {
         System.out.println("What's your nickname?");
@@ -103,10 +107,6 @@ public class Cli extends ClientObservable implements View {
             type = type.replaceAll("\\s+","");
         }
         notifyObservers(new SwappedResource(nickname, type));
-    }
-
-    public Cli() {
-        this.modelView = new ModelView(this);
     }
 
     @Override

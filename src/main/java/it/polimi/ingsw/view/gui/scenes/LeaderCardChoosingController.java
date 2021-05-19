@@ -1,12 +1,23 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
+import java.util.ArrayList;
+
 public class LeaderCardChoosingController implements GenericSceneController {
+
+    private ArrayList<LeaderCard> leaderCards;
+
+    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
+        this.leaderCards = leaderCards;
+    }
+
+    private int index1, index2;
 
     @FXML
     private StackPane rootPane;
@@ -37,6 +48,16 @@ public class LeaderCardChoosingController implements GenericSceneController {
         fourthBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourthClicked);
     }
 
+    //N.B. quella cliccata verrà scartata nel gioco
+    //le quattro carte leader sono fornite nell'arraylist leaderCards
+    //far selezionare all'utente due carte su quattro:
+    //le due carte selezionate verranno passate tramite il loro indice
+
+    //esempio: showa arraylist leaderCards = { leader1, leader2, leader3, leader4 }
+    //l'utente seleziona leader1 e leader3
+    //l'arraylist indexes deve essere composto da 0 e 2
+    //fine
+
     private void whenFirstClicked(MouseEvent event){
 
     }
@@ -52,4 +73,7 @@ public class LeaderCardChoosingController implements GenericSceneController {
     private void whenFourthClicked(MouseEvent event){
 
     }
+
+
+
 }

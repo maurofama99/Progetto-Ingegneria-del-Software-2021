@@ -1,11 +1,14 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.JavaFX;
+import it.polimi.ingsw.view.gui.scenes.ConnectionSceneController;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -18,11 +21,12 @@ public class Client implements Runnable, ClientObserver {
     private ServerHandler serverHandler;
     private View view;
     private final int SOCKET_PORT;
-    boolean connected = false;
-    Socket server;
-    String ip;
+    private boolean connected = false;
+    private Socket server;
+    private String ip;
     private boolean cli = false;
     private boolean gui = false;
+    private String nickname;
 
     public Client(View view, int SOCKET_PORT) {
         this.view = view;
@@ -126,7 +130,9 @@ public class Client implements Runnable, ClientObserver {
         }
 
         if(gui) {
+            //while (!connected) {
             tryConnection(this.ip, SOCKET_PORT);
+           // }
         }
 
         serverHandler = new ServerHandler(server, this);
@@ -206,6 +212,12 @@ public class Client implements Runnable, ClientObserver {
 
     @Override
     public void update(Message message) {
+        if (message.getMessageType() == Content.LOGIN_DATA){
+            this.nickname = message.getSenderUser();
+        } else {
+            message.setSenderUser(nickname);
+        }
         serverHandler.sendMessage(message);
     }
+
 }
