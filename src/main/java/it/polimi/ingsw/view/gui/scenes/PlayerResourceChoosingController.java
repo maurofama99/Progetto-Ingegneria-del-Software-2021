@@ -34,25 +34,45 @@ public class PlayerResourceChoosingController extends ClientObservable implement
         shieldBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShieldClicked);
     }
 
-    //dopo che ne viene cliccato uno devono essere disabilitati tutti
+    //dopo che ne viene cliccato uno devono essere disabilitati tutti (done, disable done)
     private void whenShieldClicked(MouseEvent event){
         resourceType = 0;
         notifyObservers(new ResourceTypeChosen("client", resourceType));
+
+        coinBtn.setDisable(true);
+        stoneBtn.setDisable(true);
+        servantBtn.setDisable(true);
+        shieldBtn.setDisable(true);
     }
 
     private void whenServantClicked(MouseEvent event){
         resourceType = 1;
         notifyObservers(new ResourceTypeChosen("client", resourceType));
+
+        coinBtn.setDisable(true);
+        stoneBtn.setDisable(true);
+        servantBtn.setDisable(true);
+        shieldBtn.setDisable(true);
     }
 
     private void whenCoinClicked(MouseEvent event){
         resourceType = 2;
         notifyObservers(new ResourceTypeChosen("client", resourceType));
+
+        coinBtn.setDisable(true);
+        stoneBtn.setDisable(true);
+        servantBtn.setDisable(true);
+        shieldBtn.setDisable(true);
     }
 
     private void whenStoneClicked(MouseEvent event){
         resourceType = 3;
         notifyObservers(new ResourceTypeChosen("client", resourceType));
+
+        coinBtn.setDisable(true);
+        stoneBtn.setDisable(true);
+        servantBtn.setDisable(true);
+        shieldBtn.setDisable(true);
     }
 
 

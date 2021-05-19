@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="it.polimi.ingsw.view.gui.scenes.PersonalBoardSceneController">
    <children>
-      <ImageView fitHeight="541.0" fitWidth="374.0" layoutX="113.0" layoutY="-62.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
-         <image>
-            <Image url="@../board/Masters of Renaissance_PlayerBoard (11_2020)-1.png" />
-         </image>
-      </ImageView>
+      <Group>
+         <children>
+            <AnchorPane prefHeight="720.0" prefWidth="1280.0">
+               <children>
+                  <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../board/board_player.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+         </children>
+      </Group>
    </children>
-</AnchorPane>
+</StackPane>

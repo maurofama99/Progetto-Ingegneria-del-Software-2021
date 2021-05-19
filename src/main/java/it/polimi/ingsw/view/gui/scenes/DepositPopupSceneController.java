@@ -48,21 +48,42 @@ public class DepositPopupSceneController implements GenericSceneController{
 
     @FXML
     public void initialize(){
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::WhenRootPanePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::WhenRootPaneDragged);
         level1Button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLvl1ButtonPressed );
         level2Button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLvl2ButtonPressed );
         level3Button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLvl3ButtonPressed );
     }
 
+    private void WhenRootPanePressed(MouseEvent event){
+        x_Offset = stage.getX() - event.getScreenX();
+        y_Offset = stage.getY() - event.getScreenY();
+    }
+
+    private void WhenRootPaneDragged(MouseEvent event){
+        stage.setX(event.getScreenX() +x_Offset);
+        stage.setY(event.getSceneY()+y_Offset);
+    }
+
     private void whenLvl1ButtonPressed(MouseEvent event){
 
+
+
+        stage.close();
     }
 
     private void whenLvl2ButtonPressed(MouseEvent event){
 
+
+
+        stage.close();
     }
 
     private void whenLvl3ButtonPressed(MouseEvent event){
 
+
+
+        stage.close();
     }
 
     public void setResourceLbl(String resource){
