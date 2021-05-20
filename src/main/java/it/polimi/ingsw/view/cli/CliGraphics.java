@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
+import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
@@ -183,14 +184,25 @@ public class CliGraphics {
     public String printDevCard(DevCard devCard){
         String s = "";
 
-        s = getDevColor(devCard).escape() +     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                getDevColor(devCard).escape() + "▕      LEVEL: " + devCard.getLevel() + "         ▏\n" +
-                getDevColor(devCard).escape() + "▕" + CliColor.RESET + "    COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "    ▏\n" +
-                getDevColor(devCard).escape() + "▕                       ▏\n" +
-                getDevColor(devCard).escape() + "▕" + CliColor.RESET + printResources(devCard.getProduction().getInput()) + " ➡︎ " + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "▏\n" +
-                getDevColor(devCard).escape() + "▕        VP: " + devCard.getVictoryPointsDevCard() + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "        ▏\n" +
-                getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET;
+        if (devCard==null){
+            s =     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n";
+        }
 
+        else {
+            s = getDevColor(devCard).escape() + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    getDevColor(devCard).escape() + "▕      LEVEL: " + devCard.getLevel() + "         ▏\n" +
+                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "    COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "    ▏\n" +
+                    getDevColor(devCard).escape() + "▕                       ▏\n" +
+                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + printResources(devCard.getProduction().getInput()) + " ➡︎ " + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "▏\n" +
+                    getDevColor(devCard).escape() + "▕        VP: " + devCard.getVictoryPointsDevCard() + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "        ▏\n" +
+                    getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET;
+        }
         return s;
     }
 
@@ -209,6 +221,57 @@ public class CliGraphics {
             i++;
         }
         return row.toString();
+    }
+
+    public void printSlots(Slot[] slots){
+        String[] card0, card1, card2;
+        int j=0;
+        StringBuilder slot = new StringBuilder();
+
+
+        if (slots[0].getCards().size()>0){
+            card0 = printDevCard(slots[0].getShowedCard()).split("\n");
+        }
+        else
+            card0 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                     "▕                       ▏\n" +
+                     "▕                       ▏\n" +
+                     "▕                       ▏\n" +
+                     "▕                       ▏\n" +
+                     "▕                       ▏\n" +
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+
+
+        if (slots[1].getCards().size()>0){
+            card1 = printDevCard(slots[1].getShowedCard()).split("\n");
+        }
+        else
+            card1 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+
+        if (slots[2].getCards().size()>0){
+            card2 = printDevCard(slots[2].getShowedCard()).split("\n");
+        }
+        else
+            card2 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕                       ▏\n" +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+
+        while (j< card1.length){
+            slot.append(card0[j]).append(card1[j]).append(card2[j]).append("\n");
+            j++;
+        }
+
+        System.out.println(slot.toString());
     }
 
     public void printMatrixDevCards(DevCard[][] matrix){

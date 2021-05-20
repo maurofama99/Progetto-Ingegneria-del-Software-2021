@@ -63,7 +63,10 @@ public class Deck implements Serializable {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                result[i][j] = fullDeck[i][j].peek();
+                if (fullDeck[i][j].empty())
+                    result [i][j] =null;
+
+                else result[i][j] = fullDeck[i][j].peek();
             }
         }
         return result;
@@ -77,7 +80,9 @@ public class Deck implements Serializable {
      * @return the card selected if present
      */
     public DevCard getDevCard(int row, int column) {
-        return fullDeck[row - 1][column - 1].peek();
+        if (!fullDeck[row-1][column-1].empty())
+            return fullDeck[row - 1][column - 1].peek();
+        else return null;
     }
 
     /**
@@ -88,7 +93,9 @@ public class Deck implements Serializable {
      * @return a pop of the deck, removing the selected card (the top one)
      */
     public DevCard removeAndGetCard(int row, int col) {
-        return fullDeck[row - 1][col - 1].pop();
+        if (!fullDeck[row-1][col-1].empty())
+            return fullDeck[row - 1][col - 1].pop();
+        else return null;
     }
 
 

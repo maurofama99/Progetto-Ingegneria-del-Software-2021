@@ -39,7 +39,7 @@ public class Token {
     public void activateAction(Table t){
         //activate the action and discards the token if is not yet discarded (shouldn't happen, but checking is good)
         if(!getIsTokenDiscarded()){
-            this.tokenAction.doAction(t);
+            tokenAction.doAction(t);
             setTokenDiscarded(true);
         }
         else

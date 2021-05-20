@@ -43,13 +43,10 @@ public class LorenzoIlMagnifico {
     public void turnToken(Table t){
         //Sets the showed token and activates it
         this.showedToken.activateAction(t);
-        //The played token is set to discarded after doing what he has
-        // to and placed on the bottom of the stack
-        //Easier than creating a discarded stack and merge it later.
-        ArrayList<Token> toReorder = t.getTokenStack();
-        toReorder.add(t.getTokenStack().get(0));
-        toReorder.remove(0);
-        t.setTokenStack(toReorder);
+
+        t.getTokenStack().remove(showedToken);
+        t.getTokenStack().add(5, showedToken);
+
         setShowedToken(t.getTokenStack().get(0));
     }
 

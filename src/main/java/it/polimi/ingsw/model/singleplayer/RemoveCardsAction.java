@@ -95,5 +95,10 @@ public class RemoveCardsAction implements TokenAction {
             System.out.println("Not legal");
     }
 
-
+    @Override
+    public String toString() {
+        return "RemoveCardsAction{" +
+                "devCardColor=" + devCardColor +
+                '}';
+    }
 }

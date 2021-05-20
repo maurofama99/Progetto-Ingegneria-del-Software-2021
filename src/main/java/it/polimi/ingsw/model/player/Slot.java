@@ -38,20 +38,4 @@ public class Slot implements Serializable{
 
     //TODO E' NECESSARIO METTERE IL METODO CHE AGGIUNGE I VICTORY POINTS NEL CONTROLLER (STATO BUYDEVCARD)
 
-
-    @Override
-    public String toString() {
-        if (cards.size() > 0)
-            return  " SLOT "+slotNumber+":\n" + cards.get(cards.size()-1).toString();
-        else
-            return  " SLOT "+slotNumber+":\n" +
-                    "---------------------\n" +
-                    "|                     |\n" +
-                    "|                     |\n" +
-                    "|                     |\n" +
-                    "|                     |\n" +
-                    "|                     |\n" +
-                    "|                     |\n" +
-                    "---------------------\n";
-    }
 }

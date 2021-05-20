@@ -229,9 +229,4 @@ public class Table extends Observable implements Serializable{
         return tokenStack;
     }
 
-
-    @Override
-    public String toString() {
-        return marketTray.toString() + devCardsDeck.toString();
-    }
 }

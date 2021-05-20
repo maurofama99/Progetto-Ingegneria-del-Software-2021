@@ -28,16 +28,21 @@ public class MoveAction implements TokenAction{
     @Override
     public void doAction(Table t) {
         if(getMoveNumber()==2){
-            //move the BlackCross of 2
-            t.getLorenzoIlMagnifico().moveBlackCross(t.getPlayers().get(0), getMoveNumber());
+            t.getLorenzoIlMagnifico().moveBlackCross(t.getCurrentPlayer(), getMoveNumber());
         }
         else if(getMoveNumber()==1){
-            //move BlackCross of 1 and shuffle the stack. Also set all tokens to not discarded
-            t.getLorenzoIlMagnifico().moveBlackCross(t.getPlayers().get(0), getMoveNumber());
+            t.getLorenzoIlMagnifico().moveBlackCross(t.getCurrentPlayer(), getMoveNumber());
             Collections.shuffle(t.getTokenStack(), new Random());
-            for (int i = 0; i < 6; i++) {
-                t.getTokenStack().get(i).setTokenDiscarded(false);
+            for (Token token : t.getTokenStack()) {
+                token.setTokenDiscarded(false);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "MoveAction{" +
+                "moveNumber=" + moveNumber +
+                '}';
     }
 }

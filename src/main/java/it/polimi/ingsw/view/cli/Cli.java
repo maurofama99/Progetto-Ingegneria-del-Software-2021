@@ -155,7 +155,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displaySlots(Slot[] slots) throws IOException {
-        System.out.println(slots.toString());
+        cliGraphics.printSlots(slots);
         modelView.setSlots(slots);
     }
 

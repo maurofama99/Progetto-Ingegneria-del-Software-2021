@@ -202,12 +202,14 @@ public class PlayerController {
                         "Type SWITCH to switch two floors)");
                 //nel caso in cui abbia extradepot attivato
                 extraDepotAlert();
+                playerVirtualView().fetchResourcePlacement();
+
             } catch (IndexOutOfBoundsException e){
                 playerVirtualView().displayGenericMessage("You don't have resource to place");
                 playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
                 playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
             }
-            playerVirtualView().fetchResourcePlacement();
+
         } else {
             type1 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject();
             type2 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(1).getLeaderEffect().getObject();

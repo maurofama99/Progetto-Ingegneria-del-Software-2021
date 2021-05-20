@@ -8,4 +8,6 @@ import it.polimi.ingsw.model.Table;
 public interface TokenAction {
 
     void doAction(Table t);
+
+
 }
