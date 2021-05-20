@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.player.leadercards.*;
 import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.network.messagessc.NoAvailableResources;
@@ -15,6 +16,7 @@ import it.polimi.ingsw.observerPattern.Observable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 /**
  * Player's class. Used a lot to set and get in other methods and interfaces
@@ -52,6 +54,7 @@ public class Player extends Observable implements Serializable {
 
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
+        System.out.println(nickname + ": punti vittoria: " +victoryPoints);
     }
 
     public void setPersonalBoard(PersonalBoard personalBoard) {
@@ -126,13 +129,39 @@ public class Player extends Observable implements Serializable {
      * when the player wants to activate a production of a development car he owns.
      * @param slot slot chosen by the player.
      */
-    public void activateProd(int slot){
+    public boolean activateProd(int slot){
+
         DevCard devCardToAct = getPersonalBoard().getSlots()[slot].getShowedCard();
 
-        if (!devCardToAct.getProduction().checkInputResource(this))
+        if (!devCardToAct.getProduction().checkInputResource(this)) {
             notifyObserver(new NoAvailableResources(nickname));
+            return false;
+        }
+        else {
+            getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
+        }
+        return true;
+    }
 
-        getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
+    /**
+     * Method that swaps two resources chosen by the player to one single resource.
+     * @param firstInput one resource used to product the resource in output.
+     * @param secondInput one resource used to product the resource in output.
+     * @param output one resource that the player gets by the production.
+     */
+    public void basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
+        ArrayList<Resource> resourceToRemove = new ArrayList<>();
+        resourceToRemove.add(new Resource(1, firstInput));
+        resourceToRemove.add(new Resource(1, secondInput));
+
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        resourcesToAdd.add(new Resource(1, output));
+
+        try {getPersonalBoard().getWarehouse().removeResources(resourceToRemove);}
+        catch (NoSuchElementException e ){
+            notifyObserver(new NoAvailableResources(nickname));
+        }
+        getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
     }
 
 

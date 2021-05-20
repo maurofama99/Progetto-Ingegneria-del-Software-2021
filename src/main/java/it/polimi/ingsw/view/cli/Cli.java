@@ -149,7 +149,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayDevCards(DevCard[][] devCards) throws IOException {
-        cliGraphics.showDevCardsDeck(devCards);
+        cliGraphics.printMatrixDevCards(devCards);
         modelView.setShowedDeck(devCards);
     }
 

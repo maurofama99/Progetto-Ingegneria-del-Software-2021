@@ -46,8 +46,7 @@ public class WaitingRoom {
 
     private boolean checkGameStart() throws IOException {
         if (singlePlayerArray.size()==1){
-            //crea singleplayer controller e butta dentro il player presente nell'array
-            //pulisci arraylist
+            setupSingleController(singlePlayerArray);
             singlePlayerArray.clear();
             return true;
         }
@@ -69,6 +68,25 @@ public class WaitingRoom {
         return false;
     }
 
+    public void setupSingleController(ArrayList<Player> players) throws IOException{
+        SinglePlayerController singlePlayerController = new SinglePlayerController(players.get(0));
+        singlePlayerController.getTable().addObserver(vvMap.get(players.get(0).getNickname()));
+        singlePlayerController.setVirtualView(vvMap.get(players.get(0).getNickname()));
+
+        singlePlayerController.setGameController(new GameController(singlePlayerController));
+        singlePlayerController.getGameController().setTable(singlePlayerController.getTable());
+
+        HashMap<String, VirtualView> result = new HashMap<>();
+        result.put(players.get(0).getNickname(), singlePlayerController.getVirtualView());
+        singlePlayerController.getGameController().setVvMap(result);
+
+        playerClientHandlerHashMap.get(players.get(0).getNickname()).setStarted(true);
+        playerClientHandlerHashMap.get(players.get(0).getNickname()).setSinglePlayer(true);
+        playerClientHandlerHashMap.get(players.get(0).getNickname()).setSinglePlayerController(singlePlayerController);
+
+        singlePlayerController.setUpSingleGame();
+    }
+
     public void setupGameController(ArrayList<Player> playersArray) throws IOException {
         //crea game controller e butta dentro i player dell'array
         GameController gc = new GameController();
@@ -82,6 +100,8 @@ public class WaitingRoom {
         for(Player player : playersArray){
             gc.getTable().addPlayer(player.getNickname());
             gc.getTable().addObserver(vvMap.get(player.getNickname()));
+            player.getPersonalBoard().getFaithTrack().addObserver(gc);
+
             gc.getTable().setNumPlayers(playersArray.size());
         }
         //setta i client handler dei player

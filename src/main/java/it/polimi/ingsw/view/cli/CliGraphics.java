@@ -21,7 +21,9 @@ public class CliGraphics {
         CliGraphics cliGraphics = new CliGraphics();
         Table table = new Table();
 
-        cliGraphics.showDevCardsDeck(table.getDevCardsDeck().showedCards());
+        //cliGraphics.showDevCardsDeck(table.getDevCardsDeck().showedCards());
+
+        cliGraphics.printMatrixDevCards(table.getDevCardsDeck().showedCards());
     }
 
 
@@ -178,51 +180,57 @@ public class CliGraphics {
     }
 
 
-    public void showDevCardsDeck(DevCard[][] showedCard){
+    public String printDevCard(DevCard devCard){
+        String s = "";
 
-        StringBuilder s = new StringBuilder();
-        int i = 0;
+        s = getDevColor(devCard).escape() +     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                getDevColor(devCard).escape() + "▕      LEVEL: " + devCard.getLevel() + "         ▏\n" +
+                getDevColor(devCard).escape() + "▕" + CliColor.RESET + "    COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "    ▏\n" +
+                getDevColor(devCard).escape() + "▕                       ▏\n" +
+                getDevColor(devCard).escape() + "▕" + CliColor.RESET + printResources(devCard.getProduction().getInput()) + " ➡︎ " + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "▏\n" +
+                getDevColor(devCard).escape() + "▕        VP: " + devCard.getVictoryPointsDevCard() + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "        ▏\n" +
+                getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET;
 
-        while (i<3) {
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n");
+        return s;
+    }
 
-            s.append(CliColor.ANSI_GREEN.escape()).append        ("▕        LEVEL: ").append(showedCard[i][0].getLevel()).append("         ▏     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append  ("▕        LEVEL: ").append(showedCard[i][1].getLevel()).append("         ▏     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("▕        LEVEL: ").append(showedCard[i][2].getLevel()).append("         ▏     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("▕        LEVEL: ").append(showedCard[i][3].getLevel()).append("         ▏\n");
+    public String printRowDevCards(DevCard[] devCards){
+        StringBuilder row = new StringBuilder();
+        int i= 0;
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][0].getRequirementsDevCard())).append(CliColor.ANSI_GREEN.escape()).append("    ▏     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][1].getRequirementsDevCard())).append(CliColor.ANSI_BLUE.escape()).append("    ▏     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][2].getRequirementsDevCard())).append(CliColor.ANSI_YELLOW.escape()).append("    ▏     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("▕").append(CliColor.RESET).append("      COST: ").append(printResources(showedCard[i][3].getRequirementsDevCard())).append(CliColor.ANSI_PURPLE.escape()).append("    ▏\n");
+        String[] card1 = printDevCard(devCards[0]).split("\n");
+        String[] card2 = printDevCard(devCards[1]).split("\n");
+        String[] card3 = printDevCard(devCards[2]).split("\n");
+        String[] card4 = printDevCard(devCards[3]).split("\n");
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕                         ▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕                         ▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕                         ▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕                         ▏\n");
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏\n");
 
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][0].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][0].getProduction().getOutput()))
-                    .append(CliColor.ANSI_GREEN.escape()).append("  ▏     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][1].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][1].getProduction().getOutput())).
-                    append(CliColor.ANSI_BLUE.escape()).append("  ▏     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][2].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][2].getProduction().getOutput())).
-                    append(CliColor.ANSI_YELLOW.escape()).append("  ▏     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("▕  ").append(CliColor.RESET).append(printResources(showedCard[i][3].getProduction().getInput())).append(" ➡︎ ").append(printResources(showedCard[i][3].getProduction().getOutput())).
-                    append(CliColor.ANSI_PURPLE.escape()).append("  ▏\n");
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕   °°°°°°°°°°°°°°°°°°    ▏\n");
-
-            s.append(CliColor.ANSI_GREEN.escape()).append        ("▕          VP: ").append(showedCard[i][0].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_GREEN.escape() + "        ▏     ")
-                    .append(CliColor.ANSI_BLUE.escape()).append  ("▕          VP: ").append(showedCard[i][1].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_BLUE.escape() + "        ▏     ")
-                    .append(CliColor.ANSI_YELLOW.escape()).append("▕          VP: ").append(showedCard[i][2].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_YELLOW.escape() + "        ▏     ")
-                    .append(CliColor.ANSI_PURPLE.escape()).append("▕          VP: ").append(showedCard[i][3].getVictoryPointsDevCard()).append(CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.ANSI_PURPLE.escape() + "        ▏\n");
-
-            s.append(CliColor.ANSI_GREEN.escape()).append("▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  ").append(CliColor.ANSI_BLUE.escape()).append("   ▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  ").append(CliColor.ANSI_YELLOW.escape()).append("   ▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  ").append(CliColor.ANSI_PURPLE.escape()).append("   ▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏  \n");
-
-            s.append(CliColor.RESET).append("\n");
+        while (i< card1.length){
+            row.append(card1[i]).append(card2[i]).append(card3[i]).append(card4[i]).append("\n");
             i++;
         }
-
-        System.out.println(s.toString());
-
+        return row.toString();
     }
+
+    public void printMatrixDevCards(DevCard[][] matrix){
+        System.out.println(printRowDevCards(matrix[0]) + printRowDevCards(matrix[1]) +printRowDevCards(matrix[2]));
+    }
+
+    public CliColor getDevColor(DevCard devCard){
+        switch (devCard.getCardColor()){
+            case BLUE:
+                return CliColor.ANSI_BLUE;
+            case PURPLE:
+                return CliColor.ANSI_PURPLE;
+            case YELLOW:
+                return CliColor.ANSI_YELLOW;
+            case GREEN:
+                return CliColor.ANSI_GREEN;
+            default:
+                return CliColor.ANSI_GRAY;
+        }
+    }
+
+
 
     public StringBuilder printResources(ArrayList<Resource> res) {
         StringBuilder s = new StringBuilder();
@@ -252,7 +260,7 @@ public class CliGraphics {
                 s.append(CliColor.ANSI_YELLOW.escape()).append("$ ").append(CliColor.RESET);
                 break;
             case SHIELD:
-                s.append(CliColor.ANSI_BLUE.escape()).append("♦ ︎").append(CliColor.RESET);
+                s.append(CliColor.ANSI_BLUE.escape()).append("♦ ︎ ").append(CliColor.RESET);
                 break;
             case STONE:
                 s.append(CliColor.ANSI_GRAY.escape()).append("︎▲ ").append(CliColor.RESET);

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.messagessc.EndGame;
+import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.network.messagessc.TurnFavorTiles;
 import it.polimi.ingsw.observerPattern.Observable;
 
@@ -84,6 +85,23 @@ public class FaithTrack extends Observable implements Serializable {
         checkFaithMarkerPosition(p, faithMarkerPosition);
     }
 
+
+    /**
+     * Adds victory points when player's faith marker reaches a tile that has victory points.
+     * @param player player that needs victory points.
+     * @param faithMarkerPosition player's position on Faith Track.
+     */
+    public void checkFaithMarkerPosition (Player player, int faithMarkerPosition) {
+        if (faithMarkerPosition == 24) {
+            player.setVictoryPoints(player.getVictoryPoints() + 4);
+            notifyObserver(new EndGame());
+        } else if (faithMarkerPosition % 3 == 0) {
+            track.get(faithMarkerPosition).addPoints(player);
+        } else if (faithMarkerPosition % 8 == 0) {
+            notifyObserver(new TurnFavorTiles(player.getNickname()));
+        }
+    }
+
     /**
      * This method initializes the track. Every tile can be modified, moved or deleted. Also creates the
      * three sections.
@@ -120,28 +138,6 @@ public class FaithTrack extends Observable implements Serializable {
         return track;
     }
 
-    /**
-     * Adds victory points when player's faith marker reaches a tile that has victory points.
-     * @param player player that needs victory points.
-     * @param faithMarkerPosition player's position on Faith Track.
-     */
-    public void checkFaithMarkerPosition (Player player, int faithMarkerPosition){
-        if (faithMarkerPosition==24){
-            player.setVictoryPoints(player.getVictoryPoints() + 4);
-            notifyObserver(new EndGame());
-        }
-        else if (faithMarkerPosition%3==0){
-            track.get(faithMarkerPosition).addPoints(player);
-        }
-
-        else if (faithMarkerPosition%8==0){
-            track.get(faithMarkerPosition).turnFavorAddPoints(player);
-            notifyObserver(new TurnFavorTiles(player.getNickname()));
-        }
-
-
-    }
-
 
 
     @Override
@@ -149,6 +145,7 @@ public class FaithTrack extends Observable implements Serializable {
 
         return "FAITH TRACK:\n"
                 + track.toString() +
-                "\n\nFAITH MARKER CURRENT POSITION: " + faithMarkerPosition;
+                "\n\nFAITH MARKER CURRENT POSITION: " + faithMarkerPosition +
+                "first favor tile: " +firstFavorTile;
     }
 }

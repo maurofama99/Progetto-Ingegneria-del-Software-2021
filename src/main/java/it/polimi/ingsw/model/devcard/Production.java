@@ -45,7 +45,8 @@ public class Production implements Serializable {
     public boolean checkInputResource(Player player) {
         try {
             player.getPersonalBoard().getWarehouse().removeResources(input);
-        } catch (NoSuchElementException | CloneNotSupportedException ex){ return false;}
+        } catch (NoSuchElementException | CloneNotSupportedException ex){
+            return false;}
 
         return true;
     }

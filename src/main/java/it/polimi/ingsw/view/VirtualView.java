@@ -1,12 +1,9 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.Table;
-import it.polimi.ingsw.model.devcard.Deck;
+
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
-import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
@@ -19,7 +16,6 @@ import it.polimi.ingsw.observerPattern.Observer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class VirtualView implements Observer {
     private final ClientHandler clientHandler;

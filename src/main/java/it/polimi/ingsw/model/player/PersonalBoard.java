@@ -29,6 +29,7 @@ public class PersonalBoard extends Observable{
         slots[1] = new Slot(2);
         slots[2] = new Slot(3);
         this.faithTrack = new FaithTrack();
+
         this.activeLeaderCards = new ArrayList<>();
     }
 
@@ -56,26 +57,6 @@ public class PersonalBoard extends Observable{
         activeLeaderCards.add(leaderCardToActivate);
     }
 
-    /**
-     * Method that swaps two resources chosen by the player to one single resource.
-     * @param firstInput one resource used to product the resource in output.
-     * @param secondInput one resource used to product the resource in output.
-     * @param output one resource that the player gets by the production.
-     */
-    public void basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
-        ArrayList<Resource> resourceToRemove = new ArrayList<>();
-        resourceToRemove.add(new Resource(1, firstInput));
-        resourceToRemove.add(new Resource(1, secondInput));
-
-        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-        resourcesToAdd.add(new Resource(1, output));
-
-        try {getWarehouse().removeResources(resourceToRemove);}
-        catch (NoSuchElementException e ){
-            //notifyObserver(new NoAvailableResources());
-        }
-        getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-    }
 
     public void extraProduction(Player player, LeaderCard leaderCard, Resource resourceChosenByPlayer) throws CloneNotSupportedException {
 

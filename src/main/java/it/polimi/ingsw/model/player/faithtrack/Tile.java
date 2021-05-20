@@ -49,8 +49,7 @@ public abstract class Tile implements Serializable {
      * @param p Player whose FaithMarker's position is being checked
      */
 
-    public void turnFavorAddPoints(Player p){
-        int currentPos = p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition();
+    public void turnFavorAddPoints(Player p, int currentPos){
 
         if(isFirstSection && !(p.getPersonalBoard().getFaithTrack().isFirstFavorTile())){
             p.getPersonalBoard().getFaithTrack().setFirstFavorTile(true);

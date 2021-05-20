@@ -28,8 +28,9 @@ public class Slot implements Serializable{
 
     //place dev card in this slot forse qui bisogna richiamare il fatto che toglie le risorse quando compra la carta
     public void placeDevCard(DevCard devCard) throws IllegalAccessException {
-        if ((cards.isEmpty() && (devCard.getLevel() == 1) || devCard.getLevel()-1 == getShowedCard().getLevel()))
-        this.cards.add(devCard);
+        if ((cards.isEmpty() && (devCard.getLevel() == 1) || devCard.getLevel()-1 == getShowedCard().getLevel())){
+            this.cards.add(devCard);
+        }
         else throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() +
                                                 ", but you need a level " + this.getShowedCard().getLevel() + 1 + "card");
     }

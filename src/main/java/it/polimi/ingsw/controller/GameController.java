@@ -19,6 +19,9 @@ import java.util.HashMap;
 
 public class GameController implements Observer, Serializable {
     private PlayerController playerController;
+    private SinglePlayerController singlePlayerController;
+
+    private boolean singlePlayer;
 
     private Table table;
     private TableState tableState = TableState.WAITING_FOR_FIRSTPLAYER;
@@ -27,6 +30,15 @@ public class GameController implements Observer, Serializable {
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
     private boolean condition = false;
     private int playerCounter=0; //to count how many players discarded leadercards
+
+    public GameController() {
+    }
+
+    public GameController(SinglePlayerController singlePlayerController) {
+        this.singlePlayerController = singlePlayerController;
+        this.singlePlayer = true;
+
+    }
 
     public void setVvMap(HashMap<String, VirtualView> vvMap) {
         this.vvMap = vvMap;
@@ -40,8 +52,16 @@ public class GameController implements Observer, Serializable {
         return table;
     }
 
+    public boolean isSinglePlayer() {
+        return singlePlayer;
+    }
+
     public void setTable(Table table) {
         this.table = table;
+    }
+
+    public void setSinglePlayerController(SinglePlayerController singlePlayerController) {
+        this.singlePlayerController = singlePlayerController;
     }
 
     public void setTableState(TableState tableState) {
@@ -59,9 +79,6 @@ public class GameController implements Observer, Serializable {
                 break;
             case END:
                 receiveMessageOnEndGame(msg);
-                break;
-            case SINGLEPLAYER:
-                receiveMessageOnSinglePlayer(msg);
                 break;
         }
     }
@@ -174,6 +191,11 @@ public class GameController implements Observer, Serializable {
                 playerController.receiveMessage(msg);
                 break;
             case DONE_ACTION:
+                if (singlePlayer){
+                    singlePlayerController.setSinglePlayerTableState(SinglePlayerTableState.LORENZOS_TURN);
+                    singlePlayerController.receiveSPMessage(msg);
+                    break;
+                }
                 playerController.setPlayerAction(PlayerAction.WAITING);
                 playerController.receiveMessage(msg);
                 break;
@@ -186,10 +208,11 @@ public class GameController implements Observer, Serializable {
     public void receiveMessageOnEndGame(Message msg) {
     }
 
-    private void receiveMessageOnSinglePlayer(Message msg) {
-
-    }
-
+    /**
+     * Sends informations about the game at the beginning of a player's turn.
+     * @param vv player's turn virtual view
+     * @throws IOException
+     */
 
     public void askPlayerAction(VirtualView vv) throws IOException {
         vv.displayMarketTray(table.getMarketTray());
@@ -207,12 +230,11 @@ public class GameController implements Observer, Serializable {
 
     @Override
     public void update(Message message) throws IOException {
+
         switch (message.getMessageType()){
             case TURN_FAVORTILE:
                 for (Player player : table.getPlayers()){
-                    if (!player.getNickname().equals(message.getSenderUser())){
-                        player.getPersonalBoard().getFaithTrack().getTrack().get(player.getPersonalBoard().getFaithTrack().getFaithMarkerPosition()).turnFavorAddPoints(player);
-                    }
+                    player.getPersonalBoard().getFaithTrack().getTrack().get(player.getPersonalBoard().getFaithTrack().getFaithMarkerPosition()).turnFavorAddPoints(player, player.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
                 }
                 break;
 

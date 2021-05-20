@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.SinglePlayerController;
 import it.polimi.ingsw.controller.WaitingRoom;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
@@ -23,8 +24,10 @@ public class ClientHandler implements Runnable {
     private ObjectInputStream input;
     private String nickname;
     private GameController gameController;
+    private SinglePlayerController singlePlayerController;
     private final WaitingRoom waitingRoom;
     private boolean started = false;
+    private boolean singlePlayer = false;
 
     public ClientHandler(Server server, Socket client, WaitingRoom waitingRoom) {
         this.server = server;
@@ -38,6 +41,14 @@ public class ClientHandler implements Runnable {
 
     public Server getServer() {
         return server;
+    }
+
+    public void setSinglePlayerController(SinglePlayerController singlePlayerController) {
+        this.singlePlayerController = singlePlayerController;
+    }
+
+    public void setSinglePlayer(boolean singlePlayer) {
+        this.singlePlayer = singlePlayer;
     }
 
     public void setGameController(GameController gameController) {
@@ -118,7 +129,9 @@ public class ClientHandler implements Runnable {
             waitingRoom.getPlayerClientHandlerHashMap().put(nickname, this);
             waitingRoom.receiveMessage(msg);
             }
-        } else gameController.receiveMessage(msg);
+        }
+        else if (singlePlayer) singlePlayerController.receiveSPMessage(msg);
+        else gameController.receiveMessage(msg);
     }
 
 }

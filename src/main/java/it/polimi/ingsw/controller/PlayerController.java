@@ -248,6 +248,7 @@ public class PlayerController {
         for (Resource res : resources){
             if(res.getType().equals(ResourceType.FAITHPOINT)){
                 gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+                checkPositionFaith(gameController.getTable().getCurrentPlayer());
             }
         }
         resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
@@ -324,20 +325,28 @@ public class PlayerController {
 
                 if (((ActivateProduction)msg).getSlot1()==1){
                     gameController.getTable().getCurrentPlayer().activateProd(0);
+                    if (gameController.getTable().getCurrentPlayer().activateProd(0))
+                        playerVirtualView().displayGenericMessage("You activated production in slot " + 1 + "\n");
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
                     gameController.getTable().getCurrentPlayer().activateProd(1);
+                    if (gameController.getTable().getCurrentPlayer().activateProd(1))
+                        playerVirtualView().displayGenericMessage("You activated production in slot " + 2 + "\n");
                 }
                 if (((ActivateProduction)msg).getSlot3()==1){
                     gameController.getTable().getCurrentPlayer().activateProd(2);
+                    if (gameController.getTable().getCurrentPlayer().activateProd(2))
+                        playerVirtualView().displayGenericMessage("You activated production in slot " + 3 + "\n");
                 }
 
 
-                playerVirtualView().displayGenericMessage("You activated production in slots!\n"
-                        + gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+                playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().toString());
+
 
                 if (((ActivateProduction)msg).getBasic()==1){
-                    playerVirtualView().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n :");
+                    cont=0;
+                    playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot() +
+                            "You can now spend two resources from floors to get one resource in Strongbox!: \n");
                     playerVirtualView().fetchResourceType();
                 }
                 else{
@@ -360,8 +369,7 @@ public class PlayerController {
                 }
                 else {
                     typeOut = ((ResourceTypeChosen) msg).getResourceType();
-                    cont=0;
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().basicProduction(typeInput1, typeInput2, typeOut);
+                    gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut);
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
 
@@ -369,14 +377,35 @@ public class PlayerController {
         }
     }
 
-    public void addFaithPointsToOpponents(int faithpoints){
+    public void addFaithPointsToOpponents(int faithPoints){
         for(Player player : gameController.getTable().getPlayers()){
+            if (gameController.isSinglePlayer()){
+                gameController.getTable().getLorenzoIlMagnifico().moveBlackCross(player, 1);
+                checkPositionFaith(player);
+            }
+
             if(!gameController.getTable().getCurrentPlayer().equals(player))
-                player.getPersonalBoard().getFaithTrack().moveForward(player, faithpoints);
+                player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
+            checkPositionFaith(player);
         }
     }
 
 
+    public void checkPositionFaith(Player player){
+        if (player.getPersonalBoard().getFaithTrack().getFaithMarkerPosition() %8==0){
+                for (Player p : gameController.getTable().getPlayers()){
+                    p.getPersonalBoard().getFaithTrack().getTrack().get(p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition())
+                            .turnFavorAddPoints(p,p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
+            }
+        }
+
+        if (gameController.isSinglePlayer()){
+            Player sP = gameController.getTable().getCurrentPlayer();
+            if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().getBlackCrossPosition()%8==0)
+                sP.getPersonalBoard().getFaithTrack().getTrack().get(sP.getPersonalBoard().getFaithTrack().getFaithMarkerPosition())
+                        .turnFavorAddPoints(sP,sP.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
+        }
+    }
 
 
 }

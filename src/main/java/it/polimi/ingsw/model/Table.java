@@ -33,19 +33,18 @@ public class Table extends Observable implements Serializable{
     private static final long serialVersionUID = 719340001294526493L;
 
     private int numPlayers;
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
+    private Player singlePlayer;
     private ArrayList<LeaderCard> leaderCardsDeck;
     private Player currentPlayer;
     private ArrayList<Token> tokenStack;
     private MarketTray marketTray;
-    private Deck devCardsDeck = new Deck();
+    private Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
     private int topCardIndex = 15;
 
     public Table() {
         this.numPlayers = 0;
-        this.players = new ArrayList<>();
-
 
         try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
 
@@ -66,8 +65,34 @@ public class Table extends Observable implements Serializable{
         this.devCardsDeck = new Deck();
     }
 
-    public Table (LorenzoIlMagnifico lorenzoIlMagnifico){
-        this.tokenStack = new ArrayList<>(); //todo manca json token
+    public Table (Player singlePlayer){
+
+        this.numPlayers  = 1;
+        players.add(singlePlayer);
+        this.currentPlayer = singlePlayer;
+
+        this.singlePlayer = singlePlayer;
+
+        try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
+
+            Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
+
+            Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
+
+            leaderCardsDeck = gson.fromJson(reader, leaderCardArrayListType);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.tokenStack = createTokenStack();
+        this.lorenzoIlMagnifico = new LorenzoIlMagnifico(tokenStack.get(0));
+
+        currentPlayer.getPersonalBoard().getFaithTrack().setBlackCrossPosition(0);
+
+        this.marketTray = new MarketTray();
+        this.devCardsDeck = new Deck();
     }
 
     public ArrayList<LeaderCard> getLeaderCardsDeck() {
@@ -88,6 +113,14 @@ public class Table extends Observable implements Serializable{
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Player getSinglePlayer() {
+        return singlePlayer;
+    }
+
+    public void setSinglePlayer(Player singlePlayer) {
+        this.singlePlayer = singlePlayer;
     }
 
     /**
@@ -143,7 +176,10 @@ public class Table extends Observable implements Serializable{
 
     }
 
-    //shuffle leader cards and deal them at the beginning of the game to each player
+    /**
+     * Shuffle leader card deck and deals them to ach player in game.
+     * @param playerNickname player that receives leaderCards
+     */
 
     public void dealLeaderCards(String playerNickname) {
         Collections.shuffle(leaderCardsDeck);
@@ -167,8 +203,9 @@ public class Table extends Observable implements Serializable{
             setCurrentPlayer(players.get(getPlayers().indexOf(currentPlayer) + 1));
         else
             setCurrentPlayer(players.get(0));
-        //notifyObserver con mex: quale azione?
     }
+
+
 
 
     //todo metodo che rimuove un giocatore se si disconnette
@@ -177,7 +214,7 @@ public class Table extends Observable implements Serializable{
     /**
      * Creates the token stack for the single player game.
      */
-    public void createTokenStack(){
+    public ArrayList<Token> createTokenStack(){
         tokenStack = new ArrayList<>();
 
         tokenStack.add(new Token(new RemoveCardsAction(Color.GREEN), false));
@@ -188,6 +225,8 @@ public class Table extends Observable implements Serializable{
         tokenStack.add(new Token(new MoveAction(1), false));
 
         Collections.shuffle(tokenStack, new Random());
+
+        return tokenStack;
     }
 
 

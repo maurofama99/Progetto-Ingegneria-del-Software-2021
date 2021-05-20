@@ -13,15 +13,10 @@ import java.util.ArrayList;
  */
 public class LorenzoIlMagnifico {
 
-    private boolean isPlaying;
     private Token showedToken;
 
-    public boolean isPlaying() {
-        return isPlaying;
-    }
-
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
+    public LorenzoIlMagnifico(Token showedToken) {
+        this.showedToken = showedToken;
     }
 
     public Token getShowedToken() {
@@ -47,14 +42,20 @@ public class LorenzoIlMagnifico {
      */
     public void turnToken(Table t){
         //Sets the showed token and activates it
-        setShowedToken(t.getTokenStack().get(0));
         this.showedToken.activateAction(t);
-        //The played token is set to discarded after doing what he has to and placed on the bottom of the stack
+        //The played token is set to discarded after doing what he has
+        // to and placed on the bottom of the stack
         //Easier than creating a discarded stack and merge it later.
         ArrayList<Token> toReorder = t.getTokenStack();
         toReorder.add(t.getTokenStack().get(0));
         toReorder.remove(0);
         t.setTokenStack(toReorder);
+        setShowedToken(t.getTokenStack().get(0));
     }
 
+    @Override
+    public String toString() {
+        return
+                "showedToken=" + showedToken.getTokenAction();
+    }
 }
