@@ -8,10 +8,21 @@
     -fx-text-fill: #ffffff;
 }
 
-.customTextAlt{
+.customTextAlt {
     -fx-font-family: 'Alger_Cond';
     -fx-text-fill: #333399;
 }
+
+.rootPane {
+    -fx-background-image: url("/other/sfondo_login.jpg");
+    -fx-background-size: stretch;
+}
+
+.tablePane {
+    -fx-background-image: url("/other/sfondo_tavolo.jpg");
+    -fx-background-size: stretch;
+}
+
 
 .okButton{
     -fx-background-image: url("/other/ok_button.png");

@@ -39,10 +39,14 @@ public class Cli extends ClientObservable implements View {
         nickname = nickname.replaceAll("\\s+","");
         this.nickname = nickname;
         System.out.println("How many players do you want to play with? (Max 4 players. Type 1 for single player)");
-        int numPlayers = scanner.nextInt();
+        int numPlayers = -1;
         while(numPlayers<1 || numPlayers>4){
-            System.out.println("\nInvalid number");
-            numPlayers = scanner.nextInt();
+            try {
+                numPlayers = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("This is not a number..");
+                scanner.nextLine();
+            }
         }
         notifyObservers(new LoginData(nickname, numPlayers));
     }
@@ -55,45 +59,65 @@ public class Cli extends ClientObservable implements View {
                         "Type '2' for a COIN\n" +
                         "Type '3' for a STONE\n" + "---------------------\n");
         Scanner scanner = new Scanner(System.in);
-        int resourceType = scanner.nextInt();
+        int resourceType = -1;
         while (resourceType < 0 || resourceType > 3){
-            System.out.println("Invalid input\n\n---------------------\nType '0' for a SHIELD\n" +
-                                                "Type '1' for a SERVANT\n" +
-                                                "Type '2' for a COIN\n" +
-                                                "Type '3' for a STONE\n---------------------\n");
-            resourceType = scanner.nextInt();
+            try {
+                resourceType = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("This is not a number..");
+                scanner.nextLine();
+            }
         }
         notifyObservers(new ResourceTypeChosen(nickname, resourceType));
     }
 
     @Override
     public void fetchResourcePlacement() throws IOException {
-        //out print del depot
+        int floorInt;
         Scanner scanner = new Scanner(System.in);
         String floor = scanner.nextLine();
         floor = floor.replaceAll("\\s+","");
 
+        try{
+            floorInt = Integer.parseInt(floor);
+        } catch (NumberFormatException e){
+            floorInt = -1;
+        }
+
         while(!floor.equalsIgnoreCase("switch")
                 && !floor.equalsIgnoreCase("discard")
                 && !floor.equalsIgnoreCase("extra")
-                && Integer.parseInt(floor) > 3 && Integer.parseInt(floor) < 1) {
+                && (floorInt > 3 || floorInt < 1)) {
             System.out.println("\nInvalid Input, retry");
             floor = scanner.nextLine();
             floor = floor.replaceAll("\\s+","");
+            try{
+                floorInt = Integer.parseInt(floor);
+            } catch (NumberFormatException e){
+                floorInt = -1;
+            }
         }
 
         if (floor.equalsIgnoreCase("switch")) {
             System.out.print("Which floors do you want to switch?\nSource floor (1,2,3): ");
-            int sourceFloor = scanner.nextInt();
+            int sourceFloor = -1;
             while(sourceFloor < 1 || sourceFloor > 3){
-                System.out.println("\nInvalid Input, retry");
-                sourceFloor = scanner.nextInt();
+                try {
+                    sourceFloor = scanner.nextInt();
+                } catch (InputMismatchException e){
+                    System.out.println("This is not a number..");
+                    scanner.nextLine();
+                }
             }
             System.out.print("Destination floor (1,2,3): ");
-            int destFloor = scanner.nextInt();
+            int destFloor = -1;
             while(destFloor < 1 || destFloor > 3){
-                System.out.println("\nInvalid Input, retry");
-                destFloor = scanner.nextInt();
+                try {
+                    destFloor = scanner.nextInt();
+                } catch (InputMismatchException e){
+                    System.out.println("This is not a number..");
+                    scanner.nextLine();
+                }
             }
             notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
         }
@@ -125,15 +149,23 @@ public class Cli extends ClientObservable implements View {
         cliGraphics.showLeaderCards(leaderCards);
         System.out.println("Choose two LeaderCard you want to discard (Insert index, press enter): ");
         Scanner scanner = new Scanner(System.in);
-        int index = scanner.nextInt();
+        int index = -1;
         while(index < 1 || index > 4){
-            System.out.println("\nInvalid Input, retry");
-            index = scanner.nextInt();
+            try {
+                index = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("This is not a number..");
+                scanner.nextLine();
+            }
         }
-        int index2 = scanner.nextInt();
+        int index2 = -1;
         while(index2 < 1 || index2 > 4 || index2==index){
-            System.out.println("\nInvalid Input, retry");
-            index2 = scanner.nextInt();
+            try {
+                index2 = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("This is not a number..");
+                scanner.nextLine();
+            }
         }
         notifyObservers(new DiscardLeader(nickname, (index-1), (index2-1)));
         ArrayList<Integer> indexes = new ArrayList<>();
@@ -178,12 +210,13 @@ public class Cli extends ClientObservable implements View {
         System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
-        action = action.toUpperCase().replaceAll("\\s+","");
+        action = action.replaceAll("\\s+","");
         while (!(action.equalsIgnoreCase("market")) && !(action.equalsIgnoreCase("buy")) && !(action.equalsIgnoreCase("production"))){
             System.out.println("Invalid input\n" + message);
             action = scanner.nextLine();
             action = action.replaceAll("\\s+","");
         }
+        action = action.toUpperCase();
 
         switch (action) {
             case "MARKET":
@@ -199,17 +232,25 @@ public class Cli extends ClientObservable implements View {
                 if (decision.equalsIgnoreCase("row")) {
                     rowOrCol = true;
                     System.out.println("Which row do you want to pick? (1,2,3)");
-                    index = scanner.nextInt();
+                    index = -1;
                     while (index<1 || index>3){
-                        System.out.println("\nInvalid input");
-                        index = scanner.nextInt();
+                        try {
+                            index = scanner.nextInt();
+                        } catch (InputMismatchException e){
+                            System.out.println("This is not a number..");
+                            scanner.nextLine();
+                        }
                     }
                 } else if (decision.equalsIgnoreCase("col")) {
                     System.out.println("Which column do you want to pick? (1,2,3,4)");
-                    index = scanner.nextInt();
+                    index = -1;
                     while (index<1 || index>4){
-                        System.out.println("\nInvalid input");
-                        index = scanner.nextInt();
+                        try {
+                            index = scanner.nextInt();
+                        } catch (InputMismatchException e){
+                            System.out.println("This is not a number..");
+                            scanner.nextLine();
+                        }
                     }
                 }
                 notifyObservers(new GoingMarket(index, rowOrCol));
@@ -217,51 +258,79 @@ public class Cli extends ClientObservable implements View {
 
             case "BUY":
                 System.out.println("Select row of the devCard you want to buy: (1,2,3)");
-                row = scanner.nextInt();
+                row = -1;
                 while (row<1 || row>3){
-                    System.out.println("\nInvalid input");
-                    row = scanner.nextInt();
+                    try {
+                        row = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 System.out.println("Select column of the devCard you want to buy: (1,2,3,4)");
-                col = scanner.nextInt();
+                col = -1;
                 while (col<1 || col>4){
-                    System.out.println("\nInvalid input");
-                    col = scanner.nextInt();
+                    try {
+                        col = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 System.out.println("Where do you want to place it: (Insert the number of the slot: 1,2,3)");
-                slot = scanner.nextInt();
+                slot = -1;
                 while (slot<1 || slot>3){
-                    System.out.println("\nInvalid input");
-                    slot = scanner.nextInt();
+                    try {
+                        slot = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 notifyObservers(new BuyDevCard(row, col, slot));
                 break;
 
             case "PRODUCTION":
                 System.out.println("Type 1 if you want to activate basic production, 0 if you don't");
-                int yesORnoB = scanner.nextInt();
+                int yesORnoB = -1;
                 while (yesORnoB!=0 && yesORnoB!=1){
-                    System.out.println("\nInvalid input");
-                    yesORnoB = scanner.nextInt();
+                    try {
+                        yesORnoB = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 System.out.println("Type 1 if you want to activate the production, 0 if you don't:\n");
                 System.out.print("SLOT 1:  >");
-                int yesORno1 = scanner.nextInt();
+                int yesORno1 = -1;
                 while (yesORno1!=0 && yesORno1!=1){
-                    System.out.println("\nInvalid input");
-                    yesORno1 = scanner.nextInt();
+                    try {
+                        yesORno1 = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 System.out.print("  SLOT 2:  >");
-                int yesORno2 = scanner.nextInt();
+                int yesORno2 = -1;
                 while (yesORno2!=0 && yesORno2!=1){
-                    System.out.println("\nInvalid input");
-                    yesORno2 = scanner.nextInt();
+                    try {
+                        yesORno2 = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 System.out.print("  SLOT 3:  >");
-                int yesORno3 = scanner.nextInt();
+                int yesORno3 = -1;
                 while (yesORno3!=0 && yesORno3!=1){
-                    System.out.println("\nInvalid input");
-                    yesORno3 = scanner.nextInt();
+                    try {
+                        yesORno3 = scanner.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("This is not a number..");
+                        scanner.nextLine();
+                    }
                 }
                 notifyObservers(new ActivateProduction(yesORnoB, yesORno1, yesORno2, yesORno3));
                 break;
@@ -303,26 +372,30 @@ public class Cli extends ClientObservable implements View {
 
         if (action.equalsIgnoreCase("ACTIVATE")) {
             System.out.println("Choose the leader card you want to activate (insert index)");
-            cliGraphics.showLeaderCards(leaderCards);
-            int index = scanner.nextInt();
-            while (index > leaderCards.size() || index < 1){
-                System.out.println("\nInvalid input");
-                index = scanner.nextInt();
-            }
+            int index = chooseLeader(leaderCards, scanner);
             notifyObservers(new ActivateLeader(leaderCards.get(index - 1)));
         } else if (action.equalsIgnoreCase("DISCARD")){
             System.out.println("Choose the leader card you want to discard (insert index)");
-            cliGraphics.showLeaderCards(leaderCards);
-            int index = scanner.nextInt();
-            while (index > leaderCards.size() || index < 1){
-                System.out.println("\nInvalid input");
-                index = scanner.nextInt();
-            }
+            int index = chooseLeader(leaderCards, scanner);
             notifyObservers(new DiscardOneLeader(index - 1));
         } else if (action.equalsIgnoreCase("NO")){
             afterLeaderAction(isEndTurn, leaderCards);
         }
 
+    }
+
+    private int chooseLeader(ArrayList<LeaderCard> leaderCards, Scanner scanner) {
+        cliGraphics.showLeaderCards(leaderCards);
+        int index = -1;
+        while (index > leaderCards.size() || index < 1){
+            try {
+                index = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("This is not a number..");
+                scanner.nextLine();
+            }
+        }
+        return index;
     }
 
     public void afterLeaderAction(boolean trueOrFalse, ArrayList<LeaderCard> leaderCards) throws IOException {
