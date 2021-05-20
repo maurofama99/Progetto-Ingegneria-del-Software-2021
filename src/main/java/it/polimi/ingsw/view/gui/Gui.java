@@ -17,9 +17,9 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController;
 import it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController;
 import it.polimi.ingsw.view.gui.scenes.PlayerResourceChoosingController;
-import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,14 +38,16 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void fetchNickname() {
         PlayerLoginSceneController plsc = new PlayerLoginSceneController();
-        plsc.addAllClientObservers(this.clientObservers);
-        Platform.runLater(()->SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
+        plsc.addAllClientObservers(clientObservers);
+        SceneController.changeRootPane(plsc, "player_login_scene.fxml");
 
     }
 
     @Override
     public void fetchResourceType() throws IOException {
-
+        PlayerResourceChoosingController prcc = new PlayerResourceChoosingController();
+        prcc.addAllClientObservers(clientObservers);
+        SceneController.changeRootPane(prcc, "resource_choosing.fxml");
     }
 
     @Override
@@ -65,7 +67,9 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
-
+        LeaderCardChoosingController lccc = new LeaderCardChoosingController();
+        lccc.setLeaderCards(leaderCards);
+        SceneController.changeRootPane(lccc, "leader_choosing.fxml");
     }
 
     @Override
