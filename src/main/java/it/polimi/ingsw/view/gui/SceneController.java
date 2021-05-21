@@ -86,13 +86,15 @@ public class SceneController extends ClientObservable {
 
         T controller;
         FXMLLoader popLoader = new FXMLLoader(SceneController.class.getResource("/fxml/popup_scene.fxml"));
-
         Parent parent;
+
         try {
             parent = popLoader.load();
+            controller = popLoader.getController();
+            ((ClientObservable) controller).addAllClientObservers(clientObservers);
         } catch (IOException exception){
-            System.out.println(exception);
-            return;
+            System.err.println(exception);
+            return null;
         }
 
         PopupSceneController psc =popLoader.getController();
@@ -101,6 +103,7 @@ public class SceneController extends ClientObservable {
         psc.setTitleLabel(title);
         psc.setMessageOfLabel(message);
         psc.showPopUp();
+        return controller;
 
     }
 

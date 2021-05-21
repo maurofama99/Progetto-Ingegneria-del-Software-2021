@@ -44,7 +44,6 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         exitGameButton.setDisable(true);
         //vedere se non disabilitare il back nel caso
 
-        SceneController.showPopup("Wait...", "Waiting for other players to join...");
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
         numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());

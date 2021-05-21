@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class MarketSceneController implements GenericSceneController {
+public class MarketSceneController extends ClientObservable implements GenericSceneController {
     @FXML
     private ImageView slideMrbl;
     @FXML

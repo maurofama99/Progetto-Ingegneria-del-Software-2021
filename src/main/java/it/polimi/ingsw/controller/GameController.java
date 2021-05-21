@@ -119,7 +119,6 @@ public class GameController implements Observer, Serializable {
                     vv.displayGenericMessage("You can't do this move now, please choose a floor");
                     vv.fetchResourcePlacement();
                 }
-
                 break;
 
             case DISCARD_LEADER:

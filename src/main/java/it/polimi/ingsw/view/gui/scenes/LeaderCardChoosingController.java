@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 
-public class LeaderCardChoosingController implements GenericSceneController {
+public class LeaderCardChoosingController extends ClientObservable implements GenericSceneController {
 
     private ArrayList<LeaderCard> leaderCards;
 
