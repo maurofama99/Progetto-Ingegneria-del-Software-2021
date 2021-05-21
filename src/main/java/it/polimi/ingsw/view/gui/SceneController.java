@@ -82,7 +82,9 @@ public class SceneController extends ClientObservable {
         changeRootPane(controller, onGoingScene, fxml);
     }
 
-    public static void showPopup(String title, String message){
+    public static <T> T showPopup(List<ClientObserver> clientObservers, String title, String message){
+
+        T controller;
         FXMLLoader popLoader = new FXMLLoader(SceneController.class.getResource("/fxml/popup_scene.fxml"));
 
         Parent parent;
@@ -102,23 +104,31 @@ public class SceneController extends ClientObservable {
 
     }
 
-    public static void showDepositPopup(String resource){
-        FXMLLoader depoPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/deposit_popup.fxml"));
+    public static void showPopup(List<ClientObserver> clientObservers, String message){
+        showPopup(clientObservers, "Info", message);
+    }
 
+    public static <T> T showDepositPopup(List<ClientObserver> clientObservers, String resource){
+        T controller;
+        FXMLLoader depoPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/deposit_popup.fxml"));
         Parent parent;
+
         try {
             parent = depoPopLoader.load();
+            controller = depoPopLoader.getController();
+            ((ClientObservable) controller).addAllClientObservers(clientObservers);
         } catch (IOException exception){
-            System.out.println(exception);
-            return;
+            System.err.println(exception);
+            return null;
         }
 
         DepositPopupSceneController dpsc =depoPopLoader.getController();
         Scene popupScene = new Scene(parent);
         dpsc.setScene(popupScene);
         dpsc.setResourceLbl(resource);
+        dpsc.setResourceImg(resource);
         dpsc.showPopUp();
-
+        return controller;
     }
 
 }

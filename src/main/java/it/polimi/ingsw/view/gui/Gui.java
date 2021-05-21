@@ -69,7 +69,7 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
-
+        Platform.runLater(() -> SceneController.showPopup(clientObservers, genericMessage));
     }
 
     @Override

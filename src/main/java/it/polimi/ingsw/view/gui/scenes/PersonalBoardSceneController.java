@@ -1,11 +1,12 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class PersonalBoardSceneController implements GenericSceneController {
+public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
     @FXML
     private ImageView firstLevelLeft;
     @FXML

@@ -1,5 +1,5 @@
-.rootPane {
-    -fx-background-image: url("/other/sfondo_login.jpg");
+.popupPane {
+    -fx-background-image: url("/other/sfondo_popup.jpg");
     -fx-background-size: stretch;
     -fx-background-position: center;
 }

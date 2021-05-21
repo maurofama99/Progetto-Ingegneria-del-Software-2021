@@ -24,19 +24,19 @@
                   <Button fx:id="shieldBtn" layoutX="698.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="shieldButton" />
                   <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="37.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../punchboard/coin.png" />
+                        <Image url="@../punchboard/resources/coin.png" />
                      </image></ImageView>
                   <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="233.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../punchboard/stone.png" />
+                        <Image url="@../punchboard/resources/stone.png" />
                      </image></ImageView>
                   <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="497.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../punchboard/servant.png" />
+                        <Image url="@../punchboard/resources/servant.png" />
                      </image></ImageView>
                   <ImageView fitHeight="157.0" fitWidth="214.0" layoutX="698.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../punchboard/shield.png" />
+                        <Image url="@../punchboard/resources/shield.png" />
                      </image></ImageView>
                </children></AnchorPane>
          </children>

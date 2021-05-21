@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -56,7 +57,7 @@ public class PopupSceneController implements GenericSceneController {
         stage.setY(event.getSceneY()+y_Offset);
     }
 
-    private void WhenConfirmButtonClicked( MouseEvent event){
+    private void WhenConfirmButtonClicked(MouseEvent event){
         stage.close();
     }
 

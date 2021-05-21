@@ -12,13 +12,13 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../other/sfondo_login.jpg" />
+                  <Image url="@../other/sfondo_popup.jpg"  />
                </image></ImageView>
-            <Label fx:id="titleLabel" layoutX="62.0" layoutY="14.0" prefHeight="32.0" prefWidth="445.0" text="Title" textFill="#2608bc">
+            <Label fx:id="titleLabel" layoutX="62.0" layoutY="14.0" prefHeight="32.0" prefWidth="445.0" text="Info!" textFill="#2608bc">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font></Label>
-            <Label fx:id="messageOfLabel" layoutX="128.0" layoutY="184.0" prefHeight="70.0" prefWidth="314.0" text="Message" textFill="#1805c9">
+            <Label fx:id="messageOfLabel" layoutX="128.0" layoutY="184.0" prefHeight="70.0" prefWidth="314.0" text="generic message goes here" textFill="#1805c9">
                <font>
                   <Font size="24.0" />
                </font></Label>
