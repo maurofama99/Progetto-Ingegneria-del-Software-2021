@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class DepositPopupSceneController implements GenericSceneController{
+public class DepositPopupSceneController extends ClientObservable implements GenericSceneController{
 
     private final Stage stage;
 

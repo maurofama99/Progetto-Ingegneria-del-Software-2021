@@ -108,13 +108,17 @@ public class GameController implements Observer, Serializable {
                 break;
 
             case RESOURCE_PLACEMENT:
-                for (Player player : table.getPlayers()) {
-                    if (msg.getSenderUser().equals(player.getNickname()))
-                        player.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resourceChosen, Integer.parseInt(((ResourcePlacement) msg).getFloor()));
+                try {
+                    for (Player player : table.getPlayers()) {
+                        if (msg.getSenderUser().equals(player.getNickname()))
+                            player.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resourceChosen, Integer.parseInt(((ResourcePlacement) msg).getFloor()));
+                    }
+                    if (condition)
+                        table.dealLeaderCards(msg.getSenderUser());
+                } catch (NumberFormatException e){
+                    vv.displayGenericMessage("You can't do this move now, please choose a floor");
+                    vv.fetchResourcePlacement();
                 }
-
-                if (condition)
-                    table.dealLeaderCards(msg.getSenderUser());
 
                 break;
 

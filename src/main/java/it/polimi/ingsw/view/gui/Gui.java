@@ -17,9 +17,11 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scenes.DepositPopupSceneController;
 import it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController;
 import it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController;
 import it.polimi.ingsw.view.gui.scenes.PlayerResourceChoosingController;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +54,12 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchResourcePlacement() throws IOException {
-
+        Platform.runLater(() ->
+        {
+            DepositPopupSceneController dpsc = new DepositPopupSceneController();
+            dpsc.addAllClientObservers(clientObservers);
+            SceneController.showDepositPopup("stone");
+        });
     }
 
     @Override
