@@ -33,18 +33,18 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchNickname() {
-        System.out.println("What's your nickname?");
+        System.out.print("What's your nickname?\n>");
         Scanner scanner = new Scanner(System.in);
         String nickname = scanner.nextLine();
         nickname = nickname.replaceAll("\\s+","");
         this.nickname = nickname;
-        System.out.println("How many players do you want to play with? (Max 4 players. Type 1 for single player)");
+        System.out.print("How many players do you want to play with? (Max 4 players. Type 1 for single player)\n>");
         int numPlayers = -1;
         while(numPlayers<1 || numPlayers>4){
             try {
                 numPlayers = scanner.nextInt();
             } catch (InputMismatchException e){
-                System.out.println("This is not a number..");
+                System.out.print("This is not a number, try again!\n>");
                 scanner.nextLine();
             }
         }
@@ -53,18 +53,18 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchResourceType() throws IOException {
-        System.out.println("You can choose a type of resource you want:\n---------------------\n" +
+        System.out.print("You can choose a type of resource you want:\n---------------------\n" +
                         "Type '0' for a SHIELD\n" +
                         "Type '1' for a SERVANT\n" +
                         "Type '2' for a COIN\n" +
-                        "Type '3' for a STONE\n" + "---------------------\n");
+                        "Type '3' for a STONE\n" + "---------------------\n>");
         Scanner scanner = new Scanner(System.in);
         int resourceType = -1;
         while (resourceType < 0 || resourceType > 3){
             try {
                 resourceType = scanner.nextInt();
             } catch (InputMismatchException e){
-                System.out.println("This is not a number..");
+                System.out.print("This is not a number, try again!\n>");
                 scanner.nextLine();
             }
         }
@@ -75,6 +75,7 @@ public class Cli extends ClientObservable implements View {
     public void fetchResourcePlacement() throws IOException {
         int floorInt;
         Scanner scanner = new Scanner(System.in);
+        System.out.print(">");
         String floor = scanner.nextLine();
         floor = floor.replaceAll("\\s+","");
 
@@ -99,7 +100,7 @@ public class Cli extends ClientObservable implements View {
         }
 
         if (floor.equalsIgnoreCase("switch")) {
-            System.out.print("Which floors do you want to switch?\nSource floor (1,2,3): ");
+            System.out.print("Which floors do you want to switch?\nSource floor (1,2,3): >");
             int sourceFloor = -1;
             while(sourceFloor < 1 || sourceFloor > 3){
                 try {
@@ -109,7 +110,7 @@ public class Cli extends ClientObservable implements View {
                     scanner.nextLine();
                 }
             }
-            System.out.print("Destination floor (1,2,3): ");
+            System.out.print("Destination floor (1,2,3):  >");
             int destFloor = -1;
             while(destFloor < 1 || destFloor > 3){
                 try {
@@ -147,11 +148,12 @@ public class Cli extends ClientObservable implements View {
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
         System.out.println("\nYou can choose two of these leaderCards that you are going to activate during the game!!");
         cliGraphics.showLeaderCards(leaderCards);
-        System.out.println("Choose two LeaderCard you want to discard (Insert index, press enter): ");
+        System.out.print("Choose two LeaderCard you want to discard (Insert index, press enter): ");
         Scanner scanner = new Scanner(System.in);
         int index = -1;
         while(index < 1 || index > 4){
             try {
+                System.out.print("\n>");
                 index = scanner.nextInt();
             } catch (InputMismatchException e){
                 System.out.println("This is not a number..");
@@ -161,6 +163,7 @@ public class Cli extends ClientObservable implements View {
         int index2 = -1;
         while(index2 < 1 || index2 > 4 || index2==index){
             try {
+                System.out.print(">");
                 index2 = scanner.nextInt();
             } catch (InputMismatchException e){
                 System.out.println("This is not a number..");
@@ -177,6 +180,13 @@ public class Cli extends ClientObservable implements View {
         }
         System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n");
         cliGraphics.showLeaderCards(leaderCards);
+        modelView.setLeaderCards(leaderCards);
+    }
+
+    @Override
+    public void displayMarket(MarketTray marketTray) {
+        cliGraphics.showMarketTray(marketTray);
+        modelView.setMarketTray(marketTray);
     }
 
     @Override
@@ -199,7 +209,8 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
-        System.out.println(warehouse.toString());
+        System.out.println(cliGraphics.printWarehouse(warehouse));
+        modelView.setWarehouse(warehouse);
     }
 
     @Override
@@ -207,12 +218,12 @@ public class Cli extends ClientObservable implements View {
         boolean rowOrCol = false;
         int index = 0;
         int row, col, slot;
-        System.out.println(message);
+        System.out.print(message + ">");
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
         action = action.replaceAll("\\s+","");
         while (!(action.equalsIgnoreCase("market")) && !(action.equalsIgnoreCase("buy")) && !(action.equalsIgnoreCase("production"))){
-            System.out.println("Invalid input\n" + message);
+            System.out.print("Invalid input\n" + message + ">");
             action = scanner.nextLine();
             action = action.replaceAll("\\s+","");
         }
@@ -221,17 +232,17 @@ public class Cli extends ClientObservable implements View {
         switch (action) {
             case "MARKET":
                 cliGraphics.showMarketTray(modelView.getMarketTray());
-                System.out.println("Do you want to pick a row or a column of the tray? (row/col)");
+                System.out.print("Do you want to pick a row or a column of the tray? (row/col)\n>");
                 String decision = scanner.nextLine();
                 decision = decision.replaceAll("\\s+","");
                 while (!decision.equalsIgnoreCase("row") && !decision.equalsIgnoreCase("col")){
-                    System.out.println("\nInvalid input");
+                    System.out.print("Invalid input, try again!\n>");
                     decision = scanner.nextLine();
                     decision = decision.replaceAll("\\s+","");
                 }
                 if (decision.equalsIgnoreCase("row")) {
                     rowOrCol = true;
-                    System.out.println("Which row do you want to pick? (1,2,3)");
+                    System.out.print("Which row do you want to pick? (1,2,3)\n>");
                     index = -1;
                     while (index<1 || index>3){
                         try {
@@ -242,7 +253,7 @@ public class Cli extends ClientObservable implements View {
                         }
                     }
                 } else if (decision.equalsIgnoreCase("col")) {
-                    System.out.println("Which column do you want to pick? (1,2,3,4)");
+                    System.out.print("Which column do you want to pick? (1,2,3,4)\n>");
                     index = -1;
                     while (index<1 || index>4){
                         try {
@@ -257,7 +268,7 @@ public class Cli extends ClientObservable implements View {
                 break;
 
             case "BUY":
-                System.out.println("Select row of the devCard you want to buy: (1,2,3)");
+                System.out.print("Select row of the devCard you want to buy: (1,2,3)\n>");
                 row = -1;
                 while (row<1 || row>3){
                     try {
@@ -267,7 +278,7 @@ public class Cli extends ClientObservable implements View {
                         scanner.nextLine();
                     }
                 }
-                System.out.println("Select column of the devCard you want to buy: (1,2,3,4)");
+                System.out.print("Select column of the devCard you want to buy: (1,2,3,4)\n>");
                 col = -1;
                 while (col<1 || col>4){
                     try {
@@ -277,7 +288,7 @@ public class Cli extends ClientObservable implements View {
                         scanner.nextLine();
                     }
                 }
-                System.out.println("Where do you want to place it: (Insert the number of the slot: 1,2,3)");
+                System.out.print("Where do you want to place it: (Insert the number of the slot: 1,2,3)\n>");
                 slot = -1;
                 while (slot<1 || slot>3){
                     try {
@@ -312,7 +323,7 @@ public class Cli extends ClientObservable implements View {
                         scanner.nextLine();
                     }
                 }
-                System.out.print("  SLOT 2:  >");
+                System.out.print("SLOT 2:  >");
                 int yesORno2 = -1;
                 while (yesORno2!=0 && yesORno2!=1){
                     try {
@@ -322,7 +333,7 @@ public class Cli extends ClientObservable implements View {
                         scanner.nextLine();
                     }
                 }
-                System.out.print("  SLOT 3:  >");
+                System.out.print("SLOT 3:  >");
                 int yesORno3 = -1;
                 while (yesORno3!=0 && yesORno3!=1){
                     try {
@@ -340,7 +351,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
-        System.out.println(message);
+        System.out.print(message + "\n>");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
         answer = answer.replaceAll("\\s+","");
@@ -360,22 +371,22 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
         cliGraphics.showLeaderCards(leaderCards);
-        System.out.println("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)");
+        System.out.print("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)\n>");
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
         action = action.replaceAll("\\s+","");
         while (!action.equalsIgnoreCase("activate") && !action.equalsIgnoreCase("discard") && !action.equalsIgnoreCase("no")){
-            System.out.println("\nInvalid input");
+            System.out.print("Invalid input, try again!\n>");
             action = scanner.nextLine();
             action = action.replaceAll("\\s+","");
         }
 
         if (action.equalsIgnoreCase("ACTIVATE")) {
-            System.out.println("Choose the leader card you want to activate (insert index)");
+            System.out.print("Choose the leader card you want to activate (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
             notifyObservers(new ActivateLeader(leaderCards.get(index - 1)));
         } else if (action.equalsIgnoreCase("DISCARD")){
-            System.out.println("Choose the leader card you want to discard (insert index)");
+            System.out.print("Choose the leader card you want to discard (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
             notifyObservers(new DiscardOneLeader(index - 1));
         } else if (action.equalsIgnoreCase("NO")){
@@ -415,23 +426,6 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void displayErrorMsg(String errorMsg) {
 
-    }
-
-    @Override
-    public void displayPersonalBoard(PersonalBoard personalBoard) {
-
-    }
-
-
-    @Override
-    public void displayPopeSpaceActivation(PopeSpace popeSpace) {
-
-    }
-
-    @Override
-    public void displayMarket(MarketTray marketTray) {
-        cliGraphics.showMarketTray(marketTray);
-        modelView.setMarketTray(marketTray);
     }
 
 

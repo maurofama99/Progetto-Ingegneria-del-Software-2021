@@ -217,7 +217,6 @@ public class GameController implements Observer, Serializable {
     public void askPlayerAction(VirtualView vv) throws IOException {
         vv.displayMarketTray(table.getMarketTray());
         vv.displayWarehouse(new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
-        vv.displayGenericMessage(table.getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
         vv.displayDeck(table.getDevCardsDeck().showedCards());
         vv.displayFaithTrack(table.getCurrentPlayer().getPersonalBoard().getFaithTrack());
         vv.displaySlots(table.getCurrentPlayer().getPersonalBoard().getSlots());

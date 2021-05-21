@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -180,6 +181,63 @@ public class CliGraphics {
         }
     }
 
+    public String printPersonalBoard(SerializableWarehouse wH, Slot[] slots){
+        String s = "";
+        int i=0;
+        String [] wareHouse = printWarehouse(wH).split("\n");
+        String [] slot = printSlots(slots).split("\n");
+
+        while( i<wareHouse.length && i<slot.length) {
+            s = wareHouse[i] + "          " + slot[i] + "\n";
+            i++;
+        }
+
+        return s;
+    }
+
+
+    public String printWarehouse(SerializableWarehouse warehouse){
+        String s = printDepot(warehouse.getFloors()) + printStrongBox(warehouse.getStrongbox());
+        return s;
+    }
+
+    public String printStrongBox(Resource[] strongbox){
+
+
+        String s = "▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏\n" +
+                "▕  " +strongbox[0].getQnt()+ printRes(strongbox[0]) +" ▏" +
+                "▕  "+ strongbox[1].getQnt()+ printRes(strongbox[1]) +"▏" +
+                "▕  "+ strongbox[2].getQnt()+ printRes(strongbox[2]) +" ▏" +
+                "▕  "+ strongbox[3].getQnt()+ printRes(strongbox[3]) +" ▏\n" +
+                   "▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏\n";
+        return s;
+    }
+
+
+    public String printDepot(ArrayList<Resource> floors){
+        String s, firstFloor, secondFloor, thirdFloor;
+
+        if (floors.get(0).getType().equals(ResourceType.NULLRESOURCE))
+            firstFloor = "   ☐   ";
+        else firstFloor = "   " + printRes(floors.get(0)) + "  ";
+
+        if (floors.get(1).getType().equals(ResourceType.NULLRESOURCE))
+            secondFloor = "  ☐ ☐  ";
+        else if (floors.get(1).getQnt() == 1)  secondFloor = "  " + printRes(floors.get(1)) + "☐  ";
+        else secondFloor = "  " + printRes(floors.get(1)) + printRes(floors.get(1)) +"  ";
+
+        if (floors.get(2).getType().equals(ResourceType.NULLRESOURCE))
+            thirdFloor = " ☐ ☐ ☐ ";
+        else if (floors.get(1).getQnt() == 1)  thirdFloor = " " +printRes(floors.get(2)) + "☐ ☐ ";
+        else if (floors.get(1).getQnt() == 2) thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) +"☐ ";
+        else thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) + printRes(floors.get(2));
+
+        s = "         1  " + firstFloor +"           " +
+                "\n         2  " + secondFloor + "           \n         3  "+thirdFloor + "           \n\n";
+
+        return s;
+    }
+
 
     public String printDevCard(DevCard devCard){
         String s = "";
@@ -201,7 +259,7 @@ public class CliGraphics {
                     getDevColor(devCard).escape() + "▕                       ▏\n" +
                     getDevColor(devCard).escape() + "▕" + CliColor.RESET + printResources(devCard.getProduction().getInput()) + " ➡︎ " + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "▏\n" +
                     getDevColor(devCard).escape() + "▕        VP: " + devCard.getVictoryPointsDevCard() + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "        ▏\n" +
-                    getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET;
+                    getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏" + CliColor.RESET + "\n";
         }
         return s;
     }
@@ -223,7 +281,7 @@ public class CliGraphics {
         return row.toString();
     }
 
-    public void printSlots(Slot[] slots){
+    public String printSlots(Slot[] slots){
         String[] card0, card1, card2;
         int j=0;
         StringBuilder slot = new StringBuilder();
@@ -272,6 +330,7 @@ public class CliGraphics {
         }
 
         System.out.println(slot.toString());
+        return slot.toString();
     }
 
     public void printMatrixDevCards(DevCard[][] matrix){
@@ -337,12 +396,12 @@ public class CliGraphics {
         }
     }
 
-    public StringBuilder printRes(Resource res){
+    public String printRes(Resource res){
         StringBuilder s = new StringBuilder();
 
         printSymbol(res, s);
 
-        return s;
+        return s.toString();
     }
 
 }

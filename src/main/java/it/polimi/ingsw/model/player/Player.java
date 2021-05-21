@@ -132,13 +132,21 @@ public class Player extends Observable implements Serializable {
     public boolean activateProd(int slot){
 
         DevCard devCardToAct = getPersonalBoard().getSlots()[slot].getShowedCard();
+        ArrayList<Resource> output = devCardToAct.getProduction().getOutput();
 
         if (!devCardToAct.getProduction().checkInputResource(this)) {
             notifyObserver(new NoAvailableResources(nickname));
             return false;
         }
         else {
-            getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(devCardToAct.getProduction().getOutput());
+            for (Resource res : output){
+                if (res.getType().equals(ResourceType.FAITHPOINT)){
+                    getPersonalBoard().getFaithTrack().moveForward(this, 1);
+                    output.remove(res);
+                }
+            }
+
+            getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(output);
         }
         return true;
     }

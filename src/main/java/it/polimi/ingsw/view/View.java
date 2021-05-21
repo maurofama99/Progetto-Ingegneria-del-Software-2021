@@ -74,22 +74,6 @@ public interface View {
      */
     void displayErrorMsg(String errorMsg);
 
-    /**
-     * Displays the personal board of the player, including slots, warehouses, everything that is
-     * present on the personal board
-     * @param personalBoard the player personal board
-     */
-    void displayPersonalBoard(PersonalBoard personalBoard);
-
-
-    /**
-     * Displays that a player reached a pope space and positions will be checked
-     * @param popeSpace the pope space reached
-     */
-    void displayPopeSpaceActivation(PopeSpace popeSpace);
-
-
-
 
     /**
      * Ending message when a player wins

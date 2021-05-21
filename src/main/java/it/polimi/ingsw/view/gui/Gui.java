@@ -118,16 +118,6 @@ public class Gui extends ClientObservable implements View {
 
     }
 
-    @Override
-    public void displayPersonalBoard(PersonalBoard personalBoard) {
-
-    }
-
-
-    @Override
-    public void displayPopeSpaceActivation(PopeSpace popeSpace) {
-
-    }
 
     @Override
     public void displayMarket(MarketTray marketTray) {

@@ -37,7 +37,8 @@ public class Warehouse{
     public void removeResources(ArrayList<Resource> resourcesToRemove) throws CloneNotSupportedException {
         ArrayList<Resource> resourcesInFloor = new ArrayList<>();
         ArrayList<Resource> resources = new ArrayList<>();
-        for (Resource resource : resourcesToRemove) resources.add((Resource) resource.clone());
+        for (Resource resource : resourcesToRemove)
+            resources.add((Resource) resource.clone());
 
         for (Resource res : resources) {
             for (int i = 0; i < 3; i++) {

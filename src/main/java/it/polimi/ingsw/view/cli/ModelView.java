@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class ModelView {
     private DevCard[][] showedDeck;
     private Slot[] slots;
     private FaithTrack faithTrack;
+    private SerializableWarehouse warehouse;
     private ArrayList<LeaderCard> leaderCards;
 
 
@@ -26,6 +29,14 @@ public class ModelView {
 
     public MarketTray getMarketTray() {
         return marketTray;
+    }
+
+    public SerializableWarehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(SerializableWarehouse warehouse) {
+        this.warehouse = warehouse;
     }
 
     public DevCard[][] getShowedDeck() {
@@ -54,5 +65,9 @@ public class ModelView {
 
     public void setFaithTrack(FaithTrack faithTrack) {
         this.faithTrack = faithTrack;
+    }
+
+    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
+        this.leaderCards = leaderCards;
     }
 }

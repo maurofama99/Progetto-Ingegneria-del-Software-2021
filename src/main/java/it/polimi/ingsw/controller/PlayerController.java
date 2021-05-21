@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Message;
@@ -313,9 +314,8 @@ public class PlayerController {
 
         else {
             DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
-            playerVirtualView().displayGenericMessage("You bought this development card: \n" + devCard.toString());
             gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
-            playerVirtualView().displayGenericMessage("It's placed here: \n" + Arrays.toString(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots()));
+            playerVirtualView().displaySlots(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots());
             playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
     }
@@ -328,21 +328,21 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot1()==1){
                     gameController.getTable().getCurrentPlayer().activateProd(0);
                     if (gameController.getTable().getCurrentPlayer().activateProd(0))
-                        playerVirtualView().displayGenericMessage("You activated production in slot " + 1 + "\n");
+                        playerVirtualView().displayGenericMessage("You activated production in slot 1!\n");
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
                     gameController.getTable().getCurrentPlayer().activateProd(1);
                     if (gameController.getTable().getCurrentPlayer().activateProd(1))
-                        playerVirtualView().displayGenericMessage("You activated production in slot " + 2 + "\n");
+                        playerVirtualView().displayGenericMessage("You activated production in slot 2!\n");
                 }
                 if (((ActivateProduction)msg).getSlot3()==1){
                     gameController.getTable().getCurrentPlayer().activateProd(2);
                     if (gameController.getTable().getCurrentPlayer().activateProd(2))
-                        playerVirtualView().displayGenericMessage("You activated production in slot " + 3 + "\n");
+                        playerVirtualView().displayGenericMessage("You activated production in slot 3!\n");
                 }
 
 
-                playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().toString());
+                playerVirtualView().displayWarehouse(new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
 
 
                 if (((ActivateProduction)msg).getBasic()==1){
@@ -351,7 +351,7 @@ public class PlayerController {
                             "You can now spend two resources from floors to get one resource in Strongbox!: \n");
                     playerVirtualView().fetchResourceType();
                 }
-                else{
+                else if (((ActivateProduction)msg).getBasic()==0) {
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
 

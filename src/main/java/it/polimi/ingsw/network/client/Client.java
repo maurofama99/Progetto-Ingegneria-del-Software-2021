@@ -7,6 +7,7 @@ import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
+import it.polimi.ingsw.view.cli.CliColor;
 import it.polimi.ingsw.view.gui.JavaFX;
 import it.polimi.ingsw.view.gui.scenes.ConnectionSceneController;
 
@@ -96,6 +97,22 @@ public class Client implements Runnable, ClientObserver {
     @Override
     public void run() {
         if(cli) {
+
+
+            System.out.println("\n" +
+                    CliColor.ANSI_YELLOW.escape() + "_  _ ____ ____ ___ ____ ____ ____  "+CliColor.RESET+"  ____ ____  " + CliColor.ANSI_BLUE.escape() +"  ____ ____ _  _ ____ _ ____ ____ ____ _  _ ____ ____ \n" + CliColor.RESET +
+                    CliColor.ANSI_YELLOW.escape() + "|\\/| |__| [__   |  |___ |__/ [__   "+CliColor.RESET+"  |  | |___  " + CliColor.ANSI_BLUE.escape() +"  |__/ |___ |\\ | |__| | [__  [__  |__| |\\ | |    |___ \n" +CliColor.RESET+
+                    CliColor.ANSI_YELLOW.escape() + "|  | |  | ___]  |  |___ |  \\ ___]  "+CliColor.RESET+"  |__| |     " + CliColor.ANSI_BLUE.escape() +"  |  \\ |___ | \\| |  | | ___] ___] |  | | \\| |___ |___ \n"+CliColor.RESET +
+                    "                                                                                                      \n");
+        /*
+            System.out.println(CliColor.ANSI_YELLOW.escape() + "_  _ ____ ____ ___ ____ ____ ____ "+CliColor.RESET+"   ____ ____ \n" +
+                               CliColor.ANSI_YELLOW.escape() + "|\\/| |__| [__   |  |___ |__/ [__  " + CliColor.RESET+ "   |  | |___ \n" +
+                    CliColor.ANSI_YELLOW.escape() +"|  | |  | ___]  |  |___ |  \\ ___] "+CliColor.RESET+"   |__| |    \n" +
+                               "                                               \n" + CliColor.ANSI_BLUE.escape() +
+                               "____ ____ _  _ ____ _ ____ ____ ____ _  _ ____ ____ \n" +
+                               "|__/ |___ |\\ | |__| | [__  [__  |__| |\\ | |    |___ \n" +
+                               "|  \\ |___ | \\| |  | | ___] ___] |  | | \\| |___ |___ " + CliColor.RESET);
+
         System.out.println("\n" +
                 "   ▄▄▄▄███▄▄▄▄      ▄████████    ▄████████     ███        ▄████████    ▄████████    ▄████████       ▄██████▄     ▄████████\n"+
                 " ▄██▀▀▀███▀▀▀██▄   ███    ███   ███    ███ ▀█████████▄   ███    ███   ███    ███   ███    ███      ███    ███   ███    ███\n"+
@@ -119,6 +136,8 @@ public class Client implements Runnable, ClientObserver {
                 "         ███    ███       \n");
 
 
+
+             */
 
             while (!connected) {
                 System.out.println("Insert the IP address of the server:");
