@@ -25,7 +25,7 @@
                   </Button>
                   <ImageView fitHeight="295.0" fitWidth="432.0" layoutX="194.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/logo_master.png" />
+                        <Image url="@../other/texts/logo_master.png" />
                      </image></ImageView>
                </children>
             </AnchorPane>

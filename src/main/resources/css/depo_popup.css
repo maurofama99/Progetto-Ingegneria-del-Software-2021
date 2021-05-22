@@ -4,7 +4,7 @@
 }
 
 .lvl1Button{
-    -fx-background-image: url("/other/floor1.png");
+    -fx-background-image: url("/other/buttons/floor1.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -14,7 +14,7 @@
 }
 
 .lvl2Button{
-    -fx-background-image: url("/other/floor2.png");
+    -fx-background-image: url("/other/buttons/floor2.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -24,7 +24,7 @@
 }
 
 .lvl3Button{
-    -fx-background-image: url("/other/floor3.png");
+    -fx-background-image: url("/other/buttons/floor3.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -44,6 +44,51 @@
 }
 
 .lvl3Button:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.switchButton{
+    -fx-background-image: url("/other/buttons/switch_button.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.extraButton{
+    -fx-background-image: url("/other/buttons/extra_button.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.discardButton{
+    -fx-background-image: url("/other/buttons/discar_button.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.switchButton:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.extraButton:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.discardButton:hover{
     -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
     -fx-cursor: hand;
 }

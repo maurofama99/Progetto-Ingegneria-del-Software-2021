@@ -12,24 +12,24 @@
          <children>
             <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="joinGameButton" layoutX="300.0" layoutY="344.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
+                  <Button fx:id="joinGameButton" layoutX="301.0" layoutY="342.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
                      <font>
                         <Font name="Informal Roman" size="16.0" />
                      </font></Button>
-                  <Button fx:id="exitGameButton" layoutX="300.0" layoutY="463.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="backBtn" stylesheets="@../css/player_login.css">
+                  <Button fx:id="exitGameButton" layoutX="301.0" layoutY="464.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="backBtn" stylesheets="@../css/player_login.css">
                      <font>
                         <Font name="Informal Roman" size="16.0" />
                      </font></Button>
-                  <TextField fx:id="nicknameField" layoutX="250.0" layoutY="120.0" prefHeight="40.0" prefWidth="300.0" />
-                  <TextField fx:id="numberOfPlayersField" layoutX="250.0" layoutY="289.0" prefHeight="40.0" prefWidth="300.0" />
-                  <ImageView fitHeight="100.0" fitWidth="288.0" layoutX="267.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <TextField fx:id="nicknameField" layoutX="250.0" layoutY="114.0" prefHeight="40.0" prefWidth="300.0" />
+                  <TextField fx:id="numberOfPlayersField" layoutX="251.0" layoutY="290.0" prefHeight="40.0" prefWidth="300.0" />
+                  <ImageView fitHeight="100.0" fitWidth="288.0" layoutX="266.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/nickname.png" />
+                        <Image url="@../other/texts/nickname.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="123.0" fitWidth="319.0" layoutX="240.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="132.0" fitWidth="319.0" layoutX="241.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/player_number.png" />
+                        <Image url="@../other/texts/player_number.png" />
                      </image>
                   </ImageView>
                </children>

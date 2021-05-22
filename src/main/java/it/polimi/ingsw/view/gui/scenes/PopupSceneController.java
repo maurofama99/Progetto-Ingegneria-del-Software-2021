@@ -42,22 +42,22 @@ public class PopupSceneController extends ClientObservable implements GenericSce
 
     @FXML
     public void initialize(){
-        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::WhenRootPanePressed);
-        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::WhenRootPaneDragged);
-        ConfirmButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::WhenConfirmButtonClicked);
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
+        ConfirmButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenConfirmButtonClicked);
     }
 
-    private void WhenRootPanePressed(MouseEvent event){
+    private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
     }
 
-    private void WhenRootPaneDragged(MouseEvent event){
+    private void whenRootPaneDragged(MouseEvent event){
         stage.setX(event.getScreenX() +x_Offset);
         stage.setY(event.getSceneY()+y_Offset);
     }
 
-    private void WhenConfirmButtonClicked(MouseEvent event){
+    private void whenConfirmButtonClicked(MouseEvent event){
         stage.close();
     }
 

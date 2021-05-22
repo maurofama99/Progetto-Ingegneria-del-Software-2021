@@ -12,15 +12,19 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../other/sfondo_popup.jpg"  />
+                  <Image url="@../other/background/sfondo_popup.jpg" />
                </image></ImageView>
-            <Label fx:id="titleLabel" layoutX="62.0" layoutY="14.0" prefHeight="32.0" prefWidth="445.0" text="Info!" textFill="#2608bc">
+            <ImageView fitHeight="119.0" fitWidth="364.0" layoutX="128.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../other/texts/blocco.png" />
+               </image></ImageView>
+            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="17.0" prefHeight="61.0" prefWidth="585.0" styleClass="popupTitle" text="Info!" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="36.0" />
+                  <Font name="System Bold" size="40.0" />
                </font></Label>
-            <Label fx:id="messageOfLabel" layoutX="128.0" layoutY="184.0" prefHeight="70.0" prefWidth="314.0" text="generic message goes here" textFill="#1805c9">
+            <Label fx:id="messageOfLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="100.0" prefHeight="200.0" prefWidth="585.0" styleClass="popupMessage" text="Generic message goes here!" textAlignment="CENTER">
                <font>
-                  <Font size="24.0" />
+                  <Font name="System Bold Italic" size="23.0" />
                </font></Label>
             <Button fx:id="ConfirmButton" layoutX="225.0" layoutY="295.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="151.0" styleClass="okButton" />
          </children>

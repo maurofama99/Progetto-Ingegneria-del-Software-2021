@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -51,6 +52,18 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     private Button leader1Btn; //Popup needed
     @FXML
     private Button leader2Btn; //Popup needed
+    @FXML
+    private ImageView leaderLeft;
+    @FXML
+    private ImageView leaderRight;
+    @FXML
+    private Label coinCounter;
+    @FXML
+    private Label stoneCounter;
+    @FXML
+    private Label servantCounter;
+    @FXML
+    private Label shieldCounter;
 
 
     public void initialize(){
@@ -100,5 +113,77 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenLeader2BtnClicked(MouseEvent event){
 
+    }
+
+    public void setFirstLevelLeft(ImageView firstLevelLeft) {
+        this.firstLevelLeft = firstLevelLeft;
+    }
+
+    public void setFirstLevelCenter(ImageView firstLevelCenter) {
+        this.firstLevelCenter = firstLevelCenter;
+    }
+
+    public void setFirstLevelRight(ImageView firstLevelRight) {
+        this.firstLevelRight = firstLevelRight;
+    }
+
+    public void setSecondLevelLeft(ImageView secondLevelLeft) {
+        this.secondLevelLeft = secondLevelLeft;
+    }
+
+    public void setSecondLevelRight(ImageView secondLevelRight) {
+        this.secondLevelRight = secondLevelRight;
+    }
+
+    public void setThirdLevel(ImageView thirdLevel) {
+        this.thirdLevel = thirdLevel;
+    }
+
+    public void setSlotLeft(ImageView slotLeft) {
+        this.slotLeft = slotLeft;
+    }
+
+    public void setSlotCenter(ImageView slotCenter) {
+        this.slotCenter = slotCenter;
+    }
+
+    public void setSlotRight(ImageView slotRight) {
+        this.slotRight = slotRight;
+    }
+
+    public void setFirstPopeTile(ImageView firstPopeTile) {
+        this.firstPopeTile = firstPopeTile;
+    }
+
+    public void setSecondPopeTile(ImageView secondPopeTile) {
+        this.secondPopeTile = secondPopeTile;
+    }
+
+    public void setThirdPopeTile(ImageView thirdPopeTile) {
+        this.thirdPopeTile = thirdPopeTile;
+    }
+
+    public void setLeaderLeft(ImageView leaderLeft) {
+        this.leaderLeft = leaderLeft;
+    }
+
+    public void setLeaderRight(ImageView leaderRight) {
+        this.leaderRight = leaderRight;
+    }
+
+    public void setCoinCounter(Label coinCounter) {
+        this.coinCounter = coinCounter;
+    }
+
+    public void setStoneCounter(Label stoneCounter) {
+        this.stoneCounter = stoneCounter;
+    }
+
+    public void setServantCounter(Label servantCounter) {
+        this.servantCounter = servantCounter;
+    }
+
+    public void setShieldCounter(Label shieldCounter) {
+        this.shieldCounter = shieldCounter;
     }
 }

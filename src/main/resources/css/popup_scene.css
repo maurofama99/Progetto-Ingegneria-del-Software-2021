@@ -1,16 +1,23 @@
 .popupPane {
-    -fx-background-image: url("/other/sfondo_popup.jpg");
+    -fx-background-image: url("/other/background/sfondo_popup.jpg");
     -fx-background-size: stretch;
     -fx-background-position: center;
 }
 
-.popupText{
+.popupMessage{
     -fx-text-fill: #333399;
-    -fx-font-size : 20;
+    -fx-font-size : 30 ;
+    -fx-text-alignment: center;
+}
+
+.popupTitle{
+    -fx-text-fill: #333399;
+    -fx-font-size : 40;
+    -fx-text-alignment: center;
 }
 
 .okButton{
-    -fx-background-image: url("/other/ok_button.png");
+    -fx-background-image: url("/other/buttons/ok_button.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;

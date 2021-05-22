@@ -1,11 +1,11 @@
 
 .rootPane {
--fx-background-image: url("/other/sfondo_login.jpg");
+-fx-background-image: url("/other/background/sfondo_login.jpg");
 -fx-background-size: stretch;
 }
 
 .startButton{
--fx-background-image: url("/other/play_button.png");
+-fx-background-image: url("/other/buttons/play_button.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -21,7 +21,7 @@
 }
 
 .exitButton{
-    -fx-background-image: url("/other/quit_button.png");
+    -fx-background-image: url("/other/buttons/quit_button.png");
 
     -fx-border-color: transparent;
     -fx-border-width: 0;

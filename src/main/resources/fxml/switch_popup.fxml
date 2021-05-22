@@ -4,28 +4,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.SwitchPopupController">
     <top>
-        <AnchorPane prefHeight="408.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../other/sfondo_popup.jpg" />
+                        <Image url="@../other/background/sfondo_popup.jpg" />
                     </image></ImageView>
-            <Text layoutX="204.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Which floors do you want to switch?" />
-            <Button layoutX="61.0" layoutY="107.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="61.0" layoutY="188.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="61.0" layoutY="271.0" mnemonicParsing="false" text="Button" />
-            <Text layoutX="70.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="source" />
-            <Button layoutX="495.0" layoutY="107.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="495.0" layoutY="187.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="495.0" layoutY="271.0" mnemonicParsing="false" text="Button" />
-            <Text layoutX="491.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="destination" />
+            <Button fx:id="srcFloor1Btn" layoutX="37.0" layoutY="105.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" text="Button" />
+            <Button fx:id="srcFloor2Btn" layoutX="37.0" layoutY="186.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button" text="Button" />
+            <Button fx:id="srcFloor3Btn" layoutX="37.0" layoutY="269.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button" text="Button" />
+            <Button fx:id="dstnFloor1Btn" layoutX="471.0" layoutY="104.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" text="Button" />
+            <Button fx:id="dstnFloor2Btn" layoutX="471.0" layoutY="184.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button" text="Button" />
+            <Button fx:id="dstnFloor3Btn" layoutX="471.0" layoutY="268.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button" text="Button" />
+            <ImageView fitHeight="74.0" fitWidth="183.0" layoutX="-4.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../other/texts/source.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="67.0" fitWidth="178.0" layoutX="421.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../other/texts/dest.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="127.0" fitWidth="253.0" layoutX="174.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                <Image url="@../other/texts/which_floors.png" />
+                </image>
+                </ImageView>
             </children>
             <stylesheets>
-                <URL value="@../css/popup_scene.css" />
+                <URL value="@../css/depo_popup.css" />
                 <URL value="@../css/general.css" />
             </stylesheets>
         </AnchorPane>

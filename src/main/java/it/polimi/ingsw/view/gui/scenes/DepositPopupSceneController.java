@@ -57,8 +57,8 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
 
     @FXML
     public void initialize(){
-        rootPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::WhenRootPanePressed);
-        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::WhenRootPaneDragged);
+        rootPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRootPanePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         level1Button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLvl1ButtonClicked );
         level2Button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLvl2ButtonClicked );
         level3Button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLvl3ButtonClicked );
@@ -67,12 +67,12 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
         discardBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardBtnClicked);
     }
 
-    private void WhenRootPanePressed(MouseEvent event){
+    private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
     }
 
-    private void WhenRootPaneDragged(MouseEvent event){
+    private void whenRootPaneDragged(MouseEvent event){
         stage.setX(event.getScreenX() +x_Offset);
         stage.setY(event.getSceneY()+y_Offset);
     }

@@ -15,7 +15,7 @@
                <children>
                   <ImageView fitHeight="304.0" fitWidth="790.0" layoutX="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/what_resource.png" />
+                        <Image url="@../other/texts/what_resource.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="coinBtn" layoutX="37.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="coinButton" />

@@ -12,26 +12,26 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../other/deposito.jpg" />
+                  <Image url="@../other/background/deposito.jpg" />
                </image>
             </ImageView>
             <ImageView fitHeight="139.0" fitWidth="368.0" layoutX="116.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../other/resource_question.png" />
+                  <Image url="@../other/texts/resource_question.png" />
                </image>
             </ImageView>
             <ImageView fx:id="resourceImg" fitHeight="86.0" fitWidth="102.0" layoutX="60.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="level3Button" layoutX="414.0" layoutY="291.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" styleClass="lvl3Button" />
             <Button fx:id="level2Button" layoutX="225.0" layoutY="291.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" styleClass="lvl2Button" />
             <Button fx:id="level1Button" layoutX="36.0" layoutY="291.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" styleClass="lvl1Button" />
-            <Label fx:id="resourceLbl" layoutX="209.0" layoutY="180.0" prefHeight="40.0" prefWidth="149.0" text="Resource" textAlignment="CENTER" textFill="#ffffff">
+            <Label fx:id="resourceLbl" layoutX="226.0" layoutY="180.0" prefHeight="40.0" prefWidth="149.0" text="Resource" textAlignment="CENTER" textFill="#ffffff">
                <font>
                   <Font name="AlgerianCondensedStd" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="switchBtn" layoutX="500.0" layoutY="33.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="80.0" text="Switch" />
-            <Button fx:id="discardBtn" layoutX="502.0" layoutY="83.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="76.0" text="Discard" />
-            <Button fx:id="extraBtn" layoutX="503.0" layoutY="137.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="74.0" text="Extra" />
+            <Button fx:id="switchBtn" layoutX="489.0" layoutY="26.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="switchButton" text="Switch" />
+            <Button fx:id="discardBtn" layoutX="489.0" layoutY="83.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="discardButton" text="Discard" />
+            <Button fx:id="extraBtn" layoutX="489.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="extraButton" text="Extra" />
          </children>
          <stylesheets>
             <URL value="@../css/depo_popup.css" />

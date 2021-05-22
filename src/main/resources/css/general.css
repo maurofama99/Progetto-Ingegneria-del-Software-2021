@@ -14,18 +14,18 @@
 }
 
 .rootPane {
-    -fx-background-image: url("/other/sfondo_login.jpg");
+    -fx-background-image: url("/other/background/sfondo_login.jpg");
     -fx-background-size: stretch;
 }
 
 .tablePane {
-    -fx-background-image: url("/other/sfondo_tavolo.jpg");
+    -fx-background-image: url("/other/background/sfondo_tavolo.jpg");
     -fx-background-size: stretch;
 }
 
 
 .okButton{
-    -fx-background-image: url("/other/ok_button.png");
+    -fx-background-image: url("/other/buttons/ok_button.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;
@@ -35,7 +35,17 @@
 }
 
 .backButton{
-    -fx-background-image: url("/other/back_button.png");
+    -fx-background-image: url("/other/buttons/back_button.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.genericButton{
+    -fx-background-image: url("/other/buttons/button_generic.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;

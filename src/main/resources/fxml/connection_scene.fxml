@@ -27,12 +27,12 @@
                   <TextField fx:id="serverPort" layoutX="250.0" layoutY="260.0" prefHeight="40.0" prefWidth="300.0" />
                   <ImageView fitHeight="100.0" fitWidth="271.0" layoutX="267.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/server_ip.png" />
+                        <Image url="@../other/texts/server_ip.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="100.0" fitWidth="260.0" layoutX="267.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/port.png" />
+                        <Image url="@../other/texts/port.png" />
                      </image>
                   </ImageView>
                </children>

@@ -14,7 +14,7 @@
                     <children>
                   <ImageView fitHeight="314.0" fitWidth="377.0" layoutX="452.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../other/nero_sfondo.png" />
+                        <Image url="@../other/background/nero_sfondo.png" />
                      </image></ImageView>
                         <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="362.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -49,13 +49,13 @@
                      </children>
                   </GridPane>
                   <ImageView fitHeight="55.0" fitWidth="68.0" layoutX="751.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button layoutX="532.0" layoutY="469.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="594.0" layoutY="469.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="658.0" layoutY="469.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="719.0" layoutY="469.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="867.0" layoutY="308.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="867.0" layoutY="244.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="867.0" layoutY="182.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" text="Button" styleClass="genericButton"/>
+                  <Button layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" text="Button" styleClass="genericButton"/>
+                  <Button layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" text="Button" styleClass="genericButton"/>
+                  <Button layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" text="Button" styleClass="genericButton"/>
+                  <Button layoutX="860.0" layoutY="304.0" mnemonicParsing="false" prefWidth="80.0" text="Button" styleClass="genericButton"/>
+                  <Button layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefWidth="80.0" text="Button" styleClass="genericButton"/>
+                  <Button layoutX="860.0" layoutY="180.0" mnemonicParsing="false" prefWidth="80.0" text="Button" styleClass="genericButton"/>
                     </children>
                 </AnchorPane>
             </children>
