@@ -57,6 +57,8 @@ public interface View {
      */
     void displayMarket(MarketTray marketTray);
 
+    void displayPopup(String message);
+
     /**
      * Displays the disconnected player
      * @param nicknameWhoDisconnected

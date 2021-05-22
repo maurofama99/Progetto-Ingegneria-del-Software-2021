@@ -1,12 +1,8 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
-import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
@@ -22,7 +18,6 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Gui extends ClientObservable implements View {
 
@@ -36,26 +31,17 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchNickname() {
-        /*PlayerLoginSceneController plsc = new PlayerLoginSceneController();
-        plsc.addAllClientObservers(clientObservers);
-        SceneController.changeRootPane(plsc, "player_login_scene.fxml");*/
         SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
-
     }
 
     @Override
     public void fetchResourceType() throws IOException {
-        /*PlayerResourceChoosingController prcc = new PlayerResourceChoosingController();
-        prcc.addAllClientObservers(clientObservers);
-        SceneController.changeRootPane(prcc, "resource_choosing.fxml");*/
         SceneController.changeRootPane(clientObservers, "resource_choosing.fxml");
     }
 
     @Override
     public void fetchResourcePlacement() throws IOException {
-        Platform.runLater(() ->
-            SceneController.showDepositPopup(clientObservers, "stone")
-        );
+        Platform.runLater(() -> SceneController.showDepositPopup(clientObservers, "stone"));
     }
 
     @Override
@@ -64,8 +50,8 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void displayGenericMessage(String genericMessage) throws IOException {
-        Platform.runLater(() -> SceneController.showPopup(clientObservers, genericMessage));
+    public void displayPopup(String message) {
+        Platform.runLater(() -> SceneController.showPopup(clientObservers, message));
     }
 
     @Override
@@ -80,9 +66,8 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
-
+        Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "personal_board.fxml"));
     }
-
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {
@@ -116,9 +101,13 @@ public class Gui extends ClientObservable implements View {
 
     }
 
-
     @Override
     public void displayWinningMsg(String win) {
 
+    }
+
+    @Override
+    public void displayGenericMessage(String genericMessage) throws IOException {
+        //used only in CLI mode
     }
 }

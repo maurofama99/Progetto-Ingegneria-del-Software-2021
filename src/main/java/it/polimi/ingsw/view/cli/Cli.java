@@ -28,9 +28,6 @@ public class Cli extends ClientObservable implements View {
         this.modelView = new ModelView(this);
     }
 
-
-    //TODO CATCHARE LE ECCEZIONI THROWATE DALLO SCANNER E DAI PARSER DEGLI INT
-
     @Override
     public void fetchNickname() {
         System.out.print("What's your nickname?\n>");
@@ -190,6 +187,11 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
+    public void displayPopup(String message) {
+        //used only in GUI mode
+    }
+
+    @Override
     public void displayDevCards(DevCard[][] devCards) throws IOException {
         cliGraphics.printMatrixDevCards(devCards);
         modelView.setShowedDeck(devCards);
@@ -203,7 +205,6 @@ public class Cli extends ClientObservable implements View {
         System.out.println(faithTrack.toString());
         cliGraphics.printPersonalBoard(warehouse, slots);
     }
-
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {

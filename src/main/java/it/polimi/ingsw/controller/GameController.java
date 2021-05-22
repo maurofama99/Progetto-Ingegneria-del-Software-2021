@@ -117,6 +117,7 @@ public class GameController implements Observer, Serializable {
                         table.dealLeaderCards(msg.getSenderUser());
                 } catch (NumberFormatException e){
                     vv.displayGenericMessage("You can't do this move now, please choose a floor");
+                    vv.displayPopup("You can't do this move now, please choose a floor");
                     vv.fetchResourcePlacement();
                 }
                 break;
@@ -154,18 +155,22 @@ public class GameController implements Observer, Serializable {
     public void giveInitialBonus() throws IOException {
 
         vvMap.get(table.getPlayers().get(0).getNickname()).displayGenericMessage("You are the first player! \nYou now own the Inkwell!\n");
+        vvMap.get(table.getPlayers().get(0).getNickname()).displayPopup("You are the first player! \nYou now own the Inkwell!\n");
         table.dealLeaderCards(table.getPlayers().get(0).getNickname());
 
         vvMap.get(table.getPlayers().get(1).getNickname()).displayGenericMessage("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
+        vvMap.get(table.getPlayers().get(1).getNickname()).displayPopup("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
         vvMap.get(table.getPlayers().get(1).getNickname()).fetchResourceType();
 
         if (table.getNumPlayers() > 2) {
             vvMap.get(table.getPlayers().get(2).getNickname()).displayGenericMessage("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
+            vvMap.get(table.getPlayers().get(2).getNickname()).displayPopup("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
             vvMap.get(table.getPlayers().get(2).getNickname()).fetchResourceType();
             table.getPlayers().get(2).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(2), 1);
         }
         if (table.getNumPlayers() > 3) {
             vvMap.get(table.getPlayers().get(3).getNickname()).displayGenericMessage("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
+            vvMap.get(table.getPlayers().get(3).getNickname()).displayPopup("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
             vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
             table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(3), 1);
             vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();

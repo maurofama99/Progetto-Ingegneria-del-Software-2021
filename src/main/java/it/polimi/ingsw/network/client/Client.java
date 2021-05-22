@@ -176,6 +176,9 @@ public class Client implements Runnable, ClientObserver {
             case GENERIC_MESSAGE:
                 view.displayGenericMessage(msg.toString());
                 break;
+            case GENERIC_POPUP:
+                view.displayPopup(msg.toString());
+                break;
             case ASKTYPERESOURCE:
                 view.fetchResourceType();
                 break;
@@ -223,6 +226,7 @@ public class Client implements Runnable, ClientObserver {
         }
     }
 
+    //todo: nel cleanup togliere il nickname dai messaggi
     @Override
     public void update(Message message) {
         if (message.getMessageType() == Content.LOGIN_DATA){

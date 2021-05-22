@@ -72,6 +72,7 @@ public class PlayerController {
                                 "|         Please wait...       |\n" +
                                 "|    It's not your turn yet    |\n" +
                                 "--------------------------------\n");
+                playerVirtualView().displayPopup("Please wait...\nIt's not your turn yet");
                 gameController.getTable().nextPlayer();
                 gameController.askPlayerAction(playerVirtualView());
                 break;
@@ -96,6 +97,7 @@ public class PlayerController {
                         gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
                     } catch (IllegalArgumentException e){
                         playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                        playerVirtualView().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
                 } else if (answer.equalsIgnoreCase("extra")){
                     try{
@@ -103,6 +105,7 @@ public class PlayerController {
                     } catch (IllegalArgumentException e){
                         goAhead = false;
                         playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                        playerVirtualView().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));
@@ -114,6 +117,7 @@ public class PlayerController {
                     } catch (IllegalArgumentException e){
                         goAhead = false;
                         playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                        playerVirtualView().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));
@@ -209,6 +213,7 @@ public class PlayerController {
 
             } catch (IndexOutOfBoundsException e){
                 playerVirtualView().displayGenericMessage("You don't have resource to place");
+                playerVirtualView().displayPopup("You don't have resource to place");
                 playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
                 playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
             }
@@ -280,6 +285,7 @@ public class PlayerController {
         }
         catch (IllegalArgumentException e){
             playerVirtualView().displayGenericMessage("You don't have the requirements to activate it");
+            playerVirtualView().displayPopup("You don't have the requirements to activate it");
             playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
             trueOrFalse = false;
         }
@@ -371,7 +377,7 @@ public class PlayerController {
                 if (cont==1){
                     typeInput2 = ((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
-                    playerVirtualView().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!!\n");
+                    playerVirtualView().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!\n");
                     playerVirtualView().fetchResourceType();
                 }
                 else {

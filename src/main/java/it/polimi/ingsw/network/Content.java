@@ -24,6 +24,7 @@ public enum Content {
 
     END_GAME,
     GENERIC_MESSAGE,
+    GENERIC_POPUP,
 
     //c->s
     LOGIN_DATA,

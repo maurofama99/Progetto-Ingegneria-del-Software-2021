@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.network.messagescs.DiscardLeader;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +19,8 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         this.leaderCards = leaderCards;
     }
 
-    private int index1, index2;
+    private int index1;
+    private boolean first = true;
 
     @FXML
     private StackPane rootPane;
@@ -49,29 +51,48 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         fourthBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourthClicked);
     }
 
-    //N.B. quella cliccata verrà scartata nel gioco
-    //le quattro carte leader sono fornite nell'arraylist leaderCards
-    //far selezionare all'utente due carte su quattro:
-    //le due carte selezionate verranno passate tramite il loro indice
-
-    //esempio: showa arraylist leaderCards = { leader1, leader2, leader3, leader4 }
-    //l'utente seleziona leader1 e leader3
-    //l'arraylist indexes deve essere composto da 0 e 2
-    //fine
-
     private void whenFirstClicked(MouseEvent event){
-
+        if (first) {
+            index1 = 0;
+            first = false;
+            firstBtn.setDisable(true);
+        } else {
+            firstBtn.setDisable(true);
+            notifyObservers(new DiscardLeader("client", index1, 0));
+        }
     }
 
     private void whenSecondClicked(MouseEvent event){
-
+        if (first) {
+            index1 = 1;
+            first = false;
+            secondBtn.setDisable(true);
+        } else {
+            secondBtn.setDisable(true);
+            notifyObservers(new DiscardLeader("client", index1, 1));
+        }
     }
 
     private void whenThirdClicked(MouseEvent event){
-
+        if (first) {
+            index1 = 2;
+            first = false;
+            thirdBtn.setDisable(true);
+        } else {
+            thirdBtn.setDisable(true);
+            notifyObservers(new DiscardLeader("client", index1, 2));
+        }
     }
 
     private void whenFourthClicked(MouseEvent event){
+        if (first) {
+            index1 = 3;
+            first = false;
+            fourthBtn.setDisable(true);
+        } else {
+            fourthBtn.setDisable(true);
+            notifyObservers(new DiscardLeader("client", index1, 3));
+        }
 
     }
 

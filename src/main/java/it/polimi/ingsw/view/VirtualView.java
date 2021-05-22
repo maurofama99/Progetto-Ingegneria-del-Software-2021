@@ -41,6 +41,10 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new GenericMessage(genericMessage));
     }
 
+    public void displayPopup(String message) throws IOException {
+        clientHandler.sendMessage(new GenericPopup(message));
+    }
+
     public void fetchPlayerAction() throws IOException {
         clientHandler.sendMessage(new AskAction());
     }

@@ -21,7 +21,6 @@ public class SwapWhite extends LeaderEffect implements Serializable {
         this.newResource = newResource;
     }
 
-
     @Override
     public Object getObject() {
         return newResource;
@@ -45,11 +44,11 @@ public class SwapWhite extends LeaderEffect implements Serializable {
             for (i=0; i<3; i++){
                 for (k=0;k<3; k++){
                     if (player.getPersonalBoard().getSlots()[i].getCards().get(k).getCardColor().equals(cardColor))
+                        //todo: correggere errore Index 0 out of bounds for length 0 quando si prova ad attivare e non si hanno i requisiti
                         checkColor.add(cardColor);
                 }
             }
         }
-
         return checkColor.containsAll(cardColorRequired);
     }
 
