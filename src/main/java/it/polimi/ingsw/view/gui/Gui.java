@@ -79,19 +79,10 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void displaySlots(Slot[] slots) throws IOException {
+    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
 
     }
 
-    @Override
-    public void displayFaithTrack(FaithTrack faithTrack) throws IOException {
-
-    }
-
-    @Override
-    public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
-
-    }
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {

@@ -127,7 +127,9 @@ public class PlayerController {
                                                              "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or Type SWITCH to switch two floors))");
                     playerVirtualView().fetchResourcePlacement();
                 } else {
-                    playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
+                    playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                            gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
+                            new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 break;
@@ -251,7 +253,6 @@ public class PlayerController {
         for (Resource res : resources){
             if(res.getType().equals(ResourceType.FAITHPOINT)){
                 gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
-                checkPositionFaith(gameController.getTable().getCurrentPlayer());
             }
         }
         resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
@@ -315,7 +316,9 @@ public class PlayerController {
         else {
             DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
             gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
-            playerVirtualView().displaySlots(gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots());
+            playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
+                    new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
             playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
     }
@@ -342,7 +345,9 @@ public class PlayerController {
                 }
 
 
-                playerVirtualView().displayWarehouse(new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
+                playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
+                        new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
 
 
                 if (((ActivateProduction)msg).getBasic()==1){
@@ -383,31 +388,13 @@ public class PlayerController {
         for(Player player : gameController.getTable().getPlayers()){
             if (gameController.isSinglePlayer()){
                 gameController.getTable().getLorenzoIlMagnifico().moveBlackCross(player, 1);
-                checkPositionFaith(player);
+
             }
 
             if(!gameController.getTable().getCurrentPlayer().equals(player))
                 player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
-            checkPositionFaith(player);
+
         }
     }
-
-
-    public void checkPositionFaith(Player player){
-        if (player.getPersonalBoard().getFaithTrack().getFaithMarkerPosition() %8==0){
-                for (Player p : gameController.getTable().getPlayers()){
-                    p.getPersonalBoard().getFaithTrack().getTrack().get(p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition())
-                            .turnFavorAddPoints(p,p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
-            }
-        }
-
-        if (gameController.isSinglePlayer()){
-            Player sP = gameController.getTable().getCurrentPlayer();
-            if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().getBlackCrossPosition()%8==0)
-                sP.getPersonalBoard().getFaithTrack().getTrack().get(sP.getPersonalBoard().getFaithTrack().getFaithMarkerPosition())
-                        .turnFavorAddPoints(sP,sP.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
-        }
-    }
-
 
 }

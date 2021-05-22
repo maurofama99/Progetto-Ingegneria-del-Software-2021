@@ -4,11 +4,15 @@ import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
+import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
+import it.polimi.ingsw.model.player.warehouse.StrongBox;
+import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -22,10 +26,15 @@ public class CliGraphics {
     public static void main(String[] args) {
         CliGraphics cliGraphics = new CliGraphics();
         Table table = new Table();
+        table.addPlayer("vale");
 
-        //cliGraphics.showDevCardsDeck(table.getDevCardsDeck().showedCards());
+        //cliGraphics.showLeaderCards(table.getLeaderCardsDeck());
 
-        cliGraphics.printMatrixDevCards(table.getDevCardsDeck().showedCards());
+        cliGraphics.printWarehouse(new SerializableWarehouse(table.getPlayers().get(0).getPersonalBoard().getWarehouse()));
+        cliGraphics.printPersonalBoard(
+                new SerializableWarehouse(table.getPlayers().get(0).getPersonalBoard().getWarehouse()),
+                table.getPlayers().get(0).getPersonalBoard().getSlots());
+        //cliGraphics.printMatrixDevCards(table.getDevCardsDeck().showedCards());
     }
 
 
@@ -33,36 +42,33 @@ public class CliGraphics {
     public void showLeaderCards(ArrayList<LeaderCard> leaderCards){
         StringBuilder s = new StringBuilder();
 
-        s.append("| ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅̅ ̅̅ ̅̅ ̅ ̅|    " .repeat(leaderCards.size()));
-        s.append("\n");
-        for (LeaderCard card : leaderCards) {
-            s.append("|" + card.getLeaderEffect().toString() + "|    ");
+        for (int i=1; i<=leaderCards.size(); i++){
+            s.append("           "+i+"               ");
         }
         s.append("\n");
-
+        s.append("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏    " .repeat(leaderCards.size()));
+        s.append("\n");
         for (LeaderCard leaderCard : leaderCards) {
-            s.append("|     COST: ").append(printRequirements(leaderCard));
+            s.append("▕   COST: ").append(printRequirements(leaderCard));
         }
         s.append("\n");
 
-        s.append("|                       |    " .repeat(leaderCards.size()));
+        s.append("▕                     ▏    " .repeat(leaderCards.size()));
         s.append("\n");
 
         for (LeaderCard leaderCard : leaderCards) {
             s.append(printEffect(leaderCard));
         }
         s.append("\n");
-        s.append("|                       |    " .repeat(leaderCards.size()));
-        s.append("\n");
-        s.append("|                       |    " .repeat(leaderCards.size()));
+        s.append("▕                     ▏    " .repeat(leaderCards.size()));
         s.append("\n");
 
         for (LeaderCard leaderCard : leaderCards) {
-            s.append("|        PV: " + leaderCard.getVictoryPoints() + CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.RESET + "        |    ");
+            s.append("▕       PV: " + leaderCard.getVictoryPoints() + CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.RESET + "       ▏    ");
         }
         s.append("\n");
 
-        s.append("|_______________________|    " .repeat(leaderCards.size()));
+        s.append("▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏    " .repeat(leaderCards.size()));
         s.append("\n");
 
         System.out.println(s.toString());
@@ -74,17 +80,18 @@ public class CliGraphics {
         switch (leaderCard.getLeaderEffect().getEffectType()) {
 
             case ADDPRODUCTION:
-                s.append("|    ").append(leaderCard.getLeaderEffect().getObject()).append("   ➡︎  ？ + ").append(CliColor.ANSI_RED.escape() +"† ").append(CliColor.RESET +"   |    ");
+                s.append("▕   ").append(leaderCard.getLeaderEffect().getObject()).append("   ➡︎  ？ + ").append(CliColor.ANSI_RED.escape() +"† ").append(CliColor.RESET +"  ▏    ");
                 break;
             case DISCOUNT:
-                s.append("|       ").append(leaderCard.getLeaderEffect().getObject()).append(" -1!! ").append("     |    ");
+                Resource res = new Resource(1, (ResourceType) leaderCard.getLeaderEffect().getObject());
+                s.append("▕         ").append(printRes(res)).append("-1 ").append("       ▏    ");
                 break;
             case SWAPWHITE:
-                s.append("|      ⚪️    ➡︎   ").append(leaderCard.getLeaderEffect().getObject()).append("     |    ");
+                s.append("▕    ⓿    ➡︎   ").append(leaderCard.getLeaderEffect().getObject()).append("    ▏    ");
                 break;
             case EXTRADEPOT:
-                Resource res = new Resource(1,(ResourceType) leaderCard.getLeaderEffect().getObject());
-                s.append("|     | ").append(printRes(res)).append("|   | ").append(printRes(res)).append("|     |    ");
+                Resource resource = new Resource(1,(ResourceType) leaderCard.getLeaderEffect().getObject());
+                s.append("▕    | ").append(printRes(resource)).append("|   | ").append(printRes(resource)).append("|    ▏    ");
                 break;
 
         }
@@ -96,13 +103,13 @@ public class CliGraphics {
         switch (leaderCard.getLeaderEffect().getEffectType()){
             case ADDPRODUCTION:
                 if (leaderCard.getLeaderEffect().getRequirements().equals(Color.GREEN))
-                    s.append(CliColor.ANSI_GREEN.escape()).append("🀫 ").append(CliColor.RESET).append("level 2").append("   |    ");;
+                    s.append(CliColor.ANSI_GREEN.escape()).append("▇ ").append(CliColor.RESET).append("lev. 2").append("    ▏    ");;
                 if (leaderCard.getLeaderEffect().getRequirements().equals(Color.BLUE))
-                    s.append(CliColor.ANSI_BLUE.escape()).append("🀫 ").append(CliColor.RESET).append("level 2").append("   |    ");;
+                    s.append(CliColor.ANSI_BLUE.escape()).append("▇ ").append(CliColor.RESET).append("lev. 2").append("    ▏    ");;
                 if (leaderCard.getLeaderEffect().getRequirements().equals(Color.YELLOW))
-                    s.append(CliColor.ANSI_YELLOW.escape()).append("🀫 ").append(CliColor.RESET).append("level 2").append("   |    ");;
+                    s.append(CliColor.ANSI_YELLOW.escape()).append("▇ ").append(CliColor.RESET).append("lev. 2").append("    ▏    ");;
                 if (leaderCard.getLeaderEffect().getRequirements().equals(Color.PURPLE))
-                    s.append(CliColor.ANSI_PURPLE.escape()).append("🀫 ").append(CliColor.RESET).append("level 2").append("   |    ");;
+                    s.append(CliColor.ANSI_PURPLE.escape()).append("▇ ").append(CliColor.RESET).append("lev. 2").append("    ▏    ");;
                 break;
 
             case DISCOUNT:
@@ -112,7 +119,7 @@ public class CliGraphics {
 
             case EXTRADEPOT:
                 Resource res = new Resource(1, (ResourceType) leaderCard.getLeaderEffect().getRequirements());
-                s.append("   5 ").append(printRes(res)).append("      |    ");;
+                s.append("   5 ").append(printRes(res)).append("     ▏    ");;
                 break;
         }
         return s;
@@ -122,26 +129,26 @@ public class CliGraphics {
         int cont=0;
         for (Color col : (ArrayList<Color>) leaderCard.getLeaderEffect().getRequirements()) {
             if (col.equals(Color.GREEN)) {
-                s.append(CliColor.ANSI_GREEN.escape()).append("🀫 ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_GREEN.escape()).append(" ▇ ").append(CliColor.RESET);
             }
             if (col.equals(Color.PURPLE)) {
-                s.append(CliColor.ANSI_PURPLE.escape()).append("🀫 ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_PURPLE.escape()).append(" ▇ ").append(CliColor.RESET);
             }
             if (col.equals(Color.YELLOW)){
-                s.append(CliColor.ANSI_YELLOW.escape()).append("🀫 ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_YELLOW.escape()).append(" ▇ ").append(CliColor.RESET);
             }
             if (col.equals(Color.BLUE)){
-                s.append(CliColor.ANSI_BLUE.escape()).append("🀫 ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_BLUE.escape()).append(" ▇ ").append(CliColor.RESET);
             }
             cont++;
         }
         if (cont==2)
-            s.append("       |    ");
+            s.append("      ▏    ");
         if (cont==3)
-            s.append("     |    ");
+            s.append("   ▏    ");
     }
 
-    public void showMarketTray(MarketTray marketTray){
+    public String showMarketTray(MarketTray marketTray){
         StringBuilder s = new StringBuilder();
 
         s.append("\n      1  2  3  4 ");
@@ -156,7 +163,7 @@ public class CliGraphics {
         }
         s.append("     ----------- \n");
 
-        System.out.println(s);
+        return s.toString();
     }
 
 
@@ -181,18 +188,34 @@ public class CliGraphics {
         }
     }
 
-    public String printPersonalBoard(SerializableWarehouse wH, Slot[] slots){
-        String s = "";
-        int i=0;
-        String [] wareHouse = printWarehouse(wH).split("\n");
-        String [] slot = printSlots(slots).split("\n");
+    public void printMarketDepot(MarketTray marketTray, SerializableWarehouse wH){
+        String [] wareHouse = ("       \n" + printWarehouse(wH)).split("\n");
+        String [] market = showMarketTray(marketTray).split("\n");
 
-        while( i<wareHouse.length && i<slot.length) {
-            s = wareHouse[i] + "          " + slot[i] + "\n";
+        StringBuilder s = new StringBuilder();
+        int i=0;
+
+        while (i<market.length){
+            s.append(wareHouse[i]).append("       ").append(market[i]).append("\n");
             i++;
         }
 
-        return s;
+        System.out.println(s);
+    }
+
+    public void printPersonalBoard(SerializableWarehouse wH, Slot[] slots){
+        StringBuilder s = new StringBuilder();
+        int i=0;
+        String [] wareHouse = ("                                \n" + printWarehouse(wH)).split("\n");
+        String [] slot = printSlots(slots).split("\n");
+
+        while(i<8) {
+            s.append(wareHouse[i]).append("          ").append(slot[i] +"\n");
+            i++;
+        }
+
+        System.out.println(s);
+
     }
 
 
@@ -206,7 +229,7 @@ public class CliGraphics {
 
         String s = "▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏\n" +
                 "▕  " +strongbox[0].getQnt()+ printRes(strongbox[0]) +" ▏" +
-                "▕  "+ strongbox[1].getQnt()+ printRes(strongbox[1]) +"▏" +
+                "▕  "+ strongbox[1].getQnt()+ printRes(strongbox[1]) +" ▏" +
                 "▕  "+ strongbox[2].getQnt()+ printRes(strongbox[2]) +" ▏" +
                 "▕  "+ strongbox[3].getQnt()+ printRes(strongbox[3]) +" ▏\n" +
                    "▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏\n";
@@ -215,7 +238,7 @@ public class CliGraphics {
 
 
     public String printDepot(ArrayList<Resource> floors){
-        String s, firstFloor, secondFloor, thirdFloor;
+        String s, firstFloor, secondFloor = "", thirdFloor;
 
         if (floors.get(0).getType().equals(ResourceType.NULLRESOURCE))
             firstFloor = "   ☐   ";
@@ -224,16 +247,16 @@ public class CliGraphics {
         if (floors.get(1).getType().equals(ResourceType.NULLRESOURCE))
             secondFloor = "  ☐ ☐  ";
         else if (floors.get(1).getQnt() == 1)  secondFloor = "  " + printRes(floors.get(1)) + "☐  ";
-        else secondFloor = "  " + printRes(floors.get(1)) + printRes(floors.get(1)) +"  ";
+        else if (floors.get(1).getQnt() == 2) secondFloor = "  " + printRes(floors.get(1)) + "" + printRes(floors.get(1)) +"  ";
 
         if (floors.get(2).getType().equals(ResourceType.NULLRESOURCE))
             thirdFloor = " ☐ ☐ ☐ ";
-        else if (floors.get(1).getQnt() == 1)  thirdFloor = " " +printRes(floors.get(2)) + "☐ ☐ ";
-        else if (floors.get(1).getQnt() == 2) thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) +"☐ ";
+        else if (floors.get(2).getQnt() == 1)  thirdFloor = " " +printRes(floors.get(2)) + "☐ ☐ ";
+        else if (floors.get(2).getQnt() == 2) thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) +"☐ ";
         else thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) + printRes(floors.get(2));
 
-        s = "         1  " + firstFloor +"           " +
-                "\n         2  " + secondFloor + "           \n         3  "+thirdFloor + "           \n\n";
+        s = "         1  " + firstFloor +"             " +
+                "\n         2  " + secondFloor + "             \n         3  "+thirdFloor + "             \n                                \n";
 
         return s;
     }
@@ -241,25 +264,37 @@ public class CliGraphics {
 
     public String printDevCard(DevCard devCard){
         String s = "";
+        String vp;
+
+        if(devCard.getVictoryPointsDevCard()<10){
+            vp = devCard.getVictoryPointsDevCard() +" ";
+        }
+        else
+            vp = ""+devCard.getVictoryPointsDevCard();
 
         if (devCard==null){
-            s =     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n";
+            s =     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n";
         }
 
         else {
-            s = getDevColor(devCard).escape() + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    getDevColor(devCard).escape() + "▕      LEVEL: " + devCard.getLevel() + "         ▏\n" +
-                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "    COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "    ▏\n" +
-                    getDevColor(devCard).escape() + "▕                       ▏\n" +
-                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + printResources(devCard.getProduction().getInput()) + " ➡︎ " + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "▏\n" +
-                    getDevColor(devCard).escape() + "▕        VP: " + devCard.getVictoryPointsDevCard() + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "        ▏\n" +
-                    getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏" + CliColor.RESET + "\n";
+            s = getDevColor(devCard).escape() + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "   COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "   ▏\n" +
+                    getDevColor(devCard).escape() + "▕     LEVEL: " + devCard.getLevel() + "        ▏\n" +
+
+                    getDevColor(devCard).escape() + "▕     " + CliColor.RESET + printResources(devCard.getProduction().getInput()) + getDevColor(devCard).escape()+"       ▏\n" +
+
+                    getDevColor(devCard).escape() + "▕        " + CliColor.RESET + " ↧  " +getDevColor(devCard).escape() + "         ▏\n" +
+
+                    getDevColor(devCard).escape() + "▕      "+ CliColor.RESET + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "      ▏"+ CliColor.RESET+ "\n" +
+                    getDevColor(devCard).escape() + "▕      VP: " + vp + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "       ▏\n" +
+                    getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏" + CliColor.RESET + "\n";
         }
         return s;
     }
@@ -291,45 +326,47 @@ public class CliGraphics {
             card0 = printDevCard(slots[0].getShowedCard()).split("\n");
         }
         else
-            card0 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                     "▕                       ▏\n" +
-                     "▕                       ▏\n" +
-                     "▕                       ▏\n" +
-                     "▕                       ▏\n" +
-                     "▕                       ▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+            card0 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
 
         if (slots[1].getCards().size()>0){
             card1 = printDevCard(slots[1].getShowedCard()).split("\n");
         }
         else
-            card1 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+            card1 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
         if (slots[2].getCards().size()>0){
             card2 = printDevCard(slots[2].getShowedCard()).split("\n");
         }
         else
-            card2 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕                       ▏\n" +
-                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+            card2 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕                     ▏\n" +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
         while (j< card1.length){
             slot.append(card0[j]).append(card1[j]).append(card2[j]).append("\n");
             j++;
         }
 
-        System.out.println(slot.toString());
         return slot.toString();
     }
 
@@ -382,16 +419,16 @@ public class CliGraphics {
                 s.append(CliColor.ANSI_YELLOW.escape()).append("$ ").append(CliColor.RESET);
                 break;
             case SHIELD:
-                s.append(CliColor.ANSI_BLUE.escape()).append("♦ ︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_BLUE.escape()).append("◆︎︎ ").append(CliColor.RESET);
                 break;
             case STONE:
-                s.append(CliColor.ANSI_GRAY.escape()).append("︎▲ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_GRAY.escape()).append("︎◭︎ ").append(CliColor.RESET);
                 break;
             case FAITHPOINT:
                 s.append(CliColor.ANSI_RED.escape()).append("† ").append(CliColor.RESET);
                 break;
             case SERVANT:
-                s.append(CliColor.ANSI_PURPLE.escape()).append("◼︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_PURPLE.escape()).append("∎︎ ").append(CliColor.RESET);
                 break;
         }
     }

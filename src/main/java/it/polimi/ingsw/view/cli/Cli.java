@@ -185,7 +185,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayMarket(MarketTray marketTray) {
-        cliGraphics.showMarketTray(marketTray);
+        System.out.println(cliGraphics.showMarketTray(marketTray));
         modelView.setMarketTray(marketTray);
     }
 
@@ -196,22 +196,14 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void displaySlots(Slot[] slots) throws IOException {
-        cliGraphics.printSlots(slots);
+    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
         modelView.setSlots(slots);
-    }
-
-    @Override
-    public void displayFaithTrack(FaithTrack faithTrack) throws IOException {
-        System.out.println(faithTrack.toString());
-        modelView.setFaithTrack(faithTrack);
-    }
-
-    @Override
-    public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
-        System.out.println(cliGraphics.printWarehouse(warehouse));
         modelView.setWarehouse(warehouse);
+        modelView.setFaithTrack(faithTrack);
+        System.out.println(faithTrack.toString());
+        cliGraphics.printPersonalBoard(warehouse, slots);
     }
+
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {
@@ -231,7 +223,7 @@ public class Cli extends ClientObservable implements View {
 
         switch (action) {
             case "MARKET":
-                cliGraphics.showMarketTray(modelView.getMarketTray());
+                cliGraphics.printMarketDepot(modelView.getMarketTray(), modelView.getWarehouse());
                 System.out.print("Do you want to pick a row or a column of the tray? (row/col)\n>");
                 String decision = scanner.nextLine();
                 decision = decision.replaceAll("\\s+","");

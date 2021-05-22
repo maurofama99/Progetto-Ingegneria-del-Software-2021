@@ -61,17 +61,10 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new DisplayDevCards(showedDeck));
     }
 
-    public void displayWarehouse(SerializableWarehouse warehouse) throws IOException {
-        clientHandler.sendMessage(new DisplayWarehouse(warehouse));
+    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException {
+        clientHandler.sendMessage(new DisplayPersonalBoard(faithTrack, slots, warehouse));
     }
 
-    public void displayFaithTrack(FaithTrack faithTrack) throws IOException{
-        clientHandler.sendMessage(new DisplayFaithTrack(faithTrack));
-    }
-
-    public void displaySlots(Slot[] slots) throws IOException{
-        clientHandler.sendMessage(new DisplaySlots(slots));
-    }
 
     @Override
     public void update(Message message) throws IOException {

@@ -143,6 +143,9 @@ public class GameController implements Observer, Serializable {
 
 
     public void setUpGame() throws IOException {
+        for (Player player : table.getPlayers()) {
+            player.getPersonalBoard().getFaithTrack().addObserver(this);
+        }
         table.setPlayersInGame();
         giveInitialBonus();
 
@@ -219,10 +222,10 @@ public class GameController implements Observer, Serializable {
 
     public void askPlayerAction(VirtualView vv) throws IOException {
         vv.displayMarketTray(table.getMarketTray());
-        vv.displayWarehouse(new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
         vv.displayDeck(table.getDevCardsDeck().showedCards());
-        vv.displayFaithTrack(table.getCurrentPlayer().getPersonalBoard().getFaithTrack());
-        vv.displaySlots(table.getCurrentPlayer().getPersonalBoard().getSlots());
+        vv.displayPersonalBoard(table.getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                table.getCurrentPlayer().getPersonalBoard().getSlots(),
+                new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
 
         if (table.getCurrentPlayer().getLeaderCards().size() > 0)
             vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards());

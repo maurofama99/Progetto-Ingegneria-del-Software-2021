@@ -188,17 +188,11 @@ public class Client implements Runnable, ClientObserver {
             case DISPLAY_MARKET:
                 view.displayMarket(((DisplayMarket)msg).getMarketTray());
                 break;
-            case DISPLAY_WAREHOUSE:
-                view.displayWarehouse(((DisplayWarehouse)msg).getWarehouse());
-                break;
             case DISPLAY_DEVCARDS:
                 view.displayDevCards(((DisplayDevCards)msg).getShowedCards());
                 break;
-            case DISPLAY_SLOTS:
-                view.displaySlots(((DisplaySlots)msg).getSlots());
-                break;
-            case DISPLAY_FAITHTRACK:
-                view.displayFaithTrack(((DisplayFaithTrack)msg).getFaithTrack());
+            case DISPLAY_PERSONALBOARD:
+                view.displayPersonalBoard(((DisplayPersonalBoard)msg).getFaithTrack(), ((DisplayPersonalBoard)msg).getSlots(), ((DisplayPersonalBoard)msg).getSerializableWarehouse());
                 break;
             case ASK_ACTION:
                 view.fetchPlayerAction(((AskAction)msg).getQuestion());

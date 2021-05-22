@@ -30,9 +30,4 @@ public class SerializableWarehouse implements Serializable {
         return strongbox;
     }
 
-    @Override
-    public String toString() {
-     //todo: opere artistiche
-        return null;
-    }
 }

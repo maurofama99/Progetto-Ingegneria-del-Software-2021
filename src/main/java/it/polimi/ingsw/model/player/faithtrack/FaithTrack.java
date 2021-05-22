@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.messagessc.EndGame;
-import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.network.messagessc.TurnFavorTiles;
 import it.polimi.ingsw.observerPattern.Observable;
 
@@ -146,6 +145,7 @@ public class FaithTrack extends Observable implements Serializable {
         return "FAITH TRACK:\n"
                 + track.toString() +
                 "\n\nFAITH MARKER CURRENT POSITION: " + faithMarkerPosition +
-                "first favor tile: " +firstFavorTile;
+                "\nfirst favor tile: " +firstFavorTile +
+                "\nsecond favor tile: " +secondFavorTile;
     }
 }

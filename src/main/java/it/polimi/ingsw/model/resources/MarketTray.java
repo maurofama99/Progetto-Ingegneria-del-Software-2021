@@ -113,22 +113,4 @@ public class MarketTray implements Serializable{
         return resources;
     }
 
-
-
-
-
-
-    @Override
-    public String toString() {
-        String text, text2;
-
-        text = Arrays.stream(tray)
-                .map(Arrays::toString )
-                .collect(Collectors.joining(System.lineSeparator()));
-
-        return ("MARKET TRAY: \n" +
-                text +
-                "\nSLIDER: \n" +
-                slide + "\n");
-    }
 }

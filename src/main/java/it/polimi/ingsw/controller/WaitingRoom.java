@@ -100,8 +100,6 @@ public class WaitingRoom {
         for(Player player : playersArray){
             gc.getTable().addPlayer(player.getNickname());
             gc.getTable().addObserver(vvMap.get(player.getNickname()));
-            player.getPersonalBoard().getFaithTrack().addObserver(gc);
-
             gc.getTable().setNumPlayers(playersArray.size());
         }
         //setta i client handler dei player

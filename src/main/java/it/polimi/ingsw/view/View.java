@@ -49,11 +49,7 @@ public interface View {
 
     void displayDevCards(DevCard[][] devCards) throws IOException;
 
-    void displaySlots(Slot[] slots) throws IOException;
-
-    void displayFaithTrack(FaithTrack faithTrack) throws IOException;
-
-    void displayWarehouse(SerializableWarehouse warehouse) throws IOException;
+    void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse);
 
     /**
      * Shows the market to the player to let him choose the line to buy

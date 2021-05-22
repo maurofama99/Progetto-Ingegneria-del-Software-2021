@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
  * Class of the personal board of every player. It does things like setting the tracks,
  * editing the slots...
  */
-public class PersonalBoard extends Observable{
+public class PersonalBoard{
     private final Warehouse warehouse;
     private Slot[] slots = new Slot[3];
     private FaithTrack faithTrack;
@@ -94,13 +94,5 @@ public class PersonalBoard extends Observable{
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return  "\nFAITHTRACK: \n" + faithTrack +
-                "\nWAREHOUSE: \n" + warehouse.toString() +
-                "\nDEVELOPMENT CARD SLOTS: \n" + Arrays.toString(slots) +
-                "\nACTIVE LEADER CARDS: " + activeLeaderCards.toString();
     }
 }

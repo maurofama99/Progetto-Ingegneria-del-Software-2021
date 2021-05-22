@@ -159,24 +159,4 @@ public class Depot {
         } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
     }
 
-
-    @Override
-    public String toString() {
-        String text1, text2, text3;
-        if (floors.get(0).isEmpty())
-            text1 = "    ---";
-        else text1 = "    "+floors.get(0).get();
-
-        if (floors.get(1).isEmpty())
-            text2 = "  -------";
-        else text2 = "  "+floors.get(1).get();
-
-        if (floors.get(2).isEmpty())
-            text3 = "-----------";
-        else text3 = floors.get(2).get().toString();
-
-        return " 1:  " + text1 + "\n  2:  "
-                + text2 + "\n  3:  "
-                + text3;
-    }
 }

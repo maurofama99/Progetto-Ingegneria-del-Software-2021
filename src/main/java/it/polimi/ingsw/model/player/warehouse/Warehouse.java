@@ -69,10 +69,4 @@ public class Warehouse{
 
         }
     }
-
-    @Override
-    public String toString() {
-        return "DEPOT: \n " + depot.toString() +
-                "\n\nSTRONGBOX"+ strongBox.toString();
-    }
 }

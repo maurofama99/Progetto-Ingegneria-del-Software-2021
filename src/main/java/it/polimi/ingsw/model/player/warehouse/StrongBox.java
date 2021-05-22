@@ -95,13 +95,5 @@ public class StrongBox{
         return available;
     }
 
-    @Override
-    public String toString() {
-        String text;
-        text = "\n----------------------\n"+
-                "| " + storedResources[0] + " | " + storedResources[1]+ " | " + storedResources[2]+ " | " + storedResources[3]+ " |\n"+
-                "----------------------";
-        return text;
-    }
 }
 
