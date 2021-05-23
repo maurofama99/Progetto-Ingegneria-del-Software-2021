@@ -219,8 +219,8 @@ public class GameController implements Observer, Serializable {
     }
 
     /**
-     * Sends informations about the game at the beginning of a player's turn.
-     * @param vv player's turn virtual view
+     * Sends information about the game at the beginning of a player's turn.
+     * @param vv current player's virtual view
      * @throws IOException
      */
 

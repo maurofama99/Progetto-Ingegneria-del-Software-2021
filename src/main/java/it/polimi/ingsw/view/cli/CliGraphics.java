@@ -16,6 +16,8 @@ import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
+import it.polimi.ingsw.model.singleplayer.Token;
 import javafx.scene.control.Tab;
 
 import java.util.ArrayList;
@@ -246,13 +248,13 @@ public class CliGraphics {
 
         if (floors.get(1).getType().equals(ResourceType.NULLRESOURCE))
             secondFloor = "  ☐ ☐  ";
-        else if (floors.get(1).getQnt() == 1)  secondFloor = "  " + printRes(floors.get(1)) + "☐  ";
-        else if (floors.get(1).getQnt() == 2) secondFloor = "  " + printRes(floors.get(1)) + "" + printRes(floors.get(1)) +"  ";
+        else if (floors.get(1).getQnt() < 2)  secondFloor = "  " + printRes(floors.get(1)) + "☐  ";
+        else if (floors.get(1).getQnt() < 3) secondFloor = "  " + printRes(floors.get(1)) + "" + printRes(floors.get(1)) +" ";
 
         if (floors.get(2).getType().equals(ResourceType.NULLRESOURCE))
             thirdFloor = " ☐ ☐ ☐ ";
-        else if (floors.get(2).getQnt() == 1)  thirdFloor = " " +printRes(floors.get(2)) + "☐ ☐ ";
-        else if (floors.get(2).getQnt() == 2) thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) +"☐ ";
+        else if (floors.get(2).getQnt() <2)  thirdFloor = " " +printRes(floors.get(2)) + "☐ ☐ ";
+        else if (floors.get(2).getQnt() <3) thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) +"☐ ";
         else thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) + printRes(floors.get(2));
 
         s = "         1  " + firstFloor +"             " +
@@ -266,12 +268,6 @@ public class CliGraphics {
         String s = "";
         String vp;
 
-        if(devCard.getVictoryPointsDevCard()<10){
-            vp = devCard.getVictoryPointsDevCard() +" ";
-        }
-        else
-            vp = ""+devCard.getVictoryPointsDevCard();
-
         if (devCard==null){
             s =     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
                     "▕                     ▏\n" +
@@ -284,16 +280,22 @@ public class CliGraphics {
         }
 
         else {
-            s = getDevColor(devCard).escape() + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "   COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "   ▏\n" +
-                    getDevColor(devCard).escape() + "▕     LEVEL: " + devCard.getLevel() + "        ▏\n" +
 
-                    getDevColor(devCard).escape() + "▕     " + CliColor.RESET + printResources(devCard.getProduction().getInput()) + getDevColor(devCard).escape()+"       ▏\n" +
+            if(devCard.getVictoryPointsDevCard()<10)
+                vp = devCard.getVictoryPointsDevCard() +" ";
+            else
+                vp = ""+devCard.getVictoryPointsDevCard();
 
-                    getDevColor(devCard).escape() + "▕        " + CliColor.RESET + " ↧  " +getDevColor(devCard).escape() + "         ▏\n" +
+            s = getDevColor(devCard).escape() + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏"+ CliColor.RESET +"\n" +
+                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "   COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "   ▏ "+ CliColor.RESET +"\n" +
+                    getDevColor(devCard).escape() + "▕     LEVEL: " + devCard.getLevel() + "        ▏"+ CliColor.RESET +"\n" +
+
+                    getDevColor(devCard).escape() + "▕     " + CliColor.RESET + printResources(devCard.getProduction().getInput()) + getDevColor(devCard).escape()+"       ▏"+ CliColor.RESET +"\n" +
+
+                    getDevColor(devCard).escape() + "▕        " + CliColor.RESET + " ↧  " +getDevColor(devCard).escape() + "         ▏"+ CliColor.RESET +"\n" +
 
                     getDevColor(devCard).escape() + "▕      "+ CliColor.RESET + printResources(devCard.getProduction().getOutput()) + getDevColor(devCard).escape() + "      ▏"+ CliColor.RESET+ "\n" +
-                    getDevColor(devCard).escape() + "▕      VP: " + vp + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "       ▏\n" +
+                    getDevColor(devCard).escape() + "▕      VP: " + vp + CliColor.ANSI_YELLOW.escape() + "✷ " + getDevColor(devCard).escape() + "       ▏"+ CliColor.RESET +"\n" +
                     getDevColor(devCard).escape() + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏" + CliColor.RESET + "\n";
         }
         return s;
@@ -440,5 +442,7 @@ public class CliGraphics {
 
         return s.toString();
     }
+
+
 
 }

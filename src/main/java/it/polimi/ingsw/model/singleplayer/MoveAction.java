@@ -21,7 +21,7 @@ public class MoveAction implements TokenAction{
     }
 
     /**
-     * here we have an override of token action. Checks how many steps to do and eventually
+     * Checks how many steps to do and eventually
      * if it is time to shuffle the stack
      * @param t where the stack is placed, table
      */

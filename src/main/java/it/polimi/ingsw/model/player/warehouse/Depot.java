@@ -39,7 +39,7 @@ public class Depot {
 
         for (Optional<Resource> res : resources){
             if (res.isEmpty()) result.add(new Resource(0, ResourceType.NULLRESOURCE));
-            else res.ifPresent(resource -> result.add(new Resource(1, resource.getType())));
+            else res.ifPresent(resource -> result.add(new Resource(resource.getQnt(), resource.getType())));
         }
 
         return result;

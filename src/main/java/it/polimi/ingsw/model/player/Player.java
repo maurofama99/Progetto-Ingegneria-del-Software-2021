@@ -129,26 +129,25 @@ public class Player extends Observable implements Serializable {
      * when the player wants to activate a production of a development car he owns.
      * @param slot slot chosen by the player.
      */
-    public boolean activateProd(int slot){
+    public ArrayList<Resource> activateProd(int slot){
 
         DevCard devCardToAct = getPersonalBoard().getSlots()[slot].getShowedCard();
         ArrayList<Resource> output = devCardToAct.getProduction().getOutput();
 
         if (!devCardToAct.getProduction().checkInputResource(this)) {
-            notifyObserver(new NoAvailableResources(nickname));
-            return false;
+            throw new NoSuchElementException("you don't have the requirements to activate this production");
+            //notifyObserver(new NoAvailableResources(nickname));
         }
         else {
             for (Resource res : output){
                 if (res.getType().equals(ResourceType.FAITHPOINT)){
-                    getPersonalBoard().getFaithTrack().moveForward(this, 1);
                     output.remove(res);
+                    getPersonalBoard().getFaithTrack().moveForward(this, 1);
                 }
             }
-
-            getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(output);
+            return output;
         }
-        return true;
+
     }
 
     /**

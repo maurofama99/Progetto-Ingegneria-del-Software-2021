@@ -15,7 +15,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.NoSuchElementException;
 
 
 //gestisce tutti gli stati che il player può avere, comprese le mosse
@@ -214,7 +214,6 @@ public class PlayerController {
             } catch (IndexOutOfBoundsException e){
                 playerVirtualView().displayGenericMessage("You don't have resource to place");
                 playerVirtualView().displayPopup("You don't have resource to place");
-                playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().toString());
                 playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
             }
 
@@ -330,24 +329,35 @@ public class PlayerController {
     }
 
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
         //todo se ha la leader card attiva
         switch (msg.getMessageType()){
             case ACTIVATE_PRODUCTION:
 
-                if (((ActivateProduction)msg).getSlot1()==1){
-                    gameController.getTable().getCurrentPlayer().activateProd(0);
-                    if (gameController.getTable().getCurrentPlayer().activateProd(0))
+                if (((ActivateProduction)msg).getSlot1()==1 ){
+                    try {
+                        resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(0));
                         playerVirtualView().displayGenericMessage("You activated production in slot 1!\n");
+                    } catch (NoSuchElementException e){
+                        playerVirtualView().displayGenericMessage(e.getMessage());
+                    }
+
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
-                    gameController.getTable().getCurrentPlayer().activateProd(1);
-                    if (gameController.getTable().getCurrentPlayer().activateProd(1))
+                    try {
+                        resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(1));
                         playerVirtualView().displayGenericMessage("You activated production in slot 2!\n");
+                    } catch (NoSuchElementException e){
+                        playerVirtualView().displayGenericMessage(e.getMessage());
+                    }
                 }
                 if (((ActivateProduction)msg).getSlot3()==1){
-                    gameController.getTable().getCurrentPlayer().activateProd(2);
-                    if (gameController.getTable().getCurrentPlayer().activateProd(2))
+                    try {
+                        resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(2));
                         playerVirtualView().displayGenericMessage("You activated production in slot 3!\n");
+                    } catch (NoSuchElementException e){
+                        playerVirtualView().displayGenericMessage(e.getMessage());
+                    }
                 }
 
 
@@ -365,6 +375,12 @@ public class PlayerController {
                 else if (((ActivateProduction)msg).getBasic()==0) {
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
+
+                gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+
+                playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
+                        new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
 
                 break;
 
