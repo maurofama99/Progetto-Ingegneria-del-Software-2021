@@ -142,7 +142,6 @@ public class GameController implements Observer, Serializable {
 
     }
 
-
     public void setUpGame() throws IOException {
         for (Player player : table.getPlayers()) {
             player.getPersonalBoard().getFaithTrack().addObserver(this);

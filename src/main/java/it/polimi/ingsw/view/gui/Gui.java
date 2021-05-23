@@ -18,6 +18,10 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Gui extends ClientObservable implements View {
 
@@ -66,12 +70,37 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
-        Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "personal_board.fxml"));
+        SceneController.changeRootPane(clientObservers, "personal_board.fxml");
     }
 
     @Override
-    public void fetchPlayerAction(String message) throws IOException {
+    public void fetchPlayerAction(String message) {
+        // possibili azioni: market / buy / production  --> //todo: creare un popup (chiamato Action Popup) che fetcha una di queste tre
 
+        /*
+        Platform.runLater(() -> {
+            Object controller = SceneController.showActionPopup(clientObservers, message);
+            // wrappo in un oggetto future la ricezione dell'azione (asincrona):
+            Future<String> decision = controller.getAction();
+
+            while(true) {
+                if (decision.isDone()){
+                    if ("market".equals(decision)) {
+                        SceneController.changeRootPane(clientObservers, "market_tray_display.fxml");
+                        break;
+                    } else if ("buy".equals(decision)) {
+
+                        break;
+                    } else if ("production".equals(decision)) {
+
+                        break;
+                    }
+
+                }
+            }
+
+        });
+        */
     }
 
     @Override
@@ -94,7 +123,6 @@ public class Gui extends ClientObservable implements View {
     public void displayErrorMsg(String errorMsg) {
 
     }
-
 
     @Override
     public void displayMarket(MarketTray marketTray) {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,31 +60,48 @@ public class MarketSceneController extends ClientObservable implements GenericSc
     }
 
     private void whenColumn1BtnClicked(MouseEvent event){
-
+        notifyObservers(new GoingMarket(1, false));
+        disableAll();
     }
 
     private void whenColumn2BtnClicked(MouseEvent event){
-
+        notifyObservers(new GoingMarket(2, false));
+        disableAll();
     }
 
     private void whenColumn3BtnClicked(MouseEvent event){
-
+        notifyObservers(new GoingMarket(3, false));
+        disableAll();
     }
 
     private void whenColumn4BtnClicked(MouseEvent event){
-
+        notifyObservers(new GoingMarket(4, false));
+        disableAll();
     }
 
     private void whenRow1BtnClicked(MouseEvent event){
-
+        notifyObservers(new GoingMarket(1, true));
+        disableAll();
     }
 
     private void whenRow2BtnClicked(MouseEvent event){
-
+        notifyObservers(new GoingMarket(2, true));
+        disableAll();
     }
 
     private void whenRow3BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(3, true));
+        disableAll();
+    }
 
+    private void disableAll() {
+        column1Btn.setDisable(true);
+        column3Btn.setDisable(true);
+        column2Btn.setDisable(true);
+        row1Btn.setDisable(true);
+        row2Btn.setDisable(true);
+        row3Btn.setDisable(true);
+        column4Btn.setDisable(true);
     }
 
 }

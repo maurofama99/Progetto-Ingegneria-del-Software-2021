@@ -386,7 +386,6 @@ public class PlayerController {
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
 
-
         }
     }
 
@@ -394,12 +393,9 @@ public class PlayerController {
         for(Player player : gameController.getTable().getPlayers()){
             if (gameController.isSinglePlayer()){
                 gameController.getTable().getLorenzoIlMagnifico().moveBlackCross(player, 1);
-
             }
-
             if(!gameController.getTable().getCurrentPlayer().equals(player))
                 player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
-
         }
     }
 

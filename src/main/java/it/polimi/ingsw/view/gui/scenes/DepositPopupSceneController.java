@@ -97,7 +97,7 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
         switchBtn.setDisable(true);
         extraBtn.setDisable(true);
         discardBtn.setDisable(true);
-        notifyObservers(new ResourcePlacement("nick2ame", "2"));
+        notifyObservers(new ResourcePlacement("nickname", "2"));
 
 
         stage.close();
@@ -153,7 +153,6 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
     public void setResourceImg(String resource) {
         switch (resource) {
             case "coin":
-
                 Image coin = new Image("/punchboard/resources/coin.png");
                 resourceImg.setImage(coin);
             case "stone":
