@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.ActionPopupController">
+    <top>
+        <AnchorPane prefHeight="408.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../other/background/sfondo_popup.jpg" />
+                    </image></ImageView>
+                <ImageView fitHeight="185.0" fitWidth="455.0" layoutX="74.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../other/texts/blocco.png" />
+                    </image></ImageView>
+            <Button fx:id="marketBtn" layoutX="53.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="marketBtn" text="Button" />
+            <Button fx:id="buyBtn" layoutX="226.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="buyBtn" text="Button" />
+            <Button fx:id="productionBtn" layoutX="397.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="productionBtn" text="Button" />
+            <ImageView fitHeight="116.0" fitWidth="293.0" layoutX="154.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../other/texts/chosse_act.png" />
+               </image>
+            </ImageView>
+            </children>
+            <stylesheets>
+                <URL value="@../css/action_popup.css" />
+            </stylesheets>
+        </AnchorPane>
+    </top>
+</BorderPane>

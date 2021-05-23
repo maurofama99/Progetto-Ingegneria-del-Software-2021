@@ -1,0 +1,44 @@
+.marketBtn{
+    -fx-background-image: url("/other/buttons/market_b.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.marketBtn:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.buyBtn{
+    -fx-background-image: url("/other/buttons/buy_b.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.buyBtn:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.productionBtn{
+    -fx-background-image: url("/other/buttons/prod_b.png");
+
+    -fx-border-color: transparent;
+    -fx-background-size: stretch;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.productionBtn:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}

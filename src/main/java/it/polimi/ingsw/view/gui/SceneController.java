@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.observerPattern.*;
+import it.polimi.ingsw.view.gui.scenes.ActionPopupController;
 import it.polimi.ingsw.view.gui.scenes.DepositPopupSceneController;
 import it.polimi.ingsw.view.gui.scenes.GenericSceneController;
 import it.polimi.ingsw.view.gui.scenes.PopupSceneController;
@@ -131,6 +132,27 @@ public class SceneController extends ClientObservable {
         dpsc.setResourceLbl(resource);
         dpsc.setResourceImg(resource);
         dpsc.showPopUp();
+        return controller;
+    }
+
+    public static <T> T showActionPopup(List<ClientObserver> clientObservers){
+        T controller;
+        FXMLLoader actPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/action_popup.fxml"));
+        Parent parent;
+
+        try {
+            parent = actPopLoader.load();
+            controller = actPopLoader.getController();
+            ((ClientObservable) controller).addAllClientObservers(clientObservers);
+        } catch (IOException exception){
+            System.err.println(exception);
+            return null;
+        }
+
+        ActionPopupController apsc =actPopLoader.getController();
+        Scene popupScene = new Scene(parent);
+        apsc.setScene(popupScene);
+        apsc.showPopUp();
         return controller;
     }
 
