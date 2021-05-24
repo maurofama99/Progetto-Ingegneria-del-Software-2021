@@ -15,10 +15,6 @@ public class LorenzoIlMagnifico {
 
     private Token showedToken;
 
-    public LorenzoIlMagnifico(Token showedToken) {
-        this.showedToken = showedToken;
-    }
-
     public Token getShowedToken() {
         return showedToken;
     }
@@ -42,9 +38,9 @@ public class LorenzoIlMagnifico {
      */
     public void turnToken(Table t){
         //Sets the showed token and activates it
-        this.showedToken.activateAction(t);
+        showedToken.activateAction(t);
 
-        t.getTokenStack().remove(showedToken);
+        t.getTokenStack().remove(0);
         t.getTokenStack().add(5, showedToken);
 
         setShowedToken(t.getTokenStack().get(0));

@@ -40,13 +40,16 @@ public class Warehouse{
         for (Resource resource : resourcesToRemove)
             resources.add((Resource) resource.clone());
 
+
+
         for (Resource res : resources) {
             for (int i = 0; i < 3; i++) {
+                Resource check = new Resource(res.getQnt(), res.getType());
                 if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
                     if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt()) {
-                        res.setQnt(res.getQnt()-getDepot().getFloors().get(i).get().getQnt());
-                        if (getStrongBox().checkAvailabilityStrongBox(res)) {
-                            getStrongBox().removeResourceStrongBox(res);
+                        check.setQnt(res.getQnt()-getDepot().getFloors().get(i).get().getQnt());
+                        if (getStrongBox().checkAvailabilityStrongBox(check)) {
+                            getStrongBox().removeResourceStrongBox(check);
                             resourcesInFloor.add(res);
                         } else
                             throw new NoSuchElementException("Resource " + res + " not Available");

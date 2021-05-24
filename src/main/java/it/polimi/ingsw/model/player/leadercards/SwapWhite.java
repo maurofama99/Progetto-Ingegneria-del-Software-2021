@@ -42,9 +42,8 @@ public class SwapWhite extends LeaderEffect implements Serializable {
         for(Color cardColor: cardColorRequired){
             int i, k;
             for (i=0; i<3; i++){
-                for (k=0;k<3; k++){
+                for (k=0;k<player.getPersonalBoard().getSlots()[i].getCards().size(); k++){
                     if (player.getPersonalBoard().getSlots()[i].getCards().get(k).getCardColor().equals(cardColor))
-                        //todo: correggere errore Index 0 out of bounds for length 0 quando si prova ad attivare e non si hanno i requisiti
                         checkColor.add(cardColor);
                 }
             }

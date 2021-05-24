@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.singleplayer;
 import it.polimi.ingsw.model.Table;
 
 import java.util.Collections;
-import java.util.Random;
 
 /**
  * Class for the two tokens that move the black cross
@@ -32,10 +31,9 @@ public class MoveAction implements TokenAction{
         }
         else if(getMoveNumber()==1){
             t.getLorenzoIlMagnifico().moveBlackCross(t.getCurrentPlayer(), getMoveNumber());
-            Collections.shuffle(t.getTokenStack(), new Random());
-            for (Token token : t.getTokenStack()) {
-                token.setTokenDiscarded(false);
-            }
+
+            Collections.shuffle(t.getTokenStack());
+
         }
     }
 

@@ -318,6 +318,10 @@ public class PlayerController {
         if (!gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(gameController.getTable().getCurrentPlayer()))
             playerVirtualView().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
 
+        else if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()) == null) {
+            playerVirtualView().displayGenericMessage("The cards of this level and this color are not available anymore");
+            playerVirtualView().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+        }
         else {
             DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
             gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
@@ -341,7 +345,6 @@ public class PlayerController {
                     } catch (NoSuchElementException e){
                         playerVirtualView().displayGenericMessage(e.getMessage());
                     }
-
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
                     try {
@@ -360,27 +363,20 @@ public class PlayerController {
                     }
                 }
 
-
-                playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
-                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
-                        new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
-
-
                 if (((ActivateProduction)msg).getBasic()==1){
                     cont=0;
-                    playerVirtualView().displayGenericMessage(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot() +
-                            "You can now spend two resources from floors to get one resource in Strongbox!: \n");
+                    playerVirtualView().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n");
                     playerVirtualView().fetchResourceType();
                 }
                 else if (((ActivateProduction)msg).getBasic()==0) {
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+
+                    playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                            gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
+                            new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
+
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
-
-                gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-
-                playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
-                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
-                        new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
 
                 break;
 
@@ -398,7 +394,9 @@ public class PlayerController {
                 }
                 else {
                     typeOut = ((ResourceTypeChosen) msg).getResourceType();
-                    gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut);
+                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(
+                            gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
+
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
 

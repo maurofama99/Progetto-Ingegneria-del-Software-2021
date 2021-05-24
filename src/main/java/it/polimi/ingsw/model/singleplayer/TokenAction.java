@@ -9,5 +9,4 @@ public interface TokenAction {
 
     void doAction(Table t);
 
-
 }

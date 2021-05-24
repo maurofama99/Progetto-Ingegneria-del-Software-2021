@@ -129,22 +129,24 @@ public class Player extends Observable implements Serializable {
      * when the player wants to activate a production of a development car he owns.
      * @param slot slot chosen by the player.
      */
-    public ArrayList<Resource> activateProd(int slot){
+    public ArrayList<Resource> activateProd(int slot) throws CloneNotSupportedException {
 
         DevCard devCardToAct = getPersonalBoard().getSlots()[slot].getShowedCard();
-        ArrayList<Resource> output = devCardToAct.getProduction().getOutput();
+        ArrayList<Resource> output = new ArrayList<>();
+        for (Resource resource : devCardToAct.getProduction().getOutput())
+            output.add((Resource) resource.clone());
+
 
         if (!devCardToAct.getProduction().checkInputResource(this)) {
             throw new NoSuchElementException("you don't have the requirements to activate this production");
-            //notifyObserver(new NoAvailableResources(nickname));
         }
         else {
-            for (Resource res : output){
+             for (Resource res : output){
                 if (res.getType().equals(ResourceType.FAITHPOINT)){
-                    output.remove(res);
                     getPersonalBoard().getFaithTrack().moveForward(this, 1);
                 }
             }
+            output.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
             return output;
         }
 
@@ -156,7 +158,7 @@ public class Player extends Observable implements Serializable {
      * @param secondInput one resource used to product the resource in output.
      * @param output one resource that the player gets by the production.
      */
-    public void basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
+    public ArrayList<Resource> basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
         ArrayList<Resource> resourceToRemove = new ArrayList<>();
         resourceToRemove.add(new Resource(1, firstInput));
         resourceToRemove.add(new Resource(1, secondInput));
@@ -166,9 +168,10 @@ public class Player extends Observable implements Serializable {
 
         try {getPersonalBoard().getWarehouse().removeResources(resourceToRemove);}
         catch (NoSuchElementException e ){
-            notifyObserver(new NoAvailableResources(nickname));
+            throw new NoSuchElementException("you don't have the requirements to activate this production");
         }
-        getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+
+        return resourcesToAdd;
     }
 
 

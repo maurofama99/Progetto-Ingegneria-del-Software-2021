@@ -86,8 +86,8 @@ public class Table extends Observable implements Serializable{
             e.printStackTrace();
         }
 
+        this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
         this.tokenStack = createTokenStack();
-        this.lorenzoIlMagnifico = new LorenzoIlMagnifico(tokenStack.get(0));
 
         currentPlayer.getPersonalBoard().getFaithTrack().setBlackCrossPosition(0);
 
@@ -142,10 +142,6 @@ public class Table extends Observable implements Serializable{
 
     public ArrayList<Token> getTokenStack() {
         return tokenStack;
-    }
-
-    public void setTokenStack(ArrayList<Token> tokenStack) {
-        this.tokenStack = tokenStack;
     }
 
     public Deck getDevCardsDeck() {
@@ -206,25 +202,22 @@ public class Table extends Observable implements Serializable{
     }
 
 
-
-
-    //todo metodo che rimuove un giocatore se si disconnette
-
-
     /**
      * Creates the token stack for the single player game.
      */
     public ArrayList<Token> createTokenStack(){
         tokenStack = new ArrayList<>();
 
-        tokenStack.add(new Token(new RemoveCardsAction(Color.GREEN), false));
-        tokenStack.add(new Token(new RemoveCardsAction(Color.BLUE), false));
-        tokenStack.add(new Token(new RemoveCardsAction(Color.YELLOW), false));
-        tokenStack.add(new Token(new RemoveCardsAction(Color.PURPLE), false));
-        tokenStack.add(new Token(new MoveAction(2), false));
-        tokenStack.add(new Token(new MoveAction(1), false));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.GREEN)));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.BLUE)));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.YELLOW)));
+        tokenStack.add(new Token(new RemoveCardsAction(Color.PURPLE)));
+        tokenStack.add(new Token(new MoveAction(2)));
+        tokenStack.add(new Token(new MoveAction(1)));
 
-        Collections.shuffle(tokenStack, new Random());
+        Collections.shuffle(tokenStack);
+
+        lorenzoIlMagnifico.setShowedToken(tokenStack.get(0));
 
         return tokenStack;
     }
