@@ -35,8 +35,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private ImageView thirdPopeTile;
     @FXML
-    private Button switchBtn;
-    @FXML
     private Button baseProdBtn;
     @FXML
     private Button prod1Btn;
@@ -68,7 +66,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     public void initialize(){
 
-        switchBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSwitchBtnClicked);
         baseProdBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenBaseProdBtnClicked);
         prod1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenProd1BtnClicked);
         prod2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenProd2BtnClicked);
@@ -77,10 +74,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
         leader1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLeader1BtnClicked);
         leader2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLeader2BtnClicked);
-    }
-
-    private void whenSwitchBtnClicked(MouseEvent event){
-
     }
 
     private void whenBaseProdBtnClicked(MouseEvent event){

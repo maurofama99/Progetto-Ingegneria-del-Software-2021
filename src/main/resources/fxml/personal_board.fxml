@@ -35,16 +35,16 @@
                   <ImageView fx:id="firstPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="241.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="secondPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="490.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="thirdPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="788.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button styleClass="showMarketBtn" fx:id="showMarketBtn" layoutX="1034.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="ShowMarket" />
-                  <Button styleClass="showDevCardButton" fx:id="showDevCardsBtn" layoutX="1157.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="ShowDevCards" />
-                  <Button styleClass="prod1Btn" fx:id="prod1Btn" layoutX="440.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Prod1" />
-                  <Button styleClass="prod2Btn" fx:id="prod2Btn" layoutX="622.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Prod2" />
-                  <Button styleClass="prod3Btn" fx:id="prod3Btn" layoutX="821.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Prod3" />
+                  <Button styleClass="showMarketBtn" fx:id="showMarketBtn" layoutX="1034.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" />
+                  <Button styleClass="showDevCardButton" fx:id="showDevCardsBtn" layoutX="1157.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" />
+                  <Button styleClass="prod1Btn" fx:id="prod1Btn" layoutX="440.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" />
+                  <Button styleClass="prod2Btn" fx:id="prod2Btn" layoutX="622.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" />
+                  <Button styleClass="prod3Btn" fx:id="prod3Btn" layoutX="821.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" />
                   <ImageView fx:id="leaderLeft" fitHeight="166.0" fitWidth="125.0" layoutX="1015.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="leaderRight" fitHeight="166.0" fitWidth="125.0" layoutX="1140.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button styleClass="baseProdBtn" fx:id="baseProdBtn" layoutX="263.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="BaseProd" />
-                  <Button styleClass="leader1Btn" fx:id="leader1Btn" layoutX="1034.0" layoutY="213.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Leader1" />
-                  <Button styleClass="leader2Btn" fx:id="leader2Btn" layoutX="1157.0" layoutY="213.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Leader2" />
+                  <Button styleClass="baseProdBtn" fx:id="baseProdBtn" layoutX="263.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0"  />
+                  <Button styleClass="leader1Btn" fx:id="leader1Btn" layoutX="1034.0" layoutY="213.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0"  />
+                  <Button styleClass="leader2Btn" fx:id="leader2Btn" layoutX="1157.0" layoutY="213.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" />
                   <GridPane layoutX="27.0" layoutY="540.0" prefHeight="107.0" prefWidth="197.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
