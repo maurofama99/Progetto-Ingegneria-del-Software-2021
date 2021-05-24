@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
+import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.observerPattern.Observable;
 
 
@@ -125,7 +126,12 @@ public class Player extends Observable implements Serializable {
             }
         }
 
-        getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
+        try {
+            getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
+        }
+        catch (IllegalAccessException e) {
+            notifyObserver(new NoAvailableResources("You can't place this devCard here"));
+        }
     }
 
     /**

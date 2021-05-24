@@ -58,6 +58,9 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             firstBtn.setDisable(true);
         } else {
             firstBtn.setDisable(true);
+            secondBtn.setDisable(true);
+            thirdBtn.setDisable(true);
+            fourthBtn.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 0));
         }
     }
@@ -68,7 +71,10 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             first = false;
             secondBtn.setDisable(true);
         } else {
+            firstBtn.setDisable(true);
             secondBtn.setDisable(true);
+            thirdBtn.setDisable(true);
+            fourthBtn.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 1));
         }
     }
@@ -79,7 +85,10 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             first = false;
             thirdBtn.setDisable(true);
         } else {
+            firstBtn.setDisable(true);
+            secondBtn.setDisable(true);
             thirdBtn.setDisable(true);
+            fourthBtn.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 2));
         }
     }
@@ -90,6 +99,9 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             first = false;
             fourthBtn.setDisable(true);
         } else {
+            firstBtn.setDisable(true);
+            secondBtn.setDisable(true);
+            thirdBtn.setDisable(true);
             fourthBtn.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 3));
         }

@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
@@ -119,10 +120,6 @@ public class Gui extends ClientObservable implements View {
 
     }
 
-    @Override
-    public void displayErrorMsg(String errorMsg) {
-
-    }
 
     @Override
     public void displayMarket(MarketTray marketTray) {
@@ -131,6 +128,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayWinningMsg(String win) {
+
+    }
+
+    @Override
+    public void displayToken(Token token) {
 
     }
 

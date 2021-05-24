@@ -13,8 +13,7 @@ import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 
 //gestisce tutti gli stati che il player può avere, comprese le mosse

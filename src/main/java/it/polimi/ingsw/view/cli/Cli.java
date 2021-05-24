@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
@@ -416,17 +417,16 @@ public class Cli extends ClientObservable implements View {
 
     }
 
-    @Override
-    public void displayErrorMsg(String errorMsg) {
-
-    }
-
 
     @Override
     public void displayWinningMsg(String win) {
 
     }
 
+    @Override
+    public void displayToken(Token token) {
+        cliGraphics.printLorenzo(token);
+    }
 
 
 }
