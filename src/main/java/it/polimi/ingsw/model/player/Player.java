@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.devcard.Deck;
+
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.leadercards.*;
 import it.polimi.ingsw.model.player.warehouse.Depot;
@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
-import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.observerPattern.Observable;
 
 
@@ -46,6 +45,10 @@ public class Player extends Observable implements Serializable {
 
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
+    }
+
+    public int getTurnOrder() {
+        return turnOrder;
     }
 
     public void setTurnOrder(int turnOrder) {

@@ -15,12 +15,12 @@ public class TokenTest {
     public void createStack() {
         tokenStack = new ArrayList<>();
 
-        Token token0 = new Token(new RemoveCardsAction(Color.GREEN), false);
-        Token token1 = new Token(new RemoveCardsAction(Color.BLUE), false);
-        Token token2 = new Token(new RemoveCardsAction(Color.YELLOW), false);
-        Token token3 = new Token(new RemoveCardsAction(Color.PURPLE), false);
-        Token token4 = new Token(new MoveAction(2), false);
-        Token token5 = new Token(new MoveAction(1), false);
+        Token token0 = new Token(new RemoveCardsAction(Color.GREEN));
+        Token token1 = new Token(new RemoveCardsAction(Color.BLUE));
+        Token token2 = new Token(new RemoveCardsAction(Color.YELLOW));
+        Token token3 = new Token(new RemoveCardsAction(Color.PURPLE));
+        Token token4 = new Token(new MoveAction(2));
+        Token token5 = new Token(new MoveAction(1));
 
         tokenStack.add(token0);
         tokenStack.add(token1);

@@ -14,7 +14,6 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 
@@ -368,6 +367,7 @@ public class PlayerController {
                     playerVirtualView().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n");
                     playerVirtualView().fetchResourceType();
                 }
+
                 else if (((ActivateProduction)msg).getBasic()==0) {
                     gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
@@ -377,6 +377,9 @@ public class PlayerController {
 
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
+                
+                gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+
 
                 break;
 
@@ -386,7 +389,7 @@ public class PlayerController {
                     cont ++;
                     playerVirtualView().fetchResourceType();
                 }
-                if (cont==1){
+                else if (cont==1){
                     typeInput2 = ((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
                     playerVirtualView().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!\n");
@@ -394,8 +397,13 @@ public class PlayerController {
                 }
                 else {
                     typeOut = ((ResourceTypeChosen) msg).getResourceType();
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(
-                            gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
+                    try {
+                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(
+                                gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
+                    }
+                    catch (NoSuchElementException e){
+                        playerVirtualView().displayGenericMessage("You don't have the requirements to do this production");
+                    }
 
                     playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }

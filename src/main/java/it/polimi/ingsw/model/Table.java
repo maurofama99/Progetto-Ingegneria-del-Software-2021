@@ -167,7 +167,7 @@ public class Table extends Observable implements Serializable{
         Collections.shuffle(players);
         setCurrentPlayer(players.get(0));
         for (Player player : players){
-            player.setTurnOrder(players.indexOf(player) + 1);
+            player.setTurnOrder(players.indexOf(player));
         }
 
     }

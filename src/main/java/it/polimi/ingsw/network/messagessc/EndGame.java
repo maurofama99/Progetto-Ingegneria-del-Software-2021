@@ -4,8 +4,14 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
 public class EndGame extends Message {
+    int playerNumber;
 
-    public EndGame() {
+    public EndGame(int playerNumber) {
         super("player", "server", Content.END_GAME);
+        this.playerNumber = playerNumber;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
     }
 }
