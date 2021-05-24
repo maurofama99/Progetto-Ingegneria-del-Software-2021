@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.singleplayer;
 
 import it.polimi.ingsw.model.Table;
 
+import java.io.Serializable;
 import java.util.Collections;
 
 /**
  * Class for the two tokens that move the black cross
  */
-public class MoveAction implements TokenAction{
+public class MoveAction implements TokenAction, Serializable {
 
     private int moveNumber;
 
@@ -39,8 +40,36 @@ public class MoveAction implements TokenAction{
 
     @Override
     public String toString() {
-        return "MoveAction{" +
-                "moveNumber=" + moveNumber +
-                '}';
+        if (moveNumber == 1) {
+            return  "-------------------------------\n"  +
+                    "                                    " +
+                    "|                             |\n"  +
+                    "                                    " +
+                    "|             +1              |\n" +
+                    "                                    " +
+                    "|             &               |\n"  +
+                    "                                    " +
+                    "|          SHUFFLE            |\n"  +
+                    "                                    "+
+                    "|                             |\n"  +
+                    "                                    " +
+                    "-------------------------------\n";
+        }
+        else if (moveNumber == 2){
+            return  "-------------------------------\n"  +
+                    "                                    "+
+                    "|                             |\n"  +
+                    "                                    "+
+                    "|                             |\n" +
+                    "                                    "+
+                    "|             +2              |\n"  +
+                    "                                    "+
+                    "|                             |\n"  +
+                    "                                    "+
+                    "|                             |\n"  +
+                    "                                    "+
+                    "-------------------------------\n";
+        }
+        return "";
     }
 }

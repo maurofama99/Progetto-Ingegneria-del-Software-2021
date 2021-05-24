@@ -213,6 +213,8 @@ public class Client implements Runnable, ClientObserver {
             case ASK_PLAYLEADER:
                 view.fetchPlayLeader(((AskPlayLeader)msg).getLeaderCardsNotActivated(), false);
                 break;
+            case TURN_TOKEN:
+                view.displayToken(((TurnToken)msg).getToken());
         }
     }
 

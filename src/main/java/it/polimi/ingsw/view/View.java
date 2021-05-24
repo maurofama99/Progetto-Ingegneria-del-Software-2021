@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.model.singleplayer.Token;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,16 +68,11 @@ public interface View {
     void displayDisconnectedMsg(String nicknameWhoDisconnected, String text);
 
     /**
-     * Displays an error message
-     * @param errorMsg error displayed
-     */
-    void displayErrorMsg(String errorMsg);
-
-
-    /**
      * Ending message when a player wins
      * @param win message displayed
      */
     void displayWinningMsg(String win);
+
+    void displayToken(Token token);
 
 }

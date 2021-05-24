@@ -2,8 +2,12 @@ package it.polimi.ingsw.model.singleplayer;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
+import it.polimi.ingsw.view.cli.CliColor;
+import it.polimi.ingsw.view.cli.CliGraphics;
 
-public class RemoveCardsAction implements TokenAction {
+import java.io.Serializable;
+
+public class RemoveCardsAction implements TokenAction, Serializable {
 
     private Color devCardColor;
 
@@ -97,8 +101,26 @@ public class RemoveCardsAction implements TokenAction {
 
     @Override
     public String toString() {
-        return "RemoveCardsAction{" +
-                "devCardColor=" + devCardColor +
-                '}';
+        String color = "";
+        switch (devCardColor){
+            case YELLOW: color = CliColor.ANSI_YELLOW.escape();
+            case BLUE: color = CliColor.ANSI_BLUE.escape();
+            case GREEN: color = CliColor.ANSI_GREEN.escape();
+            case PURPLE: color = CliColor.ANSI_PURPLE.escape();
+        }
+
+        return  "-------------------------------\n"  +
+                "                                    "+
+                "|                             |\n"  +
+                "                                    "+
+                "|              "+color+"▉▉▉▉"+CliColor.RESET + "           |\n" +
+                "                                    "+
+                "|          -2  "+color+"▉▉▉▉"+CliColor.RESET + " ︎          |\n"  +
+                "                                    "+
+                "|              "+color+"▉▉▉▉"+CliColor.RESET + "           |\n"  +
+                "                                    "+
+                "|                             |\n"  +
+                "                                    "+
+                "-------------------------------\n";
     }
 }

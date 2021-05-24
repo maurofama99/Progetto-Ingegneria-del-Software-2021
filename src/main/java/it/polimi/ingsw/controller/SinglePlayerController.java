@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.singleplayer.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.DiscardLeader;
+import it.polimi.ingsw.network.messagessc.TurnToken;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
@@ -116,7 +117,7 @@ public class SinglePlayerController implements Observer {
      * What lorenzo does in his turn
      */
     public void lorenzoTurn() throws IOException {
-        vv.displayGenericMessage(table.getLorenzoIlMagnifico().getShowedToken().toString());
+        vv.displayToken(table.getLorenzoIlMagnifico().getShowedToken());
         table.getLorenzoIlMagnifico().turnToken(table);
 
         setSinglePlayerTableState(SinglePlayerTableState.PLAYERS_TURN);

@@ -3,10 +3,12 @@ package it.polimi.ingsw.model.singleplayer;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
 
+import java.io.Serializable;
+
 /**
  * General class of the tokens.
  */
-public class Token {
+public class Token implements Serializable {
     private TokenAction tokenAction;
 
     public Token(TokenAction tokenAction) {

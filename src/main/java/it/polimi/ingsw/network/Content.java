@@ -11,6 +11,7 @@ public enum Content {
     ASK_ACTION,
     ASK_DONE,
     ASK_PLAYLEADER,
+    TURN_TOKEN,
 
     NORESOURCE_AVAILABLE,
     TURN_FAVORTILE,

@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.network.server.ClientHandler;
@@ -67,6 +68,10 @@ public class VirtualView implements Observer {
 
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException {
         clientHandler.sendMessage(new DisplayPersonalBoard(faithTrack, slots, warehouse));
+    }
+
+    public void displayToken(Token token) throws IOException {
+        clientHandler.sendMessage(new TurnToken(token));
     }
 
 
