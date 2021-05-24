@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.SinglePlayerController;
 import it.polimi.ingsw.controller.WaitingRoom;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.network.client.LocalGameManager;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
 import it.polimi.ingsw.view.VirtualView;
@@ -28,11 +29,22 @@ public class ClientHandler implements Runnable {
     private final WaitingRoom waitingRoom;
     private boolean started = false;
     private boolean singlePlayer = false;
+    private boolean solo = false;
+    private LocalGameManager localGameManager;
 
     public ClientHandler(Server server, Socket client, WaitingRoom waitingRoom) {
         this.server = server;
         this.client = client;
         this.waitingRoom = waitingRoom;
+    }
+
+    public ClientHandler(WaitingRoom waitingRoom, LocalGameManager localGameManager) {
+        this.waitingRoom = waitingRoom;
+        this.localGameManager = localGameManager;
+    }
+
+    public void setSolo(boolean solo) {
+        this.solo = solo;
     }
 
     public String getNickname() {
@@ -110,9 +122,14 @@ public class ClientHandler implements Runnable {
      * @throws IOException If a communication error occurs.
      */
     public void sendMessage(Message msg) throws IOException {
-        output.reset();
-        output.writeObject(msg);
-        output.flush();
+        if (solo){
+            //localGameManager.getClient().receiveMessage(msg);
+            localGameManager.sendMessageServerHandler(msg);
+        } else {
+            output.reset();
+            output.writeObject(msg);
+            output.flush();
+        }
     }
 
     //sfrutta il fatto che le vv sono tutte salvate e accoppiate al loro nickname per la resilienza alle disconnessioni:
@@ -130,7 +147,10 @@ public class ClientHandler implements Runnable {
             waitingRoom.receiveMessage(msg);
             }
         }
-        else if (singlePlayer) singlePlayerController.receiveSPMessage(msg);
+        else if (singlePlayer) {
+            singlePlayerController.receiveSPMessage(msg);
+            System.out.println("mandato");
+        }
         else gameController.receiveMessage(msg);
     }
 

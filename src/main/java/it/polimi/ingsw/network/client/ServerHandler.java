@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.Message;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -13,35 +14,39 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * A class that represents the server inside the client.
  */
-public class ServerHandler implements Runnable
-{
-    private final Socket serverSocket;
+public class ServerHandler implements Runnable {
+    private String ip;
+    private Socket serverSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Client client;
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
-
-
+    private boolean solo = false;
 
     /**
      * Initializes a new handler using a specific socket connected to
      * a server.
      * @param serverSocket The socket connection to the server.
      */
-    ServerHandler(Socket serverSocket, Client client)
-    {
+    ServerHandler(Socket serverSocket, Client client, String ip) {
         this.serverSocket = serverSocket;
+        this.client = client;
+        this.ip = ip;
+    }
+
+    public ServerHandler(Client client) {
         this.client = client;
     }
 
-
+    public void setSolo(boolean solo) {
+        this.solo = solo;
+    }
 
     /**
      * Connects to the server and runs the event loop.
      */
     @Override
-    public void run()
-    {
+    public void run() {
         try {
             output = new ObjectOutputStream(serverSocket.getOutputStream());
             input = new ObjectInputStream(serverSocket.getInputStream());
@@ -63,39 +68,35 @@ public class ServerHandler implements Runnable
         }
     }
 
-
     /**
      * An event loop that receives messages from the server and processes
      * them in the order they are received.
      * @throws IOException If a communication error occurs.
      */
-    private void handleServerConnection() throws IOException, ClassNotFoundException
-    {
+    private void handleServerConnection() throws IOException, ClassNotFoundException {
         try {
             boolean stop = false;
             while (!stop) {
                 /* read commands from the server and process them */
-                try {
-                    Object next = input.readObject();
-                    Message msg = (Message) next;
-                    client.receiveMessage(msg);
-
-                } catch (IOException e) {
-                    /* Check if we were interrupted because another thread has asked us to stop */
-                    if (shouldStop.get()) {
-                        /* Yes, exit the loop gracefully */
-                        stop = true;
-                    } else {
-                        /* No, rethrow the exception */
-                        throw e;
+                    try {
+                        Object next = input.readObject();
+                        Message msg = (Message) next;
+                        client.receiveMessage(msg);
+                    } catch (IOException e) {
+                        /* Check if we were interrupted because another thread has asked us to stop */
+                        if (shouldStop.get()) {
+                            /* Yes, exit the loop gracefully */
+                            stop = true;
+                        } else {
+                            /* No, rethrow the exception */
+                            throw e;
+                        }
                     }
-                }
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             System.out.println("invalid stream from server");
         }
     }
-
 
     /**
      * The game instance associated with this client.
@@ -104,7 +105,6 @@ public class ServerHandler implements Runnable
     public Client getClient() {
         return client;
     }
-
 
     public ObjectOutputStream getOutput() {
         return output;
@@ -123,12 +123,10 @@ public class ServerHandler implements Runnable
             output.reset();
             output.writeObject(msg);
             output.flush();
-
         } catch (IOException e) {
             System.out.println("Communication error");
         }
     }
-
 
     /**
      * Requires the run() method to stop as soon as possible.
@@ -141,4 +139,5 @@ public class ServerHandler implements Runnable
             e.printStackTrace();
         }
     }
+
 }

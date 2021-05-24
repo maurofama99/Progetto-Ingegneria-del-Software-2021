@@ -1,5 +1,4 @@
 package it.polimi.ingsw.network.client;
-
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
@@ -27,7 +26,9 @@ public class Client implements Runnable, ClientObserver {
     private String ip;
     private boolean cli = false;
     private boolean gui = false;
+    private boolean solo = true;
     private String nickname;
+    private LocalGameManager localGameManager;
 
     public Client(View view, int SOCKET_PORT) {
         this.view = view;
@@ -48,6 +49,7 @@ public class Client implements Runnable, ClientObserver {
         int SOCKET_PORT = -1;
         boolean cli = false;
         boolean gui = false;
+        boolean solo = false;
 
         while (i < args.length && args[i].startsWith("-")) {
             arg = args[i++];
@@ -73,10 +75,13 @@ public class Client implements Runnable, ClientObserver {
                     }
                     gui = true;
                     break;
+                case "-solo":
+                    solo = true;
+                    break;
             }
 
         }
-        if (i == 0 || (!cli && !gui) || SOCKET_PORT==-1) {
+        if (i == 0 || (!cli && !gui && !solo) || SOCKET_PORT==-1) {
             System.err.println("Usage: Client -port " + "portNumber" + " [-cli | -gui]");
             return;
         }
@@ -92,17 +97,25 @@ public class Client implements Runnable, ClientObserver {
             JavaFX.main(args);
         }
 
+        if (solo){
+            Cli view = new Cli();
+            Client client = new Client(view, -1);
+            view.addClientObserver(client);
+            client.solo = true;
+            client.cli = false;
+            client.run();
+        }
+
     }
 
     @Override
     public void run() {
         if(cli) {
 
-
             System.out.println("\n" +
-                    CliColor.ANSI_YELLOW.escape() + "_  _ ____ ____ ___ ____ ____ ____  "+CliColor.RESET+"  ____ ____  " + CliColor.ANSI_BLUE.escape() +"  ____ ____ _  _ ____ _ ____ ____ ____ _  _ ____ ____ \n" + CliColor.RESET +
-                    CliColor.ANSI_YELLOW.escape() + "|\\/| |__| [__   |  |___ |__/ [__   "+CliColor.RESET+"  |  | |___  " + CliColor.ANSI_BLUE.escape() +"  |__/ |___ |\\ | |__| | [__  [__  |__| |\\ | |    |___ \n" +CliColor.RESET+
-                    CliColor.ANSI_YELLOW.escape() + "|  | |  | ___]  |  |___ |  \\ ___]  "+CliColor.RESET+"  |__| |     " + CliColor.ANSI_BLUE.escape() +"  |  \\ |___ | \\| |  | | ___] ___] |  | | \\| |___ |___ \n"+CliColor.RESET +
+                    CliColor.ANSI_YELLOW.escape() + "_  _ ____ ____ ___ ____ ____ ____  " + CliColor.RESET + "  ____ ____  " + CliColor.ANSI_BLUE.escape() + "  ____ ____ _  _ ____ _ ____ ____ ____ _  _ ____ ____ \n" + CliColor.RESET +
+                    CliColor.ANSI_YELLOW.escape() + "|\\/| |__| [__   |  |___ |__/ [__   " + CliColor.RESET + "  |  | |___  " + CliColor.ANSI_BLUE.escape() + "  |__/ |___ |\\ | |__| | [__  [__  |__| |\\ | |    |___ \n" + CliColor.RESET +
+                    CliColor.ANSI_YELLOW.escape() + "|  | |  | ___]  |  |___ |  \\ ___]  " + CliColor.RESET + "  |__| |     " + CliColor.ANSI_BLUE.escape() + "  |  \\ |___ | \\| |  | | ___] ___] |  | | \\| |___ |___ \n" + CliColor.RESET +
                     "                                                                                                      \n");
         /*
             System.out.println(CliColor.ANSI_YELLOW.escape() + "_  _ ____ ____ ___ ____ ____ ____ "+CliColor.RESET+"   ____ ____ \n" +
@@ -139,36 +152,37 @@ public class Client implements Runnable, ClientObserver {
 
              */
 
-            while (!connected) {
-                System.out.println("Insert the IP address of the server:");
-                Scanner scanner = new Scanner(System.in);
-                String ip = scanner.nextLine();
-                tryConnection(ip, SOCKET_PORT);
-            }
-            System.out.println("Connected");
+                while (!connected) {
+                    System.out.println("Insert the IP address of the server:");
+                    Scanner scanner = new Scanner(System.in);
+                    ip = scanner.nextLine();
+                    tryConnection(ip, SOCKET_PORT);
+                }
+                System.out.println("Connected");
+                serverHandler = new ServerHandler(server, this, ip);
+                Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
+                serverHandlerThread.start();
+
         }
 
         if(gui) {
             //while (!connected) {
             tryConnection(this.ip, SOCKET_PORT);
            // }
+            serverHandler = new ServerHandler(server, this, ip);
+            Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
+            serverHandlerThread.start();
         }
 
-        serverHandler = new ServerHandler(server, this);
-        Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
-        serverHandlerThread.start();
+        if (solo){
+            serverHandler = new ServerHandler(this);
+            localGameManager = new LocalGameManager(this, serverHandler);
+            localGameManager.run();
+        }
 
     }
 
-    /**
-     * The handler object responsible for communicating with the server.
-     * @return The server handler.
-     */
-    public ServerHandler getServerHandler() {
-        return serverHandler;
-    }
-
-    public void receiveMessage(Message msg) throws IOException {
+    public synchronized void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
                 view.fetchNickname(); 
@@ -226,15 +240,21 @@ public class Client implements Runnable, ClientObserver {
         }
     }
 
-    //todo: nel cleanup togliere il nickname dai messaggi
+    //todo: nel cleanup togliere il nickname dal costruttore dei messaggi
+
     @Override
-    public void update(Message message) {
+    public synchronized void update(Message message) {
         if (message.getMessageType() == Content.LOGIN_DATA){
             this.nickname = message.getSenderUser();
         } else {
             message.setSenderUser(nickname);
         }
-        serverHandler.sendMessage(message);
+        if (solo) {
+            //localGameManager.getClientHandler().receiveMessage(message);
+            localGameManager.sendMessageClientHandler(message);
+        } else serverHandler.sendMessage(message);
     }
 
 }
+
+

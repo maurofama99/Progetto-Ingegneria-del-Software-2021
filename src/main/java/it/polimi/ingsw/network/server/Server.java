@@ -50,3 +50,7 @@ public class Server implements Runnable {
 
 }
 
+//thread pool che contiene tutti i thread dei client handler
+//ping a tutti i client handler periodicamente
+//quando uno salta salva il nickname
+//metti nickname in lista riconessioni

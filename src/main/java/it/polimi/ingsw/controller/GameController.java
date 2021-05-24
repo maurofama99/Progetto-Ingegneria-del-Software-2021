@@ -34,13 +34,12 @@ public class GameController implements Observer, Serializable {
     private boolean condition = false;
     private int playerCounter=0; //to count how many players discarded leaderCards
 
-    public GameController() {
-    }
-
     public GameController(SinglePlayerController singlePlayerController) {
         this.singlePlayerController = singlePlayerController;
         this.singlePlayer = true;
+    }
 
+    public GameController() {
     }
 
     public void setVvMap(HashMap<String, VirtualView> vvMap) {

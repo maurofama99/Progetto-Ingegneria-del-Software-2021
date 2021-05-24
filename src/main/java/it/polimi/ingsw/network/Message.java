@@ -2,7 +2,7 @@ package it.polimi.ingsw.network;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public class Message implements Serializable, Comparable<Message> {
 
     private String receiverNickname;
     private String senderUser;
@@ -38,4 +38,8 @@ public class Message implements Serializable {
                 ']';
     }
 
+    @Override
+    public int compareTo(Message o) {
+        return 0;
+    }
 }

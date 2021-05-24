@@ -24,20 +24,19 @@ public class VirtualView implements Observer {
         this.clientHandler = clientHandler;
     }
 
-
-    public void fetchResourceType() throws IOException {
+    public synchronized void fetchResourceType() throws IOException {
         clientHandler.sendMessage(new AskResourceType());
     }
 
-    public void fetchResourcePlacement() throws IOException {
+    public synchronized void fetchResourcePlacement() throws IOException {
         clientHandler.sendMessage(new AskResourcePlacement());
     }
 
-    public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
+    public synchronized void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
         clientHandler.sendMessage(new AskSwapWhite(type1, type2));
     }
 
-    public void displayGenericMessage(String genericMessage) throws IOException {
+    public synchronized void displayGenericMessage(String genericMessage) throws IOException {
         clientHandler.sendMessage(new GenericMessage(genericMessage));
     }
 
@@ -45,33 +44,32 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new GenericPopup(message));
     }
 
-    public void fetchPlayerAction() throws IOException {
+    public synchronized void fetchPlayerAction() throws IOException {
         clientHandler.sendMessage(new AskAction());
     }
 
-    public void fetchDoneAction(ArrayList<LeaderCard> leaderCards) throws IOException {
+    public synchronized void fetchDoneAction(ArrayList<LeaderCard> leaderCards) throws IOException {
         clientHandler.sendMessage(new AskDone(leaderCards));
     }
 
-    public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards) throws IOException{
+    public synchronized void fetchPlayLeader(ArrayList<LeaderCard> leaderCards) throws IOException{
         clientHandler.sendMessage(new AskPlayLeader(leaderCards));
     }
 
-    public void displayMarketTray(MarketTray marketTray) throws IOException{
+    public synchronized void displayMarketTray(MarketTray marketTray) throws IOException{
         clientHandler.sendMessage(new DisplayMarket(marketTray));
     }
 
-    public void displayDeck(DevCard[][] showedDeck)throws IOException{
+    public synchronized void displayDeck(DevCard[][] showedDeck)throws IOException{
         clientHandler.sendMessage(new DisplayDevCards(showedDeck));
     }
 
-    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException {
+    public synchronized void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException {
         clientHandler.sendMessage(new DisplayPersonalBoard(faithTrack, slots, warehouse));
     }
 
-
     @Override
-    public void update(Message message) throws IOException {
+    public synchronized void update(Message message) throws IOException {
         if (clientHandler.getNickname().equals(message.getReceiverNickname())) {
             clientHandler.sendMessage(message);
         }

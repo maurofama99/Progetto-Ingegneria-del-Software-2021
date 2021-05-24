@@ -33,8 +33,6 @@ public class SinglePlayerController implements Observer {
         this.singlePlayer = singlePlayer;
     }
 
-
-
     public void setSinglePlayerTableState(SinglePlayerTableState singlePlayerTableState) {
         this.singlePlayerTableState = singlePlayerTableState;
     }
@@ -42,7 +40,6 @@ public class SinglePlayerController implements Observer {
     public GameController getGameController() {
         return gameController;
     }
-
 
     public Player getSinglePlayer() {
         return singlePlayer;
@@ -89,13 +86,11 @@ public class SinglePlayerController implements Observer {
         }
     }
 
-
     public void setUpSingleGame() throws IOException {
         vv.displayGenericMessage("You are going to play a singlePlayer game.\n Game is loading...\n");
         table.dealLeaderCards(singlePlayer.getNickname());
         setSinglePlayerTableState(SinglePlayerTableState.SETUP);
     }
-
 
     public void receiveSPMessageOnSetup(Message msg) throws IOException{
         gameController.receiveMessageOnSetup(msg);
@@ -106,7 +101,6 @@ public class SinglePlayerController implements Observer {
         gameController.receiveMessageInGame(msg);
 
     }
-
 
     public void receiveSPMessageOnEnd(Message msg){
 
