@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.devcard.DevCard;
+import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
@@ -37,7 +38,7 @@ public class PlayerController {
         this.playerAction = playerAction;
     }
 
-    public VirtualView playerVirtualView() {
+    public VirtualView playerVV() {
         return gameController.getVvMap().get(gameController.getTable().getCurrentPlayer().getNickname());
     }
 
@@ -65,14 +66,14 @@ public class PlayerController {
                 break;
 
             case WAITING:
-                playerVirtualView().displayGenericMessage
+                playerVV().displayGenericMessage
                         (       "--------------------------------\n" +
                                 "|         Please wait...       |\n" +
                                 "|    It's not your turn yet    |\n" +
                                 "--------------------------------\n");
-                playerVirtualView().displayPopup("Please wait...\nIt's not your turn yet");
+                playerVV().displayPopup("Please wait...\nIt's not your turn yet");
                 gameController.getTable().nextPlayer();
-                gameController.askPlayerAction(playerVirtualView());
+                gameController.askPlayerAction(playerVV());
                 break;
         }
     }
@@ -92,18 +93,18 @@ public class PlayerController {
                     resources.remove(resources.get(resources.size() - 1));
                 } else if (answer.equalsIgnoreCase("switch")) {
                     try{
-                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
+                        getPlayerPB().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
                     } catch (IllegalArgumentException e){
-                        playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
-                        playerVirtualView().displayPopup(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
                 } else if (answer.equalsIgnoreCase("extra")){
                     try{
-                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToExtraDepot(resources.get(resources.size() - 1));
+                        getPlayerPB().getWarehouse().getDepot().addResourceToExtraDepot(resources.get(resources.size() - 1));
                     } catch (IllegalArgumentException e){
                         goAhead = false;
-                        playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
-                        playerVirtualView().displayPopup(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));
@@ -111,11 +112,11 @@ public class PlayerController {
                 } else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
                     //aggiungi la risorsa al deposito
                     try{
-                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
+                        getPlayerPB().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
                     } catch (IllegalArgumentException e){
                         goAhead = false;
-                        playerVirtualView().displayGenericMessage(e.getMessage() + ". Try Again...\n");
-                        playerVirtualView().displayPopup(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));
@@ -125,14 +126,13 @@ public class PlayerController {
                 }
 
                 if (!resources.isEmpty()) {
-                    playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                    playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
                                                              "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or Type SWITCH to switch two floors))");
-                    playerVirtualView().fetchResourcePlacement();
+                    playerVV().fetchResourcePlacement();
                 } else {
-                    playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
-                            gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
-                            new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
-                    playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(),
+                            new SerializableWarehouse(getPlayerPB().getWarehouse()));
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 break;
             case SWAPPED_RESOURCE:
@@ -158,13 +158,13 @@ public class PlayerController {
                 resources.add(new Resource(1, resourceType));
                 whiteCounter--;
                 if (whiteCounter > 0){
-                    playerVirtualView().fetchSwapWhite(type1,type2);
+                    playerVV().fetchSwapWhite(type1,type2);
                 } else {
                     whiteCounter=0;
-                    playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                    playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
                             "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
                             "Type SWITCH to switch two floors)");
-                    playerVirtualView().fetchResourcePlacement();
+                    playerVV().fetchResourcePlacement();
                 }
         }
     }
@@ -180,15 +180,15 @@ public class PlayerController {
             resources.addAll(gameController.getTable().getMarketTray().selectColumn(index));
         }
 
-        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().size()==2){
-            if (gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE) &&
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
+        if (getPlayerPB().getActiveLeaderCards().size()==2){
+            if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE) &&
+                    getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
                 doubleSwap = true;
             }
         }
 
         //applica effetto swap white se attivo
-        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().hasEffect(EffectType.SWAPWHITE) && !doubleSwap){
+        if (getPlayerPB().hasEffect(EffectType.SWAPWHITE) && !doubleSwap){
             singleSwapWhite();
         } else if (!doubleSwap){ //altrimenti togli le white resources
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
@@ -200,46 +200,46 @@ public class PlayerController {
         //chiedi risorsa per risorsa dove la vuole posizionare
         if (!doubleSwap) {
             try {
-                playerVirtualView().displayGenericMessage("You chose: " + resources.toString() +
+                playerVV().displayGenericMessage("You chose: " + resources.toString() +
                         "\n" +
                         resources.get(resources.size() - 1).toString()
                         + "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
                         "Type SWITCH to switch two floors)");
                 //nel caso in cui abbia extradepot attivato
                 extraDepotAlert();
-                playerVirtualView().fetchResourcePlacement();
+                playerVV().fetchResourcePlacement();
 
             } catch (IndexOutOfBoundsException e){
-                playerVirtualView().displayGenericMessage("You don't have resource to place");
-                playerVirtualView().displayPopup("You don't have resource to place");
-                playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                playerVV().displayGenericMessage("You don't have resource to place");
+                playerVV().displayPopup("You don't have resource to place");
+                playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
             }
 
         } else {
-            type1 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject();
-            type2 = (ResourceType) gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().get(1).getLeaderEffect().getObject();
+            type1 = (ResourceType) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject();
+            type2 = (ResourceType) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject();
             //conta quante biglie bianche ha selezionato
             for (Resource resource : resources){
                 if (resource.getType().equals(ResourceType.WHITERESOURCE)) whiteCounter++;
             }
-            playerVirtualView().displayGenericMessage("You chose: " + resources.toString());
+            playerVV().displayGenericMessage("You chose: " + resources.toString());
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
             if (whiteCounter > 0){
-                playerVirtualView().displayGenericMessage("You selected " + whiteCounter + " white marbles, now choose for each marble which Leader Card you want to use to transform it in a new resource!");
+                playerVV().displayGenericMessage("You selected " + whiteCounter + " white marbles, now choose for each marble which Leader Card you want to use to transform it in a new resource!");
                 //devi chiedere whiteCounter volte al player che tipo di risorsa vuole tra type1 o type 2 e poi la aggiungi all'array di risorse resources
-                playerVirtualView().fetchSwapWhite(type1,type2);
+                playerVV().fetchSwapWhite(type1,type2);
             } else {
-                playerVirtualView().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
                         "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
                         "Type SWITCH to switch two floors)");
                 extraDepotAlert();
-                playerVirtualView().fetchResourcePlacement();
+                playerVV().fetchResourcePlacement();
             }
         }
     }
 
     private void singleSwapWhite(){
-        for(LeaderCard leaderCard : gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards()){
+        for(LeaderCard leaderCard : getPlayerPB().getActiveLeaderCards()){
             if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
                 Resource newResource = (Resource) leaderCard.getLeaderEffect().getObject();
                 for (Resource res : resources){
@@ -254,20 +254,21 @@ public class PlayerController {
     private void faithFilter() {
         for (Resource res : resources){
             if(res.getType().equals(ResourceType.FAITHPOINT)){
-                gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+                getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
             }
         }
         resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
     }
 
     public void extraDepotAlert() throws IOException {
-        if (gameController.getTable().getCurrentPlayer().getPersonalBoard().hasEffect(EffectType.EXTRADEPOT)){
+        if (getPlayerPB().hasEffect(EffectType.EXTRADEPOT)){
             ResourceType extraDepotResource;
             hasExtra = true;
-            for(LeaderCard leaderCard : gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards()) {
+            for(LeaderCard leaderCard : getPlayerPB().getActiveLeaderCards()) {
                 if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
                     extraDepotResource = (ResourceType) leaderCard.getLeaderEffect().getObject();
-                    if (resources.get(resources.size() - 1).getType() == extraDepotResource) playerVirtualView().displayGenericMessage("Type \"extra\" to place this resource in the extra depot");
+                    if (resources.get(resources.size() - 1).getType() == extraDepotResource)
+                        playerVV().displayGenericMessage("Type \"extra\" to place this resource in the extra depot");
                 }
             }
         }
@@ -279,28 +280,30 @@ public class PlayerController {
         boolean trueOrFalse = true;
         try {
             gameController.getTable().getCurrentPlayer().activateLeaderCard(((ActivateLeader)msg).getLeaderCard());
+            playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(), new SerializableWarehouse(getPlayerPB().getWarehouse()));
         }
         catch (IllegalArgumentException e){
-            playerVirtualView().displayGenericMessage("You don't have the requirements to activate it");
-            playerVirtualView().displayPopup("You don't have the requirements to activate it");
-            playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+            playerVV().displayGenericMessage("You don't have the requirements to activate it");
+            playerVV().displayPopup("You don't have the requirements to activate it");
+            playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
             trueOrFalse = false;
         }
 
         if (trueOrFalse) {
-            playerVirtualView().displayGenericMessage("\nYou activated these leader cards!\n" +
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards().toString());
+            // da aggiungere nella personal board playerVV().displayGenericMessage("\nYou activated these leader cards!\n");
 
-            playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getPersonalBoard().getActiveLeaderCards());
+            playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
     }
 
     public void discardLeader(Message msg) throws IOException {
 
         gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((DiscardOneLeader)msg).getLeaderCard());
-        gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+       getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
 
-        playerVirtualView().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+        playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(), new SerializableWarehouse(getPlayerPB().getWarehouse()));
+
+        playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
 
     }
 
@@ -313,20 +316,27 @@ public class PlayerController {
      */
 
     public void buyDevCard(Message msg) throws IllegalAccessException, IOException, CloneNotSupportedException {
-        if (!gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(gameController.getTable().getCurrentPlayer()))
-            playerVirtualView().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+        if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn())==null){
+            playerVV().displayGenericMessage("Selected card is not available anymore!\n");
+            playerVV().fetchPlayerAction();
+        }
+        else if (!gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(gameController.getTable().getCurrentPlayer()))
+            playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
 
         else if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()) == null) {
-            playerVirtualView().displayGenericMessage("The cards of this level and this color are not available anymore");
-            playerVirtualView().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+            playerVV().displayGenericMessage("The cards of this level and this color are not available anymore");
+            playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
         }
         else {
             DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
+            gameController.getTable().getCurrentPlayer().setVictoryPoints(gameController.getTable().getCurrentPlayer().getVictoryPoints() + devCard.getVictoryPointsDevCard());
             gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
-            playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
-                    new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
-            playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+
+            playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
+                    getPlayerPB().getSlots(),
+                    new SerializableWarehouse(getPlayerPB().getWarehouse()));
+
+            playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
     }
 
@@ -339,45 +349,45 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot1()==1 ){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(0));
-                        playerVirtualView().displayGenericMessage("You activated production in slot 1!\n");
+                        playerVV().displayGenericMessage("You activated production in slot 1!\n");
                     } catch (NoSuchElementException e){
-                        playerVirtualView().displayGenericMessage(e.getMessage());
+                        playerVV().displayGenericMessage(e.getMessage());
                     }
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(1));
-                        playerVirtualView().displayGenericMessage("You activated production in slot 2!\n");
+                        playerVV().displayGenericMessage("You activated production in slot 2!\n");
                     } catch (NoSuchElementException e){
-                        playerVirtualView().displayGenericMessage(e.getMessage());
+                        playerVV().displayGenericMessage(e.getMessage());
                     }
                 }
                 if (((ActivateProduction)msg).getSlot3()==1){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(2));
-                        playerVirtualView().displayGenericMessage("You activated production in slot 3!\n");
+                        playerVV().displayGenericMessage("You activated production in slot 3!\n");
                     } catch (NoSuchElementException e){
-                        playerVirtualView().displayGenericMessage(e.getMessage());
+                        playerVV().displayGenericMessage(e.getMessage());
                     }
                 }
 
                 if (((ActivateProduction)msg).getBasic()==1){
                     cont=0;
-                    playerVirtualView().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n");
-                    playerVirtualView().fetchResourceType();
+                    playerVV().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n");
+                    playerVV().fetchResourceType();
                 }
 
                 else if (((ActivateProduction)msg).getBasic()==0) {
-                    gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                    getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
-                    playerVirtualView().displayPersonalBoard(gameController.getTable().getCurrentPlayer().getPersonalBoard().getFaithTrack(),
-                            gameController.getTable().getCurrentPlayer().getPersonalBoard().getSlots(),
-                            new SerializableWarehouse(gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse()));
+                    playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
+                            getPlayerPB().getSlots(),
+                            new SerializableWarehouse(getPlayerPB().getWarehouse()));
 
-                    playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 
-                gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
 
                 break;
@@ -386,25 +396,30 @@ public class PlayerController {
                 if (cont==0){
                     typeInput1 =((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
-                    playerVirtualView().fetchResourceType();
+                    playerVV().fetchResourceType();
                 }
                 else if (cont==1){
                     typeInput2 = ((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
-                    playerVirtualView().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!\n");
-                    playerVirtualView().fetchResourceType();
+                    playerVV().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!\n");
+                    playerVV().fetchResourceType();
                 }
                 else {
                     typeOut = ((ResourceTypeChosen) msg).getResourceType();
                     try {
-                        gameController.getTable().getCurrentPlayer().getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(
+                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(
                                 gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
                     }
                     catch (NoSuchElementException e){
-                        playerVirtualView().displayGenericMessage("You don't have the requirements to do this production");
+                        playerVV().displayGenericMessage("You don't have the requirements to do this production");
                     }
 
-                    playerVirtualView().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
+                            getPlayerPB().getSlots(),
+                            new SerializableWarehouse(getPlayerPB().getWarehouse()));
+
+
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
 
         }
@@ -418,6 +433,10 @@ public class PlayerController {
             if(!gameController.getTable().getCurrentPlayer().equals(player))
                 player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
         }
+    }
+
+    public PersonalBoard getPlayerPB(){
+        return gameController.getTable().getCurrentPlayer().getPersonalBoard();
     }
 
 }

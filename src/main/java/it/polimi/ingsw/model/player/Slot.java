@@ -39,6 +39,6 @@ public class Slot implements Serializable{
     }
 
 
-    //TODO E' NECESSARIO METTERE IL METODO CHE AGGIUNGE I VICTORY POINTS NEL CONTROLLER (STATO BUYDEVCARD)
+
 
 }

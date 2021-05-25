@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Player's class. Used a lot to set and get in other methods and interfaces
@@ -90,16 +91,19 @@ public class Player extends Observable implements Serializable {
      * @param leaderCardToAct leader card to activate
      */
 
-    public void activateLeaderCard(LeaderCard leaderCardToAct){
-        if (!leaderCardToAct.getLeaderEffect().checkRequirementsLeaderCard(this))
+    public void activateLeaderCard(int leaderCardToAct){
+        if (!getLeaderCards().get(leaderCardToAct).getLeaderEffect().checkRequirementsLeaderCard(this))
             throw new IllegalArgumentException ("You still don't have the requirements");
         else {
-            getPersonalBoard().addLeaderCard(leaderCardToAct);
-            if (leaderCardToAct.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
+            LeaderCard leaderCard = getLeaderCards().get(leaderCardToAct);
+            getLeaderCards().remove(leaderCardToAct);
+            getPersonalBoard().addLeaderCard(leaderCard);
+            if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
                 if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).isEmpty()) {
-                    getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
-                } else if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).isEmpty())
-                    getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).get().setType((ResourceType) leaderCardToAct.getLeaderEffect().getObject());
+                    getPersonalBoard().getWarehouse().getDepot().getExtraFloors().set(0, Optional.of(new Resource(0, (ResourceType) leaderCard.getLeaderEffect().getObject())));
+                }
+                else if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(1).isEmpty())
+                    getPersonalBoard().getWarehouse().getDepot().getExtraFloors().set(1, Optional.of(new Resource(0, (ResourceType) leaderCard.getLeaderEffect().getObject())));
             }
         }
     }
@@ -111,18 +115,17 @@ public class Player extends Observable implements Serializable {
      * @param slotNumber where the player wants to place the card he wants to buy.
      */
 
-    public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException{
+    public void buyDevCard(DevCard devCardToBuy, int slotNumber){
         slotNumber = slotNumber -1;
+
         if (personalBoard.hasEffect(EffectType.DISCOUNT)){
-            int i;
-            //todo da sistemare questo metodo
-            for (i=0; i<devCardToBuy.getRequirementsDevCard().size(); i++){
-                if (personalBoard.getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT)
-                        && devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
+            for (int i=0; i<devCardToBuy.getRequirementsDevCard().size(); i++){
+                for (int j = 0; j<personalBoard.getActiveLeaderCards().size(); j++){
+                    if (personalBoard.getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT)
+                        && devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(j).getLeaderEffect().getObject()))
                         devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
 
-                else if (devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
-                    devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
+                }
             }
         }
 

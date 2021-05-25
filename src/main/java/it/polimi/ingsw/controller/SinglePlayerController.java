@@ -111,17 +111,19 @@ public class SinglePlayerController implements Observer {
      * What lorenzo does in his turn
      */
     public void lorenzoTurn() throws IOException {
-        vv.displayToken(table.getLorenzoIlMagnifico().getShowedToken());
         table.getLorenzoIlMagnifico().turnToken(table);
+        vv.displayToken(table.getLorenzoIlMagnifico().getShowedToken());
 
         setSinglePlayerTableState(SinglePlayerTableState.PLAYERS_TURN);
         gameController.askPlayerAction(vv);
     }
 
+
     /**
      * Rises the amount of dev cards bought by the player and the remove counter of the cards
      * @param devCard the devcard that has been bought
      */
+    /*
     public void cardBought(DevCard devCard){
         devCardsBought++;
         switch(devCard.getCardColor()){
@@ -152,9 +154,9 @@ public class SinglePlayerController implements Observer {
         }
     }
 
-    /**
-     * Creates an arraylist to keep track of the dev cards removed, both by buying or removed by tokens
-     */
+
+    Creates an arraylist to keep track of the dev cards removed, both by buying or removed by tokens
+
     public void createCardsRemoved(){
         devCardsRemoved = new ArrayList<Integer>();
         devCardsRemoved.add(0);
@@ -163,10 +165,10 @@ public class SinglePlayerController implements Observer {
         devCardsRemoved.add(0);
     }
 
-    /**
-     * This method rises the dev cards removed.
-     */
-    /*
+
+     This method rises the dev cards removed.
+
+
     public void cardRemoved(){
         switch(lorenzoIlMagnifico.getShowedToken().getRemoveColor((RemoveCardsAction) lorenzoIlMagnifico.getShowedToken().getTokenAction())){
             case GREEN:
@@ -195,7 +197,6 @@ public class SinglePlayerController implements Observer {
                     break;
         }
     }
-
      */
 
     /**

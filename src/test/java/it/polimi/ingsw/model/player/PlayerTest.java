@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class PlayerTest{
 
     @Test
-    public void testLeaderCards() throws IllegalAccessException {
+    public void testLeaderCards() throws IllegalAccessException, CloneNotSupportedException {
 
         Depot depot = new Depot();
         StrongBox sB = new StrongBox();
@@ -101,14 +101,15 @@ public class PlayerTest{
         assertTrue(player.getPersonalBoard().getSlots()[0].getCards().contains(dCard1) && player.getPersonalBoard().getSlots()[0].getCards().contains(dCard2));
 
         //activate two leader cards: addProduction and discount on Coin
-        player.activateLeaderCard(lCard1);
-        player.activateLeaderCard(lCard2);
+        player.activateLeaderCard(0);
+        player.activateLeaderCard(1);
         assertTrue(player.getPersonalBoard().getActiveLeaderCards().contains(lCard1) && player.getPersonalBoard().getActiveLeaderCards().contains(lCard2));
 
         //check discount works
         assertTrue(player.getPersonalBoard().hasEffect(EffectType.DISCOUNT));
         player.buyDevCard(dCard3, 1);
-        //todo assertEquals(1, player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt());
+        dCard3.checkRequirements(player);
+        assertEquals(1, player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt());
 
 
 

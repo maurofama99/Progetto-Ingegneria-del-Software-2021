@@ -88,8 +88,7 @@ public class PersonalBoard{
      */
 
     public boolean hasEffect(EffectType effectType) {
-        int i;
-        for (i=0; i<activeLeaderCards.size();i++) {
+        for (int i=0; i<activeLeaderCards.size();i++) {
             if (activeLeaderCards.get(i).getLeaderEffect().getEffectType().equals(effectType))
                 return true;
         }

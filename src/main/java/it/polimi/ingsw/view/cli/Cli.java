@@ -364,6 +364,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
+
         cliGraphics.showLeaderCards(leaderCards);
         System.out.print("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)\n>");
         Scanner scanner = new Scanner(System.in);
@@ -378,7 +379,7 @@ public class Cli extends ClientObservable implements View {
         if (action.equalsIgnoreCase("ACTIVATE")) {
             System.out.print("Choose the leader card you want to activate (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
-            notifyObservers(new ActivateLeader(leaderCards.get(index - 1)));
+            notifyObservers(new ActivateLeader(index - 1));
         } else if (action.equalsIgnoreCase("DISCARD")){
             System.out.print("Choose the leader card you want to discard (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
@@ -407,7 +408,7 @@ public class Cli extends ClientObservable implements View {
         if (!trueOrFalse)
             fetchPlayerAction("\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)\n");
         else
-            fetchDoneAction("Type DONE (attenzione: potrebbe scrivere anche leader, è giusto?", leaderCards);
+            fetchDoneAction("Type DONE", leaderCards);
     }
 
 

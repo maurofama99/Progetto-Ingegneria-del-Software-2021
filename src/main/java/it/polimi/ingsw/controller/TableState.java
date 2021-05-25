@@ -5,5 +5,4 @@ public enum TableState {
     SETUP,
     IN_GAME,
     END,
-    SINGLEPLAYER
 }

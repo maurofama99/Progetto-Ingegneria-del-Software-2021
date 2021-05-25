@@ -27,11 +27,6 @@ public class StrongBox{
         return storedResources;
     }
 
-    public void setStoredResources(Resource[] storedResources) {
-        this.storedResources = storedResources;
-    }
-
-
     /**
      * No check needed, since the strongbox is infinite. This method is simply called
      * when a production is activated to add the resources

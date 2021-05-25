@@ -149,7 +149,6 @@ public class ClientHandler implements Runnable {
         }
         else if (singlePlayer) {
             singlePlayerController.receiveSPMessage(msg);
-            System.out.println("mandato");
         }
         else gameController.receiveMessage(msg);
     }

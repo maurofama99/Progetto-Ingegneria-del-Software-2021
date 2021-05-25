@@ -6,14 +6,14 @@ import it.polimi.ingsw.network.Message;
 
 public class ActivateLeader extends Message {
 
-    private LeaderCard leaderCard;
+    private int leaderCard;
 
-    public ActivateLeader(LeaderCard leaderCard) {
+    public ActivateLeader(int leaderCard) {
         super("client", "server", Content.ACTIVATE_LEADER);
         this.leaderCard = leaderCard;
     }
 
-    public LeaderCard getLeaderCard() {
+    public int getLeaderCard() {
         return leaderCard;
     }
 }

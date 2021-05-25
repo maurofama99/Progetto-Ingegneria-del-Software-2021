@@ -1,19 +1,29 @@
 package it.polimi.ingsw.model.singleplayer;
 
+import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
+import it.polimi.ingsw.model.devcard.Deck;
+import it.polimi.ingsw.model.player.Player;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class TokenTest {
+import static org.junit.Assert.*;
 
+
+public class SinglePlayerTest {
+
+    public LorenzoIlMagnifico lorenzo = new LorenzoIlMagnifico();
+    public Player single = new Player("vale");
     public ArrayList<Token> tokenStack;
 
     @Test
     public void createStack() {
+        Table table = new Table(single);
         tokenStack = new ArrayList<>();
+
 
         Token token0 = new Token(new RemoveCardsAction(Color.GREEN));
         Token token1 = new Token(new RemoveCardsAction(Color.BLUE));
@@ -22,21 +32,17 @@ public class TokenTest {
         Token token4 = new Token(new MoveAction(2));
         Token token5 = new Token(new MoveAction(1));
 
-        tokenStack.add(token0);
-        tokenStack.add(token1);
-        tokenStack.add(token2);
-        tokenStack.add(token3);
-        tokenStack.add(token4);
-        tokenStack.add(token5);
+        lorenzo.setShowedToken(token0);
 
-        Collections.shuffle(tokenStack, new Random());
+        lorenzo.turnToken(table);
 
-        System.out.println(tokenStack.get(0).getTokenAction());
-        System.out.println(tokenStack.get(1).getTokenAction());
-        System.out.println(tokenStack.get(2).getTokenAction());
-        System.out.println(tokenStack.get(3).getTokenAction());
-        System.out.println(tokenStack.get(4).getTokenAction());
-        System.out.println(tokenStack.get(5).getTokenAction());
+        lorenzo.setShowedToken(token0);
+
+        lorenzo.turnToken(table);
+
+        assertEquals(null, table.getDevCardsDeck().getDevCard(1, 1));
+
+
     }
 
 
