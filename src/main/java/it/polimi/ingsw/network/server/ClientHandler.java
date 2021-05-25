@@ -121,7 +121,7 @@ public class ClientHandler implements Runnable {
      * @param msg The message to be sent.
      * @throws IOException If a communication error occurs.
      */
-    public void sendMessage(Message msg) throws IOException {
+    public void sendMessage(Message msg) throws IOException{
         if (solo){
             //localGameManager.getClient().receiveMessage(msg);
             localGameManager.sendMessageServerHandler(msg);

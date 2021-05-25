@@ -19,14 +19,14 @@ import java.util.Scanner;
  */
 public class Client implements Runnable, ClientObserver {
     private ServerHandler serverHandler;
-    private View view;
+    private final View view;
     private final int SOCKET_PORT;
     private boolean connected = false;
     private Socket server;
     private String ip;
     private boolean cli = false;
     private boolean gui = false;
-    private boolean solo = true;
+    private boolean solo = false;
     private String nickname;
     private LocalGameManager localGameManager;
 
@@ -44,66 +44,78 @@ public class Client implements Runnable, ClientObserver {
     }
 
     public static void main(String[] args) {
-        int i = 0;
-        String arg;
         int SOCKET_PORT = -1;
         boolean cli = false;
         boolean gui = false;
         boolean solo = false;
 
-        while (i < args.length && args[i].startsWith("-")) {
-            arg = args[i++];
+        // Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]
 
-            switch (arg) {
-                case "-port":
-                    if (i < args.length)
-                        try {
-                            SOCKET_PORT = Integer.parseInt(args[i++]);
-                        } catch (NumberFormatException e){
-                            System.err.println("-port requires a port number\nUsage: Client -port portNumber [-cli | -gui]");
-                        }
-                    else
-                        System.err.println("-port requires a port number\nUsage: Client -port portNumber [-cli | -gui]");
-                    break;
+        if (args.length == 0) {
+            System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+        } else {
+
+            switch (args[0]) {
                 case "-cli":
-                    cli = true;
-                    break;
-                case "-gui":
-                    if (cli) {
-                        System.err.println("You can't start the program in both CLI and GUI mode\nUsage: Client -port portNumber [-cli | -gui]");
+                    if (args[1].equals("-port") && args.length <= 3) {
+                        try {
+                            cli = true;
+                            SOCKET_PORT = Integer.parseInt(args[2]);
+                        } catch (NumberFormatException e) {
+                            System.err.println("-port requires a port number\nUsage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                            break;
+                        }
+                    } else {
+                        System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
                         break;
                     }
-                    gui = true;
                     break;
-                case "-solo":
-                    solo = true;
+                case "-gui":
+                    if (args.length <= 1) {
+                        gui = true;
+                    } else {
+                        System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                        break;
+                    }
+                    break;
+                case "-local":
+                    if (args[1].equals("-gui") && args.length <= 2) {
+                        solo = true;
+                        gui = true;
+                    } else if (args[1].equals("-cli") && args.length <= 2){
+                        solo = true;
+                    } else {
+                        System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                        break;
+                    }
+                    break;
+                default:
+                    System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
                     break;
             }
 
-        }
-        if (i == 0 || (!cli && !gui && !solo) || SOCKET_PORT==-1) {
-            System.err.println("Usage: Client -port " + "portNumber" + " [-cli | -gui]");
-            return;
-        }
+            if (cli) {
+                Cli view = new Cli();
+                Client client = new Client(view, SOCKET_PORT);
+                view.addClientObserver(client);
+                client.run();
+            }
+            else if (solo && !gui) {
+                Cli view = new Cli();
+                Client client = new Client(view, -1);
+                view.addClientObserver(client);
+                client.solo = true;
+                client.cli = false;
+                client.run();
+            } else if (solo) {
+                //todo : da gestire
+            }
+            else if (gui) {
+                JavaFX.main(args);
+            } else {
+                System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+            }
 
-        if (cli){
-            Cli view = new Cli();
-            Client client = new Client(view, SOCKET_PORT);
-            view.addClientObserver(client);
-            client.run();
-        }
-
-        if (gui){
-            JavaFX.main(args);
-        }
-
-        if (solo){
-            Cli view = new Cli();
-            Client client = new Client(view, -1);
-            view.addClientObserver(client);
-            client.solo = true;
-            client.cli = false;
-            client.run();
         }
 
     }
@@ -182,7 +194,7 @@ public class Client implements Runnable, ClientObserver {
 
     }
 
-    public synchronized void receiveMessage(Message msg) throws IOException {
+    public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
                 view.fetchNickname(); 
@@ -245,7 +257,7 @@ public class Client implements Runnable, ClientObserver {
     //todo: nel cleanup togliere il nickname dal costruttore dei messaggi
 
     @Override
-    public synchronized void update(Message message) {
+    public void update(Message message) {
         if (message.getMessageType() == Content.LOGIN_DATA){
             this.nickname = message.getSenderUser();
         } else {
