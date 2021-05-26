@@ -102,6 +102,7 @@ public class Client implements Runnable, ClientObserver {
             }
             else if (solo && !gui) {
                 Cli view = new Cli();
+                view.setSolo(true);
                 Client client = new Client(view, -1);
                 view.addClientObserver(client);
                 client.solo = true;
@@ -187,8 +188,7 @@ public class Client implements Runnable, ClientObserver {
         }
 
         if (solo){
-            serverHandler = new ServerHandler(this);
-            localGameManager = new LocalGameManager(this, serverHandler);
+            localGameManager = new LocalGameManager(this);
             localGameManager.run();
         }
 
@@ -264,7 +264,6 @@ public class Client implements Runnable, ClientObserver {
             message.setSenderUser(nickname);
         }
         if (solo) {
-            //localGameManager.getClientHandler().receiveMessage(message);
             localGameManager.sendMessageClientHandler(message);
         } else serverHandler.sendMessage(message);
     }

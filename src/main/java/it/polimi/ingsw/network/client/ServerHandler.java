@@ -21,7 +21,6 @@ public class ServerHandler implements Runnable {
     private ObjectInputStream input;
     private Client client;
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
-    private boolean solo = false;
 
     /**
      * Initializes a new handler using a specific socket connected to
@@ -36,10 +35,6 @@ public class ServerHandler implements Runnable {
 
     public ServerHandler(Client client) {
         this.client = client;
-    }
-
-    public void setSolo(boolean solo) {
-        this.solo = solo;
     }
 
     /**

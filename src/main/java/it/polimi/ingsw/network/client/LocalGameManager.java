@@ -6,20 +6,16 @@ import it.polimi.ingsw.network.messagessc.LoginRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 
 import java.io.IOException;
-import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class LocalGameManager implements Runnable{
-    private Client client;
-    private ClientHandler clientHandler;
-    private ServerHandler serverHandler;
-    private LinkedBlockingQueue<Message> messageQueueClientHandler = new LinkedBlockingQueue<>();
-    private LinkedBlockingQueue<Message> messageQueueServerHandler = new LinkedBlockingQueue<>();
+public class LocalGameManager implements Runnable {
+    private final Client client;
+    private final ClientHandler clientHandler;
+    private final LinkedBlockingQueue<Message> messageQueueClientHandler = new LinkedBlockingQueue<>();
+    private final LinkedBlockingQueue<Message> messageQueueServerHandler = new LinkedBlockingQueue<>();
 
-    public LocalGameManager(Client client, ServerHandler serverHandler) {
+    public LocalGameManager(Client client) {
         this.client = client;
-        this.serverHandler = serverHandler;
-        this.serverHandler.setSolo(true);
         this.clientHandler = new ClientHandler(new WaitingRoom(), this);
         this.clientHandler.setSolo(true);
     }
