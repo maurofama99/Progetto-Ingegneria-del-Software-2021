@@ -71,13 +71,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
-        SceneController.changeRootPane(clientObservers, "personal_board.fxml");
+        Platform.runLater(()->SceneController.changeRootPane(clientObservers, "personal_board.fxml"));
     }
 
     @Override
     public void fetchPlayerAction(String message) {
-        // possibili azioni: market / buy / production  --> //todo: creare un popup (chiamato Action Popup) che fetcha una di queste tre
-
         /*
         Platform.runLater(() -> {
             Object controller = SceneController.showActionPopup(clientObservers, message);

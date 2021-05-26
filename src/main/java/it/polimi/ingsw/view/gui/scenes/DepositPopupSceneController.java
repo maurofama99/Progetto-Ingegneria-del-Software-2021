@@ -151,20 +151,7 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
     }
 
     public void setResourceImg(String resource) {
-        switch (resource) {
-            case "coin":
-                Image coin = new Image("/punchboard/resources/coin.png");
-                resourceImg.setImage(coin);
-            case "stone":
-                Image stone = new Image("/punchboard/resources/stone.png");
-                resourceImg.setImage(stone);
-            case "servant":
-                Image servant = new Image("/punchboard/resources/servant.png");
-                resourceImg.setImage(servant);
-            case "shield":
-                Image shield = new Image("/punchboard/resources/shield.png");
-                resourceImg.setImage(shield);
-        }
+        PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
     }
     public void showPopUp(){
         stage.showAndWait();

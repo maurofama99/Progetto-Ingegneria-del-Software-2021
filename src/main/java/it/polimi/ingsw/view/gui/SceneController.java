@@ -135,7 +135,7 @@ public class SceneController extends ClientObservable {
         return controller;
     }
 
-    public static <T> T showActionPopup(List<ClientObserver> clientObservers){
+    public static <T> T showActionPopup(List<ClientObserver> clientObservers, String message){
         T controller;
         FXMLLoader actPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/action_popup.fxml"));
         Parent parent;

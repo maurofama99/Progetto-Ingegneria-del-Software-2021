@@ -1,13 +1,17 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import javafx.scene.image.Image;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Path;
 
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
+    @FXML
+    private Path faithTrackPath;
     @FXML
     private ImageView firstLevelLeft;
     @FXML
@@ -63,6 +67,11 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private Label shieldCounter;
 
+    public int coinQnt = 0;
+    public int stoneQnt = 0;
+    public int servantQnt = 0;
+    public int shieldQnt = 0;
+
 
     public void initialize(){
 
@@ -97,7 +106,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     }
 
     private void whenShowMarketBtnClicked(MouseEvent event){
-
     }
 
     private void whenLeader1BtnClicked(MouseEvent event){
@@ -108,28 +116,45 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     }
 
-    public void setFirstLevelLeft(ImageView firstLevelLeft) {
-        this.firstLevelLeft = firstLevelLeft;
+    static void setImageDepositSpot(String resource, ImageView spot) {
+        switch (resource) {
+            case "coin":
+                Image coin = new Image("/punchboard/resources/coin.png");
+                spot.setImage(coin);
+            case "stone":
+                Image stone = new Image("/punchboard/resources/stone.png");
+                spot.setImage(stone);
+            case "servant":
+                Image servant = new Image("/punchboard/resources/servant.png");
+                spot.setImage(servant);
+            case "shield":
+                Image shield = new Image("/punchboard/resources/shield.png");
+                spot.setImage(shield);
+        }
     }
 
-    public void setFirstLevelCenter(ImageView firstLevelCenter) {
-        this.firstLevelCenter = firstLevelCenter;
+    public void setFirstLevelLeft(String resource) {
+        setImageDepositSpot(resource, firstLevelLeft);
     }
 
-    public void setFirstLevelRight(ImageView firstLevelRight) {
-        this.firstLevelRight = firstLevelRight;
+    public void setFirstLevelCenter(String resource) {
+        setImageDepositSpot(resource, firstLevelCenter);
     }
 
-    public void setSecondLevelLeft(ImageView secondLevelLeft) {
-        this.secondLevelLeft = secondLevelLeft;
+    public void setFirstLevelRight(String resource) {
+        setImageDepositSpot(resource, firstLevelRight);
     }
 
-    public void setSecondLevelRight(ImageView secondLevelRight) {
-        this.secondLevelRight = secondLevelRight;
+    public void setSecondLevelLeft(String resource) {
+        setImageDepositSpot(resource, secondLevelLeft);
     }
 
-    public void setThirdLevel(ImageView thirdLevel) {
-        this.thirdLevel = thirdLevel;
+    public void setSecondLevelRight(String resource) {
+        setImageDepositSpot(resource, secondLevelRight);
+    }
+
+    public void setThirdLevel(String resource) {
+        setImageDepositSpot(resource, thirdLevel);
     }
 
     public void setSlotLeft(ImageView slotLeft) {
@@ -164,19 +189,45 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         this.leaderRight = leaderRight;
     }
 
-    public void setCoinCounter(Label coinCounter) {
-        this.coinCounter = coinCounter;
+    public void increaseCounter(Label labelToSet, int quantity, int resourcePresent){
+        resourcePresent = resourcePresent+quantity;
+        labelToSet.setText("x"+Integer.toString(resourcePresent));
     }
 
-    public void setStoneCounter(Label stoneCounter) {
-        this.stoneCounter = stoneCounter;
+    public void decreaseCounter(Label labelToSet, int quantity, int resourcePresent){
+        resourcePresent = resourcePresent-quantity;
+        labelToSet.setText("x"+Integer.toString(resourcePresent));
     }
 
-    public void setServantCounter(Label servantCounter) {
-        this.servantCounter = servantCounter;
+    public void increaseCoinCounter(int quantity){
+        increaseCounter(coinCounter, quantity, coinQnt);
     }
 
-    public void setShieldCounter(Label shieldCounter) {
-        this.shieldCounter = shieldCounter;
+    public void decreaseCoinCounter(int quantity){
+        decreaseCounter(coinCounter, quantity, coinQnt);
+    }
+
+    public void increaseStoneCounter(int quantity){
+        increaseCounter(stoneCounter, quantity, stoneQnt);
+    }
+
+    public void decreaseStoneCounter(int quantity){
+        decreaseCounter(stoneCounter, quantity, stoneQnt);
+    }
+
+    public void increaseServantCounter(int quantity){
+        increaseCounter(servantCounter, quantity, servantQnt);
+    }
+
+    public void decreaseServantCounter(int quantity){
+        decreaseCounter(servantCounter, quantity, servantQnt);
+    }
+
+    public void increaseShieldCounter(int quantity){
+        increaseCounter(shieldCounter, quantity, shieldQnt);
+    }
+
+    public void decreaseShieldCounter(int quantity){
+        decreaseCounter(shieldCounter, quantity, shieldQnt);
     }
 }
