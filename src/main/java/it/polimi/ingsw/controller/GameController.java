@@ -103,7 +103,7 @@ public class GameController implements Observer, Serializable {
                 resourceChosen.setType(((ResourceTypeChosen) msg).getResourceType());
                 for (Player player : table.getPlayers()) {
                     if (msg.getSenderUser().equals(player.getNickname())){
-                        vv.displayGenericMessage(player.getPersonalBoard().getWarehouse().getDepot().toString() + "\nIn which floor of the depot do you want to place this resource?");
+                        vv.displayGenericMessage("\nIn which floor of the depot do you want to place this resource?");
                     }
                 }
                 vv.fetchResourcePlacement();
@@ -147,6 +147,9 @@ public class GameController implements Observer, Serializable {
     public void setUpGame() throws IOException {
         for (Player player : table.getPlayers()) {
             player.getPersonalBoard().getFaithTrack().addObserver(this);
+            vvMap.get(player.getNickname()).displayPersonalBoard(player.getPersonalBoard().getFaithTrack(),
+                    player.getPersonalBoard().getSlots(),
+                    new SerializableWarehouse(player.getPersonalBoard().getWarehouse()));
         }
         table.setPlayersInGame();
         giveInitialBonus();

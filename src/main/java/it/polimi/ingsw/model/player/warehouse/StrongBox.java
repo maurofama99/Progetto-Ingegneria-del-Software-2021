@@ -17,10 +17,10 @@ public class StrongBox{
 
 
     public StrongBox() {
-        this.storedResources[0] = new Resource(0, ResourceType.COIN);
-        this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
-        this.storedResources[2] = new Resource(0, ResourceType.SHIELD);
-        this.storedResources[3] = new Resource(0, ResourceType.STONE);
+        this.storedResources[0] = new Resource(20, ResourceType.COIN);
+        this.storedResources[1] = new Resource(20, ResourceType.SERVANT);
+        this.storedResources[2] = new Resource(20, ResourceType.SHIELD);
+        this.storedResources[3] = new Resource(20, ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {

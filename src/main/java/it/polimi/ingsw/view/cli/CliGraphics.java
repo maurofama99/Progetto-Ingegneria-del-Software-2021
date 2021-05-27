@@ -1,51 +1,25 @@
 package it.polimi.ingsw.view.cli;
 
-import it.polimi.ingsw.model.Table;
+
 import it.polimi.ingsw.model.devcard.Color;
-import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Slot;
-import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
-import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
-import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
-import it.polimi.ingsw.model.player.warehouse.StrongBox;
-import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
 import it.polimi.ingsw.model.singleplayer.Token;
-import javafx.scene.control.Tab;
 
 import java.util.ArrayList;
 
 public class CliGraphics {
-    private CliColor cliColor;
-
-    public static void main(String[] args) {
-        CliGraphics cliGraphics = new CliGraphics();
-        Table table = new Table();
-        table.addPlayer("vale");
-
-        //cliGraphics.showLeaderCards(table.getLeaderCardsDeck());
-
-        cliGraphics.printWarehouse(new SerializableWarehouse(table.getPlayers().get(0).getPersonalBoard().getWarehouse()));
-        cliGraphics.printPersonalBoard(
-                new SerializableWarehouse(table.getPlayers().get(0).getPersonalBoard().getWarehouse()),
-                table.getPlayers().get(0).getPersonalBoard().getSlots());
-        //cliGraphics.printMatrixDevCards(table.getDevCardsDeck().showedCards());
-    }
-
-
 
     public void showLeaderCards(ArrayList<LeaderCard> leaderCards){
         StringBuilder s = new StringBuilder();
 
         for (int i=1; i<=leaderCards.size(); i++){
-            s.append("           "+i+"               ");
+            s.append("           ").append(i).append("               ");
         }
         s.append("\n");
         s.append("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏    " .repeat(leaderCards.size()));
@@ -66,7 +40,7 @@ public class CliGraphics {
         s.append("\n");
 
         for (LeaderCard leaderCard : leaderCards) {
-            s.append("▕       PV: " + leaderCard.getVictoryPoints() + CliColor.ANSI_YELLOW.escape() + "✷ " + CliColor.RESET + "       ▏    ");
+            s.append("▕       PV: ").append(leaderCard.getVictoryPoints()).append(CliColor.ANSI_YELLOW.escape()).append("✷ ").append(CliColor.RESET).append("       ▏    ");
         }
         s.append("\n");
 
@@ -287,7 +261,7 @@ public class CliGraphics {
                 vp = ""+devCard.getVictoryPointsDevCard();
 
             s = getDevColor(devCard).escape() + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏"+ CliColor.RESET +"\n" +
-                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "   COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "   ▏ "+ CliColor.RESET +"\n" +
+                    getDevColor(devCard).escape() + "▕" + CliColor.RESET + "   COST: " + printResources(devCard.getRequirementsDevCard()) + getDevColor(devCard).escape() + "   ▏"+ CliColor.RESET +"\n" +
                     getDevColor(devCard).escape() + "▕     LEVEL: " + devCard.getLevel() + "        ▏"+ CliColor.RESET +"\n" +
 
                     getDevColor(devCard).escape() + "▕     " + CliColor.RESET + printResources(devCard.getProduction().getInput()) + getDevColor(devCard).escape()+"       ▏"+ CliColor.RESET +"\n" +
@@ -332,7 +306,7 @@ public class CliGraphics {
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
-                    "▕                     ▏\n" +
+                     "▕                     ▏\n" +
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
                      "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
@@ -343,26 +317,26 @@ public class CliGraphics {
         }
         else
             card1 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
         if (slots[2].getCards().size()>0){
             card2 = printDevCard(slots[2].getShowedCard()).split("\n");
         }
         else
             card2 = ("▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕                     ▏\n" +
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
         while (j< card1.length){
             slot.append(card0[j]).append(card1[j]).append(card2[j]).append("\n");

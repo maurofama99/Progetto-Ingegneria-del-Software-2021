@@ -103,10 +103,19 @@ public class RemoveCardsAction implements TokenAction, Serializable {
     public String toString() {
         String color = "";
         switch (devCardColor){
-            case YELLOW: color = CliColor.ANSI_YELLOW.escape();
-            case BLUE: color = CliColor.ANSI_BLUE.escape();
-            case GREEN: color = CliColor.ANSI_GREEN.escape();
-            case PURPLE: color = CliColor.ANSI_PURPLE.escape();
+            case YELLOW:
+                color = CliColor.ANSI_YELLOW.escape();
+                break;
+            case BLUE:
+                color = CliColor.ANSI_BLUE.escape();
+                break;
+            case GREEN:
+                color = CliColor.ANSI_GREEN.escape();
+                break;
+
+            case PURPLE:
+                color = CliColor.ANSI_PURPLE.escape();
+                break;
         }
 
         return  "-------------------------------\n"  +

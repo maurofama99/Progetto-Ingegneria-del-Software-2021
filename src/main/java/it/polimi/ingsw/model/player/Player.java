@@ -158,7 +158,7 @@ public class Player extends Observable implements Serializable {
                 if (res.getType().equals(ResourceType.FAITHPOINT)){
                     getPersonalBoard().getFaithTrack().moveForward(this, 1);
                 }
-            }
+             }
             output.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
             return output;
         }

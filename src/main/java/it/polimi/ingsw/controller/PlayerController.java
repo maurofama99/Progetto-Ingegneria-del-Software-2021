@@ -127,7 +127,7 @@ public class PlayerController {
 
                 if (!resources.isEmpty()) {
                     playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                                                             "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or Type SWITCH to switch two floors))");
+                                                             "\nIn which floor of the depot do you want to place this resource? \nType DISCARD to discard this resource and give one faith point to your opponents or \nType SWITCH to switch two floors))");
                     playerVV().fetchResourcePlacement();
                 } else {
                     playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(),
@@ -162,8 +162,8 @@ public class PlayerController {
                 } else {
                     whiteCounter=0;
                     playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                            "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
-                            "Type SWITCH to switch two floors)");
+                            "\nIn which floor of the depot do you want to place this resource? \nType DISCARD to discard this resource and give one faith point to your opponents or \n" +
+                            "Type SWITCH to switch two floors");
                     playerVV().fetchResourcePlacement();
                 }
         }
@@ -203,8 +203,9 @@ public class PlayerController {
                 playerVV().displayGenericMessage("You chose: " + resources.toString() +
                         "\n" +
                         resources.get(resources.size() - 1).toString()
-                        + "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
-                        "Type SWITCH to switch two floors)");
+                        + "\nIn which floor of the depot do you want to place this resource? \n" +
+                        "Type DISCARD to discard this resource and give one faith point to your opponents or \n" +
+                        "Type SWITCH to switch two floors");
                 //nel caso in cui abbia extradepot attivato
                 extraDepotAlert();
                 playerVV().fetchResourcePlacement();
@@ -216,8 +217,8 @@ public class PlayerController {
             }
 
         } else {
-            type1 = (ResourceType) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject();
-            type2 = (ResourceType) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject();
+            type1 = ((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject()).getType();
+            type2 = ((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject()).getType();
             //conta quante biglie bianche ha selezionato
             for (Resource resource : resources){
                 if (resource.getType().equals(ResourceType.WHITERESOURCE)) whiteCounter++;
@@ -230,8 +231,8 @@ public class PlayerController {
                 playerVV().fetchSwapWhite(type1,type2);
             } else {
                 playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                        "\nIn which floor of the depot do you want to place this resource? (Type DISCARD to discard this resource and give one faith point to your opponents or " +
-                        "Type SWITCH to switch two floors)");
+                        "\nIn which floor of the depot do you want to place this resource? \nType DISCARD to discard this resource and give one faith point to your opponents or \n" +
+                        "Type SWITCH to switch two floors");
                 extraDepotAlert();
                 playerVV().fetchResourcePlacement();
             }

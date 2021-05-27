@@ -58,11 +58,12 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchResourceType() throws IOException {
-        System.out.print("You can choose a type of resource you want:\n---------------------\n" +
+        System.out.println(cliGraphics.printDepot(modelView.getWarehouse().getFloors()));
+        System.out.print("You can choose a type of resource you want:\n" +
                         "Type '0' for a SHIELD\n" +
                         "Type '1' for a SERVANT\n" +
                         "Type '2' for a COIN\n" +
-                        "Type '3' for a STONE\n" + "---------------------\n>");
+                        "Type '3' for a STONE\n\n>");
         Scanner scanner = new Scanner(System.in);
         int resourceType = -1;
         while (resourceType < 0 || resourceType > 3){
@@ -94,7 +95,7 @@ public class Cli extends ClientObservable implements View {
                 && !floor.equalsIgnoreCase("discard")
                 && !floor.equalsIgnoreCase("extra")
                 && (floorInt > 3 || floorInt < 1)) {
-            System.out.println("\nInvalid Input, retry");
+            System.out.println("\nInvalid Input, try again!\n>");
             floor = scanner.nextLine();
             floor = floor.replaceAll("\\s+","");
             try{
@@ -111,7 +112,7 @@ public class Cli extends ClientObservable implements View {
                 try {
                     sourceFloor = scanner.nextInt();
                 } catch (InputMismatchException e){
-                    System.out.println("This is not a number..");
+                    System.out.println("This is not a number..\n>");
                     scanner.nextLine();
                 }
             }
@@ -121,7 +122,7 @@ public class Cli extends ClientObservable implements View {
                 try {
                     destFloor = scanner.nextInt();
                 } catch (InputMismatchException e){
-                    System.out.println("This is not a number..");
+                    System.out.println("This is not a number..\n>");
                     scanner.nextLine();
                 }
             }
@@ -161,7 +162,7 @@ public class Cli extends ClientObservable implements View {
                 System.out.print("\n>");
                 index = scanner.nextInt();
             } catch (InputMismatchException e){
-                System.out.println("This is not a number..");
+                System.out.println("This is not a number, try again!\n>");
                 scanner.nextLine();
             }
         }
@@ -171,7 +172,7 @@ public class Cli extends ClientObservable implements View {
                 System.out.print(">");
                 index2 = scanner.nextInt();
             } catch (InputMismatchException e){
-                System.out.println("This is not a number..");
+                System.out.println("This is not a number, try again!\n>");
                 scanner.nextLine();
             }
         }
@@ -201,23 +202,12 @@ public class Cli extends ClientObservable implements View {
         //used only in GUI mode
     }
 
-    @Override
-    public void displayDevCards(DevCard[][] devCards) throws IOException {
-        cliGraphics.printMatrixDevCards(devCards);
-        modelView.setShowedDeck(devCards);
-    }
 
-    @Override
-    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
-        modelView.setSlots(slots);
-        modelView.setWarehouse(warehouse);
-        modelView.setFaithTrack(faithTrack);
-        System.out.println(faithTrack.toString());
-        cliGraphics.printPersonalBoard(warehouse, slots);
-    }
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {
+        System.out.println(modelView.getFaithTrack().toString());
+        cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots());
         boolean rowOrCol = false;
         int index = 0;
         int row, col, slot;
@@ -262,7 +252,7 @@ public class Cli extends ClientObservable implements View {
                         try {
                             index = scanner.nextInt();
                         } catch (InputMismatchException e){
-                            System.out.println("This is not a number..");
+                            System.out.println("Invalid choice, try again!\n>");
                             scanner.nextLine();
                         }
                     }
@@ -431,6 +421,20 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void displayWinningMsg(String win) {
 
+    }
+
+    @Override
+    public void displayDevCards(DevCard[][] devCards) throws IOException {
+        modelView.setShowedDeck(devCards);
+    }
+
+    @Override
+    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
+        modelView.setSlots(slots);
+        modelView.setWarehouse(warehouse);
+        modelView.setFaithTrack(faithTrack);
+        //System.out.println(faithTrack.toString());
+        //cliGraphics.printPersonalBoard(warehouse, slots);
     }
 
     @Override
