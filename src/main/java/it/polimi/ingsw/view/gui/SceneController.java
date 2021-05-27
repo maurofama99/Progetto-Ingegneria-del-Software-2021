@@ -1,10 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.observerPattern.*;
-import it.polimi.ingsw.view.gui.scenes.ActionPopupController;
-import it.polimi.ingsw.view.gui.scenes.DepositPopupSceneController;
-import it.polimi.ingsw.view.gui.scenes.GenericSceneController;
-import it.polimi.ingsw.view.gui.scenes.PopupSceneController;
+import it.polimi.ingsw.view.gui.scenes.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -153,6 +150,28 @@ public class SceneController extends ClientObservable {
         Scene popupScene = new Scene(parent);
         apsc.setScene(popupScene);
         apsc.showPopUp();
+        return controller;
+    }
+
+    public static <T> T showSingleplayerPopup(List<ClientObserver> clientObservers, String message){
+        T controller;
+        FXMLLoader singlePopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/singleplayer_popup.fxml"));
+        Parent parent;
+
+        try {
+            parent = singlePopLoader.load();
+            controller = singlePopLoader.getController();
+            ((ClientObservable) controller).addAllClientObservers(clientObservers);
+        } catch (IOException exception){
+            System.err.println(exception);
+            return null;
+        }
+
+        SingleplayerPopupSceneController spsc =singlePopLoader.getController();
+        Scene popupScene = new Scene(parent);
+        spsc.setScene(popupScene);
+        spsc.setMessageOfLabel(message);
+        spsc.showPopUp();
         return controller;
     }
 
