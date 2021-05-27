@@ -115,9 +115,9 @@ public class ServerHandler implements Runnable {
      */
     public void sendMessage(Message msg) {
         try {
-            output.reset();
             output.writeObject(msg);
             output.flush();
+            output.reset();
         } catch (IOException e) {
             System.out.println("Communication error");
         }

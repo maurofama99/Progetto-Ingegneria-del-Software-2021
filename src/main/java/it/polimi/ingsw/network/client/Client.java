@@ -7,6 +7,7 @@ import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.cli.CliColor;
+import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.JavaFX;
 import it.polimi.ingsw.view.gui.scenes.ConnectionSceneController;
 
@@ -15,12 +16,12 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- * Client for the Master of Renaissance game.
+ * Client for the Masters of Renaissance game.
  */
 public class Client implements Runnable, ClientObserver {
     private ServerHandler serverHandler;
     private final View view;
-    private final int SOCKET_PORT;
+    private int SOCKET_PORT;
     private boolean connected = false;
     private Socket server;
     private String ip;
@@ -43,16 +44,20 @@ public class Client implements Runnable, ClientObserver {
         this.gui=true;
     }
 
+    public Client(View view) {
+        this.view = view;
+    }
+
+
     public static void main(String[] args) {
         int SOCKET_PORT = -1;
         boolean cli = false;
         boolean gui = false;
         boolean solo = false;
-
-        // Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]
+        String usage = "Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]";
 
         if (args.length == 0) {
-            System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+            System.err.println(usage);
         } else {
 
             switch (args[0]) {
@@ -62,11 +67,11 @@ public class Client implements Runnable, ClientObserver {
                             cli = true;
                             SOCKET_PORT = Integer.parseInt(args[2]);
                         } catch (NumberFormatException e) {
-                            System.err.println("-port requires a port number\nUsage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                            System.err.println("-port requires a port number\n" + usage);
                             break;
                         }
                     } else {
-                        System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                        System.err.println(usage);
                         break;
                     }
                     break;
@@ -74,7 +79,7 @@ public class Client implements Runnable, ClientObserver {
                     if (args.length <= 1) {
                         gui = true;
                     } else {
-                        System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                        System.err.println(usage);
                         break;
                     }
                     break;
@@ -85,12 +90,12 @@ public class Client implements Runnable, ClientObserver {
                     } else if (args[1].equals("-cli") && args.length <= 2){
                         solo = true;
                     } else {
-                        System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                        System.err.println(usage);
                         break;
                     }
                     break;
                 default:
-                    System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                    System.err.println(usage);
                     break;
             }
 
@@ -109,12 +114,12 @@ public class Client implements Runnable, ClientObserver {
                 client.cli = false;
                 client.run();
             } else if (solo) {
-                //todo : da gestire
+                System.err.println("Local game in GUI mode not yet implemented");
             }
             else if (gui) {
                 JavaFX.main(args);
             } else {
-                System.err.println("Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]");
+                System.err.println(usage);
             }
 
         }
@@ -178,15 +183,6 @@ public class Client implements Runnable, ClientObserver {
 
         }
 
-        if(gui) {
-            //while (!connected) {
-            tryConnection(this.ip, SOCKET_PORT);
-           // }
-            serverHandler = new ServerHandler(server, this, ip);
-            Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
-            serverHandlerThread.start();
-        }
-
         if (solo){
             localGameManager = new LocalGameManager(this);
             localGameManager.run();
@@ -245,13 +241,19 @@ public class Client implements Runnable, ClientObserver {
     }
 
     public void tryConnection(String ip, int SOCKET_PORT){
-        try {
-            server = new Socket(ip, SOCKET_PORT);
-            connected = true;
-        } catch (IOException e) {
-            System.out.println("Server unreachable, try with another address.");
-            connected = false;
-        }
+            try {
+                server = new Socket(ip, SOCKET_PORT);
+                connected = true;
+            } catch (IOException e) {
+                System.out.println("Server unreachable, try with another address.");
+                connected = false;
+            }
+    }
+
+    public void startGuiGame(String ip, Socket server){
+        serverHandler = new ServerHandler(server, this, ip);
+        Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
+        serverHandlerThread.start();
     }
 
     //todo: nel cleanup togliere il nickname dal costruttore dei messaggi

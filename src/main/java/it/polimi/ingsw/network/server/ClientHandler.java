@@ -125,9 +125,9 @@ public class ClientHandler implements Runnable {
         if (solo){
             localGameManager.sendMessageServerHandler(msg);
         } else {
-            output.reset();
             output.writeObject(msg);
             output.flush();
+            output.reset();
         }
     }
 

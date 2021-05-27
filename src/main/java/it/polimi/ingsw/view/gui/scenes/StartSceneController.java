@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ public class StartSceneController extends ClientObservable implements GenericSce
     @FXML
     public void initialize(){
         startButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onStartButtonClick);
-        exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> System.exit(0) );
+        exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0) );
     }
 
     private void onStartButtonClick(Event event){
@@ -28,6 +29,9 @@ public class StartSceneController extends ClientObservable implements GenericSce
         startButton.setDisable(true);
         exitButton.setDisable(true);
 
+        /*ConnectionSceneController controller = new ConnectionSceneController();
+        controller.addAllClientObservers(clientObservers);*/
         SceneController.changeRootPane(clientObservers, event,  "connection_scene.fxml");
+
     }
 }
