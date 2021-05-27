@@ -268,8 +268,10 @@ public class PlayerController {
             for(LeaderCard leaderCard : getPlayerPB().getActiveLeaderCards()) {
                 if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
                     extraDepotResource = (ResourceType) leaderCard.getLeaderEffect().getObject();
-                    if (resources.get(resources.size() - 1).getType() == extraDepotResource)
-                        playerVV().displayGenericMessage("Type \"extra\" to place this resource in the extra depot");
+                    for (Resource res : resources) {
+                        if (res.getType() == extraDepotResource)
+                            playerVV().displayGenericMessage("Type \"extra\" to place this resource in the extra depot");
+                    }
                 }
             }
         }
@@ -316,7 +318,7 @@ public class PlayerController {
      * @throws IOException
      */
 
-    public void buyDevCard(Message msg) throws IllegalAccessException, IOException, CloneNotSupportedException {
+    public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException {
         if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn())==null){
             playerVV().displayGenericMessage("Selected card is not available anymore!\n");
             playerVV().fetchPlayerAction();
@@ -378,6 +380,14 @@ public class PlayerController {
                     playerVV().fetchResourceType();
                 }
 
+                if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
+                    for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
+                        if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
+                        }
+                    }
+                }
+
                 else if (((ActivateProduction)msg).getBasic()==0) {
                     getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
@@ -387,10 +397,11 @@ public class PlayerController {
 
                     playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
-                
-                getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                break;
 
-
+            case ACTIVATE_EXTRAPRODUCTION:
+                resourcesToAdd.add(new Resource(1, ((ActivateExtraProd)msg).getType()));
+                playerVV().displayGenericMessage("Extra production activated!\n");
                 break;
 
             case RESOURCE_TYPE:
@@ -408,22 +419,24 @@ public class PlayerController {
                 else {
                     typeOut = ((ResourceTypeChosen) msg).getResourceType();
                     try {
-                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(
-                                gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
-                    }
-                    catch (NoSuchElementException e){
+                        resourcesToAdd.add(gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
+                    } catch (NoSuchElementException e) {
                         playerVV().displayGenericMessage("You don't have the requirements to do this production");
                     }
 
+                    getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
                     playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
                             getPlayerPB().getSlots(),
                             new SerializableWarehouse(getPlayerPB().getWarehouse()));
 
-
                     playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
-
+                break;
         }
+
+
+
+
     }
 
     public void addFaithPointsToOpponents(int faithPoints){

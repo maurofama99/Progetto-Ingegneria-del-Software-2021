@@ -10,9 +10,11 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.messagescs.*;
+import it.polimi.ingsw.network.messagessc.ExtraProduction;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
 
@@ -59,11 +61,12 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void fetchResourceType() throws IOException {
         System.out.println(cliGraphics.printDepot(modelView.getWarehouse().getFloors()));
-        System.out.print("You can choose a type of resource you want:\n" +
-                        "Type '0' for a SHIELD\n" +
-                        "Type '1' for a SERVANT\n" +
-                        "Type '2' for a COIN\n" +
-                        "Type '3' for a STONE\n\n>");
+
+        System.out.print(" - 0 --> SHIELD" + cliGraphics.printRes(new Resource(1, ResourceType.SHIELD)) + "\n" +
+                " - 1 --> SERVANT" + cliGraphics.printRes(new Resource(1, ResourceType.SERVANT)) + "\n" +
+                " - 2 --> COIN" + cliGraphics.printRes(new Resource(1, ResourceType.COIN)) + "\n" +
+                " - 3 --> STONE" + cliGraphics.printRes(new Resource(1, ResourceType.STONE)) + "\n\n>");
+
         Scanner scanner = new Scanner(System.in);
         int resourceType = -1;
         while (resourceType < 0 || resourceType > 3){
@@ -135,15 +138,50 @@ public class Cli extends ClientObservable implements View {
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException{
         System.out.println("Do you want a " + type1 + " or a " + type2 + "?");
         Scanner scanner = new Scanner(System.in);
-        String type = scanner.nextLine();
-        type = type.replaceAll("\\s+","");
+        String type = scanner.nextLine().replaceAll("\\s+","");
         while (!(type.equalsIgnoreCase("servant")) && !(type.equalsIgnoreCase("shield")) && !(type.equalsIgnoreCase("stone")) && !(type.equalsIgnoreCase("coin")) ){
             System.out.println("\nInvalid input\nDo you want a " + type1 + " or a " + type2 + "?");
-            type = scanner.nextLine();
-            type = type.replaceAll("\\s+","");
+            type = scanner.nextLine().replaceAll("\\s+","");
         }
         notifyObservers(new SwappedResource(nickname, type));
     }
+
+    @Override
+    public void fetchExtraProd(Resource resource) throws IOException {
+        StringBuilder s = new StringBuilder();
+        System.out.println("You can also activate the production on your leader card: \n" +
+                s.append(cliGraphics.printRes(resource)).append("   ➡︎  ？ + ").append(CliColor.ANSI_RED.escape()).append("† ").append(CliColor.RESET) +
+                "Do you want to spend " + resource.getType() + "for a faith point and a resource you can chose?\n" +
+                "-type yes/no");
+        Scanner scanner = new Scanner(System.in);
+        String y_n = scanner.nextLine();
+        y_n = y_n.replaceAll("\\s+","");
+        while (!(y_n.equalsIgnoreCase("yes")) && !(y_n.equalsIgnoreCase("no"))){
+            System.out.println("\nInvalid input\n-type y/n");
+            y_n = scanner.nextLine().replaceAll("\\s+","");
+        }
+        if (y_n.equalsIgnoreCase("no"))
+            notifyObservers(new ActivateExtraProd(-1));
+        else {
+            System.out.print("You can choose a type of resource you want:\n" +
+                    " - 0 --> SHIELD" + cliGraphics.printRes(new Resource(1, ResourceType.SHIELD)) + "\n" +
+                    " - 1 --> SERVANT" + cliGraphics.printRes(new Resource(1, ResourceType.SERVANT)) + "\n" +
+                    " - 2 --> COIN" + cliGraphics.printRes(new Resource(1, ResourceType.COIN)) + "\n" +
+                    " - 3 --> STONE" + cliGraphics.printRes(new Resource(1, ResourceType.STONE)) + "\n\n>");
+            int resourceType = -1;
+            while (resourceType < 0 || resourceType > 3) {
+                try {
+                    resourceType = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.print("This is not a number, try again!\n>");
+                    scanner.nextLine();
+                }
+            }
+            notifyObservers(new ActivateExtraProd(resourceType));
+        }
+
+    }
+
 
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
@@ -425,6 +463,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayDevCards(DevCard[][] devCards) throws IOException {
+        cliGraphics.printMatrixDevCards(devCards);
         modelView.setShowedDeck(devCards);
     }
 
@@ -433,8 +472,6 @@ public class Cli extends ClientObservable implements View {
         modelView.setSlots(slots);
         modelView.setWarehouse(warehouse);
         modelView.setFaithTrack(faithTrack);
-        //System.out.println(faithTrack.toString());
-        //cliGraphics.printPersonalBoard(warehouse, slots);
     }
 
     @Override

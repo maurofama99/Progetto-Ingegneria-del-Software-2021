@@ -156,7 +156,7 @@ public class Player extends Observable implements Serializable {
         else {
              for (Resource res : output){
                 if (res.getType().equals(ResourceType.FAITHPOINT)){
-                    getPersonalBoard().getFaithTrack().moveForward(this, 1);
+                    for (int i=0; i<res.getQnt(); i++) getPersonalBoard().getFaithTrack().moveForward(this, 1);
                 }
              }
             output.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
@@ -171,20 +171,19 @@ public class Player extends Observable implements Serializable {
      * @param secondInput one resource used to product the resource in output.
      * @param output one resource that the player gets by the production.
      */
-    public ArrayList<Resource> basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
+    public Resource basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
         ArrayList<Resource> resourceToRemove = new ArrayList<>();
         resourceToRemove.add(new Resource(1, firstInput));
         resourceToRemove.add(new Resource(1, secondInput));
 
-        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-        resourcesToAdd.add(new Resource(1, output));
+        Resource resourceToAdd  = new Resource(1, output);
 
         try {getPersonalBoard().getWarehouse().removeResources(resourceToRemove);}
         catch (NoSuchElementException e ){
             throw new NoSuchElementException("you don't have the requirements to activate this production");
         }
 
-        return resourcesToAdd;
+        return resourceToAdd;
     }
 
 

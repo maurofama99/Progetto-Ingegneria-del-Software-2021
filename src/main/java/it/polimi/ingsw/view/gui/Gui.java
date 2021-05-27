@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.client.Client;
@@ -51,6 +52,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
+
+    }
+
+    @Override
+    public void fetchExtraProd(Resource resource) throws IOException {
 
     }
 

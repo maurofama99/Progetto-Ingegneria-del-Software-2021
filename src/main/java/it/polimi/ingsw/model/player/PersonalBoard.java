@@ -57,30 +57,6 @@ public class PersonalBoard{
         activeLeaderCards.add(leaderCardToActivate);
     }
 
-
-    public void extraProduction(Player player, LeaderCard leaderCard, Resource resourceChosenByPlayer) throws CloneNotSupportedException {
-
-        if (hasEffect(EffectType.ADDPRODUCTION)){
-            ArrayList<Resource> resourcesToRemove = new ArrayList<>();
-            ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-
-            resourcesToAdd.add(resourceChosenByPlayer);
-            resourcesToRemove.add((Resource) leaderCard.getLeaderEffect().getObject());
-
-            warehouse.getStrongBox().addResourceToStrongBox(resourcesToAdd);
-            try {
-                warehouse.removeResources(resourcesToRemove);
-            }
-            catch (NoSuchElementException e){
-                //notifyObserver
-            }
-
-            getFaithTrack().moveForward(player, 1);
-
-        }
-
-    }
-
     /**
      * Checks if the player has activated a type of leader card.
      * @param effectType leader card's type of effect.
