@@ -153,6 +153,27 @@ public class SceneController extends ClientObservable {
         return controller;
     }
 
+    public static <T> T LeaderStartPopup(List<ClientObserver> clientObservers, String message){
+        T controller;
+        FXMLLoader leaderPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/leader_popup.fxml"));
+        Parent parent;
+
+        try {
+            parent = leaderPopLoader.load();
+            controller = leaderPopLoader.getController();
+            ((ClientObservable) controller).addAllClientObservers(clientObservers);
+        } catch (IOException exception){
+            System.err.println(exception);
+            return null;
+        }
+
+        LeaderStartSceneController lssc =leaderPopLoader.getController();
+        Scene popupScene = new Scene(parent);
+        lssc.setScene(popupScene);
+        lssc.showPopUp();
+        return controller;
+    }
+
     public static <T> T showSingleplayerPopup(List<ClientObserver> clientObservers, String message){
         T controller;
         FXMLLoader singlePopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/singleplayer_popup.fxml"));

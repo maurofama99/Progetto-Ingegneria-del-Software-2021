@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.messagescs.DiscardLeader;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -43,7 +44,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
 
     @FXML
     public void initialize(){
-        //Probabilmente qua c'è bisogno di un metodo che porta le immagini di ogni leader card alla leader card che è stata randomizzata.
 
         firstBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstClicked);
         secondBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondClicked);
