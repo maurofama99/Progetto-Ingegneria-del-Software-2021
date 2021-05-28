@@ -7,6 +7,7 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.client.LocalGameManager;
 import it.polimi.ingsw.network.messagescs.LoginData;
+import it.polimi.ingsw.network.messagessc.GenericPopup;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -137,6 +138,7 @@ public class ClientHandler implements Runnable {
     public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         if (msg.getMessageType() == Content.LOGIN_DATA) {
             if (waitingRoom.nicknameAlreadyPresent(((LoginData)msg).getNickname()) || ((((LoginData)msg).getNumPlayers() > 4 && ((LoginData)msg).getNumPlayers()<1))) {
+                sendMessage(new GenericPopup("Nickname already present"));
                 sendMessage(new LoginRequest());
             } else {
             VirtualView vv = new VirtualView(this);

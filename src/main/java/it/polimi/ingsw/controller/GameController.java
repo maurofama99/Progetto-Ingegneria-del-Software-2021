@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
 
-
 public class GameController implements Observer, Serializable {
     private PlayerController playerController;
     private SinglePlayerController singlePlayerController;
@@ -182,7 +181,6 @@ public class GameController implements Observer, Serializable {
         condition = true;
     }
 
-
     public void receiveMessageInGame(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         switch (msg.getMessageType()){
             case GOING_MARKET:
@@ -254,6 +252,9 @@ public class GameController implements Observer, Serializable {
      */
 
     public void askPlayerAction(VirtualView vv) throws IOException {
+        vv.displayGUIPersonalBoard(table.getCurrentPlayer().getPersonalBoard().getFaithTrack(),
+                table.getCurrentPlayer().getPersonalBoard().getSlots(),
+                new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
         vv.displayMarketTray(table.getMarketTray());
         vv.displayDeck(table.getDevCardsDeck().showedCards());
         vv.displayPersonalBoard(table.getCurrentPlayer().getPersonalBoard().getFaithTrack(),

@@ -73,6 +73,10 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new DisplayPersonalBoard(faithTrack, slots, warehouse));
     }
 
+    public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException {
+        clientHandler.sendMessage(new DisplayGUIPersonalBoard(faithTrack, slots, warehouse));
+    }
+
     public void displayToken(Token token) throws IOException {
         clientHandler.sendMessage(new TurnToken(token));
     }

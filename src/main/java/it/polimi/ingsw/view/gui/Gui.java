@@ -15,6 +15,7 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.scenes.*;
 import javafx.application.Platform;
 
@@ -30,6 +31,11 @@ public class Gui extends ClientObservable implements View {
     private final static  String ERROR = "ERROR";
     private final static String START_SCENE = "start_scene.fxml";
     private Client client;
+    private ModelView modelView;
+
+    public Gui() {
+        this.modelView = new ModelView(this);
+    }
 
     public void setClient(Client client) {
         this.client = client;
@@ -37,16 +43,16 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchNickname() {
-        SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
+        Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
     }
 
     @Override
     public void fetchResourceType() throws IOException {
-        SceneController.changeRootPane(clientObservers, "resource_choosing.fxml");
+        Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "resource_choosing.fxml"));
     }
 
     @Override
-    public void fetchResourcePlacement() throws IOException {
+    public void fetchResourcePlacement() {
         Platform.runLater(() -> SceneController.showDepositPopup(clientObservers, "stone"));
     }
 
@@ -77,35 +83,17 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
+        // used only in CLI mode
+    }
+
+    @Override
+    public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException{
         Platform.runLater(()->SceneController.changeRootPane(clientObservers, "personal_board.fxml"));
     }
 
     @Override
     public void fetchPlayerAction(String message) {
-        /*
-        Platform.runLater(() -> {
-            Object controller = SceneController.showActionPopup(clientObservers, message);
-            // wrappo in un oggetto future la ricezione dell'azione (asincrona):
-            Future<String> decision = controller.getAction();
-
-            while(true) {
-                if (decision.isDone()){
-                    if ("market".equals(decision)) {
-                        SceneController.changeRootPane(clientObservers, "market_tray_display.fxml");
-                        break;
-                    } else if ("buy".equals(decision)) {
-
-                        break;
-                    } else if ("production".equals(decision)) {
-
-                        break;
-                    }
-
-                }
-            }
-
-        });
-        */
+        Platform.runLater(() -> SceneController.showActionPopup(clientObservers, message));
     }
 
     @Override
@@ -115,7 +103,7 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
-
+        Platform.runLater(()-> SceneController.LeaderStartPopup(clientObservers, "leader_popup.fxml"));
     }
 
 

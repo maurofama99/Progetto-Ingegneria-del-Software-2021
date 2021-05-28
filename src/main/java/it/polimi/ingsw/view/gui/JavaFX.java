@@ -20,9 +20,9 @@ public class JavaFX extends Application {
 
         Gui view = new Gui();
         Client client = new Client(view);
+        client.setGui(true);
         view.setClient(client);
         view.addClientObserver(client);
-        //client.run();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/start_scene.fxml"));

@@ -29,8 +29,6 @@ public class StartSceneController extends ClientObservable implements GenericSce
         startButton.setDisable(true);
         exitButton.setDisable(true);
 
-        /*ConnectionSceneController controller = new ConnectionSceneController();
-        controller.addAllClientObservers(clientObservers);*/
         SceneController.changeRootPane(clientObservers, event,  "connection_scene.fxml");
 
     }

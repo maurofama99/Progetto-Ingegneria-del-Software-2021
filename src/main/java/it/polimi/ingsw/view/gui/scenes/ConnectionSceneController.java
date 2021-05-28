@@ -42,8 +42,6 @@ public class ConnectionSceneController extends ClientObservable implements Gener
     }
 
     private void connectButtonClick(Event event){
-        //connectButton.setDisable(true);
-        //exitButton.setDisable(true);
 
         String ip = serverAddress.getText();
         client = (Client) clientObservers.get(0);
@@ -56,9 +54,6 @@ public class ConnectionSceneController extends ClientObservable implements Gener
                 client.startGuiGame(ip, server);
                 connected = true;
             } catch (IllegalArgumentException | IOException e) {
-                /*ConnectionSceneController controller = new ConnectionSceneController();
-                controller.addAllClientObservers(clientObservers);
-                SceneController.changeRootPane(controller, event,  "connection_scene.fxml");*/
                 SceneController.changeRootPane(clientObservers,"connection_scene.fxml");
                 SceneController.showPopup(clientObservers, "Server unreachable,\ntry with another address");
                 break;

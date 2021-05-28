@@ -46,8 +46,12 @@ public class Client implements Runnable, ClientObserver {
 
     public Client(View view) {
         this.view = view;
+        this.gui = true;
     }
 
+    public void setGui(boolean gui) {
+        this.gui = gui;
+    }
 
     public static void main(String[] args) {
         int SOCKET_PORT = -1;
@@ -195,6 +199,9 @@ public class Client implements Runnable, ClientObserver {
                 break;
             case DISPLAY_PERSONALBOARD:
                 view.displayPersonalBoard(((DisplayPersonalBoard)msg).getFaithTrack(), ((DisplayPersonalBoard)msg).getSlots(), ((DisplayPersonalBoard)msg).getSerializableWarehouse());
+                break;
+            case DISPLAY_GUI_PERSONALBOARD:
+                view.displayGUIPersonalBoard(((DisplayGUIPersonalBoard)msg).getFaithTrack(), ((DisplayGUIPersonalBoard)msg).getSlots(), ((DisplayGUIPersonalBoard)msg).getSerializableWarehouse());
                 break;
             case ASK_ACTION:
                 view.fetchPlayerAction(((AskAction)msg).getQuestion());

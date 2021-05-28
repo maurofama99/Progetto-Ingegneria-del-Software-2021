@@ -375,7 +375,7 @@ public class CliGraphics {
             s.append(" ");
 
         for (Resource resource : res) {
-            s = s.append(resource.getQnt());
+            s.append(resource.getQnt());
             printSymbol(resource, s);
         }
 

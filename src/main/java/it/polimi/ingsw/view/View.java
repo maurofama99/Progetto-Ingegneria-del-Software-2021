@@ -55,6 +55,8 @@ public interface View {
 
     void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse);
 
+    void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException;
+
     /**
      * Shows the market to the player to let him choose the line to buy
      * @param marketTray the current market tray

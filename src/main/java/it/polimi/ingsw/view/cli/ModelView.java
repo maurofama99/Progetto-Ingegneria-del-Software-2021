@@ -7,12 +7,14 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.view.gui.Gui;
 
 import java.util.ArrayList;
 
 public class ModelView {
 
     private Cli cli;
+    private Gui gui;
 
     private MarketTray marketTray;
     private DevCard[][] showedDeck;
@@ -21,11 +23,13 @@ public class ModelView {
     private SerializableWarehouse warehouse;
     private ArrayList<LeaderCard> leaderCards;
 
-
     public ModelView(Cli cli) {
         this.cli = cli;
     }
 
+    public ModelView(Gui gui) {
+        this.gui = gui;
+    }
 
     public MarketTray getMarketTray() {
         return marketTray;

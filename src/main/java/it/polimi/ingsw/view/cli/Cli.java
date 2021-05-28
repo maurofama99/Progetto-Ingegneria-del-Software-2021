@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.cli;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
@@ -472,6 +471,11 @@ public class Cli extends ClientObservable implements View {
         modelView.setSlots(slots);
         modelView.setWarehouse(warehouse);
         modelView.setFaithTrack(faithTrack);
+    }
+
+    @Override
+    public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
+        //used only in CLI mode
     }
 
     @Override
