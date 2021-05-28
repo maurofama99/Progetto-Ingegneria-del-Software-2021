@@ -62,6 +62,64 @@ public class MarketSceneController extends ClientObservable implements GenericSc
 
     private MarketTray marketTrayArray;
 
+
+    public void initialize(){
+
+
+        column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
+        column2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn2BtnClicked);
+        column3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn3BtnClicked);
+        column4Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn4BtnClicked);
+        row1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow1BtnClicked);
+        row2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow2BtnClicked);
+        row3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow3BtnClicked);
+    }
+
+    private void whenColumn1BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(1, false));
+        disableAll();
+    }
+
+    private void whenColumn2BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(2, false));
+        disableAll();
+    }
+
+    private void whenColumn3BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(3, false));
+        disableAll();
+    }
+
+    private void whenColumn4BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(4, false));
+        disableAll();
+    }
+
+    private void whenRow1BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(1, true));
+        disableAll();
+    }
+
+    private void whenRow2BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(2, true));
+        disableAll();
+    }
+
+    private void whenRow3BtnClicked(MouseEvent event){
+        notifyObservers(new GoingMarket(3, true));
+        disableAll();
+    }
+
+    private void disableAll() {
+        column1Btn.setDisable(true);
+        column3Btn.setDisable(true);
+        column2Btn.setDisable(true);
+        row1Btn.setDisable(true);
+        row2Btn.setDisable(true);
+        row3Btn.setDisable(true);
+        column4Btn.setDisable(true);
+    }
+
     public void setMarketTrayArray(MarketTray marketTrayArray) {
         this.marketTrayArray = marketTrayArray;
     }
@@ -120,64 +178,6 @@ public class MarketSceneController extends ClientObservable implements GenericSc
 
 
 
-    }
-
-
-    public void initialize(){
-
-
-        column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
-        column2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn2BtnClicked);
-        column3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn3BtnClicked);
-        column4Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn4BtnClicked);
-        row1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow1BtnClicked);
-        row2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow2BtnClicked);
-        row3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow3BtnClicked);
-    }
-
-    private void whenColumn1BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(1, false));
-        disableAll();
-    }
-
-    private void whenColumn2BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(2, false));
-        disableAll();
-    }
-
-    private void whenColumn3BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(3, false));
-        disableAll();
-    }
-
-    private void whenColumn4BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(4, false));
-        disableAll();
-    }
-
-    private void whenRow1BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(1, true));
-        disableAll();
-    }
-
-    private void whenRow2BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(2, true));
-        disableAll();
-    }
-
-    private void whenRow3BtnClicked(MouseEvent event){
-        notifyObservers(new GoingMarket(3, true));
-        disableAll();
-    }
-
-    private void disableAll() {
-        column1Btn.setDisable(true);
-        column3Btn.setDisable(true);
-        column2Btn.setDisable(true);
-        row1Btn.setDisable(true);
-        row2Btn.setDisable(true);
-        row3Btn.setDisable(true);
-        column4Btn.setDisable(true);
     }
 
 }

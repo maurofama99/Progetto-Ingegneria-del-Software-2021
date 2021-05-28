@@ -1,8 +1,11 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.devcard.Deck;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -12,7 +15,7 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
     private GridPane devCardGrid;
     @FXML
     private Button backBtn;
-    @FXML
+    /*@FXML
     private ImageView firstRowFirstColumn;
     @FXML
     private ImageView firstRowSecondColumn;
@@ -35,7 +38,7 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
     @FXML
     private ImageView thirdRowThirdColumn;
     @FXML
-    private ImageView thirdRowFourthColumn;
+    private ImageView thirdRowFourthColumn;*/
     @FXML
     private Button firstRowFirstColumnBtn;
     @FXML
@@ -60,6 +63,8 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
     private Button thirdRowThirdColumnBtn;
     @FXML
     private Button thirdRowFourthColumnBtn;
+
+    private Deck deck;
 
     public void initialize(){
 
@@ -131,51 +136,24 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
 
     }
 
-    public void setFirstRowFirstColumn(ImageView firstRowFirstColumn) {
-        this.firstRowFirstColumn = firstRowFirstColumn;
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 
-    public void setFirstRowSecondColumn(ImageView firstRowSecondColumn) {
-        this.firstRowSecondColumn = firstRowSecondColumn;
+    public ImageView setDevCardImage(DevCard devCard){
+        ImageView devImage = new ImageView();
+        Image image = new Image("/front/devcard_" + "color-" + devCard.getCardColor() + "_level-" + devCard.getLevel() + "_vp-" + devCard.getVictoryPointsDevCard());
+        devImage.setImage(image);
+
+        return devImage;
     }
 
-    public void setFirstRowThirdColumn(ImageView firstRowThirdColumn) {
-        this.firstRowThirdColumn = firstRowThirdColumn;
+    public void setImages(){
+        for (int i = 1; i < 4 ; i++) {
+            for (int j = 1; j < 5 ; j++) {
+                setDevCardImage(deck.getDevCard(i,j));
+            }
+        }
     }
 
-    public void setFirstRowFourthColumn(ImageView firstRowFourthColumn) {
-        this.firstRowFourthColumn = firstRowFourthColumn;
-    }
-
-    public void setSecondRowFirstColumn(ImageView secondRowFirstColumn) {
-        this.secondRowFirstColumn = secondRowFirstColumn;
-    }
-
-    public void setSecondRowSecondColumn(ImageView secondRowSecondColumn) {
-        this.secondRowSecondColumn = secondRowSecondColumn;
-    }
-
-    public void setSecondRowThirdColumn(ImageView secondRowThirdColumn) {
-        this.secondRowThirdColumn = secondRowThirdColumn;
-    }
-
-    public void setSecondRowFourthColumn(ImageView secondRowFourthColumn) {
-        this.secondRowFourthColumn = secondRowFourthColumn;
-    }
-
-    public void setThirdRowFirstColumn(ImageView thirdRowFirstColumn) {
-        this.thirdRowFirstColumn = thirdRowFirstColumn;
-    }
-
-    public void setThirdRowSecondColumn(ImageView thirdRowSecondColumn) {
-        this.thirdRowSecondColumn = thirdRowSecondColumn;
-    }
-
-    public void setThirdRowThirdColumn(ImageView thirdRowThirdColumn) {
-        this.thirdRowThirdColumn = thirdRowThirdColumn;
-    }
-
-    public void setThirdRowFourthColumn(ImageView thirdRowFourthColumn) {
-        this.thirdRowFourthColumn = thirdRowFourthColumn;
-    }
 }

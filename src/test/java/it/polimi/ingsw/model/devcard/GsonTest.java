@@ -35,4 +35,27 @@ public class GsonTest {
 
     }
 
+    @Test
+    public void getStuff(){
+        Gson gson = new Gson();
+
+        try (Reader reader = new FileReader("src/main/resources/DevelopmentCards.json")) {
+
+            Type devCardListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
+
+            ArrayList<DevCard> devCardsArray = gson.fromJson(reader, devCardListType);
+
+
+            for(DevCard card : devCardsArray) {
+                System.out.println(card);
+            }
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

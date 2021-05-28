@@ -16,10 +16,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
 
     private ArrayList<LeaderCard> leaderCards;
 
-    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
-        this.leaderCards = leaderCards;
-    }
-
     private int index1;
     private boolean first = true;
 
@@ -42,6 +38,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     @FXML
     private ImageView fourthLeader;
 
+
     @FXML
     public void initialize(){
 
@@ -50,6 +47,8 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         thirdBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdClicked);
         fourthBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourthClicked);
     }
+
+
 
     private void whenFirstClicked(MouseEvent event){
         if (first) {
@@ -106,6 +105,26 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             notifyObservers(new DiscardLeader("client", index1, 3));
         }
 
+    }
+
+    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
+        this.leaderCards = leaderCards;
+    }
+
+
+    public ImageView setLeaderImage(LeaderCard leaderCard){
+
+        ImageView leaderImage = new ImageView();
+        Image image = new Image("/front/leader_" + leaderCard.getLeaderEffect() + "-" + leaderCard.getLeaderEffect().getObject());
+        leaderImage.setImage(image);
+
+        return leaderImage;
+    }
+
+    public void setImages(){
+        for (int i = 0; i < 3; i++) {
+            setLeaderImage(leaderCards.get(i));
+        }
     }
 
 

@@ -32,4 +32,13 @@ public class TableTest {
         assertEquals(4,table.getCurrentPlayer().getLeaderCards().size());
 
     }
+
+    @Test
+    public void getDeck(){
+        for (int i = 1; i < 4; i++) {
+            for (int j = 1; j < 5; j++) {
+                System.out.println("/front/devcard_" + "color-" + table.getDevCardsDeck().getDevCard(i,j).getCardColor() + "_level-" + table.getDevCardsDeck().getDevCard(i,j).getLevel() + "_vp-" + table.getDevCardsDeck().getDevCard(i,j).getVictoryPointsDevCard());
+            }
+        }
+    }
 }
