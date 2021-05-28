@@ -4,6 +4,7 @@ package it.polimi.ingsw.view.cli;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Slot;
+import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
@@ -414,6 +415,14 @@ public class CliGraphics {
 
         return s.toString();
     }
+
+    /*
+    public String printFaithTrack(FaithTrack faithTrack){
+        StringBuilder s = new StringBuilder();
+
+
+    }
+    */
 
 
     public void printLorenzo(Token token){

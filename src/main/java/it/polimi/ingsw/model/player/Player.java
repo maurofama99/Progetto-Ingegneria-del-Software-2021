@@ -29,6 +29,7 @@ public class Player extends Observable implements Serializable {
     private ArrayList<LeaderCard> leaderCards;
     private int victoryPoints;
     private PersonalBoard personalBoard;
+    private int counterDevCards = 0;
 
     public Player(String nickname) {
         this.nickname = nickname;
@@ -49,8 +50,16 @@ public class Player extends Observable implements Serializable {
         return personalBoard;
     }
 
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
+
     public int getTurnOrder() {
         return turnOrder;
+    }
+
+    public int getCounterDevCards() {
+        return counterDevCards;
     }
 
     public void setTurnOrder(int turnOrder) {
@@ -66,8 +75,8 @@ public class Player extends Observable implements Serializable {
         this.personalBoard = personalBoard;
     }
 
-    public int getVictoryPoints() {
-        return victoryPoints;
+    public void setCounterDevCards(int counterDevCards) {
+        this.counterDevCards = counterDevCards;
     }
 
     /**
@@ -116,14 +125,15 @@ public class Player extends Observable implements Serializable {
      * @param slotNumber where the player wants to place the card he wants to buy.
      */
 
-    public void buyDevCard(DevCard devCardToBuy, int slotNumber){
+    public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
         slotNumber = slotNumber -1;
-
         try {
             getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
+            victoryPoints += devCardToBuy.getVictoryPointsDevCard();
+            counterDevCards += 1;
         }
         catch (IllegalAccessException e) {
-            notifyObserver(new NoAvailableResources("You can't place this devCard here"));
+            throw new IllegalAccessException(e.getMessage());
         }
     }
 

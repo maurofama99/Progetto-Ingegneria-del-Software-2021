@@ -25,9 +25,9 @@ public class PlayerController {
     private ArrayList<Resource> resources = new ArrayList<>();
     private int whiteCounter = 0;
     private int cont = 0;
-    private ResourceType typeInput1, typeInput2, typeOut;
+    private ResourceType typeInput1;
+    private ResourceType typeInput2;
     private ResourceType type1, type2; //usati per il dobbio swap
-    private boolean hasExtra = false;
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -88,17 +88,18 @@ public class PlayerController {
                 String answer;
                 answer = ((ResourcePlacement) msg).getFloor().replaceAll("\\s+", "");
                 if (answer.equalsIgnoreCase("discard")) {
-                    //scarta la risorsa e aggiungi faith point
                     addFaithPointsToOpponents(1);
                     resources.remove(resources.get(resources.size() - 1));
-                } else if (answer.equalsIgnoreCase("switch")) {
+                }
+                else if (answer.equalsIgnoreCase("switch")) {
                     try{
                         getPlayerPB().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
                     } catch (IllegalArgumentException e){
                         playerVV().displayGenericMessage(e.getMessage() + ". Try Again...\n");
                         playerVV().displayPopup(e.getMessage() + ". Try Again...\n");
                     }
-                } else if (answer.equalsIgnoreCase("extra")){
+                }
+                else if (answer.equalsIgnoreCase("extra")){
                     try{
                         getPlayerPB().getWarehouse().getDepot().addResourceToExtraDepot(resources.get(resources.size() - 1));
                     } catch (IllegalArgumentException e){
@@ -109,11 +110,12 @@ public class PlayerController {
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));
                     }
-                } else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
+                }
+                else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
                     //aggiungi la risorsa al deposito
-                    try{
+                    try {
                         getPlayerPB().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
-                    } catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         goAhead = false;
                         playerVV().displayGenericMessage(e.getMessage() + ". Try Again...\n");
                         playerVV().displayPopup(e.getMessage() + ". Try Again...\n");
@@ -121,17 +123,17 @@ public class PlayerController {
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));
                     }
-                } else { //should not enter here
-                    throw new IllegalArgumentException("Wrong Input in market action");
                 }
-
                 if (!resources.isEmpty()) {
                     playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                                                             "\nIn which floor of the depot do you want to place this resource? \nType DISCARD to discard this resource and give one faith point to your opponents or \nType SWITCH to switch two floors))");
+                                                             "\nIn which floor of the depot do you want to place this resource? " +
+                            "\n'DISCARD' to discard this resource and give one faith point to your opponents or " +
+                            "\n'SWITCH' to switch two floors");
+                    extraDepotAlert();
                     playerVV().fetchResourcePlacement();
-                } else {
-                    playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(),
-                            new SerializableWarehouse(getPlayerPB().getWarehouse()));
+                }
+                else {
+                    displayPB();
                     playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 break;
@@ -159,11 +161,14 @@ public class PlayerController {
                 whiteCounter--;
                 if (whiteCounter > 0){
                     playerVV().fetchSwapWhite(type1,type2);
-                } else {
+                }
+                else {
                     whiteCounter=0;
                     playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                            "\nIn which floor of the depot do you want to place this resource? \nType DISCARD to discard this resource and give one faith point to your opponents or \n" +
-                            "Type SWITCH to switch two floors");
+                            "\nIn which floor of the depot do you want to place this resource? \n" +
+                            "'DISCARD' to discard this resource and give one faith point to your opponents\n" +
+                            "'SWITCH' to switch two floors");
+                    extraDepotAlert();
                     playerVV().fetchResourcePlacement();
                 }
         }
@@ -194,19 +199,16 @@ public class PlayerController {
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         }
 
-        //rimuovi i faithpoint e muovi il faith marker
         faithFilter();
 
-        //chiedi risorsa per risorsa dove la vuole posizionare
         if (!doubleSwap) {
             try {
                 playerVV().displayGenericMessage("You chose: " + resources.toString() +
                         "\n" +
                         resources.get(resources.size() - 1).toString()
                         + "\nIn which floor of the depot do you want to place this resource? \n" +
-                        "Type DISCARD to discard this resource and give one faith point to your opponents or \n" +
-                        "Type SWITCH to switch two floors");
-                //nel caso in cui abbia extradepot attivato
+                        "'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
+                        "'SWITCH' to switch two floors");
                 extraDepotAlert();
                 playerVV().fetchResourcePlacement();
 
@@ -231,8 +233,9 @@ public class PlayerController {
                 playerVV().fetchSwapWhite(type1,type2);
             } else {
                 playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
-                        "\nIn which floor of the depot do you want to place this resource? \nType DISCARD to discard this resource and give one faith point to your opponents or \n" +
-                        "Type SWITCH to switch two floors");
+                        "\nIn which floor of the depot do you want to place this resource? \n" +
+                        "'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
+                        "'SWITCH' to switch two floors");
                 extraDepotAlert();
                 playerVV().fetchResourcePlacement();
             }
@@ -264,7 +267,6 @@ public class PlayerController {
     public void extraDepotAlert() throws IOException {
         if (getPlayerPB().hasEffect(EffectType.EXTRADEPOT)){
             ResourceType extraDepotResource;
-            hasExtra = true;
             for(LeaderCard leaderCard : getPlayerPB().getActiveLeaderCards()) {
                 if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
                     extraDepotResource = (ResourceType) leaderCard.getLeaderEffect().getObject();
@@ -283,7 +285,7 @@ public class PlayerController {
         boolean trueOrFalse = true;
         try {
             gameController.getTable().getCurrentPlayer().activateLeaderCard(((ActivateLeader)msg).getLeaderCard());
-            playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(), new SerializableWarehouse(getPlayerPB().getWarehouse()));
+            displayPB();
         }
         catch (IllegalArgumentException e){
             playerVV().displayGenericMessage("You don't have the requirements to activate it");
@@ -302,10 +304,8 @@ public class PlayerController {
     public void discardLeader(Message msg) throws IOException {
 
         gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((DiscardOneLeader)msg).getLeaderCard());
-       getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
-
-        playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(), new SerializableWarehouse(getPlayerPB().getWarehouse()));
-
+        getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+        displayPB();
         playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
 
     }
@@ -318,7 +318,7 @@ public class PlayerController {
      * @throws IOException
      */
 
-    public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException {
+    public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException, IllegalAccessException {
         if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn())==null){
             playerVV().displayGenericMessage("Selected card is not available anymore!\n");
             playerVV().fetchPlayerAction();
@@ -341,26 +341,27 @@ public class PlayerController {
         }
 
         if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(requirements, gameController.getTable().getCurrentPlayer())){
-            gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
-            gameController.getTable().getCurrentPlayer().setVictoryPoints(gameController.getTable().getCurrentPlayer().getVictoryPoints() + devCard.getVictoryPointsDevCard());
-
-            gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
+            try {
+                gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
+                gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
+                countDevCards();
+            } catch (IllegalAccessException e ){
+                playerVV().displayGenericMessage(e.getMessage());
+                playerVV().fetchPlayerAction();
+            }
         }
 
         else
             playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
 
 
-        playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
-                getPlayerPB().getSlots(),
-                new SerializableWarehouse(getPlayerPB().getWarehouse()));
+        displayPB();
         playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
 
     }
 
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
-        //todo se ha la leader card attiva
         switch (msg.getMessageType()){
             case ACTIVATE_PRODUCTION:
 
@@ -406,9 +407,7 @@ public class PlayerController {
                 else if (((ActivateProduction)msg).getBasic()==0) {
                     getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
-                    playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
-                            getPlayerPB().getSlots(),
-                            new SerializableWarehouse(getPlayerPB().getWarehouse()));
+                    displayPB();
 
                     playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
@@ -432,26 +431,18 @@ public class PlayerController {
                     playerVV().fetchResourceType();
                 }
                 else {
-                    typeOut = ((ResourceTypeChosen) msg).getResourceType();
+                    ResourceType typeOut = ((ResourceTypeChosen) msg).getResourceType();
                     try {
                         resourcesToAdd.add(gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
                     } catch (NoSuchElementException e) {
                         playerVV().displayGenericMessage("You don't have the requirements to do this production");
                     }
-
                     getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-                    playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
-                            getPlayerPB().getSlots(),
-                            new SerializableWarehouse(getPlayerPB().getWarehouse()));
-
+                    displayPB();
                     playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 break;
         }
-
-
-
-
     }
 
     public void addFaithPointsToOpponents(int faithPoints){
@@ -462,6 +453,19 @@ public class PlayerController {
             if(!gameController.getTable().getCurrentPlayer().equals(player))
                 player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
         }
+    }
+
+    public void countDevCards(){
+        if (gameController.getTable().getCurrentPlayer().getCounterDevCards() == 7){
+            gameController.setEndPlayerNumber(gameController.getTable().getCurrentPlayer().getTurnOrder());
+            gameController.setTableState(TableState.END);
+        }
+    }
+
+    public void displayPB () throws IOException {
+        playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
+                getPlayerPB().getSlots(),
+                new SerializableWarehouse(getPlayerPB().getWarehouse()));
     }
 
     public PersonalBoard getPlayerPB(){

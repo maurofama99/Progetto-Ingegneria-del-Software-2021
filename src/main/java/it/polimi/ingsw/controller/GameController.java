@@ -30,6 +30,9 @@ public class GameController implements Observer, Serializable {
 
     private Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
+    private String winner = "";
+    private String endPlayer = "";
+    private int endPlayerNumber =0;
     private boolean condition = false;
     private int playerCounter=0; //to count how many players discarded leaderCards
 
@@ -63,6 +66,10 @@ public class GameController implements Observer, Serializable {
 
     public void setSinglePlayerController(SinglePlayerController singlePlayerController) {
         this.singlePlayerController = singlePlayerController;
+    }
+
+    public void setEndPlayerNumber(int endPlayerNumber) {
+        this.endPlayerNumber = endPlayerNumber;
     }
 
     public void setTableState(TableState tableState) {
@@ -219,27 +226,55 @@ public class GameController implements Observer, Serializable {
     }
 
     public void receiveMessageOnEndGame(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
+
         if (msg.getMessageType().equals(Content.DONE_ACTION)){
+
+            if (msg.getSenderUser().equals(endPlayer))
+                vvMap.get(endPlayer).displayGenericMessage("You made the game end! :)");
+            else
+                vvMap.get(msg.getSenderUser()).displayGenericMessage(endPlayer + " ended the game");
+
             vvMap.get(msg.getSenderUser()).displayGenericMessage
                     (       "--------------------------------\n" +
                             "|         Please wait...       |\n" +
                             "|   At the end of this round   |\n" +
                             "|         Game is over         |\n" +
                             "--------------------------------\n");
+
+            if (endPlayerNumber < table.getNumPlayers()) {
+                askPlayerAction(vvMap.get(table.getPlayers().get(endPlayerNumber).getNickname()));
+                endPlayerNumber++;
+            }
         }
-        else if (!msg.getSenderUser().equals(table.getPlayers().get(0).getNickname())){
+
+
+        if (!msg.getSenderUser().equals(table.getPlayers().get(0).getNickname())){
             receiveMessageInGame(msg);
         }
+        else{
 
-        else if (msg.getSenderUser().equals(table.getPlayers().get(0).getNickname())){
+            for (String key : vvMap.keySet()){
+                for(Player player : table.getPlayers())
+                    if (player.getNickname().equals(key))
+                        vvMap.get(key).displayGenericMessage("You have totaled " + player.getVictoryPoints());
+            }
 
-            String winner = table.getPlayers().stream()
+            winner = table.getPlayers().stream()
                     .max(Comparator.comparing(Player :: getVictoryPoints))
                     .get().getNickname();
 
-            //conta i victory points e assegna il vincitore
-            //manda il mex di fine gioco
-            //chiude la partita
+            table.getPlayers().forEach(player -> {
+                try {
+                    if (player.getNickname().equals(winner)) {
+                        vvMap.get(player.getNickname()).displayGenericMessage("YOU WON THIS GAME!! \nCONGRATULATIONS!!");
+                    } else {
+                        vvMap.get(player.getNickname()).displayGenericMessage("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
         }
 
 
@@ -279,10 +314,8 @@ public class GameController implements Observer, Serializable {
 
             case END_GAME:
                 setTableState(TableState.END);
-                for (String key : vvMap.keySet()) {
-                    vvMap.get(key).displayGenericMessage(message.getSenderUser() + " reached the last space of its Faith Track");
-                }
-                askPlayerAction(vvMap.get(table.getPlayers().get(((EndGame)message).getPlayerNumber()).getNickname()));
+                endPlayer = message.getSenderUser();
+                endPlayerNumber = ((EndGame)message).getPlayerNumber();
                 break;
         }
     }
