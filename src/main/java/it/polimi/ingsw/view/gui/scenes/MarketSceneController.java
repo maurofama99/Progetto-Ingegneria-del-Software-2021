@@ -1,16 +1,26 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.resources.MarketTray;
+import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MarketSceneController extends ClientObservable implements GenericSceneController {
     @FXML
-    private ImageView slideMrbl;
+    private GridPane marketTray;
     @FXML
+    private ImageView slideMrbl;
+    /*@FXML
     private ImageView row1column1;
     @FXML
     private ImageView row1column2;
@@ -34,6 +44,7 @@ public class MarketSceneController extends ClientObservable implements GenericSc
     private ImageView row3column3;
     @FXML
     private ImageView row3column4;
+    */
     @FXML
     private Button column1Btn;
     @FXML
@@ -49,7 +60,72 @@ public class MarketSceneController extends ClientObservable implements GenericSc
     @FXML
     private Button row3Btn;
 
+    private MarketTray marketTrayArray;
+
+    public void setMarketTrayArray(MarketTray marketTrayArray) {
+        this.marketTrayArray = marketTrayArray;
+    }
+
+    public ImageView setMarble(ResourceType resource){
+
+        ImageView imageView = new ImageView();
+        Image cyan = new Image("/punchboard/marbles/cyan.png");
+        Image grey = new Image("/punchboard/marbles/grey.png");
+        Image purple = new Image("/punchboard/marbles/purple.png");
+        Image red = new Image("/punchboard/marbles/red.png");
+        Image white = new Image("/punchboard/marbles/white.png");
+        Image yellow = new Image("/punchboard/marbles/yellow.png");
+
+        switch(resource){
+            case SHIELD :
+                imageView.setImage(cyan);
+                break;
+            case SERVANT :
+                imageView.setImage(purple);
+                break;
+            case STONE :
+                imageView.setImage(grey);
+                break;
+            case COIN:
+                imageView.setImage(yellow);
+                break;
+            case WHITERESOURCE :
+                imageView.setImage(white);
+                break;
+            case FAITHPOINT:
+                imageView.setImage(red);
+                break;
+        }
+
+        return imageView;
+    }
+
+    public void setMarbles(MarketTray marketTrayArray){
+
+        ArrayList<ImageView> marbles = new ArrayList<>();
+        int z=0;
+
+        for(int i=0; i<13;i++){
+            marbles.add(setMarble(marketTrayArray.createMarbles().get(i).getType()));
+        }
+
+        slideMrbl = marbles.get(12);
+        marbles.remove(12);
+        for(int j=0; j<3;j++){
+            for(int k=0; k<4; k++){
+                marketTray.add(marbles.get(z), j,k);
+                z++;
+            }
+        }
+
+
+
+    }
+
+
     public void initialize(){
+
+
         column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
         column2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn2BtnClicked);
         column3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn3BtnClicked);

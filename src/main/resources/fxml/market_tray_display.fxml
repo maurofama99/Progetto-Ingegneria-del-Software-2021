@@ -21,7 +21,7 @@
                                 <Image url="@../punchboard/market_tray.png" />
                             </image>
                         </ImageView>
-                  <GridPane layoutX="506.0" layoutY="165.0" prefHeight="182.0" prefWidth="280.0">
+                  <GridPane fx:id="marketTray" layoutX="506.0" layoutY="165.0" prefHeight="182.0" prefWidth="280.0" rotate="180.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -48,14 +48,14 @@
                         <ImageView fx:id="row3column4" fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <ImageView fitHeight="55.0" fitWidth="68.0" layoutX="751.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="Button" />
-                  <Button layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="Button" />
-                  <Button layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="Button" />
-                  <Button layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="Button" />
-                  <Button layoutX="860.0" layoutY="304.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
-                  <Button layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
-                  <Button layoutX="860.0" layoutY="180.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
+                  <ImageView fx:id="slideMrbl" fitHeight="55.0" fitWidth="68.0" layoutX="452.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="column1Btn" layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col1" />
+                  <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col2" />
+                  <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col3" />
+                  <Button fx:id="column4Btn" layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col4" />
+                  <Button fx:id="row1Btn" layoutX="860.0" layoutY="304.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
+                  <Button fx:id="row2Btn" layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
+                  <Button fx:id="row3Btn" layoutX="860.0" layoutY="180.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
                     </children>
                 </AnchorPane>
             </children>
