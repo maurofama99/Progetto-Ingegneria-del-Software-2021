@@ -72,7 +72,7 @@ public class DevCardTest {
         assertEquals(ResourceType.COIN, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(0).get().getType());
 
         //buy dC
-        assertTrue(dC.checkRequirements(p1));
+        assertTrue(dC.checkRequirements(dC.getRequirementsDevCard(), p1));
         p1.getPersonalBoard().getSlots()[0].placeDevCard(dC);
         assertEquals(2, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt());
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get().getQnt());

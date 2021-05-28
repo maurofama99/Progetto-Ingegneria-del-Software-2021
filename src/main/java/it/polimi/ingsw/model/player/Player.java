@@ -119,17 +119,6 @@ public class Player extends Observable implements Serializable {
     public void buyDevCard(DevCard devCardToBuy, int slotNumber){
         slotNumber = slotNumber -1;
 
-        if (personalBoard.hasEffect(EffectType.DISCOUNT)){
-            for (int i=0; i<devCardToBuy.getRequirementsDevCard().size(); i++){
-                for (int j = 0; j<personalBoard.getActiveLeaderCards().size(); j++){
-                    if (personalBoard.getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT)
-                        && devCardToBuy.getRequirementsDevCard().get(i).getType().equals(getPersonalBoard().getActiveLeaderCards().get(j).getLeaderEffect().getObject()))
-                        devCardToBuy.getRequirementsDevCard().get(i).setQnt(devCardToBuy.getRequirementsDevCard().get(i).getQnt() - 1);
-
-                }
-            }
-        }
-
         try {
             getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
         }

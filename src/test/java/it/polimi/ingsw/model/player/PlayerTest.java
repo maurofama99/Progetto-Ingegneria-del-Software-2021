@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.devcard.Production;
@@ -21,6 +23,7 @@ public class PlayerTest{
     @Test
     public void testLeaderCards() throws IllegalAccessException, CloneNotSupportedException {
 
+        GameController gc = new GameController();
         Depot depot = new Depot();
         StrongBox sB = new StrongBox();
         Warehouse wH = new Warehouse(depot, sB);
@@ -101,15 +104,10 @@ public class PlayerTest{
         assertTrue(player.getPersonalBoard().getSlots()[0].getCards().contains(dCard1) && player.getPersonalBoard().getSlots()[0].getCards().contains(dCard2));
 
         //activate two leader cards: addProduction and discount on Coin
-        player.activateLeaderCard(0);
         player.activateLeaderCard(1);
+        player.activateLeaderCard(0);
         assertTrue(player.getPersonalBoard().getActiveLeaderCards().contains(lCard1) && player.getPersonalBoard().getActiveLeaderCards().contains(lCard2));
 
-        //check discount works
-        assertTrue(player.getPersonalBoard().hasEffect(EffectType.DISCOUNT));
-        player.buyDevCard(dCard3, 1);
-        dCard3.checkRequirements(player);
-        assertEquals(1, player.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[0].getQnt());
 
 
 

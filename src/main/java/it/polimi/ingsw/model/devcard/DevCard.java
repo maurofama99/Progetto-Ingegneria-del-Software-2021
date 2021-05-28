@@ -34,10 +34,6 @@ public class DevCard implements Serializable{
         this.production = production;
     }
 
-    public void setRequirementsDevCard(ArrayList<Resource> requirementsDevCard) {
-        this.requirementsDevCard = requirementsDevCard;
-    }
-
     public void setProduction(Production production) {
         this.production = production;
     }
@@ -71,9 +67,9 @@ public class DevCard implements Serializable{
      * @param player is where the method will check for resources, both from his strongbox and deposit
      * @return true if the requirements are met, false otherwise
      */
-    public boolean checkRequirements(Player player) throws CloneNotSupportedException {
+    public boolean checkRequirements(ArrayList<Resource> requirements, Player player) throws CloneNotSupportedException {
         try {
-            player.getPersonalBoard().getWarehouse().removeResources(requirementsDevCard);
+            player.getPersonalBoard().getWarehouse().removeResources(requirements);
         }
         catch (NoSuchElementException e){
             return false;

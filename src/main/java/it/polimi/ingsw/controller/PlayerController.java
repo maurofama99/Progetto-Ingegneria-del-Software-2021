@@ -323,24 +323,39 @@ public class PlayerController {
             playerVV().displayGenericMessage("Selected card is not available anymore!\n");
             playerVV().fetchPlayerAction();
         }
-        else if (!gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(gameController.getTable().getCurrentPlayer()))
-            playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
 
-        else if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()) == null) {
-            playerVV().displayGenericMessage("The cards of this level and this color are not available anymore");
-            playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+        DevCard devCard = gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
+        ArrayList<Resource> requirements = new ArrayList<>();
+        for (Resource  resource : devCard.getRequirementsDevCard()){
+            requirements.add((Resource) resource.clone());
         }
-        else {
-            DevCard devCard = gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
+
+        if (getPlayerPB().hasEffect(EffectType.DISCOUNT)){
+            for (int i=0; i<devCard.getRequirementsDevCard().size(); i++){
+                for (int j = 0; j<getPlayerPB().getActiveLeaderCards().size(); j++){
+                    if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT)
+                            && requirements.get(i).getType().equals(getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject()))
+                        requirements.get(i).setQnt(requirements.get(i).getQnt() - 1);
+                }
+            }
+        }
+
+        if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(requirements, gameController.getTable().getCurrentPlayer())){
+            gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
             gameController.getTable().getCurrentPlayer().setVictoryPoints(gameController.getTable().getCurrentPlayer().getVictoryPoints() + devCard.getVictoryPointsDevCard());
+
             gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
-
-            playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
-                    getPlayerPB().getSlots(),
-                    new SerializableWarehouse(getPlayerPB().getWarehouse()));
-
-            playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
+
+        else
+            playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+
+
+        playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
+                getPlayerPB().getSlots(),
+                new SerializableWarehouse(getPlayerPB().getWarehouse()));
+        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+
     }
 
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
