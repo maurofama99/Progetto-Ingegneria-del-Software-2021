@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -54,6 +55,10 @@ public class SingleplayerPopupSceneController implements GenericSceneController 
     private void whenRootPaneDragged(MouseEvent event){
         stage.setX(event.getScreenX() +x_Offset);
         stage.setY(event.getSceneY()+y_Offset);
+    }
+
+    public void setTokenImage(Token token){
+        //TODO: set token image
     }
 
     private void whenConfirmButtonClicked(MouseEvent event){

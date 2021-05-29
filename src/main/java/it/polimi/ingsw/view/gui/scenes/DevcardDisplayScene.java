@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
+
 public class DevcardDisplayScene extends ClientObservable implements GenericSceneController {
     @FXML
     private GridPane devCardGrid;
@@ -149,9 +151,11 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
     }
 
     public void setImages(){
+
+
         for (int i = 1; i < 4 ; i++) {
             for (int j = 1; j < 5 ; j++) {
-                setDevCardImage(deck.getDevCard(i,j));
+                devCardGrid.add(setDevCardImage(deck.getDevCard(i,j)),i,j);
             }
         }
     }

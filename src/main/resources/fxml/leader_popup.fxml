@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -13,18 +12,23 @@
                     <image>
                         <Image url="@../other/background/sfondo_popup.jpg" />
                     </image></ImageView>
-                <ImageView fitHeight="185.0" fitWidth="455.0" layoutX="74.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="106.0" fitWidth="419.0" layoutX="147.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../other/texts/blocco.png" />
                     </image></ImageView>
-            <Button fx:id="activateLeaderBtn" layoutX="53.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0"  text="activate" />
-            <Button fx:id="discardLeaderBtn" layoutX="226.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0"  text="discard" />
-            <Button fx:id="closePopupBtn" layoutX="397.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0"  text="done" />
-            <ImageView fitHeight="116.0" fitWidth="293.0" layoutX="154.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../other/texts/chosse_act.png" />
-               </image>
-            </ImageView>
+                <Button fx:id="activateLeaderBtn1" layoutX="93.0" layoutY="273.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="activate" />
+                <Button fx:id="discardLeaderBtn1" layoutX="93.0" layoutY="313.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0"  text="discard" />
+                <Button fx:id="doneBtn1" layoutX="93.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="done" />
+                <ImageView fitHeight="58.0" fitWidth="226.0" layoutX="224.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../other/texts/chosse_act.png" />
+                    </image>
+                </ImageView>
+            <Button fx:id="activateLeaderBtn2" layoutX="427.0" layoutY="273.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="activate" />
+            <Button fx:id="discardLeaderBtn2" layoutX="427.0" layoutY="313.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="discard" />
+            <Button fx:id="doneBtn2" layoutX="427.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="done" />
+            <ImageView fx:id="leader1" fitHeight="146.0" fitWidth="112.0" layoutX="77.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="leader2" fitHeight="146.0" fitWidth="112.0" layoutX="411.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </AnchorPane>
     </top>

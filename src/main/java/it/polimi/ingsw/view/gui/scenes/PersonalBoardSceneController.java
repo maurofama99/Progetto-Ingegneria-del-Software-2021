@@ -12,12 +12,17 @@ import javafx.scene.shape.Path;
 
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
 
+    //TODO: moving faithmarker and path ffs
+    //TODO: assigning inkwell to first player
+    //TODO: blackcross for singleplayer
     private ModelView modelView;
 
     public void setModelView(ModelView modelView) {
         this.modelView = modelView;
     }
 
+    @FXML
+    private ImageView inkwell;
     @FXML
     private Path faithTrackPath;
     @FXML

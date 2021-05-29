@@ -122,9 +122,17 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     }
 
     public void setImages(){
-        for (int i = 0; i < 3; i++) {
-            setLeaderImage(leaderCards.get(i));
+        ArrayList<ImageView> leaderCardsImages = new ArrayList<>();
+        int z=0;
+
+        for (int i = 0; i <4 ; i++) {
+            leaderCardsImages.add(setLeaderImage(leaderCards.get(i)));
         }
+
+        firstLeader = leaderCardsImages.get(0);
+        secondLeader = leaderCardsImages.get(1);
+        thirdLeader = leaderCardsImages.get(2);
+        fourthLeader = leaderCardsImages.get(3);
     }
 
 
