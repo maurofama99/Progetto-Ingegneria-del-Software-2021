@@ -1,15 +1,18 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.model.devcard.DevCard;
+import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.view.gui.Gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ModelView {
 
@@ -22,6 +25,7 @@ public class ModelView {
     private FaithTrack faithTrack;
     private SerializableWarehouse warehouse;
     private ArrayList<LeaderCard> leaderCards;
+    private HashMap<String, PersonalBoard> othersPersonalBoards = new HashMap<>();
 
     public ModelView(Cli cli) {
         this.cli = cli;
@@ -73,5 +77,22 @@ public class ModelView {
 
     public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
         this.leaderCards = leaderCards;
+    }
+
+    public void addOthersPB (String name, FaithTrack fT, Slot[] s, SerializableWarehouse wH, ArrayList<LeaderCard> lC){
+        PersonalBoard pB = new PersonalBoard(wH, s, fT, lC);
+        othersPersonalBoards.put(name, pB);
+    }
+
+    public void updateOthersPB(String name, FaithTrack fT, Slot[] s, SerializableWarehouse wH, ArrayList<LeaderCard> lC){
+        if (othersPersonalBoards.isEmpty() || !othersPersonalBoards.containsKey(name)){
+            addOthersPB(name, fT, s, wH, lC);
+        }
+        else {
+            othersPersonalBoards.get(name).setFaithTrack(fT);
+            othersPersonalBoards.get(name).setSlots(s);
+            othersPersonalBoards.get(name).setSerializableWarehouse(wH);
+            othersPersonalBoards.get(name).setActiveLeaderCards(lC);
+        }
     }
 }

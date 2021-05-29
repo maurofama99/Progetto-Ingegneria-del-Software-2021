@@ -239,10 +239,8 @@ public class Cli extends ClientObservable implements View {
         //used only in GUI mode
     }
 
-
-
     @Override
-    public void fetchPlayerAction(String message) throws IOException {
+    public void fetchPlayerAction(String message){
         cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots(), modelView.getFaithTrack());
         boolean rowOrCol = false;
         int index = 0;
@@ -471,6 +469,14 @@ public class Cli extends ClientObservable implements View {
         modelView.setWarehouse(warehouse);
         modelView.setFaithTrack(faithTrack);
     }
+
+    @Override
+    public void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC) {
+        modelView.updateOthersPB(name, fT, slots, wH, lC);
+        System.out.println("Player " +name+ " finished his turn!\nThis is its updated personal board :)\n");
+        cliGraphics.printPersonalBoard(wH, slots, fT);
+    }
+
 
     @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {

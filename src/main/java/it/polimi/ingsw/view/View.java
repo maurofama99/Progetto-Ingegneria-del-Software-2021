@@ -55,6 +55,8 @@ public interface View {
 
     void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse);
 
+    void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC);
+
     void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException;
 
     /**

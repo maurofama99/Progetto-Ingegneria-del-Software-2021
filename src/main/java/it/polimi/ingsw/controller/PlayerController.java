@@ -72,6 +72,7 @@ public class PlayerController {
                                 "|    It's not your turn yet    |\n" +
                                 "--------------------------------\n");
                 playerVV().displayPopup("Please wait...\nIt's not your turn yet");
+                if (!gameController.isSinglePlayer()) sendPBToOthers();
                 gameController.getTable().nextPlayer();
                 gameController.askPlayerAction(playerVV());
                 break;
@@ -459,6 +460,19 @@ public class PlayerController {
         if (gameController.getTable().getCurrentPlayer().getCounterDevCards() == 7){
             gameController.setEndPlayerNumber(gameController.getTable().getCurrentPlayer().getTurnOrder());
             gameController.setTableState(TableState.END);
+        }
+    }
+
+    public void sendPBToOthers() throws IOException {
+        for (Player player: gameController.getTable().getPlayers()){
+            if (!player.getNickname().equals(gameController.getTable().getCurrentPlayer().getNickname())){
+                gameController.getVvMap().get(player.getNickname()).sendPersonalBoard(
+                        gameController.getTable().getCurrentPlayer().getNickname(),
+                        getPlayerPB().getFaithTrack(),
+                        getPlayerPB().getSlots(),
+                        new SerializableWarehouse(getPlayerPB().getWarehouse()),
+                        getPlayerPB().getActiveLeaderCards());
+            }
         }
     }
 

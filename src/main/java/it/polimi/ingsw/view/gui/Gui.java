@@ -87,6 +87,11 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
+    public void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC) {
+
+    }
+
+    @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException{
         Platform.runLater(()->SceneController.changeRootPane(clientObservers, "personal_board.fxml"));
     }

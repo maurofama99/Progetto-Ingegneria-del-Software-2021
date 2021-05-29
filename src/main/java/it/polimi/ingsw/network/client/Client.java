@@ -225,6 +225,13 @@ public class Client implements Runnable, ClientObserver {
             case EXTRA_PRODUCTION:
                 view.fetchExtraProd(((ExtraProduction)msg).getResource());
                 break;
+            case SEND_PERSONALBOARD:
+                view.updateOtherPersonalBoard(((SendOtherPersonalBoard)msg).getName(),
+                        ((SendOtherPersonalBoard)msg).getFaithTrack(),
+                        ((SendOtherPersonalBoard)msg).getSlot(),
+                        ((SendOtherPersonalBoard)msg).getSerializableWarehouse(),
+                        ((SendOtherPersonalBoard)msg).getLeaderCards());
+                break;
         }
     }
 
