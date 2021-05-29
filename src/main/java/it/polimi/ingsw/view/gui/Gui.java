@@ -104,7 +104,12 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
-        Platform.runLater(()-> SceneController.LeaderStartPopup(clientObservers, "leader_popup.fxml"));
+        LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn);
+        lssc.addAllClientObservers(clientObservers);
+        //Platform.runLater(()-> SceneController.LeaderStartPopup(lssc, "leader_popup.fxml"));
+        //TODO: Fare costruttori con il controller anche per i popup.
+        // Consiglio: meglio fare uno showPopup che va bene per tutti (come changeRootPane) piuttosto che un metodo specifico per ognuno, tanto sono tutti uguali,
+        // al massimo se c'è bisogno di settare qualche parametro particolare si fanno degli override del costruttore
     }
 
 

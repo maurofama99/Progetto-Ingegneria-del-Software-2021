@@ -1,8 +1,11 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.network.messagescs.ActivateLeader;
+import it.polimi.ingsw.network.messagescs.DiscardOneLeader;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,10 +21,16 @@ import java.util.ArrayList;
 
 public class LeaderStartSceneController extends ClientObservable implements GenericSceneController {
 
-    private final Stage stage;
+    private Stage stage;
     private int index;
     private ArrayList<LeaderCard> leaderCards;
     private boolean first=true;
+    private boolean isEndTurn;
+
+    public LeaderStartSceneController(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
+        this.leaderCards = leaderCards;
+        this.isEndTurn = isEndTurn;
+    }
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -32,8 +41,6 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     private Button activateLeaderBtn1;
     @FXML
     private Button discardLeaderBtn1;
-    @FXML
-    private Button doneBtn1;
     @FXML
     private Button activateLeaderBtn2;
     @FXML
@@ -61,7 +68,6 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         activateLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton1Clicked);
         discardLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardLeaderBtn1Clicked);
-        doneBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDoneBtn1Clicked);
         activateLeaderBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton2Clicked);
         discardLeaderBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardLeaderBtn2Clicked);
         doneBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDoneBtn2Clicked);
@@ -78,45 +84,42 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     }
 
     private void whenActivateLeaderButton1Clicked(MouseEvent event){
-
-
+        notifyObservers(new ActivateLeader(0));
+        disableAll();
     }
 
     private void whenDiscardLeaderBtn1Clicked(MouseEvent event){
-
-
-    }
-
-    private void whenDoneBtn1Clicked(MouseEvent event){
-
-
+        notifyObservers(new DiscardOneLeader(0));
+        disableAll();
     }
 
     private void whenActivateLeaderButton2Clicked(MouseEvent event){
-
-
+        notifyObservers(new ActivateLeader(1));
+        disableAll();
     }
 
     private void whenDiscardLeaderBtn2Clicked(MouseEvent event){
-
-
+        notifyObservers(new DiscardOneLeader(1));
+        disableAll();
     }
 
     private void whenDoneBtn2Clicked(MouseEvent event){
 
+        if (!isEndTurn)
+            Platform.runLater(()-> SceneController.showActionPopup(clientObservers, "action_popup.fxml"));
+        //else
+            //fetchDoneAction
+
     }
 
-    public void disableFirst(){
+    public void disableAll(){
         activateLeaderBtn1.setDisable(true);
         discardLeaderBtn1.setDisable(true);
-        doneBtn1.setDisable(true);
-    }
-
-    public void disableSecond(){
         activateLeaderBtn2.setDisable(true);
         discardLeaderBtn2.setDisable(true);
         doneBtn2.setDisable(true);
     }
+
 
     public ImageView setLeaderImage(LeaderCard leaderCard){
 
