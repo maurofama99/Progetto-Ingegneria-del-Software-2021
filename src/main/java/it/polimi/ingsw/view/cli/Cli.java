@@ -243,8 +243,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchPlayerAction(String message) throws IOException {
-        System.out.println(modelView.getFaithTrack().toString());
-        cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots());
+        cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots(), modelView.getFaithTrack());
         boolean rowOrCol = false;
         int index = 0;
         int row, col, slot;

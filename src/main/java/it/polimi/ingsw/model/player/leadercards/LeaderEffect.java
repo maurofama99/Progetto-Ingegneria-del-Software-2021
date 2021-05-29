@@ -39,13 +39,13 @@ public abstract class LeaderEffect implements Serializable {
     public String toString() {
         switch (effectType){
             case SWAPWHITE:
-                return "   SWAP WHITE MARBLE   ";
+                return "SWAP";
             case EXTRADEPOT:
-                return "      EXTRA DEPOT      ";
+                return "DEPOT";
             case DISCOUNT:
-                return "       DISCOUNT        ";
+                return "DISCOUNT";
             case ADDPRODUCTION:
-                return "   EXTRA PRODUCTION    ";
+                return "PRODUCTION";
             default:
                 throw new IllegalStateException("Unexpected value: " + getEffectType());
         }
