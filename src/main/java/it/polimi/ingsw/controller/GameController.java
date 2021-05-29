@@ -267,7 +267,9 @@ public class GameController implements Observer, Serializable {
                 try {
                     if (player.getNickname().equals(winner)) {
                         vvMap.get(player.getNickname()).displayGenericMessage("YOU WON THIS GAME!! \nCONGRATULATIONS!!");
+                        vvMap.get(player.getNickname()).displayPopup("YOU WON THIS GAME!! \nCONGRATULATIONS!!");
                     } else {
+                        vvMap.get(player.getNickname()).displayPopup("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\n");
                         vvMap.get(player.getNickname()).displayGenericMessage("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\n");
                     }
                 } catch (IOException e) {
@@ -276,7 +278,6 @@ public class GameController implements Observer, Serializable {
             });
 
         }
-
 
     }
 
@@ -300,6 +301,17 @@ public class GameController implements Observer, Serializable {
             vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards());
         else
             vv.fetchPlayerAction();
+    }
+
+    public void forcedEndGame(String nickname) {
+        for (String key : vvMap.keySet()){
+            for(Player player : table.getPlayers())
+                if (player.getNickname().equals(key)) {
+                    try {
+                        vvMap.get(key).forcedEnd(nickname);
+                    } catch (IOException ignored) {}
+                }
+        }
     }
 
     @Override

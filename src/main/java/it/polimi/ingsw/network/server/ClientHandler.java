@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 /**
  * A class that represents the client inside the server.
@@ -31,6 +33,7 @@ public class ClientHandler implements Runnable {
     private boolean started = false;
     private boolean singlePlayer = false;
     private boolean solo = false;
+    private boolean stop = false;
     private LocalGameManager localGameManager;
 
     public ClientHandler(Server server, Socket client, WaitingRoom waitingRoom) {
@@ -74,6 +77,13 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
+        try {
+            client.setSoTimeout(300000);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+
         //imposta in e out stream
         try {
             output = new ObjectOutputStream(client.getOutputStream());
@@ -87,8 +97,13 @@ public class ClientHandler implements Runnable {
 
         try {
             handleClientConnection();
-        } catch (IOException e) {
+        } catch (SocketTimeoutException e ){
+            System.out.println(nickname + "kicked out for inactivity");
+            gameController.forcedEndGame(nickname);
+        }
+        catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");
+            gameController.forcedEndGame(nickname);
         }
 
         try {
@@ -104,7 +119,7 @@ public class ClientHandler implements Runnable {
 
         try {
             //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
-            while (true) {
+            while (!stop) {
                 /* read messages from the client, process them, and send replies */
                 Message msg = (Message) input.readObject();
                 receiveMessage(msg);
@@ -112,8 +127,11 @@ public class ClientHandler implements Runnable {
         } catch (ClassNotFoundException | ClassCastException | IllegalAccessException | CloneNotSupportedException e) {
             e.printStackTrace();
             System.out.println("invalid stream from client");
+        } finally {
+            stop = true;
+            client.close();
         }
-        client.close();
+
     }
 
     /**
@@ -136,7 +154,10 @@ public class ClientHandler implements Runnable {
     //quando un player si riconnette e ha un nickname già associato alla virtual view, è la sua
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
     public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
-        if (msg.getMessageType() == Content.LOGIN_DATA) {
+        if (msg.getMessageType() == Content.HEARTBEAT){
+            System.out.println("H: " + client.getInetAddress());
+        }
+        else if (msg.getMessageType() == Content.LOGIN_DATA) {
             if (waitingRoom.nicknameAlreadyPresent(((LoginData)msg).getNickname()) || ((((LoginData)msg).getNumPlayers() > 4 && ((LoginData)msg).getNumPlayers()<1))) {
                 sendMessage(new GenericPopup("Nickname already present"));
                 sendMessage(new LoginRequest());

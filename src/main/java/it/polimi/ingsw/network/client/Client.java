@@ -14,6 +14,9 @@ import it.polimi.ingsw.view.gui.scenes.ConnectionSceneController;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Client for the Masters of Renaissance game.
@@ -30,6 +33,7 @@ public class Client implements Runnable, ClientObserver {
     private boolean solo = false;
     private String nickname;
     private LocalGameManager localGameManager;
+    private final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
 
     public Client(View view, int SOCKET_PORT) {
         this.view = view;
@@ -51,6 +55,10 @@ public class Client implements Runnable, ClientObserver {
 
     public void setGui(boolean gui) {
         this.gui = gui;
+    }
+
+    public ScheduledExecutorService getSes() {
+        return ses;
     }
 
     public static void main(String[] args) {
@@ -169,6 +177,9 @@ public class Client implements Runnable, ClientObserver {
             localGameManager.run();
         }
 
+        ses.scheduleAtFixedRate( () -> serverHandler.sendMessage(new Message("client", "server", Content.HEARTBEAT)),
+                0, 5, TimeUnit.SECONDS);
+
     }
 
     public void receiveMessage(Message msg) throws IOException {
@@ -231,6 +242,9 @@ public class Client implements Runnable, ClientObserver {
                         ((SendOtherPersonalBoard)msg).getSlot(),
                         ((SendOtherPersonalBoard)msg).getSerializableWarehouse(),
                         ((SendOtherPersonalBoard)msg).getLeaderCards());
+                break;
+            case FORCEDEND:
+                view.forcedEnd(((ForcedEnd) msg).getNickname());
                 break;
         }
     }

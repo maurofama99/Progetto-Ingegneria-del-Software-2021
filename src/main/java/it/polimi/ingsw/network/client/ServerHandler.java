@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
 import java.io.IOException;
@@ -119,7 +120,14 @@ public class ServerHandler implements Runnable {
             output.flush();
             output.reset();
         } catch (IOException e) {
-            System.out.println("Communication error");
+            System.out.println("Communication error, server is unreachable. Game ends now.");
+            client.getSes().shutdown();
+            try {
+                client.receiveMessage(new Message("client", "client", Content.FORCEDEND));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            System.exit(0);
         }
     }
 

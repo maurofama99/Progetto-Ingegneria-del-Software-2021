@@ -82,4 +82,6 @@ public interface View {
 
     void displayToken(Token token);
 
+    void forcedEnd(String nickname);
+
 }

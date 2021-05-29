@@ -473,10 +473,10 @@ public class CliGraphics {
                 s.append(CliColor.ANSI_YELLOW.escape()).append("● ").append(CliColor.RESET);
                 break;
             case SHIELD:
-                s.append(CliColor.ANSI_BLUE.escape()).append("︎● ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_BLUE.escape()).append("● ").append(CliColor.RESET);
                 break;
             case STONE:
-                s.append(CliColor.ANSI_GRAY.escape()).append("︎● ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_GRAY.escape()).append("● ").append(CliColor.RESET);
                 break;
             case FAITHPOINT:
                 s.append(CliColor.ANSI_RED.escape()).append("✝ ").append(CliColor.RESET);

@@ -21,10 +21,6 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class Gui extends ClientObservable implements View {
 
@@ -131,6 +127,12 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void displayToken(Token token) {
 
+    }
+
+    @Override
+    public void forcedEnd(String nickname) {
+        Platform.runLater(() -> SceneController.showPopup(clientObservers, nickname + " left the game. The match ends now."));
+        System.exit(0);
     }
 
     @Override

@@ -41,6 +41,8 @@ public enum Content {
     ACTIVATE_EXTRAPRODUCTION,
     BUY_DEVCARD,
     DONE_ACTION,
+    HEARTBEAT,
+    FORCEDEND
 
 
 
