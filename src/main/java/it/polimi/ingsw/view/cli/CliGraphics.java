@@ -1,12 +1,14 @@
 package it.polimi.ingsw.view.cli;
 
 
+import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
+import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -15,6 +17,13 @@ import it.polimi.ingsw.model.singleplayer.Token;
 import java.util.ArrayList;
 
 public class CliGraphics {
+
+    public static void main(String[] args) {
+        Table t = new Table();
+        CliGraphics cg = new CliGraphics();
+        cg.printMatrixDevCards(t.getDevCardsDeck().showedCards());
+        cg.showLeaderCards(t.getLeaderCardsDeck());
+    }
 
     public void showLeaderCards(ArrayList<LeaderCard> leaderCards){
         StringBuilder s = new StringBuilder();
@@ -57,14 +66,14 @@ public class CliGraphics {
         switch (leaderCard.getLeaderEffect().getEffectType()) {
 
             case ADDPRODUCTION:
-                s.append("▕   ").append(leaderCard.getLeaderEffect().getObject()).append("  ⇨   ？ + ").append(CliColor.ANSI_RED.escape()).append("† ").append(CliColor.RESET +"  ▏    ");
+                s.append("▕    ").append(printRes((Resource)leaderCard.getLeaderEffect().getObject())).append("  ➤   ?  + ").append(CliColor.ANSI_RED.escape()).append(" ✝ ").append(CliColor.RESET +" ▏    ");
                 break;
             case DISCOUNT:
                 Resource res = new Resource(1, (ResourceType) leaderCard.getLeaderEffect().getObject());
                 s.append("▕         ").append(printRes(res)).append("-1 ").append("       ▏    ");
                 break;
             case SWAPWHITE:
-                s.append("▕    ⓿    ➡︎   ").append(printMarbles((Resource)leaderCard.getLeaderEffect().getObject())).append("    ▏    ");
+                s.append("▕     ⓿    ➤   ").append(printMarbles((Resource)leaderCard.getLeaderEffect().getObject())).append("     ▏    ");
                 break;
             case EXTRADEPOT:
                 Resource resource = new Resource(1,(ResourceType) leaderCard.getLeaderEffect().getObject());
@@ -203,13 +212,24 @@ public class CliGraphics {
     }
 
     public String printStrongBox(Resource[] strongbox){
+        String coin, servant, shield, stone;
+        if (strongbox[0].getQnt() >9) coin = strongbox[0].getQnt()+printRes(strongbox[0]) + "";
+        else coin = strongbox[0].getQnt()+printRes(strongbox[0]) + " ";
 
+        if (strongbox[1].getQnt() >9) servant = strongbox[1].getQnt()+printRes(strongbox[1]) + "";
+        else servant = strongbox[1].getQnt()+printRes(strongbox[1]) + " ";
+
+        if (strongbox[2].getQnt() >9) shield = strongbox[2].getQnt()+printRes(strongbox[2]) + "";
+        else shield = strongbox[2].getQnt()+printRes(strongbox[2]) + " ";
+
+        if (strongbox[3].getQnt() >9) stone = strongbox[3].getQnt()+printRes(strongbox[3]) + "";
+        else stone = strongbox[3].getQnt()+printRes(strongbox[3]) + " ";
 
         return "▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏\n" +
-                "▕  " +strongbox[0].getQnt()+ printRes(strongbox[0]) +" ▏" +
-                "▕  "+ strongbox[1].getQnt()+ printRes(strongbox[1]) +" ▏" +
-                "▕  "+ strongbox[2].getQnt()+ printRes(strongbox[2]) +" ▏" +
-                "▕  "+ strongbox[3].getQnt()+ printRes(strongbox[3]) +" ▏\n" +
+                "▕  " +coin +"▏" +
+                "▕  "+ servant +"▏" +
+                "▕  "+ shield +"▏" +
+                "▕  "+ stone +"▏\n" +
                    "▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏\n";
     }
 
@@ -391,19 +411,19 @@ public class CliGraphics {
     private void printSymbol(Resource resource, StringBuilder s) {
         switch (resource.getType()) {
             case COIN:
-                s.append(CliColor.ANSI_YELLOW.escape()).append("$ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_YELLOW.escape()).append("● ").append(CliColor.RESET);
                 break;
             case SHIELD:
-                s.append(CliColor.ANSI_BLUE.escape()).append("◆︎︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_BLUE.escape()).append("︎● ").append(CliColor.RESET);
                 break;
             case STONE:
-                s.append(CliColor.ANSI_GRAY.escape()).append("︎◭︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_GRAY.escape()).append("︎● ").append(CliColor.RESET);
                 break;
             case FAITHPOINT:
-                s.append(CliColor.ANSI_RED.escape()).append("† ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_RED.escape()).append("✝ ").append(CliColor.RESET);
                 break;
             case SERVANT:
-                s.append(CliColor.ANSI_PURPLE.escape()).append("∎︎ ").append(CliColor.RESET);
+                s.append(CliColor.ANSI_PURPLE.escape()).append("● ").append(CliColor.RESET);
                 break;
         }
     }
@@ -422,13 +442,13 @@ public class CliGraphics {
         int i=4;
         String first, second, third;
         String pos;
-        if (faithTrack.isFirstFavorTile()) first = "2" + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+        if (faithTrack.isFirstFavorTile()) first = "2✷";
         else first = "x ";
 
-        if (faithTrack.isSecondFavorTile()) second = "3" + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+        if (faithTrack.isSecondFavorTile()) second = "3✷";
         else second = "x ";
 
-        if (faithTrack.isThirdFavorTile()) third = "4" + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+        if (faithTrack.isThirdFavorTile()) third = "4✷";
         else third = "x ";
 
         s.append("            ╔═════╦═════╦══" + CliColor.ANSI_YELLOW.escape()+ "+2"+CliColor.RESET + "═╦═════╦═════╦══" + CliColor.ANSI_YELLOW.escape()+ "+4"+CliColor.RESET + "═╗                       ╔═"+ CliColor.ANSI_YELLOW.escape()+"+12"+CliColor.RESET + "═╦═════╦═════╦═"+ CliColor.ANSI_YELLOW.escape()+"+16"+CliColor.RESET +"═╦═════╦═════╦═"+ CliColor.ANSI_YELLOW.escape()+"+20"+CliColor.RESET +"═╗\n");

@@ -147,6 +147,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         }
     }
 
+
+
     public void setFirstLevelLeft(String resource) {
         setImageDepositSpot(resource, firstLevelLeft);
     }

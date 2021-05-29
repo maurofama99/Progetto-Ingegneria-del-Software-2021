@@ -47,19 +47,19 @@ public class Resource implements Cloneable, Serializable {
         s.append(qnt);
         switch (type) {
             case COIN:
-                s.append(CliColor.ANSI_YELLOW.escape()).append(" $").append(CliColor.RESET);
+                s.append(CliColor.ANSI_YELLOW.escape()).append(" ●").append(CliColor.RESET);
                 break;
             case SHIELD:
-                s.append(CliColor.ANSI_BLUE.escape()).append(" ◆").append(CliColor.RESET);
+                s.append(CliColor.ANSI_BLUE.escape()).append(" ●").append(CliColor.RESET);
                 break;
             case STONE:
-                s.append(CliColor.ANSI_GRAY.escape()).append(" ◭︎").append(CliColor.RESET);
+                s.append(CliColor.ANSI_GRAY.escape()).append(" ●").append(CliColor.RESET);
                 break;
             case FAITHPOINT:
-                s.append(CliColor.ANSI_RED.escape()).append(" †").append(CliColor.RESET);
+                s.append(CliColor.ANSI_RED.escape()).append(" ✝").append(CliColor.RESET);
                 break;
             case SERVANT:
-                s.append(CliColor.ANSI_PURPLE.escape()).append(" ∎").append(CliColor.RESET);
+                s.append(CliColor.ANSI_PURPLE.escape()).append(" ●").append(CliColor.RESET);
                 break;
         }
         return s.toString();

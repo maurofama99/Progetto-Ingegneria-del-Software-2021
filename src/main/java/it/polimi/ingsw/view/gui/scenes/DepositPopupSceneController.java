@@ -99,7 +99,6 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
         discardBtn.setDisable(true);
         notifyObservers(new ResourcePlacement("nickname", "2"));
 
-
         stage.close();
     }
 
@@ -111,7 +110,6 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
         extraBtn.setDisable(true);
         discardBtn.setDisable(true);
         notifyObservers(new ResourcePlacement("nickname", "3"));
-
 
         stage.close();
     }
