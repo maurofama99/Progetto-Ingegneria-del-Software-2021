@@ -224,7 +224,6 @@ public class Cli extends ClientObservable implements View {
             }
             System.out.println("\n\nNow you own these two leader cards.\nYou can activate them at the beginning or at the end of your turn.\n");
             cliGraphics.showLeaderCards(leaderCards);
-            modelView.setLeaderCards(leaderCards);
         }
     }
 
@@ -397,7 +396,7 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
-
+        modelView.setLeaderCards(leaderCards);
         cliGraphics.showLeaderCards(leaderCards);
         System.out.print("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)\n>");
         Scanner scanner = new Scanner(System.in);

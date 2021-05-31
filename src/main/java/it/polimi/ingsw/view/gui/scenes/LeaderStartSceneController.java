@@ -127,7 +127,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     public ImageView setLeaderImage(LeaderCard leaderCard){
 
         ImageView leaderImage = new ImageView();
-        Image image = new Image("/front/leader_" + leaderCard.getLeaderEffect() + "-" + leaderCard.getLeaderEffect().getObject());
+        Image image = new Image("/front/leader_" + leaderCard.getLeaderEffect());
         leaderImage.setImage(image);
 
         return leaderImage;
@@ -144,6 +144,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         leader1 = leaderCardsImages.get(0);
         leader2 = leaderCardsImages.get(1);
     }
+
     public void showPopUp(){
         stage.showAndWait();
     }

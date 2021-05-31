@@ -196,6 +196,8 @@ public class CliGraphics {
         String [] wareHouse = ("                                \n" + printWarehouse(wH)).split("\n");
         String [] slot = printSlots(slots).split("\n");
 
+
+
         s.append(printFaithTrack(ft));
         while(i<8) {
             s.append(wareHouse[i]).append("          ").append(slot[i]).append("\n");
@@ -305,6 +307,7 @@ public class CliGraphics {
         StringBuilder row = new StringBuilder();
         int i= 0;
 
+
         String[] card1 = printDevCard(devCards[0]).split("\n");
         String[] card2 = printDevCard(devCards[1]).split("\n");
         String[] card3 = printDevCard(devCards[2]).split("\n");
@@ -321,26 +324,34 @@ public class CliGraphics {
     public String printSlots(Slot[] slots){
         String[] card0, card1, card2;
         int j=0;
+        String vp ="";
         StringBuilder slot = new StringBuilder();
 
 
 
         if (slots[0].getCards().size()>0){
+            int points =  slots[0].getCards().stream().mapToInt(DevCard::getVictoryPointsDevCard).sum();
+            if (points>9){
+                vp = points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+            }
+            else
+                vp = "▁" + points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+
             if (slots[0].getCards().size()==1) {
                 card0 = (printDevCard(slots[0].getShowedCard()) +
                         "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
                 card0 = (printDevCard(slots[0].getShowedCard()) +
                         getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
                 card0 = (printDevCard(slots[0].getShowedCard()) +
                         getDevColor(slots[0].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
+                        getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET+vp+getDevColor(slots[0].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
             }
 
 
@@ -359,21 +370,28 @@ public class CliGraphics {
 
 
         if (slots[1].getCards().size()>0){
+            int points =  slots[1].getCards().stream().mapToInt(DevCard::getVictoryPointsDevCard).sum();
+            if (points>9){
+                vp = points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+            }
+            else
+                vp = "▁" + points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+
             if (slots[1].getCards().size()==1) {
                 card1 = (printDevCard(slots[1].getShowedCard()) +
                         "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
                 card1 = (printDevCard(slots[1].getShowedCard()) +
                         getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
                 card1 = (printDevCard(slots[1].getShowedCard()) +
                         getDevColor(slots[1].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
+                        getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET+vp+getDevColor(slots[1].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
             }
         }
         else
@@ -389,21 +407,28 @@ public class CliGraphics {
                      "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
         if (slots[2].getCards().size()>0){
+            int points =  slots[2].getCards().stream().mapToInt(DevCard::getVictoryPointsDevCard).sum();
+            if (points>9){
+                vp = points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+            }
+            else
+                vp = "▁" + points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
+
             if (slots[2].getCards().size()==1) {
                 card2 = (printDevCard(slots[2].getShowedCard()) +
                         "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[2].getCards().size()==2){
                 card2 = (printDevCard(slots[2].getShowedCard()) +
                         getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
                 card2 = (printDevCard(slots[2].getShowedCard()) +
                         getDevColor(slots[2].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
+                        getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET + vp+getDevColor(slots[2].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
             }
         }
         else

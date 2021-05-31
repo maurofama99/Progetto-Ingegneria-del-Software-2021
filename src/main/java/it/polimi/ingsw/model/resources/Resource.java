@@ -64,4 +64,21 @@ public class Resource implements Cloneable, Serializable {
         }
         return s.toString();
     }
+
+    public String toStringGui(){
+        String s;
+
+        switch (type){
+            case COIN:
+                return "COIN";
+            case SHIELD:
+                return "SHIELD";
+            case STONE:
+                return "STONE";
+            case SERVANT:
+                return "SERVANT";
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+    }
 }
