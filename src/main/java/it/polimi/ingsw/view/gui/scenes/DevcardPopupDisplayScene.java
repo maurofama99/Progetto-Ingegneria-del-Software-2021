@@ -3,16 +3,30 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
-public class DevcardDisplayScene extends ClientObservable implements GenericSceneController {
+public class DevcardPopupDisplayScene extends ClientObservable implements GenericSceneController {
+
+    private final Stage stage;
+
+    private double x_Offset = 0;
+    private double y_Offset = 0;
+
+    @FXML
+    private StackPane rootPane;
     @FXML
     private GridPane devCardGrid;
     @FXML
@@ -68,7 +82,19 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
 
     private Deck deck;
 
+    public DevcardPopupDisplayScene(){
+        stage = new Stage();
+        stage.initOwner(SceneController.getOnGoingScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setAlwaysOnTop(true);
+        stage.initStyle(StageStyle.UNDECORATED);
+        x_Offset = 0;
+        y_Offset = 0;
+    }
+
     public void initialize(){
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
 
         //Buttons
         backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenBackBtnClicked);
@@ -84,6 +110,16 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
         thirdRowSecondColumnBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdRowSecondColumnBtnClicked);
         thirdRowThirdColumnBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdRowThirdColumnBtnClicked);
         thirdRowFourthColumnBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdRowFourthColumnBtnClicked);
+    }
+
+    private void whenRootPanePressed(MouseEvent event){
+        x_Offset = stage.getX() - event.getScreenX();
+        y_Offset = stage.getY() - event.getScreenY();
+    }
+
+    private void whenRootPaneDragged(MouseEvent event){
+        stage.setX(event.getScreenX() +x_Offset);
+        stage.setY(event.getSceneY()+y_Offset);
     }
 
     private void whenBackBtnClicked(MouseEvent event){
@@ -138,24 +174,32 @@ public class DevcardDisplayScene extends ClientObservable implements GenericScen
 
     }
 
+    public void showPopUp(){
+        stage.showAndWait();
+    }
+
+    public void setScene(Scene scene){
+        stage.setScene(scene);
+    }
+
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
 
     public ImageView setDevCardImage(DevCard devCard){
         ImageView devImage = new ImageView();
-        Image image = new Image("/front/devcard_" + "color-" + devCard.getCardColor() + "_level-" + devCard.getLevel() + "_vp-" + devCard.getVictoryPointsDevCard());
+        Image image = new Image("/front/devcard_" + "color-" + devCard.getCardColor() + "_level-" + devCard.getLevel() + "_vp-" + devCard.getVictoryPointsDevCard() + ".png");
         devImage.setImage(image);
 
         return devImage;
     }
 
-    public void setImages(){
+    public void setDevCardImages(DevCard[][] devCards){
 
 
         for (int i = 1; i < 4 ; i++) {
             for (int j = 1; j < 5 ; j++) {
-                devCardGrid.add(setDevCardImage(deck.getDevCard(i,j)),i,j);
+                devCardGrid.add(setDevCardImage(devCards[i][j]),i,j);
             }
         }
     }

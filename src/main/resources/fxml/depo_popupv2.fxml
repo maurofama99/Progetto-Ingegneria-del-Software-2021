@@ -6,25 +6,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../other/background/deposito.jpg" />
+                  <Image url="@../other/background/sfondo_popup.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="139.0" fitWidth="368.0" layoutX="116.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="282.0" fitWidth="275.0" layoutX="20.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../board/deposit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="96.0" fitWidth="272.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../other/texts/resource_question.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="resourceImg" fitHeight="86.0" fitWidth="102.0" layoutX="60.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="level3Button" layoutX="414.0" layoutY="291.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" styleClass="lvl3Button" />
-            <Button fx:id="level2Button" layoutX="225.0" layoutY="291.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" styleClass="lvl2Button" />
-            <Button fx:id="level1Button" layoutX="36.0" layoutY="291.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" styleClass="lvl1Button" />
-            <Label fx:id="resourceLbl" layoutX="226.0" layoutY="180.0" prefHeight="40.0" prefWidth="149.0" text="Resource" textAlignment="CENTER" textFill="#ffffff">
+            <Label fx:id="resourceLbl" layoutX="440.0" layoutY="251.0" prefHeight="40.0" prefWidth="149.0" text="Resource" textAlignment="CENTER" textFill="#ffffff">
                <font>
                   <Font name="AlgerianCondensedStd" size="36.0" />
                </font>
@@ -32,11 +33,11 @@
             <Button fx:id="switchBtn" layoutX="489.0" layoutY="26.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="switchButton" text="Switch" />
             <Button fx:id="discardBtn" layoutX="489.0" layoutY="83.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="discardButton" text="Discard" />
             <Button fx:id="extraBtn" layoutX="489.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="extraButton" text="Extra" />
+            <ImageView fitHeight="119.0" fitWidth="128.0" layoutX="300.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
          </children>
          <stylesheets>
             <URL value="@../css/depo_popup.css" />
             <URL value="@../css/general.css" />
-         </stylesheets>
-      </AnchorPane>
+         </stylesheets></AnchorPane>
    </top>
 </BorderPane>

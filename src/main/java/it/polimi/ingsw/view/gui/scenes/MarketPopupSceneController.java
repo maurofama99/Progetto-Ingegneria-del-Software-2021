@@ -5,17 +5,29 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class MarketSceneController extends ClientObservable implements GenericSceneController {
+public class MarketPopupSceneController extends ClientObservable implements GenericSceneController {
+    private final Stage stage;
+
+    private double x_Offset = 0;
+    private double y_Offset = 0;
+    @FXML
+    private StackPane rootPane;
     @FXML
     private GridPane marketTray;
     @FXML
@@ -62,9 +74,21 @@ public class MarketSceneController extends ClientObservable implements GenericSc
 
     private MarketTray marketTrayArray;
 
+    public MarketPopupSceneController(){
+        stage = new Stage();
+        stage.initOwner(SceneController.getOnGoingScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setAlwaysOnTop(true);
+        stage.initStyle(StageStyle.UNDECORATED);
+        x_Offset = 0;
+        y_Offset = 0;
+    }
+
 
     public void initialize(){
 
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
 
         column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
         column2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn2BtnClicked);
@@ -73,6 +97,16 @@ public class MarketSceneController extends ClientObservable implements GenericSc
         row1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow1BtnClicked);
         row2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow2BtnClicked);
         row3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow3BtnClicked);
+    }
+
+    private void whenRootPanePressed(MouseEvent event){
+        x_Offset = stage.getX() - event.getScreenX();
+        y_Offset = stage.getY() - event.getScreenY();
+    }
+
+    private void whenRootPaneDragged(MouseEvent event){
+        stage.setX(event.getScreenX() +x_Offset);
+        stage.setY(event.getSceneY()+y_Offset);
     }
 
     private void whenColumn1BtnClicked(MouseEvent event){
@@ -118,6 +152,14 @@ public class MarketSceneController extends ClientObservable implements GenericSc
         row2Btn.setDisable(true);
         row3Btn.setDisable(true);
         column4Btn.setDisable(true);
+    }
+
+    public void showPopUp(){
+        stage.showAndWait();
+    }
+
+    public void setScene(Scene scene){
+        stage.setScene(scene);
     }
 
     public void setMarketTrayArray(MarketTray marketTrayArray) {

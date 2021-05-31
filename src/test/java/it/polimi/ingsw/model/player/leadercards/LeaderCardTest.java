@@ -44,4 +44,10 @@ public class LeaderCardTest  {
 
     }
 
+    @Test
+    public void sayStuff(){
+        Table table = new Table();
+        System.out.println("/front/leader_" + table.getLeaderCardsDeck().get(0).getLeaderEffect().toString() + ".png");
+    }
+
 }

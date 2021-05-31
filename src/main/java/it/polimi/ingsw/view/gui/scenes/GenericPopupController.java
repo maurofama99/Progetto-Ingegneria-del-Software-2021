@@ -3,7 +3,9 @@ package it.polimi.ingsw.view.gui.scenes;
 import javafx.scene.Scene;
 
 public interface GenericPopupController {
-    void showPopUp();
+    public default void showPopUp(){
+    }
 
-    void setScene(Scene popupScene);
+    public default void setScene(Scene scene){
+    }
 }
