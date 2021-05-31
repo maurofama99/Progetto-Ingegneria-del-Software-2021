@@ -30,6 +30,13 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     public LeaderStartSceneController(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
         this.leaderCards = leaderCards;
         this.isEndTurn = isEndTurn;
+        stage = new Stage();
+        stage.initOwner(SceneController.getOnGoingScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setAlwaysOnTop(true);
+        stage.initStyle(StageStyle.UNDECORATED);
+        x_Offset = 0;
+        y_Offset = 0;
     }
 
     private double x_Offset = 0;
@@ -51,16 +58,6 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     private ImageView leader1;
     @FXML
     private ImageView leader2;
-
-    public LeaderStartSceneController(){
-        stage = new Stage();
-        stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setAlwaysOnTop(true);
-        stage.initStyle(StageStyle.UNDECORATED);
-        x_Offset = 0;
-        y_Offset = 0;
-    }
 
     @FXML
     public void initialize(){
@@ -112,6 +109,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         }
         //else
             //fetchDoneAction
+        stage.close();
 
     }
 

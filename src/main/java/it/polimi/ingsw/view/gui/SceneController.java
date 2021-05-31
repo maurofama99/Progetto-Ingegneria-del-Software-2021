@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -96,91 +97,5 @@ public class SceneController extends ClientObservable {
 
     }
 
-    public static <T> T showDepositPopup(List<ClientObserver> clientObservers, String resource){
-        T controller;
-        FXMLLoader depoPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/deposit_popup.fxml"));
-        Parent parent;
-
-        try {
-            parent = depoPopLoader.load();
-            controller = depoPopLoader.getController();
-            ((ClientObservable) controller).addAllClientObservers(clientObservers);
-        } catch (IOException exception){
-            System.err.println(exception);
-            return null;
-        }
-
-        DepositPopupSceneController dpsc =depoPopLoader.getController();
-        Scene popupScene = new Scene(parent);
-        dpsc.setScene(popupScene);
-        dpsc.setResourceLbl(resource);
-        dpsc.setResourceImg(resource);
-        dpsc.showPopUp();
-        return controller;
-    }
-
-    public static <T> T showActionPopup(List<ClientObserver> clientObservers, String message){
-        T controller;
-        FXMLLoader actPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/action_popup.fxml"));
-        Parent parent;
-
-        try {
-            parent = actPopLoader.load();
-            controller = actPopLoader.getController();
-            ((ClientObservable) controller).addAllClientObservers(clientObservers);
-        } catch (IOException exception){
-            System.err.println(exception);
-            return null;
-        }
-
-        ActionPopupController apsc =actPopLoader.getController();
-        Scene popupScene = new Scene(parent);
-        apsc.setScene(popupScene);
-        apsc.showPopUp();
-        return controller;
-    }
-
-    public static <T> T LeaderStartPopup(List<ClientObserver> clientObservers, String message){
-        T controller;
-        FXMLLoader leaderPopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/leader_popup.fxml"));
-        Parent parent;
-
-        try {
-            parent = leaderPopLoader.load();
-            controller = leaderPopLoader.getController();
-            ((ClientObservable) controller).addAllClientObservers(clientObservers);
-        } catch (IOException exception){
-            System.err.println(exception);
-            return null;
-        }
-
-        LeaderStartSceneController lssc =leaderPopLoader.getController();
-        Scene popupScene = new Scene(parent);
-        lssc.setScene(popupScene);
-        lssc.showPopUp();
-        return controller;
-    }
-
-    public static <T> T showSingleplayerPopup(List<ClientObserver> clientObservers, String message){
-        T controller;
-        FXMLLoader singlePopLoader = new FXMLLoader(SceneController.class.getResource("/fxml/singleplayer_popup.fxml"));
-        Parent parent;
-
-        try {
-            parent = singlePopLoader.load();
-            controller = singlePopLoader.getController();
-            ((ClientObservable) controller).addAllClientObservers(clientObservers);
-        } catch (IOException exception){
-            System.err.println(exception);
-            return null;
-        }
-
-        SingleplayerPopupSceneController spsc =singlePopLoader.getController();
-        Scene popupScene = new Scene(parent);
-        spsc.setScene(popupScene);
-        spsc.setMessageOfLabel(message);
-        spsc.showPopUp();
-        return controller;
-    }
 
 }

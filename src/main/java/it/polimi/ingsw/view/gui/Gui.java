@@ -125,6 +125,7 @@ public class Gui extends ClientObservable implements View {
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
         Platform.runLater(()-> {
             LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn);
+            //todo setta stage precedente
             lssc.addAllClientObservers(clientObservers);
             SceneController.showPopup(lssc, "leader_popup.fxml");
         });
@@ -165,7 +166,7 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void displayGenericMessage(String genericMessage) throws IOException {
+    public void displayGenericMessage(String genericMessage) {
         //used only in CLI mode
     }
 }
