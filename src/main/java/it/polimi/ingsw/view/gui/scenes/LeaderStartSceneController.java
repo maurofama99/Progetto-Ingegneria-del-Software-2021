@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.network.messagescs.ActivateLeader;
 import it.polimi.ingsw.network.messagescs.DiscardOneLeader;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -22,14 +23,16 @@ import java.util.ArrayList;
 public class LeaderStartSceneController extends ClientObservable implements GenericPopupController {
 
     private Stage stage;
+    private ModelView modelView;
     private int index;
     private ArrayList<LeaderCard> leaderCards;
     private boolean first=true;
     private boolean isEndTurn;
 
-    public LeaderStartSceneController(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
+    public LeaderStartSceneController(ArrayList<LeaderCard> leaderCards, boolean isEndTurn, ModelView modelView) {
         this.leaderCards = leaderCards;
         this.isEndTurn = isEndTurn;
+        this.modelView = modelView;
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -103,7 +106,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     private void whenDoneBtn2Clicked(MouseEvent event){
 
         if (!isEndTurn) {
-            ActionPopupController apc = new ActionPopupController();
+            ActionPopupController apc = new ActionPopupController(modelView);
             apc.addAllClientObservers(clientObservers);
             Platform.runLater(() -> SceneController.showPopup(apc, "action_popup.fxml"));
         }

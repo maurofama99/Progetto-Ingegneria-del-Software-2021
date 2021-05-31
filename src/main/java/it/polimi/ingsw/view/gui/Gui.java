@@ -104,13 +104,17 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException{
-        Platform.runLater(()->SceneController.changeRootPane(clientObservers, "personal_board.fxml"));
+        Platform.runLater(()->{
+            SceneController.changeRootPane(clientObservers, "personal_board.fxml");
+            ((PersonalBoardSceneController)SceneController.getActiveController()).setModelView(modelView);
+        });
+
     }
 
     @Override
     public void fetchPlayerAction(String message) {
         Platform.runLater(() -> {
-            ActionPopupController apc = new ActionPopupController();
+            ActionPopupController apc = new ActionPopupController(modelView);
             apc.addAllClientObservers(clientObservers);
             SceneController.showPopup(apc, "action_popup.fxml");
         });
@@ -124,7 +128,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
         Platform.runLater(()-> {
-            LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn);
+            LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn, modelView);
             //todo setta stage precedente
             lssc.addAllClientObservers(clientObservers);
             SceneController.showPopup(lssc, "leader_popup.fxml");
@@ -140,7 +144,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayMarket(MarketTray marketTray) {
-
+        Platform.runLater(()-> {
+            MarketPopupSceneController marketPopupSceneController = new MarketPopupSceneController(modelView);
+            modelView.setMarketTray(marketTray);
+            marketPopupSceneController.addAllClientObservers(clientObservers);
+        });
     }
 
     @Override

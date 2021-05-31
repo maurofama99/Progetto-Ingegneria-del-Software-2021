@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,10 +19,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     //TODO: assigning inkwell to first player
     //TODO: blackcross for singleplayer
     private ModelView modelView;
-
-    public void setModelView(ModelView modelView) {
-        this.modelView = modelView;
-    }
 
     @FXML
     private ImageView inkwell;
@@ -87,6 +84,9 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     public int servantQnt = 0;
     public int shieldQnt = 0;
 
+    public void setModelView(ModelView modelView) {
+        this.modelView = modelView;
+    }
 
     public void initialize(){
 
@@ -120,7 +120,12 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     }
 
     private void whenShowMarketBtnClicked(MouseEvent event){
-
+        Platform.runLater(() -> {
+            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
+            mpsc.addAllClientObservers(clientObservers);
+            mpsc.disableAll();
+            SceneController.showPopup(mpsc, "market_tray_display.fxml");
+        });
     }
 
     private void whenLeader1BtnClicked(MouseEvent event){

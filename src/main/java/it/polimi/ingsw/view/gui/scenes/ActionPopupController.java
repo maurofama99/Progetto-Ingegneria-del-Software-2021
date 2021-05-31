@@ -1,7 +1,9 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.stage.StageStyle;
 public class ActionPopupController extends ClientObservable implements GenericPopupController {
 
     private final Stage stage;
+    private ModelView modelView;
 
     private double x_Offset;
     private double y_Offset;
@@ -27,8 +30,9 @@ public class ActionPopupController extends ClientObservable implements GenericPo
     @FXML
     private Button productionBtn;
 
-    public ActionPopupController(){
+    public ActionPopupController(ModelView modelView){
         stage = new Stage();
+        this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);
@@ -57,7 +61,12 @@ public class ActionPopupController extends ClientObservable implements GenericPo
     }
 
     private void whenMarketButtonClicked(MouseEvent event){
-
+        Platform.runLater(() -> {
+            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
+            mpsc.addAllClientObservers(clientObservers);
+            mpsc.disableAll();
+            SceneController.showPopup(mpsc, "market_tray_display.fxml");
+        });
         stage.close();
     }
 
@@ -78,5 +87,6 @@ public class ActionPopupController extends ClientObservable implements GenericPo
     public void setScene(Scene scene){
         stage.setScene(scene);
     }
+
 }
 

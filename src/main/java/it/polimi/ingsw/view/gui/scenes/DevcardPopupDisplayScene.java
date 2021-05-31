@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class DevcardPopupDisplayScene extends ClientObservable implements GenericSceneController {
 
     private final Stage stage;
+    private ModelView modelView;
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -82,8 +84,9 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     private Deck deck;
 
-    public DevcardPopupDisplayScene(){
+    public DevcardPopupDisplayScene(ModelView modelView){
         stage = new Stage();
+        this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);

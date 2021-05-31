@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -21,8 +22,10 @@ import javafx.stage.StageStyle;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class MarketPopupSceneController extends ClientObservable implements GenericSceneController {
+public class MarketPopupSceneController extends ClientObservable implements GenericPopupController {
     private final Stage stage;
+
+    private ModelView modelView;
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -31,7 +34,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     @FXML
     private GridPane marketTray;
     @FXML
-    private ImageView slideMrbl;
+    private ImageView slideMrbl = new ImageView();
     @FXML
     private Button backBtn;
     /*@FXML
@@ -60,24 +63,23 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     private ImageView row3column4;
     */
     @FXML
-    private Button column1Btn;
+    private Button column1Btn = new Button();
     @FXML
-    private Button column2Btn;
+    private Button column2Btn = new Button();
     @FXML
-    private Button column3Btn;
+    private Button column3Btn= new Button();
     @FXML
-    private Button column4Btn;
+    private Button column4Btn= new Button();
     @FXML
-    private Button row1Btn;
+    private Button row1Btn= new Button();
     @FXML
-    private Button row2Btn;
+    private Button row2Btn= new Button();
     @FXML
-    private Button row3Btn;
+    private Button row3Btn= new Button();
 
-    private MarketTray marketTrayArray;
-
-    public MarketPopupSceneController(){
+    public MarketPopupSceneController(ModelView modelView){
         stage = new Stage();
+        this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);
@@ -89,9 +91,9 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
 
     public void initialize(){
 
+        setMarbles();
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
-
         column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
         column2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn2BtnClicked);
         column3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn3BtnClicked);
@@ -146,7 +148,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         disableAll();
     }
 
-    private void disableAll() {
+    public void disableAll() {
         column1Btn.setDisable(true);
         column3Btn.setDisable(true);
         column2Btn.setDisable(true);
@@ -164,9 +166,6 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         stage.setScene(scene);
     }
 
-    public void setMarketTrayArray(MarketTray marketTrayArray) {
-        this.marketTrayArray = marketTrayArray;
-    }
 
     public ImageView setMarble(ResourceType resource){
 
@@ -202,13 +201,13 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         return imageView;
     }
 
-    public void setMarbles(MarketTray marketTrayArray){
+    public void setMarbles(){
 
-        slideMrbl = setMarble(marketTrayArray.getSlide().getType());
+        slideMrbl = setMarble(modelView.getMarketTray().getSlide().getType());
 
         for(int j=0; j<3;j++){
             for(int k=0; k<4; k++){
-                marketTray.add(setMarble(marketTrayArray.getTray()[j][k].getType()), j,k);
+                marketTray.add(setMarble(modelView.getMarketTray().getTray()[j][k].getType()), j,k);
             }
         }
 
