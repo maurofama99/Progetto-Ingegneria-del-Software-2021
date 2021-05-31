@@ -160,23 +160,13 @@ public class MarketSceneController extends ClientObservable implements GenericSc
 
     public void setMarbles(MarketTray marketTrayArray){
 
-        ArrayList<ImageView> marbles = new ArrayList<>();
-        int z=0;
-
-        for(int i=0; i<13;i++){
-            marbles.add(setMarble(marketTrayArray.createMarbles().get(i).getType()));
-        }
-
         slideMrbl = setMarble(marketTrayArray.getSlide().getType());
-        marbles.remove(12);
+
         for(int j=0; j<3;j++){
             for(int k=0; k<4; k++){
-                marketTray.add(marbles.get(z), j,k);
-                z++;
+                marketTray.add(setMarble(marketTrayArray.getTray()[j][k].getType()), j,k);
             }
         }
-
-
 
     }
 

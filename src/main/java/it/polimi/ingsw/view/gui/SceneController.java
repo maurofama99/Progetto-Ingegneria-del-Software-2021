@@ -35,7 +35,6 @@ public class SceneController extends ClientObservable {
             Parent root = loader.load();
             controller = loader.getController();
             ((ClientObservable) controller).addAllClientObservers(clientObservers);
-
             activeController = (GenericSceneController) controller;
             onGoingScene = scene;
             onGoingScene.setRoot(root);

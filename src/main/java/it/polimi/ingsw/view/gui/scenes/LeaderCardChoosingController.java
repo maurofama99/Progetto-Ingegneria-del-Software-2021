@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class LeaderCardChoosingController extends ClientObservable implements GenericSceneController {
 
-    private ArrayList<LeaderCard> leaderCards;
+    ArrayList<LeaderCard> leaderCards = new ArrayList<>();
 
     private int index1;
     private boolean first = true;
@@ -30,25 +30,27 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     @FXML
     private Button fourthBtn;
     @FXML
-    private ImageView firstLeader;
+    private ImageView firstLeader = new ImageView();
     @FXML
-    private ImageView secondLeader;
+    private ImageView secondLeader = new ImageView();
     @FXML
-    private ImageView thirdLeader;
+    private ImageView thirdLeader = new ImageView();
     @FXML
-    private ImageView fourthLeader;
+    private ImageView fourthLeader = new ImageView();
 
 
     @FXML
     public void initialize(){
-
+        setLeaderCardsImages();
         firstBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstClicked);
         secondBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondClicked);
         thirdBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdClicked);
         fourthBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourthClicked);
     }
 
-
+    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
+        this.leaderCards = leaderCards;
+    }
 
     private void whenFirstClicked(MouseEvent event){
         if (first) {
@@ -108,27 +110,15 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     }
 
 
-    public ImageView setLeaderImage(LeaderCard leaderCard){
-
-        ImageView leaderImage = new ImageView();
-        Image image = new Image("/front/leader_" + leaderCard.getLeaderEffect().toString());
-        leaderImage.setImage(image);
-
-        return leaderImage;
+    public Image setLeaderImage(LeaderCard leaderCard){
+        return new Image("/front/leader_" + leaderCard.getLeaderEffect().toString() + ".png");
     }
 
     public void setLeaderCardsImages(){
-        ArrayList<ImageView> leaderCardsImages = new ArrayList<>();
-        int z=0;
-
-        for (int i = 0; i <4 ; i++) {
-            leaderCardsImages.add(setLeaderImage(leaderCards.get(i)));
-        }
-
-        firstLeader = leaderCardsImages.get(0);
-        secondLeader = leaderCardsImages.get(1);
-        thirdLeader = leaderCardsImages.get(2);
-        fourthLeader = leaderCardsImages.get(3);
+        firstLeader.setImage(setLeaderImage(leaderCards.get(0)));
+        secondLeader.setImage(setLeaderImage(leaderCards.get(1)));
+        thirdLeader.setImage(setLeaderImage(leaderCards.get(2)));
+        fourthLeader.setImage(setLeaderImage(leaderCards.get(3)));
     }
 
 

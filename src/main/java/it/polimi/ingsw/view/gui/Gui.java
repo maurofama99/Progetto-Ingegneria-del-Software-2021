@@ -79,7 +79,10 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) {
-        Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "leader_choosing.fxml"));
+        LeaderCardChoosingController llcc = new LeaderCardChoosingController();
+        llcc.setLeaderCards(leaderCards);
+        llcc.addAllClientObservers(clientObservers);
+        Platform.runLater(() -> SceneController.changeRootPane(llcc, "leader_choosing.fxml"));
     }
 
     @Override

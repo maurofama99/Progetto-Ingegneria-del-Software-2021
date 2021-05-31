@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"> <!--fx:controller="it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController"-->
    <children>
       <Group>
          <children>
@@ -22,7 +22,7 @@
                   <Button fx:id="thirdBtn" layoutX="497.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="thirdButton" />
                   <Button fx:id="fourthBtn" layoutX="698.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="fourthButton" />
                   <ImageView fx:id="firstLeader" fitHeight="250.0" fitWidth="175.0" layoutX="37.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
-                     </ImageView>
+                  </ImageView>
                   <ImageView fx:id="secondLeader" fitHeight="250.0" fitWidth="175.0" layoutX="233.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
                   <ImageView fx:id="thirdLeader" fitHeight="250.0" fitWidth="175.0" layoutX="497.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
