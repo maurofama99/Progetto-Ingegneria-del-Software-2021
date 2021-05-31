@@ -34,29 +34,29 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fx:id="row1column1" fitHeight="55.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="row1column2" fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                        <ImageView fx:id="row1column3" fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                        <ImageView fx:id="row1column4" fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-                        <ImageView fx:id="row2column1" fitHeight="55.0" fitWidth="68.0" layoutX="220.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-                        <ImageView fx:id="row2column2" fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ImageView fx:id="row2column3" fitHeight="55.0" fitWidth="68.0" layoutX="80.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <ImageView fx:id="row2column4" fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <ImageView fx:id="row3column1" fitHeight="55.0" fitWidth="68.0" layoutX="220.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-                        <ImageView fx:id="row3column2" fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ImageView fx:id="row3column3" fitHeight="55.0" fitWidth="68.0" layoutX="80.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <ImageView fx:id="row3column4" fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true"  GridPane.columnIndex="1" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true"  GridPane.columnIndex="2" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="13.0" pickOnBounds="true"  GridPane.columnIndex="3" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="220.0" layoutY="13.0" pickOnBounds="true"  GridPane.rowIndex="1" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="74.0" pickOnBounds="true"  GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="80.0" layoutY="74.0" pickOnBounds="true"  GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="74.0" pickOnBounds="true"  GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="220.0" layoutY="74.0" pickOnBounds="true"  GridPane.rowIndex="2" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="10.0" layoutY="135.0" pickOnBounds="true"  GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="80.0" layoutY="135.0" pickOnBounds="true"  GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ImageView  fitHeight="55.0" fitWidth="68.0" layoutX="150.0" layoutY="135.0" pickOnBounds="true"  GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <ImageView fx:id="slideMrbl" fitHeight="55.0" fitWidth="68.0" layoutX="452.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button fx:id="column1Btn" layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col1" />
-                  <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col2" />
-                  <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col3" />
-                  <Button fx:id="column4Btn" layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" text="col4" />
-                  <Button fx:id="row1Btn" layoutX="860.0" layoutY="304.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
-                  <Button fx:id="row2Btn" layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
-                  <Button fx:id="row3Btn" layoutX="860.0" layoutY="180.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" text="Button" />
-                  <Button fx:id="backBtn" layoutX="28.0" layoutY="31.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="142.0" rotate="180.0" text="Button" />
+                  <Button fx:id="column1Btn" layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton"  />
+                  <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton"  />
+                  <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton"  />
+                  <Button fx:id="column4Btn" layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton"  />
+                  <Button fx:id="row1Btn" layoutX="860.0" layoutY="304.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton"  />
+                  <Button fx:id="row2Btn" layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton"  />
+                  <Button fx:id="row3Btn" layoutX="860.0" layoutY="180.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton"  />
+                  <Button fx:id="backBtn" layoutX="28.0" layoutY="31.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="142.0" rotate="180.0" text="Back" />
                     </children>
                 </AnchorPane>
             </children>

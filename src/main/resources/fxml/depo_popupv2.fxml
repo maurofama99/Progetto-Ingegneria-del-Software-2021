@@ -30,9 +30,9 @@
                   <Font name="AlgerianCondensedStd" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="switchBtn" layoutX="489.0" layoutY="26.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="switchButton" text="Switch" />
-            <Button fx:id="discardBtn" layoutX="489.0" layoutY="83.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="discardButton" text="Discard" />
-            <Button fx:id="extraBtn" layoutX="489.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="extraButton" text="Extra" />
+            <Button fx:id="switchBtn" layoutX="489.0" layoutY="26.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="switchButton"  />
+            <Button fx:id="discardBtn" layoutX="489.0" layoutY="83.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="discardButton"  />
+            <Button fx:id="extraBtn" layoutX="489.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="extraButton"  />
             <ImageView fitHeight="119.0" fitWidth="128.0" layoutX="300.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fitHeight="48.0" fitWidth="47.0" layoutX="125.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fitHeight="48.0" fitWidth="47.0" layoutX="96.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />

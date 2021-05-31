@@ -64,6 +64,8 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     @FXML
     public void initialize(){
+        setLeaderCardsImages();
+
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         activateLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton1Clicked);
@@ -125,25 +127,13 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     }
 
 
-    public ImageView setLeaderImage(LeaderCard leaderCard){
-
-        ImageView leaderImage = new ImageView();
-        Image image = new Image("/front/leader_" + leaderCard.getLeaderEffect());
-        leaderImage.setImage(image);
-
-        return leaderImage;
+    public Image setLeaderImage(LeaderCard leaderCard){
+        return new Image("/front/leader_" + leaderCard.getLeaderEffect().toString() + ".png");
     }
 
-    public void setImages(){
-        ArrayList<ImageView> leaderCardsImages = new ArrayList<>();
-        int z=0;
-
-        for (int i = 0; i <2 ; i++) {
-            leaderCardsImages.add(setLeaderImage(leaderCards.get(i)));
-        }
-
-        leader1 = leaderCardsImages.get(0);
-        leader2 = leaderCardsImages.get(1);
+    public void setLeaderCardsImages(){
+        leader1.setImage((setLeaderImage(leaderCards.get(0))));
+        leader2.setImage((setLeaderImage(leaderCards.get(1))));
     }
 
     public void showPopUp(){

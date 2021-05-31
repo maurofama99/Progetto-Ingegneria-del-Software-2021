@@ -13,12 +13,12 @@
                     <image>
                         <Image url="@../other/background/sfondo_popup.jpg" />
                     </image></ImageView>
-            <Button fx:id="srcFloor1Btn" layoutX="37.0" layoutY="105.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" text="Button" />
-            <Button fx:id="srcFloor2Btn" layoutX="37.0" layoutY="186.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button" text="Button" />
-            <Button fx:id="srcFloor3Btn" layoutX="37.0" layoutY="269.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button" text="Button" />
-            <Button fx:id="dstnFloor1Btn" layoutX="471.0" layoutY="104.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" text="Button" />
-            <Button fx:id="dstnFloor2Btn" layoutX="471.0" layoutY="184.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button" text="Button" />
-            <Button fx:id="dstnFloor3Btn" layoutX="471.0" layoutY="268.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button" text="Button" />
+            <Button fx:id="srcFloor1Btn" layoutX="37.0" layoutY="105.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button"  />
+            <Button fx:id="srcFloor2Btn" layoutX="37.0" layoutY="186.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button"  />
+            <Button fx:id="srcFloor3Btn" layoutX="37.0" layoutY="269.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button"  />
+            <Button fx:id="dstnFloor1Btn" layoutX="471.0" layoutY="104.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" />
+            <Button fx:id="dstnFloor2Btn" layoutX="471.0" layoutY="184.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button"  />
+            <Button fx:id="dstnFloor3Btn" layoutX="471.0" layoutY="268.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button"  />
             <ImageView fitHeight="74.0" fitWidth="183.0" layoutX="-4.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../other/texts/source.png" />
