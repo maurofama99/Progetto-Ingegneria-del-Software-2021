@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.io.Serializable;
 
@@ -39,13 +41,15 @@ public abstract class LeaderEffect implements Serializable {
     public String toString() {
         switch (effectType){
             case SWAPWHITE:
-                return "SWAP";
+                return "SWAP-" + ((Resource)getObject()).toStringGui();
             case EXTRADEPOT:
-                return "DEPOT";
+                Resource resDepot = new Resource(1, (ResourceType)getObject());
+                return "DEPOT-" + resDepot.toStringGui();
             case DISCOUNT:
-                return "DISCOUNT";
+                Resource resDiscount = new Resource(1, (ResourceType)getObject());
+                return "DISCOUNT-" + resDiscount.toStringGui();
             case ADDPRODUCTION:
-                return "PRODUCTION";
+                return "PRODUCTION-"+((Resource)getObject()).toStringGui();
             default:
                 throw new IllegalStateException("Unexpected value: " + getEffectType());
         }
