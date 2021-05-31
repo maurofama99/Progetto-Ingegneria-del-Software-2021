@@ -64,8 +64,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     @FXML
     public void initialize(){
-        setLeaderCardsImages();
-
+        setImages();
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         activateLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton1Clicked);
@@ -128,12 +127,13 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
 
     public Image setLeaderImage(LeaderCard leaderCard){
-        return new Image("/front/leader_" + leaderCard.getLeaderEffect().toString() + ".png");
+        return new Image("/front/leader_" + leaderCard.getLeaderEffect()+".png");
     }
 
-    public void setLeaderCardsImages(){
-        leader1.setImage((setLeaderImage(leaderCards.get(0))));
-        leader2.setImage((setLeaderImage(leaderCards.get(1))));
+    public void setImages(){
+        //se ce n'è solo una
+        leader1.setImage(setLeaderImage(leaderCards.get(0)));
+        leader2.setImage(setLeaderImage(leaderCards.get(1)));
     }
 
     public void showPopUp(){
@@ -143,5 +143,19 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     public void setScene(Scene scene){
         stage.setScene(scene);
     }
+
+    /*
+    if (modelView.getLeaderCards().get(0) == null){
+            leader1.setImage(new Image("/back/leader-back.png"));
+            leader2.setImage(new Image("/back/leader-back.png"));
+        }
+        else if (modelView.getLeaderCards().get(1) == null){
+            leader1.setImage(setLeaderImage(modelView.getLeaderCards().get(0)));
+            leader2.setImage(new Image("/back/leader-back.png"));
+        }
+        else{
+            leader2.setImage(setLeaderImage(modelView.getLeaderCards().get(1)));
+        }
+     */
 }
 

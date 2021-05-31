@@ -151,9 +151,12 @@ public class DepoPopupv2Controller extends ClientObservable implements GenericSc
         resourceLbl.setText(resource);
     }
 
+    /*
     public void setResourceImg(String resource) {
         PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
     }
+
+    */
 
 
     public void showPopUp(){

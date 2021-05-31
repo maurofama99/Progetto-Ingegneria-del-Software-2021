@@ -19,7 +19,7 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
-public class DevcardPopupDisplayScene extends ClientObservable implements GenericSceneController {
+public class DevcardPopupDisplayScene extends ClientObservable implements GenericPopupController{
 
     private final Stage stage;
     private ModelView modelView;
@@ -126,7 +126,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     }
 
     private void whenBackBtnClicked(MouseEvent event){
-
+        stage.close();
     }
 
     private void whenFirstRowFirstColumnBtnClicked(MouseEvent event){

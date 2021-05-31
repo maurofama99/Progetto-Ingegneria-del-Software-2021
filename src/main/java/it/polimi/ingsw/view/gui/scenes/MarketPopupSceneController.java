@@ -36,7 +36,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     @FXML
     private ImageView slideMrbl = new ImageView();
     @FXML
-    private Button backBtn;
+    private Button backBtn = new Button();
     /*@FXML
     private ImageView row1column1;
     @FXML
@@ -101,6 +101,12 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         row1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow1BtnClicked);
         row2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow2BtnClicked);
         row3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRow3BtnClicked);
+        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenBackBtnClicked);
+
+    }
+
+    private void whenBackBtnClicked(MouseEvent event){
+        stage.close();
     }
 
     private void whenRootPanePressed(MouseEvent event){
@@ -147,6 +153,8 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         notifyObservers(new GoingMarket(3, true));
         disableAll();
     }
+
+
 
     public void disableAll() {
         column1Btn.setDisable(true);

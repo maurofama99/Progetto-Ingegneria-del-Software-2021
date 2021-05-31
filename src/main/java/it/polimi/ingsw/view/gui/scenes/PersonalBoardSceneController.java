@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -84,36 +85,21 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     public int servantQnt = 0;
     public int shieldQnt = 0;
 
-    public void setModelView(ModelView modelView) {
+    public PersonalBoardSceneController(ModelView modelView) {
         this.modelView = modelView;
     }
 
     public void initialize(){
 
-        baseProdBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenBaseProdBtnClicked);
-        prod1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenProd1BtnClicked);
-        prod2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenProd2BtnClicked);
-        prod3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenProd3BtnClicked);
+        setDepotImage();
+
+        leaderLeft.setImage(new Image("/back/leader-back.png"));
+        leaderRight.setImage(new Image("/back/leader-back.png"));
+
         showDevCardsBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowDevCardsBtnClicked);
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
-        leader1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLeader1BtnClicked);
-        leader2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLeader2BtnClicked);
     }
 
-    private void whenBaseProdBtnClicked(MouseEvent event){
-
-    }
-
-    private void whenProd1BtnClicked(MouseEvent event){
-
-    }
-
-    private void whenProd2BtnClicked(MouseEvent event){
-
-    }
-
-    private void whenProd3BtnClicked(MouseEvent event){
-    }
 
     private void whenShowDevCardsBtnClicked(MouseEvent event){
 
@@ -128,68 +114,45 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         });
     }
 
-    private void whenLeader1BtnClicked(MouseEvent event){
-
-    }
-
-    private void whenLeader2BtnClicked(MouseEvent event){
-
-    }
-
-    static void setImageDepositSpot(String resource, ImageView spot) {
+    static void setResourceImage(String resource, ImageView spot) {
         switch (resource) {
-            case "coin":
-                Image coin = new Image("/punchboard/resources/coin.png");
-                spot.setImage(coin);
-            case "stone":
-                Image stone = new Image("/punchboard/resources/stone.png");
-                spot.setImage(stone);
-            case "servant":
-                Image servant = new Image("/punchboard/resources/servant.png");
-                spot.setImage(servant);
-            case "shield":
-                Image shield = new Image("/punchboard/resources/shield.png");
-                spot.setImage(shield);
+            case "COIN":
+                spot.setImage(new Image("/punchboard/resources/coin.png"));
+            case "STONE":
+                spot.setImage(new Image("/punchboard/resources/stone.png"));
+            case "SERVANT":
+                spot.setImage(new Image("/punchboard/resources/servant.png"));
+            case "SHIELD":
+                spot.setImage(new Image("/punchboard/resources/shield.png"));
         }
     }
 
-
-
-    public void setFirstLevelLeft(String resource) {
-        setImageDepositSpot(resource, firstLevelLeft);
+    private void setDepotImage(){
+        if (!modelView.getWarehouse().getFloors().get(0).getType().equals(ResourceType.NULLRESOURCE)){
+            setResourceImage(modelView.getWarehouse().getFloors().get(0).toStringGui(), thirdLevel);
+        }
+        if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
+            if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
+                setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
+            else
+                setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
+                setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelRight);
+        }
+        if (!modelView.getWarehouse().getFloors().get(2).getType().equals(ResourceType.NULLRESOURCE)){
+            if (modelView.getWarehouse().getFloors().get(2).getQnt()==1)
+                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
+            else if (modelView.getWarehouse().getFloors().get(2).getQnt()==2){
+                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelRight);
+                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
+            }
+            else {
+                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelRight);
+                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
+                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelCenter);
+            }
+        }
     }
 
-    public void setFirstLevelCenter(String resource) {
-        setImageDepositSpot(resource, firstLevelCenter);
-    }
-
-    public void setFirstLevelRight(String resource) {
-        setImageDepositSpot(resource, firstLevelRight);
-    }
-
-    public void setSecondLevelLeft(String resource) {
-        setImageDepositSpot(resource, secondLevelLeft);
-    }
-
-    public void setSecondLevelRight(String resource) {
-        setImageDepositSpot(resource, secondLevelRight);
-    }
-
-    public void setThirdLevel(String resource) {
-        setImageDepositSpot(resource, thirdLevel);
-    }
-
-    public void setSlotLeft(ImageView slotLeft) {
-        this.slotLeft = slotLeft;
-    }
-
-    public void setSlotCenter(ImageView slotCenter) {
-        this.slotCenter = slotCenter;
-    }
-
-    public void setSlotRight(ImageView slotRight) {
-        this.slotRight = slotRight;
-    }
 
     public void setFirstPopeTile(ImageView firstPopeTile) {
         this.firstPopeTile = firstPopeTile;
@@ -203,13 +166,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         this.thirdPopeTile = thirdPopeTile;
     }
 
-    public void setLeaderLeft(ImageView leaderLeft) {
-        this.leaderLeft = leaderLeft;
-    }
-
-    public void setLeaderRight(ImageView leaderRight) {
-        this.leaderRight = leaderRight;
-    }
 
     public void increaseCounter(Label labelToSet, int quantity, int resourcePresent){
         resourcePresent = resourcePresent+quantity;

@@ -148,9 +148,12 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
         resourceLbl.setText(resource);
     }
 
+    /*
     public void setResourceImg(String resource) {
         PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
     }
+    */
+
 
     public void showPopUp(){
         stage.showAndWait();

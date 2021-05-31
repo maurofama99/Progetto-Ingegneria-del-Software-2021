@@ -71,12 +71,10 @@ public class ActionPopupController extends ClientObservable implements GenericPo
     }
 
     private void whenBuyButtonClicked(MouseEvent event){
-
         stage.close();
     }
 
     private void whenProductionButtonClicked(MouseEvent event){
-
         stage.close();
     }
 

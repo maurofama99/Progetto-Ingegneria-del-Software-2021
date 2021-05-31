@@ -43,6 +43,10 @@ public class ModelView {
         return warehouse;
     }
 
+    public ArrayList<LeaderCard> getLeaderCards() {
+        return leaderCards;
+    }
+
     public void setWarehouse(SerializableWarehouse warehouse) {
         this.warehouse = warehouse;
     }
