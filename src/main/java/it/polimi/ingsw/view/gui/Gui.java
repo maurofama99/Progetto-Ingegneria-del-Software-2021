@@ -79,12 +79,14 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
-        // used only in CLI mode
+        modelView.setFaithTrack(faithTrack);
+        modelView.setSlots(slots);
+        modelView.setWarehouse(warehouse);
     }
 
     @Override
     public void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC) {
-
+        modelView.updateOthersPB(name, fT, slots, wH, lC);
     }
 
     @Override
