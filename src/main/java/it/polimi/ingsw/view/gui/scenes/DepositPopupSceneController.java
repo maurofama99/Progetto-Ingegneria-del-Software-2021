@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class DepositPopupSceneController  extends ClientObservable implements GenericSceneController{
+public class DepositPopupSceneController  extends ClientObservable implements GenericPopupController{
 
     private final Stage stage;
 
@@ -151,11 +151,10 @@ public class DepositPopupSceneController  extends ClientObservable implements Ge
     public void setResourceImg(String resource) {
         PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
     }
+
     public void showPopUp(){
         stage.showAndWait();
     }
-
-
     public void setScene(Scene scene){
         stage.setScene(scene);
     }

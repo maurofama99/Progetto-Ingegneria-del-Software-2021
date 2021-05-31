@@ -19,7 +19,7 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
-public class LeaderStartSceneController extends ClientObservable implements GenericSceneController {
+public class LeaderStartSceneController extends ClientObservable implements GenericPopupController {
 
     private Stage stage;
     private int index;
@@ -105,8 +105,11 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     private void whenDoneBtn2Clicked(MouseEvent event){
 
-        if (!isEndTurn)
-            Platform.runLater(()-> SceneController.showActionPopup(clientObservers, "action_popup.fxml"));
+        if (!isEndTurn) {
+            ActionPopupController apc = new ActionPopupController();
+            apc.addAllClientObservers(clientObservers);
+            Platform.runLater(() -> SceneController.showPopup(apc, "action_popup.fxml"));
+        }
         //else
             //fetchDoneAction
 

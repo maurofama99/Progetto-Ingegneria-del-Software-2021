@@ -315,11 +315,10 @@ public class PlayerController {
     /**
      * When the player wants to buy a development card. This method removes the ard from the matrix and place it on a player's slot.
      * @param msg It contains row, column of the matrix and a slot number of the player's personal board.
-     * @throws IllegalAccessException
      * @throws IOException
      */
 
-    public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException, IllegalAccessException {
+    public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException {
         if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn())==null){
             playerVV().displayGenericMessage("Selected card is not available anymore!\n");
             playerVV().fetchPlayerAction();

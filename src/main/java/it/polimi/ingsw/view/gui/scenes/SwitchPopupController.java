@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SwitchPopupController extends ClientObservable implements GenericSceneController {
+public class SwitchPopupController extends ClientObservable implements GenericPopupController {
 
 
     private final Stage stage;

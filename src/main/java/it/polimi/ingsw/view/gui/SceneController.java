@@ -80,33 +80,21 @@ public class SceneController extends ClientObservable {
         changeRootPane(controller, onGoingScene, fxml);
     }
 
-    public static <T> T showPopup(List<ClientObserver> clientObservers, String title, String message){
-
-        T controller;
-        FXMLLoader popLoader = new FXMLLoader(SceneController.class.getResource("/fxml/popup_scene.fxml"));
-        Parent parent;
+    public static void showPopup(GenericPopupController controller, String fxml){
 
         try {
-            parent = popLoader.load();
-            controller = popLoader.getController();
-            ((ClientObservable) controller).addAllClientObservers(clientObservers);
-        } catch (IOException exception){
-            System.err.println(exception);
-            return null;
+            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
+
+            loader.setController(controller);
+            Parent parent = loader.load();
+            Scene popupScene = new Scene(parent);
+            controller.setScene(popupScene);
+            controller.showPopUp();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
 
-        PopupSceneController psc =popLoader.getController();
-        Scene popupScene = new Scene(parent);
-        psc.setScene(popupScene);
-        psc.setTitleLabel(title);
-        psc.setMessageOfLabel(message);
-        psc.showPopUp();
-        return controller;
-
-    }
-
-    public static void showPopup(List<ClientObserver> clientObservers, String message){
-        showPopup(clientObservers, "Info", message);
     }
 
     public static <T> T showDepositPopup(List<ClientObserver> clientObservers, String resource){

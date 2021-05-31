@@ -43,37 +43,47 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void fetchResourceType() throws IOException {
+    public void fetchResourceType() {
         Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "resource_choosing.fxml"));
     }
 
     @Override
     public void fetchResourcePlacement() {
-        Platform.runLater(() -> SceneController.showDepositPopup(clientObservers, "stone"));
+        Platform.runLater(() -> {
+            DepositPopupSceneController dpsc = new DepositPopupSceneController();
+            dpsc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(dpsc, "deposit_popup.fxml");
+        });
     }
 
     @Override
-    public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {
+    public void fetchSwapWhite(ResourceType type1, ResourceType type2) {
 
     }
 
     @Override
-    public void fetchExtraProd(Resource resource) throws IOException {
+    public void fetchExtraProd(Resource resource) {
 
     }
 
     @Override
     public void displayPopup(String message) {
-        Platform.runLater(() -> SceneController.showPopup(clientObservers, message));
+        Platform.runLater(() -> {
+            PopupSceneController psc = new PopupSceneController();
+            psc.setMessageOfLabel(message);
+            psc.setTitleLabel("Info");
+            psc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(psc, "popup_scene.fxml");
+        });
     }
 
     @Override
-    public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
+    public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) {
         Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "leader_choosing.fxml"));
     }
 
     @Override
-    public void displayDevCards(DevCard[][] devCards) throws IOException {
+    public void displayDevCards(DevCard[][] devCards) {
 
     }
 
@@ -94,7 +104,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchPlayerAction(String message) {
-        Platform.runLater(() -> SceneController.showActionPopup(clientObservers, message));
+        Platform.runLater(() -> {
+            ActionPopupController apc = new ActionPopupController();
+            apc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(apc, "action_popup.fxml");
+        });
     }
 
     @Override
@@ -103,13 +117,12 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
-        LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn);
-        lssc.addAllClientObservers(clientObservers);
-        //Platform.runLater(()-> SceneController.LeaderStartPopup(lssc, "leader_popup.fxml"));
-        //TODO: Fare costruttori con il controller anche per i popup.
-        // Consiglio: meglio fare uno showPopup che va bene per tutti (come changeRootPane) piuttosto che un metodo specifico per ognuno, tanto sono tutti uguali,
-        // al massimo se c'è bisogno di settare qualche parametro particolare si fanno degli override del costruttore
+    public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
+        Platform.runLater(()-> {
+            LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn);
+            lssc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(lssc, "leader_popup.fxml");
+        });
     }
 
 
@@ -136,7 +149,13 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void forcedEnd(String nickname) {
-        Platform.runLater(() -> SceneController.showPopup(clientObservers, nickname + " left the game. The match ends now."));
+        Platform.runLater(() -> {
+            PopupSceneController psc = new PopupSceneController();
+            psc.addAllClientObservers(clientObservers);
+            psc.setMessageOfLabel(nickname + " left the game. The match ends now.");
+            psc.setTitleLabel("Disconnection Alert");
+            SceneController.showPopup(psc, "popup_scene.fxml");
+        });
         System.exit(0);
     }
 

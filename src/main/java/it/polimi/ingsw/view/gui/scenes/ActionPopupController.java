@@ -11,12 +11,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ActionPopupController extends ClientObservable implements GenericSceneController {
+public class ActionPopupController extends ClientObservable implements GenericPopupController {
 
     private final Stage stage;
 
-    private double x_Offset = 0;
-    private double y_Offset = 0;
+    private double x_Offset;
+    private double y_Offset;
 
     @FXML
     private BorderPane rootPane;

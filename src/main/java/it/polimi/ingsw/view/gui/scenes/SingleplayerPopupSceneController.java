@@ -13,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SingleplayerPopupSceneController implements GenericSceneController {
+public class SingleplayerPopupSceneController implements GenericPopupController {
     private final Stage stage;
 
     private double x_Offset = 0;

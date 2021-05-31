@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.event.*;
 import javafx.stage.StageStyle;
 
-public class PopupSceneController extends ClientObservable implements GenericSceneController {
+public class PopupSceneController extends ClientObservable implements GenericPopupController {
 
     private final Stage stage;
 
