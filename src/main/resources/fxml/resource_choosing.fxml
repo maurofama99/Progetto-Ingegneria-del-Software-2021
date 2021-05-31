@@ -17,23 +17,23 @@
                         <Image url="@../other/texts/what_resource.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="coinBtn" layoutX="37.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="coinButton" />
-                  <Button fx:id="stoneBtn" layoutX="233.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="stoneButton" />
-                  <Button fx:id="servantBtn" layoutX="497.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="servantButton" />
-                  <Button fx:id="shieldBtn" layoutX="698.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="shieldButton" />
-                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="37.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+                  <Button fx:id="coinBtn" layoutX="37.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="coinButton" />
+                  <Button fx:id="stoneBtn" layoutX="233.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="stoneButton" />
+                  <Button fx:id="servantBtn" layoutX="497.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="servantButton" />
+                  <Button fx:id="shieldBtn" layoutX="698.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="shieldButton" />
+                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="37.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/coin.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="233.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="233.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/stone.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="497.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="497.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/servant.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="157.0" fitWidth="214.0" layoutX="698.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="157.0" fitWidth="214.0" layoutX="698.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/shield.png" />
                      </image></ImageView>

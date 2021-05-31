@@ -87,7 +87,7 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayDevCards(DevCard[][] devCards) {
-
+        modelView.setShowedDeck(devCards);
     }
 
     @Override
@@ -122,7 +122,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
-
+        Platform.runLater(()-> {
+            LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, true, modelView);
+            lssc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(lssc, "leader_popup.fxml");
+        });
     }
 
     @Override

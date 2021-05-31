@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.network.messagescs.ActivateLeader;
 import it.polimi.ingsw.network.messagescs.DiscardOneLeader;
+import it.polimi.ingsw.network.messagescs.DoneAction;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -91,7 +92,8 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     private void whenDiscardLeaderBtn1Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(0));
-        disableAll();
+        activateLeaderBtn1.setDisable(true);
+        discardLeaderBtn1.setDisable(true);
     }
 
     private void whenActivateLeaderButton2Clicked(MouseEvent event){
@@ -101,7 +103,8 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     private void whenDiscardLeaderBtn2Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(1));
-        disableAll();
+        activateLeaderBtn2.setDisable(true);
+        discardLeaderBtn2.setDisable(true);
     }
 
     private void whenDoneBtn2Clicked(MouseEvent event){
@@ -111,8 +114,8 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
             apc.addAllClientObservers(clientObservers);
             Platform.runLater(() -> SceneController.showPopup(apc, "action_popup.fxml"));
         }
-        //else
-            //fetchDoneAction
+        else
+            notifyObservers(new DoneAction());
         stage.close();
 
     }
@@ -131,7 +134,11 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     }
 
     public void setImages(){
-        //se ce n'è solo una
+        if (leaderCards.size()==1){
+            leader1.setImage(setLeaderImage(leaderCards.get(0)));
+            activateLeaderBtn2.setDisable(true);
+            discardLeaderBtn2.setDisable(true);
+        }
         leader1.setImage(setLeaderImage(leaderCards.get(0)));
         leader2.setImage(setLeaderImage(leaderCards.get(1)));
     }

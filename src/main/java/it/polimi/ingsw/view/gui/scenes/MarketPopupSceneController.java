@@ -92,6 +92,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     public void initialize(){
 
         setMarbles();
+        disable(false);
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
@@ -121,49 +122,48 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
 
     private void whenColumn1BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(1, false));
-        disableAll();
+        disable(true);
     }
 
     private void whenColumn2BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(2, false));
-        disableAll();
+        disable(true);
     }
 
     private void whenColumn3BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(3, false));
-        disableAll();
+        disable(true);
     }
 
     private void whenColumn4BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(4, false));
-        disableAll();
+        disable(true);
     }
 
     private void whenRow1BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(1, true));
-        disableAll();
+        disable(true);
     }
 
     private void whenRow2BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(2, true));
-        disableAll();
+        disable(true);
     }
 
     private void whenRow3BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(3, true));
-        disableAll();
+        disable(true);
     }
 
 
-
-    public void disableAll() {
-        column1Btn.setDisable(true);
-        column3Btn.setDisable(true);
-        column2Btn.setDisable(true);
-        row1Btn.setDisable(true);
-        row2Btn.setDisable(true);
-        row3Btn.setDisable(true);
-        column4Btn.setDisable(true);
+    public void disable(boolean disable) {
+        column1Btn.setDisable(disable);
+        column3Btn.setDisable(disable);
+        column2Btn.setDisable(disable);
+        row1Btn.setDisable(disable);
+        row2Btn.setDisable(disable);
+        row3Btn.setDisable(disable);
+        column4Btn.setDisable(disable);
     }
 
     public void showPopUp(){
@@ -178,31 +178,25 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     public ImageView setMarble(ResourceType resource){
 
         ImageView imageView = new ImageView();
-        Image cyan = new Image("/punchboard/marbles/cyan.png");
-        Image grey = new Image("/punchboard/marbles/grey.png");
-        Image purple = new Image("/punchboard/marbles/purple.png");
-        Image red = new Image("/punchboard/marbles/red.png");
-        Image white = new Image("/punchboard/marbles/white.png");
-        Image yellow = new Image("/punchboard/marbles/yellow.png");
 
         switch(resource){
             case SHIELD :
-                imageView.setImage(cyan);
+                imageView.setImage(new Image("/punchboard/marbles/cyan.png"));
                 break;
             case SERVANT :
-                imageView.setImage(purple);
+                imageView.setImage(new Image("/punchboard/marbles/purple.png"));
                 break;
             case STONE :
-                imageView.setImage(grey);
+                imageView.setImage(new Image("/punchboard/marbles/grey.png"));
                 break;
             case COIN:
-                imageView.setImage(yellow);
+                imageView.setImage(new Image("/punchboard/marbles/yellow.png"));
                 break;
             case WHITERESOURCE :
-                imageView.setImage(white);
+                imageView.setImage(new Image("/punchboard/marbles/white.png"));
                 break;
             case FAITHPOINT:
-                imageView.setImage(red);
+                imageView.setImage(new Image("/punchboard/marbles/red.png"));
                 break;
         }
 

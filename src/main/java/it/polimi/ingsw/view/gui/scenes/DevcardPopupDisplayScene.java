@@ -33,56 +33,31 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     private GridPane devCardGrid;
     @FXML
     private Button backBtn;
-    /*@FXML
-    private ImageView firstRowFirstColumn;
-    @FXML
-    private ImageView firstRowSecondColumn;
-    @FXML
-    private ImageView firstRowThirdColumn;
-    @FXML
-    private ImageView firstRowFourthColumn;
-    @FXML
-    private ImageView secondRowFirstColumn;
-    @FXML
-    private ImageView secondRowSecondColumn;
-    @FXML
-    private ImageView secondRowThirdColumn;
-    @FXML
-    private ImageView secondRowFourthColumn;
-    @FXML
-    private ImageView thirdRowFirstColumn;
-    @FXML
-    private ImageView thirdRowSecondColumn;
-    @FXML
-    private ImageView thirdRowThirdColumn;
-    @FXML
-    private ImageView thirdRowFourthColumn;*/
-    @FXML
-    private Button firstRowFirstColumnBtn;
-    @FXML
-    private Button firstRowSecondColumnBtn;
-    @FXML
-    private Button firstRowThirdColumnBtn;
-    @FXML
-    private Button firstRowFourthColumnBtn;
-    @FXML
-    private Button secondRowFirstColumnBtn;
-    @FXML
-    private Button secondRowSecondColumnBtn;
-    @FXML
-    private Button secondRowThirdColumnBtn;
-    @FXML
-    private Button secondRowFourthColumnBtn;
-    @FXML
-    private Button thirdRowFirstColumnBtn;
-    @FXML
-    private Button thirdRowSecondColumnBtn;
-    @FXML
-    private Button thirdRowThirdColumnBtn;
-    @FXML
-    private Button thirdRowFourthColumnBtn;
 
-    private Deck deck;
+    @FXML
+    private Button firstRowFirstColumnBtn = new Button();
+    @FXML
+    private Button firstRowSecondColumnBtn= new Button();
+    @FXML
+    private Button firstRowThirdColumnBtn= new Button();
+    @FXML
+    private Button firstRowFourthColumnBtn= new Button();
+    @FXML
+    private Button secondRowFirstColumnBtn= new Button();
+    @FXML
+    private Button secondRowSecondColumnBtn= new Button();
+    @FXML
+    private Button secondRowThirdColumnBtn= new Button();
+    @FXML
+    private Button secondRowFourthColumnBtn= new Button();
+    @FXML
+    private Button thirdRowFirstColumnBtn= new Button();
+    @FXML
+    private Button thirdRowSecondColumnBtn= new Button();
+    @FXML
+    private Button thirdRowThirdColumnBtn= new Button();
+    @FXML
+    private Button thirdRowFourthColumnBtn= new Button();
 
     public DevcardPopupDisplayScene(ModelView modelView){
         stage = new Stage();
@@ -96,6 +71,8 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     }
 
     public void initialize(){
+        setDevCardImages();
+
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
 
@@ -177,16 +154,26 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     }
 
+    public void disableAll(){
+        firstRowFirstColumnBtn.setDisable(true);
+        firstRowSecondColumnBtn.setDisable(true);
+        firstRowThirdColumnBtn.setDisable(true);
+        firstRowFourthColumnBtn.setDisable(true);
+        secondRowFirstColumnBtn.setDisable(true);
+        secondRowSecondColumnBtn.setDisable(true);
+        secondRowThirdColumnBtn.setDisable(true);
+        thirdRowFirstColumnBtn.setDisable(true);
+        thirdRowSecondColumnBtn.setDisable(true);
+        thirdRowThirdColumnBtn.setDisable(true);
+        thirdRowFourthColumnBtn.setDisable(true);
+    }
+
     public void showPopUp(){
         stage.showAndWait();
     }
 
     public void setScene(Scene scene){
         stage.setScene(scene);
-    }
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
     }
 
     public ImageView setDevCardImage(DevCard devCard){
@@ -197,12 +184,11 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         return devImage;
     }
 
-    public void setDevCardImages(DevCard[][] devCards){
-
+    public void setDevCardImages(){
 
         for (int i = 1; i < 4 ; i++) {
             for (int j = 1; j < 5 ; j++) {
-                devCardGrid.add(setDevCardImage(devCards[i][j]),i,j);
+                devCardGrid.add(setDevCardImage(modelView.getShowedDeck()[i][j]),i,j);
             }
         }
     }

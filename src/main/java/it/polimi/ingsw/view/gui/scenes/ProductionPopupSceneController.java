@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class ProductionPopupSceneController extends ClientObservable implements GenericSceneController,GenericPopupController {
+public class ProductionPopupSceneController extends ClientObservable implements GenericPopupController {
     private final Stage stage;
 
     private double x_Offset = 0;
@@ -38,8 +39,11 @@ public class ProductionPopupSceneController extends ClientObservable implements 
     @FXML
     private Button doneBtn;
 
-    public ProductionPopupSceneController(){
+    private ModelView modelView;
+
+    public ProductionPopupSceneController(ModelView modelView){
         stage = new Stage();
+        this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);

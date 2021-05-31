@@ -102,14 +102,19 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
 
     private void whenShowDevCardsBtnClicked(MouseEvent event){
-
+        Platform.runLater(() -> {
+            DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView);
+            dpds.addAllClientObservers(clientObservers);
+            dpds.disableAll();
+            SceneController.showPopup(dpds, "display_devcards.fxml");
+        });
     }
 
     private void whenShowMarketBtnClicked(MouseEvent event){
         Platform.runLater(() -> {
             MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
             mpsc.addAllClientObservers(clientObservers);
-            mpsc.disableAll();
+            mpsc.disable(true);
             SceneController.showPopup(mpsc, "market_tray_display.fxml");
         });
     }
