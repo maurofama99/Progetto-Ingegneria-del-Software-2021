@@ -209,7 +209,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
 
         for(int j=0; j<3;j++){
             for(int k=0; k<4; k++){
-                marketTray.add(setMarble(modelView.getMarketTray().getTray()[j][k].getType()), j,k);
+                marketTray.add(setMarble(modelView.getMarketTray().getTray()[j][k].getType()), k,j);
             }
         }
 

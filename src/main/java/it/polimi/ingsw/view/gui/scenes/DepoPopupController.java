@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -15,7 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class DepoPopupv2Controller extends ClientObservable implements GenericSceneController,GenericPopupController {
+public class DepoPopupController extends ClientObservable implements GenericPopupController {
     private Stage stage;
     private ModelView modelView;
 
@@ -28,38 +29,47 @@ public class DepoPopupv2Controller extends ClientObservable implements GenericSc
     private Label resourceLbl;
     @FXML
     private ImageView resourceImg;
-    @FXML
-    private Button switchBtn;
-    @FXML
-    private Button extraBtn;
-    @FXML
-    private Button discardBtn;
-    @FXML
-    private ImageView firstLevelLeft;
-    @FXML
-    private ImageView firstLevelCenter;
-    @FXML
-    private ImageView firstLevelRight;
-    @FXML
-    private ImageView secondLevelLeft;
-    @FXML
-    private ImageView secondLevelRight;
-    @FXML
-    private ImageView thirdLevel;
-    @FXML
-    private Button firstLevelLeftBtn;
-    @FXML
-    private Button firstLevelCenterBtn;
-    @FXML
-    private Button firstLevelRightBtn;
-    @FXML
-    private Button secondLevelLeftBtn;
-    @FXML
-    private Button secondLevelRightBtn;
-    @FXML
-    private Button thirdLevelBtn;
 
-    public DepoPopupv2Controller(ModelView modelView){
+    @FXML
+    private Button thirdLevelBtn = new Button();
+    @FXML
+    private Button secondLevelLeftBtn = new Button();
+    @FXML
+    private Button secondLevelRightBtn = new Button();
+
+    @FXML
+    private Button firstLevelLeftBtn = new Button();
+    @FXML
+    private Button firstLevelCenterBtn = new Button();
+    @FXML
+    private Button firstLevelRightBtn = new Button();
+
+    @FXML
+    private Button switchBtn = new Button();
+    @FXML
+    private Button discardBtn = new Button();
+    @FXML
+    private Button extraBtn = new Button();
+
+    @FXML
+    private ImageView thirdLevel = new ImageView();
+
+    @FXML
+    private ImageView secondLevelLeft  = new ImageView();
+    @FXML
+    private ImageView secondLevelRight = new ImageView();
+
+    @FXML
+    private ImageView firstLevelLeft = new ImageView();
+    @FXML
+    private ImageView firstLevelCenter = new ImageView();
+    @FXML
+    private ImageView firstLevelRight = new ImageView();
+
+
+
+
+    public DepoPopupController(ModelView modelView){
         stage = new Stage();
         this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
@@ -73,12 +83,11 @@ public class DepoPopupv2Controller extends ClientObservable implements GenericSc
     public void initialize(){
         rootPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
-
-        firstLevelLeftBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelLeftBtnClicked);
-        firstLevelCenterBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelCenterBtnClicked);
-        firstLevelRightBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelRightBtnClicked);
-        secondLevelLeftBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondLevelLeftBtnClicked);
-        secondLevelRightBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondLevelRightBtnClicked);
+        firstLevelLeftBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
+        firstLevelCenterBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
+        firstLevelRightBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
+        secondLevelLeftBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondLevelBtnClicked);
+        secondLevelRightBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondLevelBtnClicked);
         thirdLevelBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdLevelBtnClicked);
 
         switchBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSwitchBtnClicked);
@@ -96,43 +105,42 @@ public class DepoPopupv2Controller extends ClientObservable implements GenericSc
         stage.setY(event.getSceneY()+y_Offset);
     }
 
-    private void whenFirstLevelLeftBtnClicked(MouseEvent event){
-
+    private void whenFirstLevelBtnClicked(MouseEvent event){
+        disableAll();
+        notifyObservers(new ResourcePlacement("nickname", "3"));
+        stage.close();
     }
 
-    private void whenFirstLevelCenterBtnClicked(MouseEvent event){
 
+    private void whenSecondLevelBtnClicked(MouseEvent event){
+        disableAll();
+        notifyObservers(new ResourcePlacement("nickname", "2"));
+        stage.close();
     }
 
-    private void whenFirstLevelRightBtnClicked(MouseEvent event){
-
-    }
-
-    private void whenSecondLevelLeftBtnClicked(MouseEvent event){
-
-    }
-
-    private void whenSecondLevelRightBtnClicked(MouseEvent event){
-
-    }
 
     private void whenThirdLevelBtnClicked(MouseEvent event){
-
+        disableAll();
+        notifyObservers(new ResourcePlacement("nickname", "1"));
+        stage.close();
     }
 
     public void whenSwitchBtnClicked(MouseEvent event){
         disableAll();
-
+        notifyObservers(new ResourcePlacement("nickname", "switch"));
+        stage.close();
     }
 
     public void whenExtraBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "extra"));
+        stage.close();
     }
 
     public void whenDiscardBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "discard"));
+        stage.close();
     }
 
     public void disableAll(){
