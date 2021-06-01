@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="453.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="405.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="282.0" fitWidth="275.0" layoutX="-2.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../board/deposit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="96.0" fitWidth="272.0" layoutX="-9.0" layoutY="-28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../other/texts/resource_question.png" />
+               </image>
+            </ImageView>
+
+            <ImageView fx:id="resourceImg" fitHeight="119.0" fitWidth="128.0" layoutX="257.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="thirdLevel" fitHeight="42.0" fitWidth="42.0" layoutX="103.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="secondLevelLeft" fitHeight="42.0" fitWidth="42.0" layoutX="76.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="secondLevelRight" fitHeight="48.0" fitWidth="47.0" layoutX="130.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="firstLevelLeft" fitHeight="48.0" fitWidth="47.0" layoutX="48.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="firstLevelCenter" fitHeight="48.0" fitWidth="47.0" layoutX="101.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="firstLevelRight" fitHeight="48.0" fitWidth="47.0" layoutX="149.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="thirdLevelBtn" layoutX="116.0" layoutY="145.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" styleClass="choiceBtn" />
+            <Button fx:id="secondLevelLeftBtn" layoutX="89.0" layoutY="210.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" styleClass="choiceBtn" />
+            <Button fx:id="secondLevelRightBtn" layoutX="133.0" layoutY="210.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" styleClass="choiceBtn" />
+            <Button fx:id="firstLevelLeftBtn" layoutX="72.0" layoutY="280.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" styleClass="choiceBtn" />
+            <Button fx:id="firstLevelCenterBtn" layoutX="112.0" layoutY="280.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" styleClass="choiceBtn" />
+            <Button fx:id="firstLevelRightBtn" layoutX="154.0" layoutY="280.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" styleClass="choiceBtn" />
+
+            <Button fx:id="discardBtn" layoutX="272.0" layoutY="224.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="98.0" text="DISCARD">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="switchBtn" layoutX="276.0" layoutY="281.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="91.0" text="SWITCH">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="extraBtn" layoutX="275.0" layoutY="166.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" text="EXTRA">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <stylesheets>
+            <URL value="@../css/depo_popup.css" />
+            <URL value="@../css/general.css" />
+            <URL value="@../css/devcard_display.css" />
+         </stylesheets></AnchorPane>
+   </center>
+</BorderPane>

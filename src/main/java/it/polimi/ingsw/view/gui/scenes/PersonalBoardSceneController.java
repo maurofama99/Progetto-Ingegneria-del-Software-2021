@@ -16,15 +16,13 @@ import javafx.scene.shape.Path;
 
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
 
-    //TODO: moving faithmarker and path ffs
     //TODO: assigning inkwell to first player
     //TODO: blackcross for singleplayer
     private ModelView modelView;
 
     @FXML
     private ImageView inkwell;
-    @FXML
-    private Path faithTrackPath;
+    //Depot
     @FXML
     private ImageView firstLevelLeft;
     @FXML
@@ -37,36 +35,77 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     private ImageView secondLevelRight;
     @FXML
     private ImageView thirdLevel;
-    @FXML
-    private ImageView faithCross;
+    //End of depot
+    //Slots
     @FXML
     private ImageView slotLeft;
     @FXML
     private ImageView slotCenter;
     @FXML
     private ImageView slotRight;
+    //End of slots
+    //FaithTrack
+    @FXML
+    private ImageView faithCross;
+    @FXML
+    private ImageView tile_1;
+    @FXML
+    private ImageView tile_2;
+    @FXML
+    private ImageView tile_3;
+    @FXML
+    private ImageView tile_4;
+    @FXML
+    private ImageView tile_5;
+    @FXML
+    private ImageView tile_6;
+    @FXML
+    private ImageView tile_7;
+    @FXML
+    private ImageView tile_8;
+    @FXML
+    private ImageView tile_9;
+    @FXML
+    private ImageView tile_10;
+    @FXML
+    private ImageView tile_11;
+    @FXML
+    private ImageView tile_12;
+    @FXML
+    private ImageView tile_13;
+    @FXML
+    private ImageView tile_14;
+    @FXML
+    private ImageView tile_15;
+    @FXML
+    private ImageView tile_16;
+    @FXML
+    private ImageView tile_17;
+    @FXML
+    private ImageView tile_18;
+    @FXML
+    private ImageView tile_19;
+    @FXML
+    private ImageView tile_20;
+    @FXML
+    private ImageView tile_21;
+    @FXML
+    private ImageView tile_22;
+    @FXML
+    private ImageView tile_23;
+    @FXML
+    private ImageView tile_24;
     @FXML
     private ImageView firstPopeTile;
     @FXML
     private ImageView secondPopeTile;
     @FXML
     private ImageView thirdPopeTile;
+    //End of FaithTrack
     @FXML
-    private Button baseProdBtn;
+    private Button showMarketBtn;
     @FXML
-    private Button prod1Btn;
-    @FXML
-    private Button prod2Btn;
-    @FXML
-    private Button prod3Btn;
-    @FXML
-    private Button showMarketBtn; //Popup needed
-    @FXML
-    private Button showDevCardsBtn; //Popup needed
-    @FXML
-    private Button leader1Btn; //Popup needed
-    @FXML
-    private Button leader2Btn; //Popup needed
+    private Button showDevCardsBtn;
     @FXML
     private ImageView leaderLeft;
     @FXML
@@ -123,12 +162,16 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         switch (resource) {
             case "COIN":
                 spot.setImage(new Image("/punchboard/resources/coin.png"));
+                break;
             case "STONE":
                 spot.setImage(new Image("/punchboard/resources/stone.png"));
+                break;
             case "SERVANT":
                 spot.setImage(new Image("/punchboard/resources/servant.png"));
+                break;
             case "SHIELD":
                 spot.setImage(new Image("/punchboard/resources/shield.png"));
+                break;
         }
     }
 
@@ -139,7 +182,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
             if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
-            else
+            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2))
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelRight);
         }
@@ -214,5 +257,14 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         decreaseCounter(shieldCounter, quantity, shieldQnt);
     }
 
+
+    public Image setCross(){
+        return new Image("/punchboard/croce.png");
+    }
+
+    public void setCrossInTile(int faithPoints){
+        String tile = "tile_" + Integer.toString(faithPoints);
+
+    }
 
 }
