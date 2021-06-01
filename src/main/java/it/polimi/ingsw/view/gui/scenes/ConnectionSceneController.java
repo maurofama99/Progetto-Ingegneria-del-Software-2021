@@ -55,8 +55,7 @@ public class ConnectionSceneController extends ClientObservable implements Gener
                 connected = true;
             } catch (IllegalArgumentException | IOException e) {
                 SceneController.changeRootPane(clientObservers,"connection_scene.fxml");
-                PopupSceneController psc = new PopupSceneController();
-                psc.setMessageOfLabel("Server unreachable,\ntry with another address");
+                PopupSceneController psc = new PopupSceneController("Server unreachable,\ntry with another address");
                 psc.setTitleLabel("Error");
                 psc.addAllClientObservers(clientObservers);
                 Platform.runLater(() -> SceneController.showPopup(psc, "popup_scene.fxml"));

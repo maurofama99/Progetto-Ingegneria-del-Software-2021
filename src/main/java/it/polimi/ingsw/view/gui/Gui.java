@@ -62,8 +62,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void fetchResourcePlacement(Resource resource) {
         Platform.runLater(() -> {
-            DepoPopupController dpc = new DepoPopupController(modelView);
-            dpc.setResource(resource);
+            DepoPopupController dpc = new DepoPopupController(resource, modelView);
             dpc.addAllClientObservers(clientObservers);
             SceneController.showPopup(dpc, "depo_popup.fxml");
         });
@@ -82,8 +81,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void displayPopup(String message) {
         Platform.runLater(() -> {
-            PopupSceneController psc = new PopupSceneController();
-            psc.setMessageOfLabel(message);
+            PopupSceneController psc = new PopupSceneController(message);
             psc.setTitleLabel("Info");
             psc.addAllClientObservers(clientObservers);
             SceneController.showPopup(psc, "popup_scene.fxml");
@@ -181,9 +179,8 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void forcedEnd(String nickname) {
         Platform.runLater(() -> {
-            PopupSceneController psc = new PopupSceneController();
+            PopupSceneController psc = new PopupSceneController(nickname + " left the game. The match ends now.");
             psc.addAllClientObservers(clientObservers);
-            psc.setMessageOfLabel(nickname + " left the game. The match ends now.");
             psc.setTitleLabel("Disconnection Alert");
             SceneController.showPopup(psc, "popup_scene.fxml");
         });

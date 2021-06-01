@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Path;
 
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
 
@@ -103,7 +101,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     private ImageView thirdPopeTile;
     //End of FaithTrack
     @FXML
-    private Button showMarketBtn;
+    private Button showMarketBtn = new Button();
     @FXML
     private Button showDevCardsBtn;
     @FXML
@@ -144,7 +142,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         Platform.runLater(() -> {
             DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView);
             dpds.addAllClientObservers(clientObservers);
-            dpds.disableAll();
             SceneController.showPopup(dpds, "display_devcards.fxml");
         });
     }
@@ -153,26 +150,12 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         Platform.runLater(() -> {
             MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
             mpsc.addAllClientObservers(clientObservers);
-            mpsc.disable(true);
             SceneController.showPopup(mpsc, "market_tray_display.fxml");
         });
     }
 
     static void setResourceImage(String resource, ImageView spot) {
-        switch (resource) {
-            case "COIN":
-                spot.setImage(new Image("/punchboard/resources/coin.png"));
-                break;
-            case "STONE":
-                spot.setImage(new Image("/punchboard/resources/stone.png"));
-                break;
-            case "SERVANT":
-                spot.setImage(new Image("/punchboard/resources/servant.png"));
-                break;
-            case "SHIELD":
-                spot.setImage(new Image("/punchboard/resources/shield.png"));
-                break;
-        }
+        spot.setImage(new Image("/punchboard/resources/"+resource+".png"));
     }
 
     private void setDepotImage(){

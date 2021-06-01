@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -34,47 +35,27 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
     private ImageView resourceImg;
 
     @FXML
-    private Button thirdLevelBtn;
-    @FXML
-    private Button secondLevelLeftBtn;
-    @FXML
-    private Button secondLevelRightBtn;
+    private Button thirdLevelBtn, secondLevelLeftBtn, secondLevelRightBtn;
 
     @FXML
-    private Button firstLevelLeftBtn;
-    @FXML
-    private Button firstLevelCenterBtn;
-    @FXML
-    private Button firstLevelRightBtn;
+    private Button firstLevelLeftBtn, firstLevelCenterBtn, firstLevelRightBtn;
 
     @FXML
-    private Button switchBtn;
-    @FXML
-    private Button discardBtn;
-    @FXML
-    private Button extraBtn;
+    private Button switchBtn, discardBtn,  extraBtn;
 
     @FXML
-    private ImageView thirdLevel;
+    private ImageView thirdLevel, secondLevelLeft, secondLevelRight;
 
     @FXML
-    private ImageView secondLevelLeft;
-    @FXML
-    private ImageView secondLevelRight;
-
-    @FXML
-    private ImageView firstLevelLeft;
-    @FXML
-    private ImageView firstLevelCenter;
-    @FXML
-    private ImageView firstLevelRight;
+    private ImageView firstLevelLeft, firstLevelCenter, firstLevelRight;
 
 
 
 
-    public DepoPopupController(ModelView modelView){
+    public DepoPopupController(Resource resource, ModelView modelView){
         stage = new Stage();
         this.modelView = modelView;
+        this.resource = resource;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);
@@ -84,9 +65,10 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
     }
 
     public void initialize(){
+
+        setResourceImg(resource);
         rootPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
-
 
         firstLevelLeftBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
         firstLevelCenterBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
@@ -160,17 +142,8 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         thirdLevelBtn.setDisable(true);
     }
 
-    /*
-    public void setResourceLbl(String resource){
-        resourceLbl.setText(resource);
-    }
-
-    public void setResourceImg(String resource) {
-        PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
-    }*/
-
-    public void setResource(Resource resource) {
-        this.resource = resource;
+    public void setResourceImg(Resource resource) {
+        resourceImg.setImage(new Image("/punchboard/resources/"+resource.toStringGui()+".png"));
     }
 
     public void showPopUp(){

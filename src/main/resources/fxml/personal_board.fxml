@@ -47,19 +47,19 @@
                      <children>
                         <ImageView fitHeight="44.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../punchboard/resources/coin.png" />
+                              <Image url="@../punchboard/resources/COIN.png" />
                            </image></ImageView>
                         <ImageView fitHeight="44.0" fitWidth="49.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                            <image>
-                              <Image url="@../punchboard/resources/stone.png" />
+                              <Image url="@../punchboard/resources/STONE.png" />
                            </image></ImageView>
                         <ImageView fitHeight="44.0" fitWidth="49.0" layoutX="100.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@../punchboard/resources/servant.png" />
+                              <Image url="@../punchboard/resources/SERVANT.png" />
                            </image></ImageView>
                         <ImageView fitHeight="44.0" fitWidth="49.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@../punchboard/resources/shield.png" />
+                              <Image url="@../punchboard/resources/SHIELD.png" />
                            </image></ImageView>
                         <Label fx:id="coinCounter" alignment="TOP_RIGHT" prefHeight="17.0" prefWidth="88.0" text="x0" textFill="WHITE">
                            <font>

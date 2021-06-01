@@ -34,9 +34,9 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     @FXML
     private GridPane marketTray;
     @FXML
-    private ImageView slideMrbl = new ImageView();
+    private ImageView slideMrbl;
     @FXML
-    private Button backBtn = new Button();
+    private Button backBtn;
     /*@FXML
     private ImageView row1column1;
     @FXML

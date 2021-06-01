@@ -19,19 +19,19 @@
                </image></ImageView>
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="27.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../punchboard/resources/coin.png" />
+                  <Image url="@../punchboard/resources/COIN.png" />
                </image></ImageView>
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="175.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../punchboard/resources/stone.png" />
+                  <Image url="@../punchboard/resources/STONE.png" />
                </image></ImageView>
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="335.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../punchboard/resources/servant.png" />
+                  <Image url="@../punchboard/resources/SERVANT.png" />
                </image></ImageView>
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="474.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../punchboard/resources/shield.png" />
+                  <Image url="@../punchboard/resources/SHIELD.png" />
                </image></ImageView>
             <Button layoutX="27.0" layoutY="317.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Button" />
             <Button layoutX="175.0" layoutY="317.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Button" />

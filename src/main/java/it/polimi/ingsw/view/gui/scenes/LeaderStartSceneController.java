@@ -92,8 +92,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     private void whenDiscardLeaderBtn1Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(0));
-        activateLeaderBtn1.setDisable(true);
-        discardLeaderBtn1.setDisable(true);
+        disableAll();
     }
 
     private void whenActivateLeaderButton2Clicked(MouseEvent event){
@@ -103,8 +102,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     private void whenDiscardLeaderBtn2Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(1));
-        activateLeaderBtn2.setDisable(true);
-        discardLeaderBtn2.setDisable(true);
+        disableAll();
     }
 
     private void whenDoneBtn2Clicked(MouseEvent event){
@@ -125,7 +123,6 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         discardLeaderBtn1.setDisable(true);
         activateLeaderBtn2.setDisable(true);
         discardLeaderBtn2.setDisable(true);
-        doneBtn2.setDisable(true);
     }
 
 
@@ -139,8 +136,10 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
             activateLeaderBtn2.setDisable(true);
             discardLeaderBtn2.setDisable(true);
         }
-        leader1.setImage(setLeaderImage(leaderCards.get(0)));
-        leader2.setImage(setLeaderImage(leaderCards.get(1)));
+        else {
+            leader1.setImage(setLeaderImage(leaderCards.get(0)));
+            leader2.setImage(setLeaderImage(leaderCards.get(1)));
+        }
     }
 
     public void showPopUp(){

@@ -30,8 +30,11 @@ public class PopupSceneController extends ClientObservable implements GenericPop
     @FXML
     private Button ConfirmButton;
 
-    public PopupSceneController(){
+    private String message;
+
+    public PopupSceneController(String message){
         stage = new Stage();
+        this.message = message;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);
@@ -42,6 +45,7 @@ public class PopupSceneController extends ClientObservable implements GenericPop
 
     @FXML
     public void initialize(){
+        setMessageOfLabel();
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         ConfirmButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenConfirmButtonClicked);
@@ -65,8 +69,8 @@ public class PopupSceneController extends ClientObservable implements GenericPop
         titleLabel.setText(string);
     }
 
-    public void setMessageOfLabel(String string) {
-        messageOfLabel.setText(string);
+    public void setMessageOfLabel() {
+        messageOfLabel.setText(message);
     }
 
     public void showPopUp(){
