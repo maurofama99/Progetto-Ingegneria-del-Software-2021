@@ -13,11 +13,12 @@ import javafx.scene.input.MouseEvent;
 
 public class PlayerLoginSceneController extends ClientObservable implements GenericSceneController{
 
-    private int numberOfPlayers;
     private String nickname;
+    private boolean solo = false;
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
+    public void setSolo(boolean solo) {
+        this.solo = solo;
+        numberOfPlayersField.setDisable(true);
     }
 
     @FXML
@@ -42,12 +43,15 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     private void onJoinGameClick(Event event){
         joinGameButton.setDisable(true);
         exitGameButton.setDisable(true);
-        //vedere se non disabilitare il back nel caso
 
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
-        numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
-        notifyObservers(new LoginData(nickname, numberOfPlayers));
+
+        if (!solo) {
+            int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText()); //todo try catch che gestisce il parseInt
+            notifyObservers(new LoginData(nickname, numberOfPlayers));
+        } else notifyObservers(new LoginData(nickname, 1));
+
     }
 
     private void onExitGameClick(Event event){

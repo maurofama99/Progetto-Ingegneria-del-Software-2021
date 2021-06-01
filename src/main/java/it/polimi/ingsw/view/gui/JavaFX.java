@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.scenes.StartSceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,17 +13,34 @@ import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class JavaFX extends Application {
 
+    protected boolean solo = false;
+
     @Override
     public void start(Stage stage) {
+        List<String> args = getParameters().getRaw();
+
+        if (args.get(0).equals("-local")){
+            this.solo=true;
+        }
 
         Gui view = new Gui();
-        Client client = new Client(view);
-        client.setGui(true);
-        view.setClient(client);
-        view.addClientObserver(client);
+        Client client;
+        if(!solo) {
+            client = new Client(view);
+            client.setGui(true);
+            view.setClient(client);
+            view.addClientObserver(client);
+        } else {
+            view.setSolo(true);
+            client = new Client(view);
+            view.addClientObserver(client);
+            client.setSolo(true);
+            client.setCli(false);
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/start_scene.fxml"));
@@ -35,6 +53,10 @@ public class JavaFX extends Application {
         }
 
         StartSceneController controller = loader.getController();
+        if (solo) {
+            controller.setSolo(true);
+            controller.setClient(client);
+        }
         controller.addClientObserver(client);
 
         //Scene
@@ -57,6 +79,6 @@ public class JavaFX extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        Application.launch(args);
     }
 }

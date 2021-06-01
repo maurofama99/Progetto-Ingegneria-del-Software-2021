@@ -16,6 +16,7 @@ import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.network.messagessc.ExtraProduction;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.View;
+import javafx.event.Event;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,7 +26,7 @@ public class Cli extends ClientObservable implements View {
     private CliGraphics cliGraphics = new CliGraphics();
     private String nickname;
     private boolean solo = false;
-    private ModelView modelView;
+    private final ModelView modelView;
 
     public Cli() {
         this.modelView = new ModelView(this);
@@ -58,7 +59,12 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void fetchResourceType() throws IOException {
+    public void localFetchNickname(Event event) {
+        //used only in GUI mdoe
+    }
+
+    @Override
+    public void fetchResourceType() {
         System.out.println(cliGraphics.printDepot(modelView.getWarehouse().getFloors()));
 
         System.out.print(" - 0 --> SHIELD" + cliGraphics.printRes(new Resource(1, ResourceType.SHIELD)) + "\n" +

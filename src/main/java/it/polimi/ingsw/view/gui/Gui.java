@@ -18,6 +18,7 @@ import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.scenes.*;
 import javafx.application.Platform;
+import javafx.event.Event;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Gui extends ClientObservable implements View {
     private final static String START_SCENE = "start_scene.fxml";
     private Client client;
     private ModelView modelView;
+    private boolean solo = false;
 
     public Gui() {
         this.modelView = new ModelView(this);
@@ -37,9 +39,19 @@ public class Gui extends ClientObservable implements View {
         this.client = client;
     }
 
+    public void setSolo(boolean solo) {
+        this.solo = solo;
+    }
+
     @Override
     public void fetchNickname() {
         Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
+    }
+
+    @Override
+    public void localFetchNickname(Event event) {
+        Platform.runLater(() ->((PlayerLoginSceneController)SceneController.changeRootPane(clientObservers, event, "player_login_scene.fxml")).setSolo(true));
+
     }
 
     @Override
@@ -95,6 +107,7 @@ public class Gui extends ClientObservable implements View {
         modelView.setFaithTrack(faithTrack);
         modelView.setSlots(slots);
         modelView.setWarehouse(warehouse);
+
     }
 
     @Override

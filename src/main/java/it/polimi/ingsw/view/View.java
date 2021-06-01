@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.model.singleplayer.Token;
+import javafx.event.Event;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public interface View {
      * Fetches nickname of player
      */
     void fetchNickname() throws IOException;
+
+    void localFetchNickname(Event event);
 
     void fetchResourceType() throws IOException;
 

@@ -10,6 +10,7 @@ import it.polimi.ingsw.view.cli.CliColor;
 import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.JavaFX;
 import it.polimi.ingsw.view.gui.scenes.ConnectionSceneController;
+import javafx.event.Event;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -34,6 +35,7 @@ public class Client implements Runnable, ClientObserver {
     private String nickname;
     private LocalGameManager localGameManager;
     private final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+    private Event event;
 
     public Client(View view, int SOCKET_PORT) {
         this.view = view;
@@ -55,6 +57,18 @@ public class Client implements Runnable, ClientObserver {
 
     public void setGui(boolean gui) {
         this.gui = gui;
+    }
+
+    public void setSolo(boolean solo) {
+        this.solo = solo;
+    }
+
+    public void setCli(boolean cli) {
+        this.cli = cli;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public ScheduledExecutorService getSes() {
@@ -126,9 +140,8 @@ public class Client implements Runnable, ClientObserver {
                 client.cli = false;
                 client.run();
             } else if (solo) {
-                System.err.println("Local game in GUI mode not yet implemented");
-            }
-            else if (gui) {
+                JavaFX.main(args);
+            } else if (gui) {
                 JavaFX.main(args);
             } else {
                 System.err.println(usage);
@@ -147,17 +160,6 @@ public class Client implements Runnable, ClientObserver {
                     CliColor.ANSI_YELLOW.escape() + "|\\/| |__| [__   |  |___ |__/ [__   " + CliColor.RESET + "  |  | |___  " + CliColor.ANSI_BLUE.escape() + "  |__/ |___ |\\ | |__| | [__  [__  |__| |\\ | |    |___ \n" + CliColor.RESET +
                     CliColor.ANSI_YELLOW.escape() + "|  | |  | ___]  |  |___ |  \\ ___]  " + CliColor.RESET + "  |__| |     " + CliColor.ANSI_BLUE.escape() + "  |  \\ |___ | \\| |  | | ___] ___] |  | | \\| |___ |___ \n" + CliColor.RESET +
                     "                                                                                                      \n");
-        /*
-            System.out.println(CliColor.ANSI_YELLOW.escape() + "_  _ ____ ____ ___ ____ ____ ____ "+CliColor.RESET+"   ____ ____ \n" +
-                               CliColor.ANSI_YELLOW.escape() + "|\\/| |__| [__   |  |___ |__/ [__  " + CliColor.RESET+ "   |  | |___ \n" +
-                    CliColor.ANSI_YELLOW.escape() +"|  | |  | ___]  |  |___ |  \\ ___] "+CliColor.RESET+"   |__| |    \n" +
-                               "                                               \n" + CliColor.ANSI_BLUE.escape() +
-                               "____ ____ _  _ ____ _ ____ ____ ____ _  _ ____ ____ \n" +
-                               "|__/ |___ |\\ | |__| | [__  [__  |__| |\\ | |    |___ \n" +
-                               "|  \\ |___ | \\| |  | | ___] ___] |  | | \\| |___ |___ " + CliColor.RESET);
-
-
-             */
 
                 while (!connected) {
                     System.out.println("Insert the IP address of the server:");
@@ -185,7 +187,8 @@ public class Client implements Runnable, ClientObserver {
     public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
-                view.fetchNickname(); 
+                if (solo) view.localFetchNickname(event);
+                else view.fetchNickname();
                 break;
             case GENERIC_MESSAGE:
                 view.displayGenericMessage(msg.toString());

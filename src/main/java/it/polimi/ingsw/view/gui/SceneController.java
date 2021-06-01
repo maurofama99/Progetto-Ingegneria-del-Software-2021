@@ -59,7 +59,6 @@ public class SceneController extends ClientObservable {
         try {
             FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
 
-            // Setting the controller BEFORE the load() method.
             loader.setController(controller);
             activeController = controller;
             Parent root = loader.load();
