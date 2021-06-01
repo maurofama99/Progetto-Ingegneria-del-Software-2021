@@ -112,7 +112,7 @@ public class GameController implements Observer, Serializable {
                         vv.displayGenericMessage("\nIn which floor of the depot do you want to place this resource?");
                     }
                 }
-                vv.fetchResourcePlacement();
+                vv.fetchResourcePlacement(resourceChosen);
                 break;
 
             case RESOURCE_PLACEMENT:
@@ -126,7 +126,7 @@ public class GameController implements Observer, Serializable {
                 } catch (NumberFormatException e){
                     vv.displayGenericMessage("You can't do this move now, please choose a floor");
                     vv.displayPopup("You can't do this move now, please choose a floor");
-                    vv.fetchResourcePlacement();
+                    vv.fetchResourcePlacement(resourceChosen);
                 }
                 break;
 

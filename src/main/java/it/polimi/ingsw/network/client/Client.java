@@ -200,7 +200,7 @@ public class Client implements Runnable, ClientObserver {
                 view.fetchResourceType();
                 break;
             case ASK_RESOURCE_PLACEMENT:
-                view.fetchResourcePlacement();
+                view.fetchResourcePlacement(((AskResourcePlacement)msg).getResource());
                 break;
             case DISPLAY_LEADERCARDS:
                 view.displayLeaderCards(((DisplayLeaderCards)msg).getLeaderCards());

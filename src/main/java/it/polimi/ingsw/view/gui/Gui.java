@@ -60,9 +60,10 @@ public class Gui extends ClientObservable implements View {
     }
 
     @Override
-    public void fetchResourcePlacement() {
+    public void fetchResourcePlacement(Resource resource) {
         Platform.runLater(() -> {
             DepoPopupController dpc = new DepoPopupController(modelView);
+            dpc.setResource(resource);
             dpc.addAllClientObservers(clientObservers);
             SceneController.showPopup(dpc, "depo_popup.fxml");
         });

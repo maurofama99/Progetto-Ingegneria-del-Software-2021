@@ -34,7 +34,7 @@ public interface View {
 
     void fetchResourceType() throws IOException;
 
-    void fetchResourcePlacement() throws IOException;
+    void fetchResourcePlacement(Resource resource) throws IOException;
 
     void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException;
 

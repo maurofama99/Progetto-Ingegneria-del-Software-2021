@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messagescs.ResourcePlacement;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
@@ -17,8 +18,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class DepoPopupController extends ClientObservable implements GenericPopupController {
+
     private Stage stage;
     private ModelView modelView;
+    private Resource resource;
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -157,17 +160,18 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         thirdLevelBtn.setDisable(true);
     }
 
-    /*public void setResourceLbl(String resource){
-        resourceLbl.setText(resource);
-    }*/
-
     /*
-    public void setResourceImg(String resource) {
-        PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
+    public void setResourceLbl(String resource){
+        resourceLbl.setText(resource);
     }
 
-    */
+    public void setResourceImg(String resource) {
+        PersonalBoardSceneController.setImageDepositSpot(resource, resourceImg);
+    }*/
 
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
 
     public void showPopUp(){
         stage.showAndWait();

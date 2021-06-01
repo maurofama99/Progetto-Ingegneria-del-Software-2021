@@ -131,7 +131,7 @@ public class PlayerController {
                             "\n'DISCARD' to discard this resource and give one faith point to your opponents or " +
                             "\n'SWITCH' to switch two floors");
                     extraDepotAlert();
-                    playerVV().fetchResourcePlacement();
+                    playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
                 }
                 else {
                     displayPB();
@@ -170,7 +170,7 @@ public class PlayerController {
                             "'DISCARD' to discard this resource and give one faith point to your opponents\n" +
                             "'SWITCH' to switch two floors");
                     extraDepotAlert();
-                    playerVV().fetchResourcePlacement();
+                    playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
                 }
         }
     }
@@ -211,7 +211,7 @@ public class PlayerController {
                         "'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
                         "'SWITCH' to switch two floors");
                 extraDepotAlert();
-                playerVV().fetchResourcePlacement();
+                playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
 
             } catch (IndexOutOfBoundsException e){
                 playerVV().displayGenericMessage("You don't have resource to place");
@@ -238,7 +238,7 @@ public class PlayerController {
                         "'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
                         "'SWITCH' to switch two floors");
                 extraDepotAlert();
-                playerVV().fetchResourcePlacement();
+                playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
             }
         }
     }

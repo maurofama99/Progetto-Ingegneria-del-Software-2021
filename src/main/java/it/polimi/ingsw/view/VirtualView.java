@@ -30,8 +30,8 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new AskResourceType());
     }
 
-    public void fetchResourcePlacement() throws IOException {
-        clientHandler.sendMessage(new AskResourcePlacement());
+    public void fetchResourcePlacement(Resource resource) throws IOException {
+        clientHandler.sendMessage(new AskResourcePlacement(resource));
     }
 
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException {

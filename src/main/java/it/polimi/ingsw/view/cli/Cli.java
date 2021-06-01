@@ -86,7 +86,7 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void fetchResourcePlacement() throws IOException {
+    public void fetchResourcePlacement(Resource resource) throws IOException {
         int floorInt;
         Scanner scanner = new Scanner(System.in);
         System.out.print(">");
