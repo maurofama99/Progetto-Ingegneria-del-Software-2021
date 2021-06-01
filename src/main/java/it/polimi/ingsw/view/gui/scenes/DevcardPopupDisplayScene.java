@@ -35,29 +35,29 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     private Button backBtn;
 
     @FXML
-    private Button firstRowFirstColumnBtn = new Button();
+    private Button firstRowFirstColumnBtn;
     @FXML
-    private Button firstRowSecondColumnBtn= new Button();
+    private Button firstRowSecondColumnBtn;
     @FXML
-    private Button firstRowThirdColumnBtn= new Button();
+    private Button firstRowThirdColumnBtn;
     @FXML
-    private Button firstRowFourthColumnBtn= new Button();
+    private Button firstRowFourthColumnBtn;
     @FXML
-    private Button secondRowFirstColumnBtn= new Button();
+    private Button secondRowFirstColumnBtn;
     @FXML
-    private Button secondRowSecondColumnBtn= new Button();
+    private Button secondRowSecondColumnBtn;
     @FXML
-    private Button secondRowThirdColumnBtn= new Button();
+    private Button secondRowThirdColumnBtn;
     @FXML
-    private Button secondRowFourthColumnBtn= new Button();
+    private Button secondRowFourthColumnBtn;
     @FXML
-    private Button thirdRowFirstColumnBtn= new Button();
+    private Button thirdRowFirstColumnBtn;
     @FXML
-    private Button thirdRowSecondColumnBtn= new Button();
+    private Button thirdRowSecondColumnBtn;
     @FXML
-    private Button thirdRowThirdColumnBtn= new Button();
+    private Button thirdRowThirdColumnBtn;
     @FXML
-    private Button thirdRowFourthColumnBtn= new Button();
+    private Button thirdRowFourthColumnBtn;
 
     public DevcardPopupDisplayScene(ModelView modelView){
         stage = new Stage();

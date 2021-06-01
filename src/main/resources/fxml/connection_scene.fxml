@@ -11,7 +11,7 @@
    <children>
       <Group>
          <children>
-            <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0">
+            <AnchorPane prefHeight="600.0" prefWidth="800.0">
                <children>
                   <Button fx:id="connectButton" layoutX="300.0" layoutY="361.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="connectBtn" textFill="WHITE">
                      <font>
