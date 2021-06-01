@@ -31,40 +31,40 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
     private ImageView resourceImg;
 
     @FXML
-    private Button thirdLevelBtn = new Button();
+    private Button thirdLevelBtn;
     @FXML
-    private Button secondLevelLeftBtn = new Button();
+    private Button secondLevelLeftBtn;
     @FXML
-    private Button secondLevelRightBtn = new Button();
+    private Button secondLevelRightBtn;
 
     @FXML
-    private Button firstLevelLeftBtn = new Button();
+    private Button firstLevelLeftBtn;
     @FXML
-    private Button firstLevelCenterBtn = new Button();
+    private Button firstLevelCenterBtn;
     @FXML
-    private Button firstLevelRightBtn = new Button();
+    private Button firstLevelRightBtn;
 
     @FXML
-    private Button switchBtn = new Button();
+    private Button switchBtn;
     @FXML
-    private Button discardBtn = new Button();
+    private Button discardBtn;
     @FXML
-    private Button extraBtn = new Button();
+    private Button extraBtn;
 
     @FXML
-    private ImageView thirdLevel = new ImageView();
+    private ImageView thirdLevel;
 
     @FXML
-    private ImageView secondLevelLeft  = new ImageView();
+    private ImageView secondLevelLeft;
     @FXML
-    private ImageView secondLevelRight = new ImageView();
+    private ImageView secondLevelRight;
 
     @FXML
-    private ImageView firstLevelLeft = new ImageView();
+    private ImageView firstLevelLeft;
     @FXML
-    private ImageView firstLevelCenter = new ImageView();
+    private ImageView firstLevelCenter;
     @FXML
-    private ImageView firstLevelRight = new ImageView();
+    private ImageView firstLevelRight;
 
 
 
@@ -83,6 +83,8 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
     public void initialize(){
         rootPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
+
+
         firstLevelLeftBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
         firstLevelCenterBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
         firstLevelRightBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstLevelBtnClicked);
@@ -155,9 +157,9 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         thirdLevelBtn.setDisable(true);
     }
 
-    public void setResourceLbl(String resource){
+    /*public void setResourceLbl(String resource){
         resourceLbl.setText(resource);
-    }
+    }*/
 
     /*
     public void setResourceImg(String resource) {

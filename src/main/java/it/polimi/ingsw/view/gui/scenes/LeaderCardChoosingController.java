@@ -30,13 +30,13 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     @FXML
     private Button fourthBtn;
     @FXML
-    private ImageView firstLeader = new ImageView();
+    private ImageView firstLeader;
     @FXML
-    private ImageView secondLeader = new ImageView();
+    private ImageView secondLeader;
     @FXML
-    private ImageView thirdLeader = new ImageView();
+    private ImageView thirdLeader;
     @FXML
-    private ImageView fourthLeader = new ImageView();
+    private ImageView fourthLeader;
 
 
     @FXML
