@@ -162,12 +162,16 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         switch (resource) {
             case "COIN":
                 spot.setImage(new Image("/punchboard/resources/coin.png"));
+                break;
             case "STONE":
                 spot.setImage(new Image("/punchboard/resources/stone.png"));
+                break;
             case "SERVANT":
                 spot.setImage(new Image("/punchboard/resources/servant.png"));
+                break;
             case "SHIELD":
                 spot.setImage(new Image("/punchboard/resources/shield.png"));
+                break;
         }
     }
 
@@ -178,7 +182,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
             if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
-            else
+            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2))
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelRight);
         }
