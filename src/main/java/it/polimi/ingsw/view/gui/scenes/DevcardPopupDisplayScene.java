@@ -46,7 +46,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         stage = new Stage();
         this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.NONE);
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
@@ -155,7 +155,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     }
 
     public void showPopUp(){
-        stage.showAndWait();
+        stage.show();
     }
 
     public void setScene(Scene scene){

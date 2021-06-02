@@ -36,8 +36,8 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         this.modelView = modelView;
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setAlwaysOnTop(true);
+        stage.initModality(Modality.NONE);
+        //stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
@@ -143,7 +143,7 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     }
 
     public void showPopUp(){
-        stage.showAndWait();
+        stage.show();
     }
 
     public void setScene(Scene scene){
