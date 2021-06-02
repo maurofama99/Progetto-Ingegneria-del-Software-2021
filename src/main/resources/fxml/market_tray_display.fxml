@@ -34,20 +34,6 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="1" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="2" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="150.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="3" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="220.0" layoutY="13.0" pickOnBounds="true" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="80.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="150.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="220.0" layoutY="74.0" pickOnBounds="true" GridPane.rowIndex="2" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="135.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="80.0" layoutY="135.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="150.0" layoutY="135.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                     </children>
                   </GridPane>
                   <ImageView fx:id="slideMrbl" fitHeight="60.0" fitWidth="60.0" layoutX="452.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="column1Btn" layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />

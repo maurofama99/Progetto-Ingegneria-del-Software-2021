@@ -90,7 +90,6 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     }
 
     private void whenFirstRowFirstColumnBtnClicked(MouseEvent event){
-        //todo popup per slot
         disableAll();
         notifyObservers(new BuyDevCard(1, 1, 1));
         stage.close();
@@ -167,6 +166,8 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         Image image = new Image("/front/devcard_" + "color-" + devCard.getCardColor() + "_level-" + devCard.getLevel() + "_vp-" + devCard.getVictoryPointsDevCard() + ".png");
         devImage.setImage(image);
         devImage.setPreserveRatio(false);
+        devImage.setFitHeight(205);
+        devImage.setFitWidth(159);
 
         return devImage;
     }
