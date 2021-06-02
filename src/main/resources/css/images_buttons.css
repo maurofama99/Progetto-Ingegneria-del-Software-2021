@@ -1,0 +1,8 @@
+.imageBtn{
+
+}
+
+.imageBtn:hover{
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
