@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Group>
          <children>
@@ -82,11 +88,7 @@
                   <Button fx:id="firstPlayerBtn" layoutX="1029.0" layoutY="33.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="233.0" text="player 1" />
                   <Button fx:id="secondPlayerBtn" layoutX="1029.0" layoutY="103.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="233.0" text="player 2" />
                   <Button fx:id="thirdPlayerBtn" layoutX="1029.0" layoutY="171.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="233.0" text="player 3" />
-                  <ImageView fx:id="faithCross" fitHeight="44.0" fitWidth="34.0" layoutX="39.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../punchboard/croce.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="tile_0" fitHeight="44.0" fitWidth="34.0" layoutX="40.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="tile_1" fitHeight="44.0" fitWidth="34.0" layoutX="89.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="tile_2" fitHeight="44.0" fitWidth="34.0" layoutX="135.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="tile_3" fitHeight="44.0" fitWidth="34.0" layoutX="139.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
@@ -111,6 +113,7 @@
                   <ImageView fx:id="tile_22" fitHeight="44.0" fitWidth="34.0" layoutX="837.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="tile_23" fitHeight="44.0" fitWidth="34.0" layoutX="882.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="tile_24" fitHeight="44.0" fitWidth="34.0" layoutX="936.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+
                </children>
             </AnchorPane>
          </children>

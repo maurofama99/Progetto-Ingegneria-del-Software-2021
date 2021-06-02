@@ -131,6 +131,7 @@ public class PlayerController {
                             "\n'DISCARD' to discard this resource and give one faith point to your opponents or " +
                             "\n'SWITCH' to switch two floors");
                     extraDepotAlert();
+                    displayPB();
                     playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
                 }
                 else {

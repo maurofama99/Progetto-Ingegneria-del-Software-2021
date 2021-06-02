@@ -17,11 +17,7 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
     @FXML
     private BorderPane rootPane;
     @FXML
-    private ImageView leftSlot;
-    @FXML
-    private ImageView centerSlot;
-    @FXML
-    private ImageView rightSlot;
+    private ImageView leftSlot, centerSlot, rightSlot;
 
     private final Stage stage;
     private ModelView modelView;

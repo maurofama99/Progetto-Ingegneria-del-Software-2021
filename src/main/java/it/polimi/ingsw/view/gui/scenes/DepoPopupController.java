@@ -165,9 +165,10 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
             if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
                 setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelLeft);
-            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2))
+            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2)) {
                 setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelLeft);
-            setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelRight);
+                setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelRight);
+            }
         }
         if (!modelView.getWarehouse().getFloors().get(2).getType().equals(ResourceType.NULLRESOURCE)){
             if (modelView.getWarehouse().getFloors().get(2).getQnt()==1)

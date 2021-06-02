@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
+
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
 
     //TODO: assigning inkwell to first player
@@ -50,7 +52,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private ImageView faithCross;
     @FXML
-    private ImageView tile_1, tile_2, tile_3, tile_4, tile_5, tile_6, tile_7, tile_8 ,tile_9;
+    private ImageView tile_0, tile_1, tile_2, tile_3, tile_4, tile_5, tile_6, tile_7, tile_8 ,tile_9;
     @FXML
     private ImageView tile_10 ,tile_11, tile_12, tile_13, tile_14 ,tile_15 ,tile_16 ,tile_17;
     @FXML
@@ -86,6 +88,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
         setOtherPlayersButtons();
         setDepotImage();
+        setFaithTrackImages();
+        setSlotImages();
 
         leaderLeft.setImage(new Image("/back/leader-back.png"));
         leaderRight.setImage(new Image("/back/leader-back.png"));
@@ -173,9 +177,10 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
             if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
-            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2))
+            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2)) {
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
                 setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelRight);
+            }
         }
         if (!modelView.getWarehouse().getFloors().get(2).getType().equals(ResourceType.NULLRESOURCE)){
             if (modelView.getWarehouse().getFloors().get(2).getQnt()==1)
@@ -193,16 +198,74 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     }
 
 
-    public void setFirstPopeTile(ImageView firstPopeTile) {
-        this.firstPopeTile = firstPopeTile;
+    public void setFaithTrackImages() {
+
+        if (modelView.getFaithTrack().isFirstFavorTile()){
+            firstPopeTile.setImage(new Image("tile_2_front.png"));
+        }
+        else
+            firstPopeTile.setImage(new Image("tile_2_back.png"));
+
+        if (modelView.getFaithTrack().isSecondFavorTile()){
+            secondPopeTile.setImage(new Image("tile_3_front.png"));
+        }
+        else
+            secondPopeTile.setImage(new Image("tile_3_back.png"));
+
+        if (modelView.getFaithTrack().isThirdFavorTile()){
+            thirdPopeTile.setImage(new Image("tile_4_front.png"));
+        }
+        else
+            thirdPopeTile.setImage(new Image("tile_4_back.png"));
+
+
+
+        /*
+        ArrayList<ImageView> imageViews = new ArrayList<>();
+        imageViews.add(tile_0);
+        imageViews.add(tile_1);
+        imageViews.add(tile_2);
+        imageViews.add(tile_3);
+        imageViews.add(tile_4);
+        imageViews.add(tile_5);
+        imageViews.add(tile_6);
+        imageViews.add(tile_7);
+        imageViews.add(tile_8);
+        imageViews.add(tile_9);
+        imageViews.add(tile_10);
+        imageViews.add(tile_11);
+        imageViews.add(tile_12);
+        imageViews.add(tile_13);
+        imageViews.add(tile_14);
+        imageViews.add(tile_15);
+        imageViews.add(tile_16);
+        imageViews.add(tile_17);
+        imageViews.add(tile_18);
+        imageViews.add(tile_19);
+        imageViews.add(tile_20);
+        imageViews.add(tile_21);
+        imageViews.add(tile_22);
+        imageViews.add(tile_23);
+        imageViews.add(tile_24);
+
+        imageViews.set(modelView.getFaithTrack().getFaithMarkerPosition(), new ImageView(new Image("croce.png")));
+
+
+         */
+
+
     }
 
-    public void setSecondPopeTile(ImageView secondPopeTile) {
-        this.secondPopeTile = secondPopeTile;
-    }
+    public void setSlotImages(){
+        for (int i =0; i<3; i++){
+            if (modelView.getSlots()[i].getShowedCard() !=null){
+                slotLeft = new ImageView(new Image("/front/devcard_" + "color-"
+                        + modelView.getSlots()[i].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[i].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[i].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+        }
 
-    public void setThirdPopeTile(ImageView thirdPopeTile) {
-        this.thirdPopeTile = thirdPopeTile;
     }
 
 
