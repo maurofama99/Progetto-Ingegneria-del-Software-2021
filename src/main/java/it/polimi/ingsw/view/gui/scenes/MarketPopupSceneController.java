@@ -36,32 +36,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     @FXML
     private ImageView slideMrbl;
     @FXML
-    private Button backBtn;
-    /*@FXML
-    private ImageView row1column1;
-    @FXML
-    private ImageView row1column2;
-    @FXML
-    private ImageView row1column3;
-    @FXML
-    private ImageView row1column4;
-    @FXML
-    private ImageView row2column1;
-    @FXML
-    private ImageView row2column2;
-    @FXML
-    private ImageView row2column3;
-    @FXML
-    private ImageView row2column4;
-    @FXML
-    private ImageView row3column1;
-    @FXML
-    private ImageView row3column2;
-    @FXML
-    private ImageView row3column3;
-    @FXML
-    private ImageView row3column4;
-    */
+    private Button backBtn = new Button();
     @FXML
     private Button column1Btn = new Button();
     @FXML
@@ -123,36 +98,43 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     private void whenColumn1BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(1, false));
         disable(true);
+        stage.close();
     }
 
     private void whenColumn2BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(2, false));
         disable(true);
+        stage.close();
     }
 
     private void whenColumn3BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(3, false));
         disable(true);
+        stage.close();
     }
 
     private void whenColumn4BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(4, false));
         disable(true);
+        stage.close();
     }
 
     private void whenRow1BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(1, true));
         disable(true);
+        stage.close();
     }
 
     private void whenRow2BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(2, true));
         disable(true);
+        stage.close();
     }
 
     private void whenRow3BtnClicked(MouseEvent event){
         notifyObservers(new GoingMarket(3, true));
         disable(true);
+        stage.close();
     }
 
 
@@ -164,6 +146,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         row2Btn.setDisable(disable);
         row3Btn.setDisable(disable);
         column4Btn.setDisable(disable);
+        backBtn.setDisable(!disable);
     }
 
     public void showPopUp(){
@@ -173,7 +156,6 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     public void setScene(Scene scene){
         stage.setScene(scene);
     }
-
 
     public ImageView setMarble(ResourceType resource){
 

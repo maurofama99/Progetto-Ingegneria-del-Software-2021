@@ -35,7 +35,7 @@ public class JavaFX extends Application {
             view.setClient(client);
             view.addClientObserver(client);
         } else {
-            view.setSolo(true);
+            //view.setSolo(true);
             client = new Client(view);
             view.addClientObserver(client);
             client.setSolo(true);

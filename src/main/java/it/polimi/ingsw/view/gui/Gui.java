@@ -28,8 +28,7 @@ public class Gui extends ClientObservable implements View {
     private final static  String ERROR = "ERROR";
     private final static String START_SCENE = "start_scene.fxml";
     private Client client;
-    private ModelView modelView;
-    private boolean solo = false;
+    private final ModelView modelView;
 
     public Gui() {
         this.modelView = new ModelView(this);
@@ -37,10 +36,6 @@ public class Gui extends ClientObservable implements View {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public void setSolo(boolean solo) {
-        this.solo = solo;
     }
 
     @Override

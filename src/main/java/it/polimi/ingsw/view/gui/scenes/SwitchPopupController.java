@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.network.messagescs.ResourcePlacement;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
 
 
     private final Stage stage;
+    private int src;
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -55,6 +57,9 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         dstnFloor1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDstnFloor1BtnClicked);
         dstnFloor2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDstnFloor2BtnClicked);
         dstnFloor3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDstnFloor3BtnClicked);
+        dstnFloor1Btn.setDisable(true);
+        dstnFloor2Btn.setDisable(true);
+        dstnFloor3Btn.setDisable(true);
 
     }
 
@@ -70,27 +75,48 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
     }
 
     private void whenSrcFloor1BtnClicked(MouseEvent event){
-
+        src = 1;
+        disableSource();
+        enableDest();
     }
 
     private void whenSrcFloor2BtnClicked(MouseEvent event){
-
+        src = 2;
+        disableSource();
+        enableDest();
     }
 
     private void whenSrcFloor3BtnClicked(MouseEvent event){
-
+        src = 3;
+        disableSource();
+        enableDest();
     }
 
     private void whenDstnFloor1BtnClicked(MouseEvent event){
-
+        notifyObservers(new ResourcePlacement("client", "switch", src, 1));
+        stage.close();
     }
 
     private void whenDstnFloor2BtnClicked(MouseEvent event){
-
+        notifyObservers(new ResourcePlacement("client", "switch", src, 2));
+        stage.close();
     }
 
     private void whenDstnFloor3BtnClicked(MouseEvent event){
+        notifyObservers(new ResourcePlacement("client", "switch", src, 3));
+        stage.close();
+    }
 
+    public void disableSource(){
+        srcFloor1Btn.setDisable(true);
+        srcFloor2Btn.setDisable(true);
+        srcFloor3Btn.setDisable(true);
+    }
+
+    public void enableDest(){
+        dstnFloor1Btn.setDisable(false);
+        dstnFloor2Btn.setDisable(false);
+        dstnFloor3Btn.setDisable(false);
     }
 
     public void showPopUp(){

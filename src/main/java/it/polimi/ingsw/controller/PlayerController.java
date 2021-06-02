@@ -272,8 +272,9 @@ public class PlayerController {
                 if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
                     extraDepotResource = (ResourceType) leaderCard.getLeaderEffect().getObject();
                     for (Resource res : resources) {
-                        if (res.getType() == extraDepotResource)
+                        if (res.getType() == extraDepotResource) {
                             playerVV().displayGenericMessage("Type \"extra\" to place this resource in the extra depot");
+                        }
                     }
                 }
             }

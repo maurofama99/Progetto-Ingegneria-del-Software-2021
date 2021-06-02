@@ -3,15 +3,11 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.observerPattern.*;
 import it.polimi.ingsw.view.gui.scenes.*;
 import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,9 +29,11 @@ public class SceneController extends ClientObservable {
 
         try{
             FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
+
             Parent root = loader.load();
             controller = loader.getController();
             ((ClientObservable) controller).addAllClientObservers(clientObservers);
+
             activeController = (GenericSceneController) controller;
             onGoingScene = scene;
             onGoingScene.setRoot(root);
@@ -44,7 +42,6 @@ public class SceneController extends ClientObservable {
         }
         return controller;
     }
-
 
     public static <T> T changeRootPane(List<ClientObserver> clientObservers, Event event, String fxml) {
         Scene scene = ((Node) event.getSource()).getScene();

@@ -64,7 +64,7 @@ public class ActionPopupController extends ClientObservable implements GenericPo
         Platform.runLater(() -> {
             MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
             mpsc.addAllClientObservers(clientObservers);
-            mpsc.disable(true);
+            mpsc.disable(false);
             SceneController.showPopup(mpsc, "market_tray_display.fxml");
         });
         stage.close();
@@ -85,7 +85,6 @@ public class ActionPopupController extends ClientObservable implements GenericPo
             ppsc.addAllClientObservers(clientObservers);
             SceneController.showPopup(ppsc, "production_popup.fxml");
         });
-        stage.close();
         stage.close();
     }
 

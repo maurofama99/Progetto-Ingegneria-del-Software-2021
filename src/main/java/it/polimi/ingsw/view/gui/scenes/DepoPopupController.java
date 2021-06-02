@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.messagescs.ResourcePlacement;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -114,8 +115,13 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
 
     public void whenSwitchBtnClicked(MouseEvent event){
         disableAll();
-        notifyObservers(new ResourcePlacement("nickname", "switch"));
         stage.close();
+        Platform.runLater(()-> {
+            SwitchPopupController spc = new SwitchPopupController();
+            spc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(spc, "switch_popup.fxml");
+        });
+
     }
 
     public void whenExtraBtnClicked(MouseEvent event){
