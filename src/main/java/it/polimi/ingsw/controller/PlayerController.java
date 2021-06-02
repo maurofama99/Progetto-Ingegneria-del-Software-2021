@@ -304,7 +304,6 @@ public class PlayerController {
     }
 
     public void discardLeader(Message msg) throws IOException {
-
         gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((DiscardOneLeader)msg).getLeaderCard());
         getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
         displayPB();
@@ -460,10 +459,13 @@ public class PlayerController {
         }
     }
 
-    public void countDevCards(){
+    public void countDevCards() throws IOException {
         if (gameController.getTable().getCurrentPlayer().getCounterDevCards() == 7){
             gameController.setEndPlayerNumber(gameController.getTable().getCurrentPlayer().getTurnOrder());
-            gameController.setTableState(TableState.END);
+            if (gameController.isSinglePlayer()) {
+                gameController.endSoloGame(true);
+            }
+            else gameController.setTableState(TableState.END);
         }
     }
 

@@ -24,6 +24,7 @@ public enum Content {
 
 
     END_GAME,
+    END_SOLOGAME,
     GENERIC_MESSAGE,
     SEND_PERSONALBOARD,
     GENERIC_POPUP,

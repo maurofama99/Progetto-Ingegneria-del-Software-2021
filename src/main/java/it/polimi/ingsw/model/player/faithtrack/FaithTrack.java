@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.messagessc.EndGame;
+import it.polimi.ingsw.network.messagessc.EndSoloGame;
 import it.polimi.ingsw.network.messagessc.TurnFavorTiles;
 import it.polimi.ingsw.observerPattern.Observable;
 
@@ -100,6 +101,22 @@ public class FaithTrack extends Observable implements Serializable {
             notifyObserver(new TurnFavorTiles(player.getNickname()));
         }
     }
+
+
+    /**
+     * Adds victory points when player's faith marker reaches a tile that has victory points.
+     * @param blackCrossPosition player's position on Faith Track.
+     */
+    public void checkBlackCrossPosition (Player singlePlayer, int blackCrossPosition) {
+        if (faithMarkerPosition == 24) {
+            notifyObserver(new EndSoloGame(false));
+        } else if (faithMarkerPosition % 8 == 0) {
+            notifyObserver(new TurnFavorTiles(singlePlayer.getNickname()));
+        }
+    }
+
+
+
 
     /**
      * This method initializes the track. Every tile can be modified, moved or deleted. Also creates the

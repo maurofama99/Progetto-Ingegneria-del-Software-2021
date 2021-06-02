@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.network.messagessc.EndGame;
+import it.polimi.ingsw.network.messagessc.EndSoloGame;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
 import java.io.IOException;
 
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 public class GameController implements Observer, Serializable {
@@ -64,10 +66,6 @@ public class GameController implements Observer, Serializable {
         this.table = table;
     }
 
-    public void setSinglePlayerController(SinglePlayerController singlePlayerController) {
-        this.singlePlayerController = singlePlayerController;
-    }
-
     public void setEndPlayerNumber(int endPlayerNumber) {
         this.endPlayerNumber = endPlayerNumber;
     }
@@ -75,6 +73,7 @@ public class GameController implements Observer, Serializable {
     public void setTableState(TableState tableState) {
         this.tableState = tableState;
     }
+
 
     public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
 
@@ -276,6 +275,7 @@ public class GameController implements Observer, Serializable {
                     e.printStackTrace();
                 }
             });
+            //todo chiudere la partita
 
         }
 
@@ -314,6 +314,11 @@ public class GameController implements Observer, Serializable {
         }
     }
 
+    public void endSoloGame(boolean isWinner) throws IOException {
+        singlePlayerController.setSinglePlayerTableState(SinglePlayerTableState.END);
+        singlePlayerController.endGame(isWinner);
+    }
+
     @Override
     public void update(Message message) throws IOException {
 
@@ -327,7 +332,11 @@ public class GameController implements Observer, Serializable {
             case END_GAME:
                 setTableState(TableState.END);
                 endPlayer = message.getSenderUser();
-                endPlayerNumber = ((EndGame)message).getPlayerNumber();
+                endPlayerNumber = ((EndGame) message).getPlayerNumber();
+                break;
+
+            case END_SOLOGAME:
+                endSoloGame(((EndSoloGame)message).isPlayerWinner());
                 break;
         }
     }

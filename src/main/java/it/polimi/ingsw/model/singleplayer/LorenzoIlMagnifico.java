@@ -4,6 +4,8 @@ package it.polimi.ingsw.model.singleplayer;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
+import it.polimi.ingsw.network.messagessc.EndGame;
+import it.polimi.ingsw.network.messagessc.TurnFavorTiles;
 
 import java.util.ArrayList;
 
@@ -29,8 +31,12 @@ public class LorenzoIlMagnifico {
      * @param steps how many steps it does
      */
     public void moveBlackCross(Player singlePlayer, int steps) {
-        singlePlayer.getPersonalBoard().getFaithTrack().setBlackCrossPosition(singlePlayer.getPersonalBoard().getFaithTrack().getBlackCrossPosition() + steps);
+        singlePlayer.getPersonalBoard().getFaithTrack()
+                .setBlackCrossPosition(singlePlayer.getPersonalBoard().getFaithTrack().getBlackCrossPosition() + steps);
+        singlePlayer.getPersonalBoard().getFaithTrack()
+                .checkBlackCrossPosition(singlePlayer, singlePlayer.getPersonalBoard().getFaithTrack().getBlackCrossPosition());
     }
+
 
     /**
      * Lorenzo's gameplay: turns the token and activates its effect. Nothing else, nothing more
