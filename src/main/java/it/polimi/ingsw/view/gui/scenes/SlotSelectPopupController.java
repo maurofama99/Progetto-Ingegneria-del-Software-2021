@@ -32,8 +32,8 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
         stage = new Stage();
         this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setAlwaysOnTop(true);
+        stage.initModality(Modality.NONE);
+        //stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
@@ -71,7 +71,7 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
     }
 
     public void showPopUp(){
-        stage.showAndWait();
+        stage.show();
     }
 
     public void setScene(Scene scene){

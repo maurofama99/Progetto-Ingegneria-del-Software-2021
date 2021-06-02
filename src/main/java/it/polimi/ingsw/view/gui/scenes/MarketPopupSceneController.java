@@ -57,7 +57,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setAlwaysOnTop(true);
+        //stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;

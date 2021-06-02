@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.ResourcePlacement;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
@@ -58,8 +59,8 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         this.modelView = modelView;
         this.resource = resource;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setAlwaysOnTop(true);
+        stage.initModality(Modality.NONE);
+        //stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
@@ -67,7 +68,8 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
 
     public void initialize(){
 
-        setResourceImg(resource);
+        setResourceImage(resource);
+        setDepotImage();
         rootPane.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
 
@@ -148,12 +150,42 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         thirdLevelBtn.setDisable(true);
     }
 
-    public void setResourceImg(Resource resource) {
+    public void setResourceImage(Resource resource) {
         resourceImg.setImage(new Image("/punchboard/resources/"+resource.toStringGui()+".png"));
     }
 
+    public void setFloorImg(Resource resource, ImageView spot) {
+        spot.setImage(new Image("/punchboard/resources/"+resource.toStringGui()+".png"));
+    }
+
+    private void setDepotImage(){
+        if (!modelView.getWarehouse().getFloors().get(0).getType().equals(ResourceType.NULLRESOURCE)){
+            setFloorImg(modelView.getWarehouse().getFloors().get(0), thirdLevel);
+        }
+        if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
+            if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
+                setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelLeft);
+            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2))
+                setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelLeft);
+            setFloorImg(modelView.getWarehouse().getFloors().get(1), secondLevelRight);
+        }
+        if (!modelView.getWarehouse().getFloors().get(2).getType().equals(ResourceType.NULLRESOURCE)){
+            if (modelView.getWarehouse().getFloors().get(2).getQnt()==1)
+                setFloorImg(modelView.getWarehouse().getFloors().get(2), firstLevelLeft);
+            else if (modelView.getWarehouse().getFloors().get(2).getQnt()==2){
+                setFloorImg(modelView.getWarehouse().getFloors().get(2), firstLevelRight);
+                setFloorImg(modelView.getWarehouse().getFloors().get(2), firstLevelLeft);
+            }
+            else {
+                setFloorImg(modelView.getWarehouse().getFloors().get(2), firstLevelRight);
+                setFloorImg(modelView.getWarehouse().getFloors().get(2), firstLevelLeft);
+                setFloorImg(modelView.getWarehouse().getFloors().get(2), firstLevelCenter);
+            }
+        }
+    }
+
     public void showPopUp(){
-        stage.showAndWait();
+        stage.show();
     }
     public void setScene(Scene scene){
         stage.setScene(scene);

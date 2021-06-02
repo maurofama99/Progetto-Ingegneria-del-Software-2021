@@ -37,7 +37,7 @@ public class PopupSceneController extends ClientObservable implements GenericPop
         this.message = message;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setAlwaysOnTop(false);
+        stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
