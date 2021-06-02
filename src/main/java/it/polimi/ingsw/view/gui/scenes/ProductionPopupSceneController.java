@@ -54,11 +54,6 @@ public class ProductionPopupSceneController extends ClientObservable implements 
     public void initialize(){
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
-
-        /*basicBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenBasicBtnClicked);
-        leftSlotBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLeftSlotBtnClicked);
-        centerSlotBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenCenterSlotBtnClicked);
-        rightSlotBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRightSlotBtnClicked);*/
         doneBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDoneBtnClicked);
     }
 

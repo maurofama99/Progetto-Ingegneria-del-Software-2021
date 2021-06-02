@@ -91,6 +91,7 @@ public class Client implements Runnable, ClientObserver {
                     if (args[1].equals("-port") && args.length <= 3) {
                         try {
                             cli = true;
+                            solo = false;
                             SOCKET_PORT = Integer.parseInt(args[2]);
                         } catch (NumberFormatException e) {
                             System.err.println("-port requires a port number\n" + usage);
@@ -104,6 +105,7 @@ public class Client implements Runnable, ClientObserver {
                 case "-gui":
                     if (args.length <= 1) {
                         gui = true;
+                        solo = false;
                     } else {
                         System.err.println(usage);
                         break;
@@ -115,6 +117,7 @@ public class Client implements Runnable, ClientObserver {
                         gui = true;
                     } else if (args[1].equals("-cli") && args.length <= 2){
                         solo = true;
+                        cli = true;
                     } else {
                         System.err.println(usage);
                         break;
@@ -125,13 +128,13 @@ public class Client implements Runnable, ClientObserver {
                     break;
             }
 
-            if (cli) {
+            if (cli && !solo) {
                 Cli view = new Cli();
                 Client client = new Client(view, SOCKET_PORT);
                 view.addClientObserver(client);
                 client.run();
             }
-            else if (solo && !gui) {
+            else if (solo && cli) {
                 Cli view = new Cli();
                 view.setSolo(true);
                 Client client = new Client(view, -1);
@@ -139,11 +142,14 @@ public class Client implements Runnable, ClientObserver {
                 client.solo = true;
                 client.cli = false;
                 client.run();
-            } else if (solo) {
+            }
+            else if (solo) {
                 JavaFX.main(args);
-            } else if (gui) {
+            }
+            else if (gui) {
                 JavaFX.main(args);
-            } else {
+            }
+            else {
                 System.err.println(usage);
             }
 

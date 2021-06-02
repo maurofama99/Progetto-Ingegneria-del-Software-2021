@@ -43,24 +43,27 @@ public class Cli extends ClientObservable implements View {
         String nickname = scanner.nextLine();
         nickname = nickname.replaceAll("\\s+","");
         this.nickname = nickname;
-        if (!solo) {
-            System.out.print("How many players do you want to play with? (Max 4 players. Type 1 for single player)\n>");
-            int numPlayers = -1;
-            while (numPlayers < 1 || numPlayers > 4) {
-                try {
-                    numPlayers = scanner.nextInt();
-                } catch (InputMismatchException e) {
-                    System.out.print("This is not a number, try again!\n>");
-                    scanner.nextLine();
-                }
+        System.out.print("How many players do you want to play with? (Max 4 players. Type 1 for single player)\n>");
+        int numPlayers = -1;
+        while (numPlayers < 1 || numPlayers > 4) {
+            try {
+                numPlayers = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.print("This is not a number, try again!\n>");
+                scanner.nextLine();
             }
-            notifyObservers(new LoginData(nickname, numPlayers));
-        } else notifyObservers(new LoginData(nickname, 1));
+        }
+        notifyObservers(new LoginData(nickname, numPlayers));
     }
 
     @Override
     public void localFetchNickname(Event event) {
-        //used only in GUI mdoe
+        System.out.print("What's your nickname?\n>");
+        Scanner scanner = new Scanner(System.in);
+        String nickname = scanner.nextLine();
+        nickname = nickname.replaceAll("\\s+","");
+        this.nickname = nickname;
+        notifyObservers(new LoginData(nickname, 1));
     }
 
     @Override
