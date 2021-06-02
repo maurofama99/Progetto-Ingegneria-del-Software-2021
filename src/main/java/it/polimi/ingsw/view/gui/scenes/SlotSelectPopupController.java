@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.network.messagescs.BuyDevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -24,13 +25,17 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
 
     private final Stage stage;
     private ModelView modelView;
+    private int cardIndexRow;
+    private int cardIndexColumn;
 
     private double x_Offset;
     private double y_Offset;
 
-    public SlotSelectPopupController(ModelView modelView){
+    public SlotSelectPopupController(ModelView modelView, int cardIndexRow, int cardIndexColumn){
         stage = new Stage();
         this.modelView = modelView;
+        this.cardIndexRow = cardIndexRow;
+        this.cardIndexColumn = cardIndexColumn;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.NONE);
         //stage.setAlwaysOnTop(true);
@@ -59,15 +64,18 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
     }
 
     private void whenLeftSlotCLicked(MouseEvent event){
-
+        notifyObservers(new BuyDevCard(cardIndexRow, cardIndexColumn, 1));
+        stage.close();
     }
 
     private void whenCenterSlotClicked(MouseEvent event){
-
+        notifyObservers(new BuyDevCard(cardIndexRow, cardIndexColumn, 2));
+        stage.close();
     }
 
     private void whenRightSlotClicked(MouseEvent event){
-
+        notifyObservers(new BuyDevCard(cardIndexRow, cardIndexColumn, 3));
+        stage.close();
     }
 
     public void showPopUp(){

@@ -6,6 +6,7 @@ import it.polimi.ingsw.network.messagescs.BuyDevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -91,52 +92,134 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     private void whenFirstRowFirstColumnBtnClicked(MouseEvent event){
         disableAll();
-        notifyObservers(new BuyDevCard(1, 1, 1));
+
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 1, 1);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+
         stage.close();
     }
 
     private void whenFirstRowSecondColumnBtnClicked(MouseEvent event){
+        disableAll();
 
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 1, 2);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+
+        stage.close();
     }
 
     private void whenFirstRowThirdColumnBtnClicked(MouseEvent event){
+        disableAll();
 
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 1, 3);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+
+        stage.close();
     }
 
     private void whenFirstRowFourthColumnBtnClicked(MouseEvent event){
+        disableAll();
 
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 1, 4);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+
+        stage.close();
     }
 
     private void whenSecondRowFirstColumnBtnClicked(MouseEvent event){
+        disableAll();
 
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 2, 1);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+
+        stage.close();
     }
 
     private void whenSecondRowSecondColumnBtnClicked(MouseEvent event){
+        disableAll();
 
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 2, 2);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+
+        stage.close();
     }
 
     private void whenSecondRowThirdColumnBtnClicked(MouseEvent event){
-
+        disableAll();
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 2, 3);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+        stage.close();
     }
 
     private void whenSecondRowFourthColumnBtnClicked(MouseEvent event){
-
+        disableAll();
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 2, 4);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+        stage.close();
     }
 
     private void whenThirdRowFirstColumnBtnClicked(MouseEvent event){
-
+        disableAll();
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 3, 1);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+        stage.close();
     }
 
     private void whenThirdRowSecondColumnBtnClicked(MouseEvent event){
-
+        disableAll();
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 3, 2);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+        stage.close();
     }
 
     private void whenThirdRowThirdColumnBtnClicked(MouseEvent event){
-
+        disableAll();
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 3, 3);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+        stage.close();
     }
 
     private void whenThirdRowFourthColumnBtnClicked(MouseEvent event) {
-
+        disableAll();
+        Platform.runLater(() -> {
+            SlotSelectPopupController sspc = new SlotSelectPopupController(modelView, 3, 4);
+            sspc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sspc, "slot_popup.fxml");
+        });
+        stage.close();
     }
 
     public void disableAll(){
