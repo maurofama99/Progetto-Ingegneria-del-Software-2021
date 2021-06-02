@@ -260,6 +260,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         for (int i = 0; i < 3 ; i++) {
             for (int j = 0; j < 4 ; j++) {
                 devCardGrid.add(setDevCardImage(modelView.getShowedDeck()[i][j]),j,i);
+
             }
         }
     }
