@@ -4,6 +4,7 @@ import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -67,6 +68,14 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
 
     private void whenRightSlotClicked(MouseEvent event){
 
+    }
+
+    public void showPopUp(){
+        stage.showAndWait();
+    }
+
+    public void setScene(Scene scene){
+        stage.setScene(scene);
     }
 
 
