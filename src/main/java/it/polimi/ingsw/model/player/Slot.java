@@ -10,7 +10,6 @@ import java.io.Serializable;
  */
 public class Slot implements Serializable{
     private ArrayList<DevCard> cards = new ArrayList<>();
-    //created enum class for slot number
     private int slotNumber;
 
 
@@ -23,6 +22,9 @@ public class Slot implements Serializable{
     }
 
     public DevCard getShowedCard(){
+        if (this.cards.size() == 0){
+            return null;
+        }
         return this.cards.get(this.cards.size()-1);
     }
 

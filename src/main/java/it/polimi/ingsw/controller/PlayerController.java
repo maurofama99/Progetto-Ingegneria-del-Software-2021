@@ -372,6 +372,7 @@ public class PlayerController {
                         playerVV().displayGenericMessage("You activated production in slot 1!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
+                        playerVV().displayPopup(e.getMessage());
                     }
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
@@ -380,6 +381,7 @@ public class PlayerController {
                         playerVV().displayGenericMessage("You activated production in slot 2!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
+                        playerVV().displayPopup(e.getMessage());
                     }
                 }
                 if (((ActivateProduction)msg).getSlot3()==1){
@@ -388,6 +390,7 @@ public class PlayerController {
                         playerVV().displayGenericMessage("You activated production in slot 3!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
+                        playerVV().displayPopup(e.getMessage());
                     }
                 }
 
@@ -437,6 +440,7 @@ public class PlayerController {
                         resourcesToAdd.add(gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
                     } catch (NoSuchElementException e) {
                         playerVV().displayGenericMessage("You don't have the requirements to do this production");
+                        playerVV().displayPopup("You don't have the requirements to do this production");
                     }
                     getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
                     displayPB();

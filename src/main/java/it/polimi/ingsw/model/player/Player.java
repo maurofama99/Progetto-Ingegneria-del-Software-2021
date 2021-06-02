@@ -143,6 +143,9 @@ public class Player extends Observable implements Serializable {
      */
     public ArrayList<Resource> activateProd(int slot) throws CloneNotSupportedException {
 
+        if (getPersonalBoard().getSlots()[slot].getShowedCard()== null){
+            throw new NoSuchElementException("There is not a development card to activate in this slot");
+        }
         DevCard devCardToAct = getPersonalBoard().getSlots()[slot].getShowedCard();
         ArrayList<Resource> output = new ArrayList<>();
         for (Resource resource : devCardToAct.getProduction().getOutput())
@@ -150,7 +153,7 @@ public class Player extends Observable implements Serializable {
 
 
         if (!devCardToAct.getProduction().checkInputResource(this)) {
-            throw new NoSuchElementException("you don't have the requirements to activate this production");
+            throw new NoSuchElementException("You don't have the requirements to activate this production");
         }
         else {
              for (Resource res : output){

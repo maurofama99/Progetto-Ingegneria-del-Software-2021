@@ -46,53 +46,11 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private ImageView faithCross;
     @FXML
-    private ImageView tile_1;
+    private ImageView tile_1, tile_2, tile_3, tile_4, tile_5, tile_6, tile_7, tile_8 ,tile_9;
     @FXML
-    private ImageView tile_2;
+    private ImageView tile_10 ,tile_11, tile_12, tile_13, tile_14 ,tile_15 ,tile_16 ,tile_17;
     @FXML
-    private ImageView tile_3;
-    @FXML
-    private ImageView tile_4;
-    @FXML
-    private ImageView tile_5;
-    @FXML
-    private ImageView tile_6;
-    @FXML
-    private ImageView tile_7;
-    @FXML
-    private ImageView tile_8;
-    @FXML
-    private ImageView tile_9;
-    @FXML
-    private ImageView tile_10;
-    @FXML
-    private ImageView tile_11;
-    @FXML
-    private ImageView tile_12;
-    @FXML
-    private ImageView tile_13;
-    @FXML
-    private ImageView tile_14;
-    @FXML
-    private ImageView tile_15;
-    @FXML
-    private ImageView tile_16;
-    @FXML
-    private ImageView tile_17;
-    @FXML
-    private ImageView tile_18;
-    @FXML
-    private ImageView tile_19;
-    @FXML
-    private ImageView tile_20;
-    @FXML
-    private ImageView tile_21;
-    @FXML
-    private ImageView tile_22;
-    @FXML
-    private ImageView tile_23;
-    @FXML
-    private ImageView tile_24;
+    private ImageView tile_18 ,tile_19, tile_20, tile_21, tile_22, tile_23 ,tile_24;
     @FXML
     private ImageView firstPopeTile;
     @FXML
