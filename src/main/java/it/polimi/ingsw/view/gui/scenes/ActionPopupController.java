@@ -62,9 +62,8 @@ public class ActionPopupController extends ClientObservable implements GenericPo
 
     private void whenMarketButtonClicked(MouseEvent event){
         Platform.runLater(() -> {
-            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
+            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView, true);
             mpsc.addAllClientObservers(clientObservers);
-            mpsc.disable(false);
             SceneController.showPopup(mpsc, "market_tray_display.fxml");
         });
         stage.close();

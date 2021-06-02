@@ -129,7 +129,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenShowMarketBtnClicked(MouseEvent event){
         Platform.runLater(() -> {
-            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView);
+            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView, false);
             mpsc.addAllClientObservers(clientObservers);
             SceneController.showPopup(mpsc, "market_tray_display.fxml");
         });
@@ -163,7 +163,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
                 thirdPlayerBtn.setText(player);
                 thirdPlayerBtn.setDisable(false);
             }
-
         }
     }
 

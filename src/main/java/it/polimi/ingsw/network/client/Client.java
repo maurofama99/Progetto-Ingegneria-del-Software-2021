@@ -255,6 +255,8 @@ public class Client implements Runnable, ClientObserver {
             case FORCEDEND:
                 view.forcedEnd(((ForcedEnd) msg).getNickname());
                 break;
+            case MATCH_FINISHED:
+                view.displayWinningMsg();
         }
     }
 

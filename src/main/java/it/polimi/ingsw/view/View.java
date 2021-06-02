@@ -81,7 +81,7 @@ public interface View {
      * Ending message when a player wins
      * @param win message displayed
      */
-    void displayWinningMsg(String win);
+    void displayWinningMsg();
 
     void displayToken(Token token);
 

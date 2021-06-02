@@ -26,6 +26,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     private final Stage stage;
 
     private ModelView modelView;
+    private boolean interactive;
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -52,7 +53,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     @FXML
     private Button row3Btn= new Button();
 
-    public MarketPopupSceneController(ModelView modelView){
+    public MarketPopupSceneController(ModelView modelView, boolean interactive){
         stage = new Stage();
         this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
@@ -61,13 +62,17 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
+        this.interactive = interactive;
     }
 
 
     public void initialize(){
 
+        if (interactive) backBtn.setDisable(true);
+        else disable(true);
+
         setMarbles();
-        disable(false);
+
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         column1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenColumn1BtnClicked);
@@ -146,7 +151,6 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         row2Btn.setDisable(disable);
         row3Btn.setDisable(disable);
         column4Btn.setDisable(disable);
-        backBtn.setDisable(!disable);
     }
 
     public void showPopUp(){

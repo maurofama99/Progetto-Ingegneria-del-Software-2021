@@ -452,17 +452,14 @@ public class Cli extends ClientObservable implements View {
             fetchDoneAction("Type DONE", leaderCards);
     }
 
-
-
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
 
     }
 
-
     @Override
-    public void displayWinningMsg(String win) {
-
+    public void displayWinningMsg() {
+        System.exit(0);
     }
 
     @Override
@@ -485,7 +482,6 @@ public class Cli extends ClientObservable implements View {
         cliGraphics.printPersonalBoard(wH, slots, fT);
     }
 
-
     @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
         //used only in CLI mode
@@ -501,6 +497,5 @@ public class Cli extends ClientObservable implements View {
         System.out.println(nickname + " left the game. The match ends now.");
         System.exit(0);
     }
-
 
 }

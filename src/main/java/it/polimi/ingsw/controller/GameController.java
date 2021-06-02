@@ -18,7 +18,6 @@ import java.io.Serializable;
 import java.io.IOException;
 
 import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 public class GameController implements Observer, Serializable {
@@ -246,7 +245,6 @@ public class GameController implements Observer, Serializable {
             }
         }
 
-
         if (!msg.getSenderUser().equals(table.getPlayers().get(0).getNickname())){
             receiveMessageInGame(msg);
         }
@@ -275,7 +273,7 @@ public class GameController implements Observer, Serializable {
                     e.printStackTrace();
                 }
             });
-            //todo chiudere la partita
+            endGame();
 
         }
 
@@ -309,6 +307,17 @@ public class GameController implements Observer, Serializable {
                 if (player.getNickname().equals(key)) {
                     try {
                         vvMap.get(key).forcedEnd(nickname);
+                    } catch (IOException ignored) {}
+                }
+        }
+    }
+
+    public void endGame(){
+        for (String key : vvMap.keySet()){
+            for(Player player : table.getPlayers())
+                if (player.getNickname().equals(key)) {
+                    try {
+                        vvMap.get(key).displayWinningMsg();
                     } catch (IOException ignored) {}
                 }
         }

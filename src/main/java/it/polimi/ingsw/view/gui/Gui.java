@@ -154,16 +154,16 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayMarket(MarketTray marketTray) {
-        Platform.runLater(()-> {
-            MarketPopupSceneController marketPopupSceneController = new MarketPopupSceneController(modelView);
+        //Platform.runLater(()-> {
+           // MarketPopupSceneController marketPopupSceneController = new MarketPopupSceneController(modelView);
             modelView.setMarketTray(marketTray);
-            marketPopupSceneController.addAllClientObservers(clientObservers);
-        });
+            //marketPopupSceneController.addAllClientObservers(clientObservers);
+        //});
     }
 
     @Override
-    public void displayWinningMsg(String win) {
-
+    public void displayWinningMsg() {
+        System.exit(0);
     }
 
     @Override

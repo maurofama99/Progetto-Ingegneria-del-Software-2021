@@ -112,7 +112,7 @@ public class SinglePlayerController{
             vv.displayPopup("YOU LOST!");
         }
 
-        //todo chiudere la partita
+        gameController.endGame();
 
     }
 

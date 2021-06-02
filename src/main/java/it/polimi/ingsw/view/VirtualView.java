@@ -86,6 +86,10 @@ public class VirtualView implements Observer {
         clientHandler.sendMessage(new TurnToken(token));
     }
 
+    public void displayWinningMsg() throws IOException {
+        clientHandler.sendMessage(new Message("server", "client", Content.MATCH_FINISHED));
+    }
+
     public void forcedEnd(String nickname) throws IOException {
         clientHandler.sendMessage(new ForcedEnd(nickname));
     }

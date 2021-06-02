@@ -10,6 +10,7 @@ public enum Content {
     ASK_DONE,
     ASK_PLAYLEADER,
     EXTRA_PRODUCTION,
+    MATCH_FINISHED,
 
 
     NORESOURCE_AVAILABLE,
