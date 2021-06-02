@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
+import it.polimi.ingsw.network.messagescs.BuyDevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -89,7 +90,10 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     }
 
     private void whenFirstRowFirstColumnBtnClicked(MouseEvent event){
-
+        //todo popup per slot
+        disableAll();
+        notifyObservers(new BuyDevCard(1, 1, 1));
+        stage.close();
     }
 
     private void whenFirstRowSecondColumnBtnClicked(MouseEvent event){
@@ -168,9 +172,9 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     public void setDevCardImages(){
 
-        for (int i = 1; i < 4 ; i++) {
-            for (int j = 1; j < 5 ; j++) {
-                devCardGrid.add(setDevCardImage(modelView.getShowedDeck()[i][j]),i,j);
+        for (int i = 0; i < 3 ; i++) {
+            for (int j = 0; j < 4 ; j++) {
+                devCardGrid.add(setDevCardImage(modelView.getShowedDeck()[i][j]),j,i);
             }
         }
     }

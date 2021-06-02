@@ -7,17 +7,17 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="902.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="900.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group rotate="180.0">
             <children>
-                <AnchorPane prefHeight="720.0" prefWidth="981.0">
+                <AnchorPane layoutX="-54.0" layoutY="-72.0" prefHeight="720.0" prefWidth="555.0">
                     <children>
                   <ImageView fitHeight="314.0" fitWidth="377.0" layoutX="452.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../other/background/nero_sfondo.png" />
                      </image></ImageView>
-                        <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="362.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="720.0" fitWidth="560.0" layoutX="362.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../punchboard/market_tray.png" />
                             </image>
@@ -54,13 +54,13 @@
                      <effect>
                         <Blend />
                      </effect></Button>
-                  <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" />
-                  <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" />
-                  <Button fx:id="column4Btn" layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="genericButton" />
-                  <Button fx:id="row1Btn" layoutX="860.0" layoutY="304.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" />
-                  <Button fx:id="row2Btn" layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" />
-                  <Button fx:id="row3Btn" layoutX="860.0" layoutY="180.0" mnemonicParsing="false" prefWidth="80.0" styleClass="genericButton" />
-                  <Button fx:id="backBtn" layoutX="150.0" layoutY="31.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="142.0" rotate="180.0" text="Back" />
+                  <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
+                  <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
+                  <Button fx:id="column4Btn" layoutX="519.0" layoutY="465.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" rotate="90.0" styleClass="choiceBtn" />
+                  <Button fx:id="row1Btn" layoutX="862.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" styleClass="choiceBtn" />
+                  <Button fx:id="row2Btn" layoutX="860.0" layoutY="244.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" styleClass="choiceBtn" />
+                  <Button fx:id="row3Btn" layoutX="855.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" styleClass="choiceBtn" />
+                  <Button fx:id="backBtn" layoutX="175.0" layoutY="40.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="142.0" rotate="180.0" text="Back" />
                     </children>
                 </AnchorPane>
             </children>
@@ -68,5 +68,7 @@
     </children>
     <stylesheets>
         <URL value="@../css/general.css" />
+        <URL value="@../css/devcard_display.css" />
+
     </stylesheets>
 </StackPane>
