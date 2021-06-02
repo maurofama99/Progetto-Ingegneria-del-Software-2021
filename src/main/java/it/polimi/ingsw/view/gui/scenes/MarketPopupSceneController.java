@@ -182,6 +182,9 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
                 break;
         }
 
+        imageView.setPreserveRatio(false);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
         return imageView;
     }
 
