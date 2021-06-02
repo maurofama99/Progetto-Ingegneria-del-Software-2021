@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-public class ShowOthersSceneController extends ClientObservable implements GenericSceneController,GenericPopupController {
+public class ShowOthersSceneController extends ClientObservable implements GenericPopupController {
+
+    private final String player;
+
     @FXML
     private ImageView inkwell;
     //Depot
@@ -109,6 +112,10 @@ public class ShowOthersSceneController extends ClientObservable implements Gener
     private Label nickname;
     @FXML
     private Button closeBtn;
+
+    public ShowOthersSceneController(String nickname) {
+        this.player = nickname;
+    }
 
     public void initialize(){
 

@@ -1,10 +1,12 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.scene.image.Image;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,6 +19,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     //TODO: assigning inkwell to first player
     //TODO: blackcross for singleplayer
     private ModelView modelView;
+
+    private String firstPlayerNick, secondPlayerNick, thirdPlayerNick;
 
     @FXML
     private ImageView inkwell;
@@ -61,19 +65,13 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private Button showMarketBtn = new Button();
     @FXML
-    private Button showDevCardsBtn;
+    private Button showDevCardsBtn, firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
     @FXML
     private ImageView leaderLeft;
     @FXML
     private ImageView leaderRight;
     @FXML
-    private Label coinCounter;
-    @FXML
-    private Label stoneCounter;
-    @FXML
-    private Label servantCounter;
-    @FXML
-    private Label shieldCounter;
+    private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
 
     public int coinQnt = 0;
     public int stoneQnt = 0;
@@ -86,6 +84,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     public void initialize(){
 
+        setOtherPlayersButtons();
         setDepotImage();
 
         leaderLeft.setImage(new Image("/back/leader-back.png"));
@@ -93,6 +92,30 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
         showDevCardsBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowDevCardsBtnClicked);
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
+    }
+
+    private void whenThirdPlayerBtnClicked(MouseEvent event) {
+        Platform.runLater(()->{
+            ShowOthersSceneController sosc = new ShowOthersSceneController(thirdPlayerNick);
+            sosc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sosc, "show_others.fxml");
+        });
+    }
+
+    private void whenSecondPlayerBtnClicked(MouseEvent event) {
+        Platform.runLater(()->{
+            ShowOthersSceneController sosc = new ShowOthersSceneController(secondPlayerNick);
+            sosc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sosc, "show_others.fxml");
+        });
+    }
+
+    private void whenFirstPlayerBtnClicked(MouseEvent event) {
+        Platform.runLater(()->{
+            ShowOthersSceneController sosc = new ShowOthersSceneController(firstPlayerNick);
+            sosc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(sosc, "show_others.fxml");
+        });
     }
 
 
@@ -114,6 +137,34 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     static void setResourceImage(String resource, ImageView spot) {
         spot.setImage(new Image("/punchboard/resources/"+resource+".png"));
+    }
+
+    private void setOtherPlayersButtons(){
+        firstPlayerBtn.setDisable(true);
+        secondPlayerBtn.setDisable(true);
+        thirdPlayerBtn.setDisable(true);
+
+        for(String player : modelView.getOthersPersonalBoards().keySet()){
+            if (firstPlayerBtn.isDisabled()){
+                firstPlayerBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: whenFirstPlayerBtnClicked);
+                firstPlayerBtn.setText(player);
+                firstPlayerNick = player;
+                firstPlayerBtn.setDisable(false);
+            }
+            else if (secondPlayerBtn.isDisabled()){
+                secondPlayerBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: whenSecondPlayerBtnClicked);
+                secondPlayerBtn.setText(player);
+                secondPlayerNick = player;
+                secondPlayerBtn.setDisable(false);
+            }
+            else if (thirdPlayerBtn.isDisabled()){
+                thirdPlayerBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: whenThirdPlayerBtnClicked);
+                thirdPlayerNick = player;
+                thirdPlayerBtn.setText(player);
+                thirdPlayerBtn.setDisable(false);
+            }
+
+        }
     }
 
     private void setDepotImage(){

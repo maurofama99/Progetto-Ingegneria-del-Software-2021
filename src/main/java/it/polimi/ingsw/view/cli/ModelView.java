@@ -35,6 +35,10 @@ public class ModelView {
         this.gui = gui;
     }
 
+    public HashMap<String, PersonalBoard> getOthersPersonalBoards() {
+        return othersPersonalBoards;
+    }
+
     public MarketTray getMarketTray() {
         return marketTray;
     }
