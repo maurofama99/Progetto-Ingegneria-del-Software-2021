@@ -400,26 +400,42 @@ public class PlayerController {
                     playerVV().fetchResourceType();
                 }
 
-                if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
-                    for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
-                        if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
-                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
-                        }
-                    }
-                }
+
 
                 else if (((ActivateProduction)msg).getBasic()==0) {
-                    getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                    if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
+                        for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
+                            if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
+                            }
+                        }
+                    }
+                    else {
+                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
-                    displayPB();
+                        displayPB();
 
-                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    }
+
+
                 }
                 break;
 
             case ACTIVATE_EXTRAPRODUCTION:
-                resourcesToAdd.add(new Resource(1, ((ActivateExtraProd)msg).getType()));
-                playerVV().displayGenericMessage("Extra production activated!\n");
+                if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
+                    displayPB();
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                }
+                else {
+                    resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
+                    getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+                    playerVV().displayGenericMessage("Extra production activated!\n");
+                    getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                    displayPB();
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                }
+
                 break;
 
             case RESOURCE_TYPE:
@@ -442,9 +458,20 @@ public class PlayerController {
                         playerVV().displayGenericMessage("You don't have the requirements to do this production");
                         playerVV().displayPopup("You don't have the requirements to do this production");
                     }
-                    getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-                    displayPB();
-                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+
+                    if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
+                        for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
+                            if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
+                            }
+                        }
+                    }
+                    else {
+                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                        displayPB();
+                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    }
+
                 }
                 break;
         }

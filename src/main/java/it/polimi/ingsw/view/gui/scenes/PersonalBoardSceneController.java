@@ -218,9 +218,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         else
             thirdPopeTile.setImage(new Image("/punchboard/tile_4_back.png"));
 
-
-
-
         ArrayList<ImageView> imageViews = new ArrayList<>();
         imageViews.add(tile_0);
         imageViews.add(tile_1);
@@ -255,14 +252,27 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     }
 
     public void setSlotImages(){
-        for (int i =0; i<3; i++){
-            if (modelView.getSlots()[i].getShowedCard() !=null){
-                slotLeft.setImage(new Image("/front/devcard_color-"
-                        + modelView.getSlots()[i].getShowedCard().getCardColor()
-                        + "_level-" + modelView.getSlots()[i].getShowedCard().getLevel()
-                        + "_vp-" + modelView.getSlots()[i].getShowedCard().getVictoryPointsDevCard() + ".png"));
-            }
+        if (modelView.getSlots()[0].getShowedCard() !=null){
+            slotLeft.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[0].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
         }
+
+        if (modelView.getSlots()[1].getShowedCard() !=null){
+            slotCenter.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[1].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getSlots()[2].getShowedCard() !=null){
+            slotRight.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[2].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
 
     }
 
