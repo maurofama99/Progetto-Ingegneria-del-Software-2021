@@ -45,5 +45,6 @@
     </children>
     <stylesheets>
         <URL value="@../css/devcard_display.css" />
+        <URL value="@../css/general.css" />
     </stylesheets>
 </StackPane>

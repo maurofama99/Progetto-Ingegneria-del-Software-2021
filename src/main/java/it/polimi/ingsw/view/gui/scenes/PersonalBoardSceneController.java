@@ -201,22 +201,22 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     public void setFaithTrackImages() {
 
         if (modelView.getFaithTrack().isFirstFavorTile()){
-            firstPopeTile.setImage(new Image("tile_2_front.png"));
+            firstPopeTile.setImage(new Image("/punchboard/tile_2_front.png"));
         }
         else
-            firstPopeTile.setImage(new Image("tile_2_back.png"));
+            firstPopeTile.setImage(new Image("/punchboard/tile_2_back.png"));
 
         if (modelView.getFaithTrack().isSecondFavorTile()){
-            secondPopeTile.setImage(new Image("tile_3_front.png"));
+            secondPopeTile.setImage(new Image("/punchboard/tile_3_front.png"));
         }
         else
-            secondPopeTile.setImage(new Image("tile_3_back.png"));
+            secondPopeTile.setImage(new Image("/punchboard/tile_3_back.png"));
 
         if (modelView.getFaithTrack().isThirdFavorTile()){
-            thirdPopeTile.setImage(new Image("tile_4_front.png"));
+            thirdPopeTile.setImage(new Image("/punchboard/tile_4_front.png"));
         }
         else
-            thirdPopeTile.setImage(new Image("tile_4_back.png"));
+            thirdPopeTile.setImage(new Image("/punchboard/tile_4_back.png"));
 
 
 
@@ -249,9 +249,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         imageViews.add(tile_24);
 
         imageViews.set(modelView.getFaithTrack().getFaithMarkerPosition(), new ImageView(new Image("croce.png")));
-
-
-         */
+        */
 
 
     }
@@ -259,7 +257,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     public void setSlotImages(){
         for (int i =0; i<3; i++){
             if (modelView.getSlots()[i].getShowedCard() !=null){
-                slotLeft = new ImageView(new Image("/front/devcard_" + "color-"
+                slotLeft.setImage(new Image("/front/devcard_color-"
                         + modelView.getSlots()[i].getShowedCard().getCardColor()
                         + "_level-" + modelView.getSlots()[i].getShowedCard().getLevel()
                         + "_vp-" + modelView.getSlots()[i].getShowedCard().getVictoryPointsDevCard() + ".png"));
