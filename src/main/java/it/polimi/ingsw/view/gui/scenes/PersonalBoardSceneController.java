@@ -220,7 +220,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
 
 
-        /*
+
         ArrayList<ImageView> imageViews = new ArrayList<>();
         imageViews.add(tile_0);
         imageViews.add(tile_1);
@@ -248,8 +248,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         imageViews.add(tile_23);
         imageViews.add(tile_24);
 
-        imageViews.set(modelView.getFaithTrack().getFaithMarkerPosition(), new ImageView(new Image("croce.png")));
-        */
+        imageViews.set(modelView.getFaithTrack().getFaithMarkerPosition(), new ImageView(new Image("/punchboard/croce.png")));
+
 
 
     }
