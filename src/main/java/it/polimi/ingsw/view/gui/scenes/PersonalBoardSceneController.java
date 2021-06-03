@@ -42,11 +42,11 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     //End of depot
     //Slots
     @FXML
-    private ImageView slotLeft;
+    private ImageView slotLeft1, slotLeft2, slotLeft3;
     @FXML
-    private ImageView slotCenter;
+    private ImageView slotCenter1, slotCenter2, slotCenter3;
     @FXML
-    private ImageView slotRight;
+    private ImageView slotRight1, slotRight2, slotRight3;
     //End of slots
     //FaithTrack
     @FXML
@@ -245,7 +245,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         imageViews.add(tile_23);
         imageViews.add(tile_24);
 
-        imageViews.set(modelView.getFaithTrack().getFaithMarkerPosition(), new ImageView(new Image("/punchboard/croce.png")));
+        imageViews.get(modelView.getFaithTrack().getFaithMarkerPosition()).setImage(new Image("/punchboard/croce.png"));
 
 
 
@@ -253,21 +253,21 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     public void setSlotImages(){
         if (modelView.getSlots()[0].getShowedCard() !=null){
-            slotLeft.setImage(new Image("/front/devcard_color-"
+            slotLeft1.setImage(new Image("/front/devcard_color-"
                     + modelView.getSlots()[0].getShowedCard().getCardColor()
                     + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
                     + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
         }
 
         if (modelView.getSlots()[1].getShowedCard() !=null){
-            slotCenter.setImage(new Image("/front/devcard_color-"
+            slotCenter1.setImage(new Image("/front/devcard_color-"
                     + modelView.getSlots()[1].getShowedCard().getCardColor()
                     + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
                     + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
         }
 
         if (modelView.getSlots()[2].getShowedCard() !=null){
-            slotRight.setImage(new Image("/front/devcard_color-"
+            slotRight1.setImage(new Image("/front/devcard_color-"
                     + modelView.getSlots()[2].getShowedCard().getCardColor()
                     + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
                     + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
@@ -319,14 +319,5 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         decreaseCounter(shieldCounter, quantity, shieldQnt);
     }
 
-
-    public Image setCross(){
-        return new Image("/punchboard/croce.png");
-    }
-
-    public void setCrossInTile(int faithPoints){
-        String tile = "tile_" + Integer.toString(faithPoints);
-
-    }
 
 }
