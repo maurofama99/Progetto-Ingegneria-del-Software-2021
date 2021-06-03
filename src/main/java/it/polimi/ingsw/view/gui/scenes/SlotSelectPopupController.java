@@ -6,6 +6,7 @@ import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -42,6 +43,7 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
 
     @FXML
     public void initialize(){
+        setImages();
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         leftSlot.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenLeftSlotCLicked);
@@ -80,6 +82,29 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
 
     public void setScene(Scene scene){
         stage.setScene(scene);
+    }
+
+    public void setImages(){
+        if (modelView.getSlots()[0].getShowedCard() !=null){
+            leftSlot.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[0].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getSlots()[1].getShowedCard() !=null){
+            centerSlot.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[1].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getSlots()[2].getShowedCard() !=null){
+            rightSlot.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[2].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
     }
 
 

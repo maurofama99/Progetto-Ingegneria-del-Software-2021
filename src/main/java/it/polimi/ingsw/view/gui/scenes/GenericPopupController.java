@@ -5,11 +5,8 @@ import javafx.scene.Scene;
 
 public interface GenericPopupController {
 
-    default void showPopUp(){
-    }
+    void showPopUp();
 
-    default void setScene(Scene scene){
-    }
-
+    void setScene(Scene scene);
 
 }

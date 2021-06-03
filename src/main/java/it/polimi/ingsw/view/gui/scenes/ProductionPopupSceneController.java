@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -52,6 +53,7 @@ public class ProductionPopupSceneController extends ClientObservable implements 
 
     @FXML
     public void initialize(){
+        setImages();
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
         doneBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDoneBtnClicked);
@@ -82,5 +84,28 @@ public class ProductionPopupSceneController extends ClientObservable implements 
 
     public void setScene(Scene scene){
         stage.setScene(scene);
+    }
+
+    public void setImages(){
+        if (modelView.getSlots()[0].getShowedCard() !=null){
+            leftSlot.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[0].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getSlots()[1].getShowedCard() !=null){
+            centerSlot.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[1].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getSlots()[2].getShowedCard() !=null){
+            rightSlot.setImage(new Image("/front/devcard_color-"
+                    + modelView.getSlots()[2].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
     }
 }

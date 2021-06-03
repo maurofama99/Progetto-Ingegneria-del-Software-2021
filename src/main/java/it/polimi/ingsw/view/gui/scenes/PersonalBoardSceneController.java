@@ -90,6 +90,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         setDepotImage();
         setFaithTrackImages();
         setSlotImages();
+        setImagesStrongBox();
 
         leaderLeft.setImage(new Image("/back/leader-back.png"));
         leaderRight.setImage(new Image("/back/leader-back.png"));
@@ -277,47 +278,11 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     }
 
 
-    public void increaseCounter(Label labelToSet, int quantity, int resourcePresent){
-        resourcePresent = resourcePresent+quantity;
-        labelToSet.setText("x"+Integer.toString(resourcePresent));
+    public void setImagesStrongBox(){
+        coinCounter.setText(""+modelView.getWarehouse().getStrongbox()[0].getQnt());
+        servantCounter.setText(""+modelView.getWarehouse().getStrongbox()[1].getQnt());
+        shieldCounter.setText(""+modelView.getWarehouse().getStrongbox()[2].getQnt());
+        stoneCounter.setText(""+modelView.getWarehouse().getStrongbox()[3].getQnt());
     }
-
-    public void decreaseCounter(Label labelToSet, int quantity, int resourcePresent){
-        resourcePresent = resourcePresent-quantity;
-        labelToSet.setText("x"+Integer.toString(resourcePresent));
-    }
-
-    public void increaseCoinCounter(int quantity){
-        increaseCounter(coinCounter, quantity, coinQnt);
-    }
-
-    public void decreaseCoinCounter(int quantity){
-        decreaseCounter(coinCounter, quantity, coinQnt);
-    }
-
-    public void increaseStoneCounter(int quantity){
-        increaseCounter(stoneCounter, quantity, stoneQnt);
-    }
-
-    public void decreaseStoneCounter(int quantity){
-        decreaseCounter(stoneCounter, quantity, stoneQnt);
-    }
-
-    public void increaseServantCounter(int quantity){
-        increaseCounter(servantCounter, quantity, servantQnt);
-    }
-
-    public void decreaseServantCounter(int quantity){
-        decreaseCounter(servantCounter, quantity, servantQnt);
-    }
-
-    public void increaseShieldCounter(int quantity){
-        increaseCounter(shieldCounter, quantity, shieldQnt);
-    }
-
-    public void decreaseShieldCounter(int quantity){
-        decreaseCounter(shieldCounter, quantity, shieldQnt);
-    }
-
 
 }
