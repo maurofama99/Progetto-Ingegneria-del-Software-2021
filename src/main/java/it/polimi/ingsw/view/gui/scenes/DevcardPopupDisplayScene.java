@@ -21,6 +21,10 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
+/**
+ * The controller of the dev card market. Shows and updates the cards, letting the player choosing the card he wants
+ * giving it to him only after checking if he has the resources
+ */
 public class DevcardPopupDisplayScene extends ClientObservable implements GenericPopupController{
 
     private final Stage stage;
@@ -43,6 +47,10 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     @FXML
     private Button thirdRowFirstColumnBtn, thirdRowSecondColumnBtn, thirdRowThirdColumnBtn, thirdRowFourthColumnBtn;
 
+    /**
+     * Simple constructor of the class
+     * @param modelView the current modelView that helps keeping the images updated.
+     */
     public DevcardPopupDisplayScene(ModelView modelView){
         stage = new Stage();
         this.modelView = modelView;
@@ -76,6 +84,10 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         thirdRowFourthColumnBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdRowFourthColumnBtnClicked);
     }
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -90,6 +102,10 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         stage.close();
     }
 
+    /**
+     * Twelve methods to manage the click on the cards. They are used to select a card.
+     * @param event the mouseevent we provide in the initialize method
+     */
     private void whenFirstRowFirstColumnBtnClicked(MouseEvent event){
         disableAll();
 
@@ -222,6 +238,9 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         stage.close();
     }
 
+    /**
+     * Simple disables all the buttons to prevent multiple clicks
+     */
     public void disableAll(){
         firstRowFirstColumnBtn.setDisable(true);
         firstRowSecondColumnBtn.setDisable(true);
@@ -236,14 +255,12 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         thirdRowFourthColumnBtn.setDisable(true);
     }
 
-    public void showPopUp(){
-        stage.show();
-    }
-
-    public void setScene(Scene scene){
-        stage.setScene(scene);
-    }
-
+    /**
+     * Sets the image of a DevCard.
+     * @param devCard the DevCard that we use in the matching system. We take some attributes with getters
+     * and we named the file in a way it matches it.
+     * @return an ImageView that will be added to the Grid
+     */
     public ImageView setDevCardImage(DevCard devCard){
         ImageView devImage = new ImageView();
         Image image = new Image("/front/devcard_" + "color-"
@@ -258,6 +275,9 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         return devImage;
     }
 
+    /**
+     * Adds one by one the images to the Grid and shows them
+     */
     public void setDevCardImages(){
 
         for (int i = 0; i < 3 ; i++) {
@@ -266,6 +286,17 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
             }
         }
+    }
+
+    /**
+     * These two methods are called to manage the popup scene
+     */
+    public void showPopUp(){
+        stage.show();
+    }
+
+    public void setScene(Scene scene){
+        stage.setScene(scene);
     }
 
 }

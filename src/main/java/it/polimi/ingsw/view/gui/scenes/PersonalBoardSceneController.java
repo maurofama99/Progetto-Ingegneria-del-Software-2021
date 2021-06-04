@@ -1,12 +1,10 @@
 package it.polimi.ingsw.view.gui.scenes;
 
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.scene.image.Image;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -100,7 +98,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenThirdPlayerBtnClicked(MouseEvent event) {
         Platform.runLater(()->{
-            ShowOthersSceneController sosc = new ShowOthersSceneController(thirdPlayerNick);
+            ShowOthersPopupController sosc = new ShowOthersPopupController(thirdPlayerNick);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
         });
@@ -108,7 +106,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenSecondPlayerBtnClicked(MouseEvent event) {
         Platform.runLater(()->{
-            ShowOthersSceneController sosc = new ShowOthersSceneController(secondPlayerNick);
+            ShowOthersPopupController sosc = new ShowOthersPopupController(secondPlayerNick);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
         });
@@ -116,7 +114,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenFirstPlayerBtnClicked(MouseEvent event) {
         Platform.runLater(()->{
-            ShowOthersSceneController sosc = new ShowOthersSceneController(firstPlayerNick);
+            ShowOthersPopupController sosc = new ShowOthersPopupController(firstPlayerNick);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
         });

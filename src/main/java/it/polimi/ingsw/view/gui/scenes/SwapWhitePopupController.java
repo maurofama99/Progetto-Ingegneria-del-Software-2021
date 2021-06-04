@@ -57,6 +57,10 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
         shieldBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShieldClicked);
     }
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -107,6 +111,9 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
         shieldBtn.setDisable(true);
     }
 
+    /**
+     * These two methods are called to manage the popup scene
+     */
     public void showPopUp(){
         stage.showAndWait();
     }

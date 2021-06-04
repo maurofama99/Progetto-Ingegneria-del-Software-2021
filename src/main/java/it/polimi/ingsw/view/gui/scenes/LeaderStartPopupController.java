@@ -21,7 +21,10 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
-public class LeaderStartSceneController extends ClientObservable implements GenericPopupController {
+/**
+ * Popup at the start and end of each turn, that asks if the player wants to activate a leader card
+ */
+public class LeaderStartPopupController extends ClientObservable implements GenericPopupController {
 
     @FXML
     private BorderPane rootPane;
@@ -50,7 +53,13 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     private boolean first=true;
     private boolean isEndTurn;
 
-    public LeaderStartSceneController(ArrayList<LeaderCard> leaderCards, boolean isEndTurn, ModelView modelView) {
+    /**
+     * Constructor of the class
+     * @param leaderCards the two leader cards of the player
+     * @param isEndTurn check if it is the end of the turn
+     * @param modelView the updated model view
+     */
+    public LeaderStartPopupController(ArrayList<LeaderCard> leaderCards, boolean isEndTurn, ModelView modelView) {
         this.leaderCards = leaderCards;
         this.isEndTurn = isEndTurn;
         this.modelView = modelView;
@@ -68,6 +77,10 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
 
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -78,30 +91,50 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         stage.setY(event.getSceneY() +y_Offset);
     }
 
+    /**
+     * Check the requirements and activates the first leader card
+     * @param event the event in the initialize
+     */
     private void whenActivateLeaderButton1Clicked(MouseEvent event){
         notifyObservers(new ActivateLeader(0, isEndTurn));
         disableAll();
         stage.close();
     }
 
+    /**
+     * discards the first leader card and gives a faithpoint
+     * @param event the event in the initialize
+     */
     private void whenDiscardLeaderBtn1Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(0, isEndTurn));
         disableAll();
         stage.close();
     }
 
+    /**
+     * Check the requirements and activates the second leader card
+     * @param event the event in the initialize
+     */
     private void whenActivateLeaderButton2Clicked(MouseEvent event){
         notifyObservers(new ActivateLeader(1, isEndTurn));
         disableAll();
         stage.close();
     }
 
+    /**
+     * discards the second leader card and gives a faith point
+     * @param event the event in the initialize
+     */
     private void whenDiscardLeaderBtn2Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(1, isEndTurn));
         disableAll();
         stage.close();
     }
 
+    /**
+     * Closes the popup
+     * @param event the event in the initialize
+     */
     private void whenDoneBtn2Clicked(MouseEvent event){
 
         if (!isEndTurn) {
@@ -115,6 +148,9 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     }
 
+    /**
+     * Disables all buttons two prevent double input
+     */
     public void disableAll(){
         activateLeaderBtn1.setDisable(true);
         discardLeaderBtn1.setDisable(true);
@@ -122,7 +158,11 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         discardLeaderBtn2.setDisable(true);
     }
 
-
+    /**
+     * Same as the LeaderCardChoosingController, these two methods sets the images of the cards
+     * @param leaderCard the leader card to set
+     * @return an Image of the leader card
+     */
     public Image setLeaderImage(LeaderCard leaderCard){
         return new Image("/front/leader_" + leaderCard.getLeaderEffect()+".png");
     }
@@ -142,6 +182,9 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         }
     }
 
+    /**
+     * These two methods are called to manage the popup scene
+     */
     public void showPopUp(){
         stage.show();
     }

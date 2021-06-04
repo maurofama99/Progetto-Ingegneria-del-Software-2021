@@ -51,6 +51,10 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
         rightSlot.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenRightSlotClicked);
     }
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -76,13 +80,6 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
         stage.close();
     }
 
-    public void showPopUp(){
-        stage.show();
-    }
-
-    public void setScene(Scene scene){
-        stage.setScene(scene);
-    }
 
     public void setImages(){
         if (modelView.getSlots()[0].getShowedCard() !=null){
@@ -105,6 +102,17 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
                     + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
                     + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
         }
+    }
+
+    /**
+     * These two methods are called to manage the popup scene
+     */
+    public void showPopUp(){
+        stage.show();
+    }
+
+    public void setScene(Scene scene){
+        stage.setScene(scene);
     }
 
 

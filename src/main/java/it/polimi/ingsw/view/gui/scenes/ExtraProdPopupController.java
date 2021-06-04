@@ -46,6 +46,10 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
 
     }
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -56,6 +60,9 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
         stage.setY(event.getSceneY()+y_Offset);
     }
 
+    /**
+     * These two methods are called to manage the popup scene
+     */
     public void showPopUp(){
         stage.show();
     }

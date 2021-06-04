@@ -20,6 +20,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * The controller of the depot popup, which is the popup for when the player receives a resource that has to be placed
+ * in the depot.
+ */
 public class DepoPopupController extends ClientObservable implements GenericPopupController {
 
     private Stage stage;
@@ -85,6 +89,10 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         discardBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardBtnClicked);
     }
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -95,26 +103,41 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         stage.setY(event.getSceneY()+y_Offset);
     }
 
+    /**
+     * Manages the click at the first level of the depot. Sends the resource there, if it is free or
+     * if it has the same type of resource placed there.
+     * @param event the event chosen in the initialize() method
+     */
     private void whenFirstLevelBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "3"));
         stage.close();
     }
 
-
+    /**
+     * Manages the click at the second level of the depot. Sends the resource there, if it is free
+     * or if it has the same type of resource placed
+     * @param event the event chosen in the initialize() method
+     */
     private void whenSecondLevelBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "2"));
         stage.close();
     }
 
-
+    /**
+     * Manages the click at the third level of the depot. Sends the resource there, if it is free
+     * @param event the event chosen in the initialize() method
+     */
     private void whenThirdLevelBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "1"));
         stage.close();
     }
-
+    /**
+     * Opens the switch popup to ask the player if he wants to switch the resource from a floor to another
+     * @param event the event chosen in the initialize() method
+     */
     public void whenSwitchBtnClicked(MouseEvent event){
         disableAll();
         stage.close();
@@ -125,19 +148,28 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         });
 
     }
-
+    /**
+     * Opens the extra depot provided by the leader cards, if possible
+     * @param event the event chosen in the initialize() method
+     */
     public void whenExtraBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "extra"));
         stage.close();
     }
-
+    /**
+     * Discard the resource taken by the player. It makes other players' cross move forward
+     * @param event the event chosen in the initialize() method
+     */
     public void whenDiscardBtnClicked(MouseEvent event){
         disableAll();
         notifyObservers(new ResourcePlacement("nickname", "discard"));
         stage.close();
     }
 
+    /**
+     * Simple disable for all the buttons after a click
+     */
     public void disableAll(){
         switchBtn.setDisable(true);
         extraBtn.setDisable(true);
@@ -150,14 +182,27 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         thirdLevelBtn.setDisable(true);
     }
 
+    /**
+     * Matches the resource name to its image
+     * @param resource the resource present at that time, in that spot.
+     */
     public void setResourceImage(Resource resource) {
         resourceImg.setImage(new Image("/punchboard/resources/"+resource.toStringGui()+".png"));
     }
 
+    /**
+     * Sets the image in the spot of the depot
+     * @param resource resource present
+     * @param spot the depot spot to set
+     */
     public void setFloorImg(Resource resource, ImageView spot) {
         spot.setImage(new Image("/punchboard/resources/"+resource.toStringGui()+".png"));
     }
 
+    /**
+     * Initialize and updates everytime the images of the depot popup, so the player can actually see the
+     * resource spawn in the depot. It uses the ModelView to update it.
+     */
     private void setDepotImage(){
         if (!modelView.getWarehouse().getFloors().get(0).getType().equals(ResourceType.NULLRESOURCE)){
             setFloorImg(modelView.getWarehouse().getFloors().get(0), thirdLevel);
@@ -185,9 +230,13 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
         }
     }
 
+    /**
+     * These two methods are called to manage the popup scene
+     */
     public void showPopUp(){
         stage.show();
     }
+
     public void setScene(Scene scene){
         stage.setScene(scene);
     }

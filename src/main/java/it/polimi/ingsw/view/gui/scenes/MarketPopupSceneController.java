@@ -86,10 +86,10 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
 
     }
 
-    private void whenBackBtnClicked(MouseEvent event){
-        stage.close();
-    }
-
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -98,6 +98,10 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     private void whenRootPaneDragged(MouseEvent event){
         stage.setX(event.getScreenX() +x_Offset);
         stage.setY(event.getSceneY()+y_Offset);
+    }
+
+    private void whenBackBtnClicked(MouseEvent event){
+        stage.close();
     }
 
     private void whenColumn1BtnClicked(MouseEvent event){
@@ -153,13 +157,7 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
         column4Btn.setDisable(disable);
     }
 
-    public void showPopUp(){
-        stage.showAndWait();
-    }
 
-    public void setScene(Scene scene){
-        stage.setScene(scene);
-    }
 
     public ImageView setMarble(ResourceType resource){
 
@@ -202,6 +200,17 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
             }
         }
 
+    }
+
+    /**
+     * These two methods are called to manage the popup scene
+     */
+    public void showPopUp(){
+        stage.showAndWait();
+    }
+
+    public void setScene(Scene scene){
+        stage.setScene(scene);
     }
 
 }

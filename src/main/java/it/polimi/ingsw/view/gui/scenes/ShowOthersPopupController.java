@@ -18,7 +18,7 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
-public class ShowOthersSceneController extends ClientObservable implements GenericPopupController {
+public class ShowOthersPopupController extends ClientObservable implements GenericPopupController {
 
     private Stage stage;
     private final String player;
@@ -74,7 +74,7 @@ public class ShowOthersSceneController extends ClientObservable implements Gener
     @FXML
     private Button closeBtn;
 
-    public ShowOthersSceneController(String nickname) {
+    public ShowOthersPopupController(String nickname) {
         this.player = nickname;
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());

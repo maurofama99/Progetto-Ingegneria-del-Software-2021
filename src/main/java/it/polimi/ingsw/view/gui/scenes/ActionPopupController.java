@@ -13,6 +13,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * This a Popup Controller interface, which manages the Action Popup. It asks the player the action he wants to
+ * do at the start of the turn.
+ */
 public class ActionPopupController extends ClientObservable implements GenericPopupController {
 
     private final Stage stage;
@@ -30,6 +34,10 @@ public class ActionPopupController extends ClientObservable implements GenericPo
     @FXML
     private Button productionBtn;
 
+    /**
+     * Constructor of the class
+     * @param modelView the current ModelView of the table
+     */
     public ActionPopupController(ModelView modelView){
         stage = new Stage();
         this.modelView = modelView;
@@ -50,6 +58,10 @@ public class ActionPopupController extends ClientObservable implements GenericPo
         productionBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenProductionButtonClicked);
     }
 
+    /**
+     * These two methods manages the tracking process of the window.
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
         y_Offset = stage.getY() - event.getScreenY();
@@ -60,6 +72,10 @@ public class ActionPopupController extends ClientObservable implements GenericPo
         stage.setY(event.getSceneY()+y_Offset);
     }
 
+    /**
+     * Takes the player to the market
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenMarketButtonClicked(MouseEvent event){
         Platform.runLater(() -> {
             MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView, true);
@@ -69,6 +85,10 @@ public class ActionPopupController extends ClientObservable implements GenericPo
         stage.close();
     }
 
+    /**
+     * Takes the player to the dev cards buy window
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenBuyButtonClicked(MouseEvent event){
         Platform.runLater(() -> {
             DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView);
@@ -78,6 +98,10 @@ public class ActionPopupController extends ClientObservable implements GenericPo
         stage.close();
     }
 
+    /**
+     * Takes the player to the production popup to let him choose the cards
+     * @param event the mouse event selected in the initialize method
+     */
     private void whenProductionButtonClicked(MouseEvent event){
         Platform.runLater(() -> {
             ProductionPopupSceneController ppsc = new ProductionPopupSceneController(modelView);
@@ -87,6 +111,9 @@ public class ActionPopupController extends ClientObservable implements GenericPo
         stage.close();
     }
 
+    /**
+     * These two methods are called to manage the popup scene
+     */
     public void showPopUp(){
         stage.showAndWait();
     }

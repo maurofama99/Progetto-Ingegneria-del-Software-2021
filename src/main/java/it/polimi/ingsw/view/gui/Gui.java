@@ -5,15 +5,12 @@ import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
-import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.client.Client;
-import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
-import it.polimi.ingsw.observerPattern.Observable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.scenes.*;
@@ -130,7 +127,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
         Platform.runLater(()-> {
-            LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, true, modelView);
+            LeaderStartPopupController lssc = new LeaderStartPopupController(leaderCards, true, modelView);
             lssc.addAllClientObservers(clientObservers);
             SceneController.showPopup(lssc, "leader_popup.fxml");
         });
@@ -139,7 +136,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
         Platform.runLater(()-> {
-            LeaderStartSceneController lssc = new LeaderStartSceneController(leaderCards, isEndTurn, modelView);
+            LeaderStartPopupController lssc = new LeaderStartPopupController(leaderCards, isEndTurn, modelView);
             lssc.addAllClientObservers(clientObservers);
             SceneController.showPopup(lssc, "leader_popup.fxml");
         });
