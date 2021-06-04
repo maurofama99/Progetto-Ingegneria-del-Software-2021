@@ -25,6 +25,7 @@ public class ModelView {
     private FaithTrack faithTrack;
     private SerializableWarehouse warehouse;
     private ArrayList<LeaderCard> leaderCards;
+    private ArrayList<LeaderCard> activeLeaderCards = new ArrayList<>();
     private HashMap<String, PersonalBoard> othersPersonalBoards = new HashMap<>();
 
     public ModelView(Cli cli) {
@@ -49,6 +50,10 @@ public class ModelView {
 
     public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
+    }
+
+    public ArrayList<LeaderCard> getActiveLeaderCards() {
+        return activeLeaderCards;
     }
 
     public void setWarehouse(SerializableWarehouse warehouse) {
@@ -85,6 +90,10 @@ public class ModelView {
 
     public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
         this.leaderCards = leaderCards;
+    }
+
+    public void setActiveLeaderCards(ArrayList<LeaderCard> activeLeaderCards) {
+        this.activeLeaderCards = activeLeaderCards;
     }
 
     public void addOthersPB (String name, FaithTrack fT, Slot[] s, SerializableWarehouse wH, ArrayList<LeaderCard> lC){

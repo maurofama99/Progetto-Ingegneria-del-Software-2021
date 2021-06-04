@@ -420,11 +420,12 @@ public class Cli extends ClientObservable implements View {
         if (action.equalsIgnoreCase("ACTIVATE")) {
             System.out.print("Choose the leader card you want to activate (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
-            notifyObservers(new ActivateLeader(index - 1));
+            modelView.getActiveLeaderCards().add(leaderCards.get(index-1));
+            notifyObservers(new ActivateLeader(index - 1, isEndTurn));
         } else if (action.equalsIgnoreCase("DISCARD")){
             System.out.print("Choose the leader card you want to discard (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
-            notifyObservers(new DiscardOneLeader(index - 1));
+            notifyObservers(new DiscardOneLeader(index - 1, isEndTurn));
         } else if (action.equalsIgnoreCase("NO")){
             afterLeaderAction(isEndTurn, leaderCards);
         }
@@ -447,7 +448,7 @@ public class Cli extends ClientObservable implements View {
 
     public void afterLeaderAction(boolean trueOrFalse, ArrayList<LeaderCard> leaderCards) throws IOException {
         if (!trueOrFalse)
-            fetchPlayerAction("\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)\n");
+            fetchPlayerAction("\nWhat do you want to do now? (Type MARKET, PRODUCTION, BUY)\n");
         else
             fetchDoneAction("Type DONE", leaderCards);
     }

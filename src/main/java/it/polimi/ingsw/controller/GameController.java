@@ -296,7 +296,7 @@ public class GameController implements Observer, Serializable {
                 new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
 
         if (table.getCurrentPlayer().getLeaderCards().size() > 0)
-            vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards());
+            vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards(), false);
         else
             vv.fetchPlayerAction();
     }

@@ -34,17 +34,9 @@ public class ShowOthersSceneController extends ClientObservable implements Gener
     private ImageView inkwell;
     //Depot
     @FXML
-    private ImageView firstLevelLeft;
+    private ImageView firstLevelLeft, firstLevelCenter, firstLevelRight, secondLevelLeft;
     @FXML
-    private ImageView firstLevelCenter;
-    @FXML
-    private ImageView firstLevelRight;
-    @FXML
-    private ImageView secondLevelLeft;
-    @FXML
-    private ImageView secondLevelRight;
-    @FXML
-    private ImageView thirdLevel;
+    private ImageView secondLevelRight, thirdLevel;
     //End of depot
     //Slots
     @FXML
@@ -64,20 +56,12 @@ public class ShowOthersSceneController extends ClientObservable implements Gener
     @FXML
     private ImageView tile_18 ,tile_19, tile_20, tile_21, tile_22, tile_23 ,tile_24;
     @FXML
-    private ImageView firstPopeTile;
-    @FXML
-    private ImageView secondPopeTile;
-    @FXML
-    private ImageView thirdPopeTile;
+    private ImageView firstPopeTile, secondPopeTile, thirdPopeTile;
     //End of FaithTrack
     @FXML
-    private Button showMarketBtn = new Button();
+    private Button showMarketBtn, showDevCardsBtn, firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
     @FXML
-    private Button showDevCardsBtn, firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
-    @FXML
-    private ImageView leaderLeft;
-    @FXML
-    private ImageView leaderRight;
+    private ImageView leaderLeft, leaderRight;
     @FXML
     private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
 

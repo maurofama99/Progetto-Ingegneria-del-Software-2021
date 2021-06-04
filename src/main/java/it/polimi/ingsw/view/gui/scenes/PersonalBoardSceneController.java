@@ -91,9 +91,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         setFaithTrackImages();
         setSlotImages();
         setImagesStrongBox();
+        setLeaderImages();
 
-        leaderLeft.setImage(new Image("/back/leader-back.png"));
-        leaderRight.setImage(new Image("/back/leader-back.png"));
 
         showDevCardsBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowDevCardsBtnClicked);
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
@@ -275,6 +274,23 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         }
 
 
+    }
+
+    public void setLeaderImages(){
+        if (modelView.getActiveLeaderCards().size()==0){
+            leaderLeft.setImage(new Image("/back/leader-back.png"));
+            leaderRight.setImage(new Image("/back/leader-back.png"));
+        }
+
+        else if (modelView.getActiveLeaderCards().size()==1){
+            leaderLeft.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderRight.setImage(new Image("/back/leader-back.png"));
+        }
+
+        else {
+            leaderLeft.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderRight.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(1).getLeaderEffect().toString()+".png"));
+        }
     }
 
 

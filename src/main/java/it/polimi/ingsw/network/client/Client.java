@@ -231,13 +231,13 @@ public class Client implements Runnable, ClientObserver {
                 break;
             case NORESOURCE_AVAILABLE:
                 view.fetchPlayerAction("\nYou don't have the requirements to do your action!!" +
-                        "\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)\n");
+                        "\nWhat do you want to do now? (Type MARKET, PRODUCTION, BUY)\n");
                 break;
             case ASK_SWAP_WHITE:
                 view.fetchSwapWhite(((AskSwapWhite)msg).getType1(), ((AskSwapWhite)msg).getType2());
                 break;
             case ASK_PLAYLEADER:
-                view.fetchPlayLeader(((AskPlayLeader)msg).getLeaderCardsNotActivated(), false);
+                view.fetchPlayLeader(((AskPlayLeader)msg).getLeaderCardsNotActivated(), ((AskPlayLeader)msg).isEndTurn());
                 break;
             case TURN_TOKEN:
                 view.displayToken(((TurnToken)msg).getToken());

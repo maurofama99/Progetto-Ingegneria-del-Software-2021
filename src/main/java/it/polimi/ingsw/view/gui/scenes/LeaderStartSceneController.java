@@ -23,9 +23,29 @@ import java.util.ArrayList;
 
 public class LeaderStartSceneController extends ClientObservable implements GenericPopupController {
 
+    @FXML
+    private BorderPane rootPane;
+    @FXML
+    private Button activateLeaderBtn1, discardLeaderBtn1, activateLeaderBtn2, discardLeaderBtn2;
+    @FXML
+    private Button doneBtn2;
+    @FXML
+    private ImageView leader1, leader2;
+
+    @FXML
+    public void initialize(){
+        setImages();
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
+        activateLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton1Clicked);
+        discardLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardLeaderBtn1Clicked);
+        activateLeaderBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton2Clicked);
+        discardLeaderBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardLeaderBtn2Clicked);
+        doneBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDoneBtn2Clicked);
+    }
+
     private Stage stage;
     private ModelView modelView;
-    private int index;
     private ArrayList<LeaderCard> leaderCards;
     private boolean first=true;
     private boolean isEndTurn;
@@ -43,37 +63,10 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
         y_Offset = 0;
     }
 
-    private double x_Offset = 0;
-    private double y_Offset = 0;
+    private double x_Offset;
+    private double y_Offset;
 
-    @FXML
-    private BorderPane rootPane;
-    @FXML
-    private Button activateLeaderBtn1;
-    @FXML
-    private Button discardLeaderBtn1;
-    @FXML
-    private Button activateLeaderBtn2;
-    @FXML
-    private Button discardLeaderBtn2;
-    @FXML
-    private Button doneBtn2;
-    @FXML
-    private ImageView leader1;
-    @FXML
-    private ImageView leader2;
 
-    @FXML
-    public void initialize(){
-        setImages();
-        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
-        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
-        activateLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton1Clicked);
-        discardLeaderBtn1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardLeaderBtn1Clicked);
-        activateLeaderBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenActivateLeaderButton2Clicked);
-        discardLeaderBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDiscardLeaderBtn2Clicked);
-        doneBtn2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDoneBtn2Clicked);
-    }
 
     private void whenRootPanePressed(MouseEvent event){
         x_Offset = stage.getX() - event.getScreenX();
@@ -82,26 +75,26 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
 
     private void whenRootPaneDragged(MouseEvent event){
         stage.setX(event.getScreenX() +x_Offset);
-        stage.setY(event.getSceneY()+y_Offset);
+        stage.setY(event.getSceneY() +y_Offset);
     }
 
     private void whenActivateLeaderButton1Clicked(MouseEvent event){
-        notifyObservers(new ActivateLeader(0));
+        notifyObservers(new ActivateLeader(0, isEndTurn));
         disableAll();
     }
 
     private void whenDiscardLeaderBtn1Clicked(MouseEvent event){
-        notifyObservers(new DiscardOneLeader(0));
+        notifyObservers(new DiscardOneLeader(0, isEndTurn));
         disableAll();
     }
 
     private void whenActivateLeaderButton2Clicked(MouseEvent event){
-        notifyObservers(new ActivateLeader(1));
+        notifyObservers(new ActivateLeader(1, isEndTurn));
         disableAll();
     }
 
     private void whenDiscardLeaderBtn2Clicked(MouseEvent event){
-        notifyObservers(new DiscardOneLeader(1));
+        notifyObservers(new DiscardOneLeader(1, isEndTurn));
         disableAll();
     }
 
@@ -131,7 +124,10 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     }
 
     public void setImages(){
-        if (leaderCards.size()==1){
+        if (leaderCards.size()==0){
+            disableAll();
+        }
+        else if (leaderCards.size()==1){
             leader1.setImage(setLeaderImage(leaderCards.get(0)));
             activateLeaderBtn2.setDisable(true);
             discardLeaderBtn2.setDisable(true);

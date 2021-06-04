@@ -42,7 +42,7 @@ public class PlayerController {
         return gameController.getVvMap().get(gameController.getTable().getCurrentPlayer().getNickname());
     }
 
-    public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
+    public void receiveMessage(Message msg) throws IOException, CloneNotSupportedException {
 
         switch (playerAction){
             case GOTO_MARKET:
@@ -293,14 +293,12 @@ public class PlayerController {
         catch (IllegalArgumentException e){
             playerVV().displayGenericMessage("You don't have the requirements to activate it");
             playerVV().displayPopup("You don't have the requirements to activate it");
-            playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+            playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards(), ((ActivateLeader)msg).isEndTurn());
             trueOrFalse = false;
         }
 
         if (trueOrFalse) {
-            // da aggiungere nella personal board playerVV().displayGenericMessage("\nYou activated these leader cards!\n");
-
-            playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+            playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards(), ((ActivateLeader)msg).isEndTurn());
         }
     }
 
@@ -308,7 +306,7 @@ public class PlayerController {
         gameController.getTable().getCurrentPlayer().getLeaderCards().remove(((DiscardOneLeader)msg).getLeaderCard());
         getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
         displayPB();
-        playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards());
+        playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards(), ((DiscardOneLeader)msg).isEndTurn());
 
     }
 
@@ -352,9 +350,9 @@ public class PlayerController {
             }
         }
 
-        else
+        else {
             playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
-
+        }
 
         displayPB();
         playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());

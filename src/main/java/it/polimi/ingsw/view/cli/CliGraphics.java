@@ -271,14 +271,14 @@ public class CliGraphics {
         String vp;
 
         if (devCard==null){
-            s =     "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕                     ▏\n" +
-                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n";
+            s =     CliColor.RESET + "▕▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▏\n" +
+                    CliColor.RESET + "▕                     ▏\n" +
+                    CliColor.RESET + "▕                     ▏\n" +
+                    CliColor.RESET + "▕                     ▏\n" +
+                    CliColor.RESET + "▕                     ▏\n" +
+                    CliColor.RESET + "▕                     ▏\n" +
+                    CliColor.RESET + "▕                     ▏\n" +
+                    CliColor.RESET + "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n";
         }
 
         else {
@@ -338,12 +338,12 @@ public class CliGraphics {
                 vp = "▁" + points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
 
             if (slots[0].getCards().size()==1) {
-                card0 = (printDevCard(slots[0].getShowedCard()) +
+                card0 = (printDevCard(slots[0].getShowedCard()) + CliColor.RESET +
                         "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
                         "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
-                card0 = (printDevCard(slots[0].getShowedCard()) +
+                card0 = (printDevCard(slots[0].getShowedCard()) + CliColor.RESET +
                         getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
                         "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
