@@ -246,7 +246,10 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     public ImageView setDevCardImage(DevCard devCard){
         ImageView devImage = new ImageView();
-        Image image = new Image("/front/devcard_" + "color-" + devCard.getCardColor() + "_level-" + devCard.getLevel() + "_vp-" + devCard.getVictoryPointsDevCard() + ".png");
+        Image image = new Image("/front/devcard_" + "color-"
+                + devCard.getCardColor() + "_level-"
+                + devCard.getLevel() + "_vp-"
+                + devCard.getVictoryPointsDevCard() + ".png");
         devImage.setImage(image);
         devImage.setPreserveRatio(false);
         devImage.setFitHeight(205);

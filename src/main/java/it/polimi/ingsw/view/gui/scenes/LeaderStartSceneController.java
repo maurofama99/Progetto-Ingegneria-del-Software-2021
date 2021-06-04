@@ -81,21 +81,25 @@ public class LeaderStartSceneController extends ClientObservable implements Gene
     private void whenActivateLeaderButton1Clicked(MouseEvent event){
         notifyObservers(new ActivateLeader(0, isEndTurn));
         disableAll();
+        stage.close();
     }
 
     private void whenDiscardLeaderBtn1Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(0, isEndTurn));
         disableAll();
+        stage.close();
     }
 
     private void whenActivateLeaderButton2Clicked(MouseEvent event){
         notifyObservers(new ActivateLeader(1, isEndTurn));
         disableAll();
+        stage.close();
     }
 
     private void whenDiscardLeaderBtn2Clicked(MouseEvent event){
         notifyObservers(new DiscardOneLeader(1, isEndTurn));
         disableAll();
+        stage.close();
     }
 
     private void whenDoneBtn2Clicked(MouseEvent event){

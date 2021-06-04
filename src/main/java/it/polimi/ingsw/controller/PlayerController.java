@@ -344,8 +344,11 @@ public class PlayerController {
                 gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
                 gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
                 countDevCards();
+                displayPB();
+                playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
             } catch (IllegalAccessException e ){
                 playerVV().displayGenericMessage(e.getMessage());
+                playerVV().displayPopup(e.getMessage());
                 playerVV().fetchPlayerAction();
             }
         }
@@ -354,8 +357,7 @@ public class PlayerController {
             playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
         }
 
-        displayPB();
-        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+
 
     }
 
