@@ -20,6 +20,11 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * This the main controller of a game. It has a player controller (or a singleplayer controller if that is the case)
+ * as attributes to manage the player actions and respond to them. It implements the observer interface since
+ * it has to answer to player updates and actions.
+ */
 public class GameController implements Observer, Serializable {
     private PlayerController playerController;
     private SinglePlayerController singlePlayerController;
@@ -37,6 +42,10 @@ public class GameController implements Observer, Serializable {
     private boolean condition = false;
     private int playerCounter=0; //to count how many players discarded leaderCards
 
+    /**
+     * Constructors of the class. If the game is for a single person, we overload the method.
+     * @param singlePlayerController the controller of the single player game.
+     */
     public GameController(SinglePlayerController singlePlayerController) {
         this.singlePlayerController = singlePlayerController;
         this.singlePlayer = true;
@@ -73,7 +82,15 @@ public class GameController implements Observer, Serializable {
         this.tableState = tableState;
     }
 
-
+    /**
+     * This method is used to know whether we are in a setup phase, game phase or end game phase. The setup is
+     * while we are preparing trays, cards... the game phase is the main phase of the game, the end is when someone wins
+     * or something makes the game end (such as a disconnection)
+     * @param msg the message received, changes the tableState.
+     * @throws IOException the input was wrong
+     * @throws IllegalAccessException if the message received is not about the phase we are into
+     * @throws CloneNotSupportedException if we are cloning stuff that shouldn't be cloned
+     */
     public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
 
         switch (tableState) {
@@ -89,6 +106,11 @@ public class GameController implements Observer, Serializable {
         }
     }
 
+    /**
+     * Starts the game, sending a start message to all the players joined and their personal boards (organized
+     * in an hashmap)
+     * @throws IOException something as interrupted the setup, a player has disconnected before hand...
+     */
     public void startGame() throws IOException {
         for (String key : vvMap.keySet()) {
             vvMap.get(key).displayGenericMessage("All the players joined the game.\n Game is loading...\n");
@@ -97,6 +119,11 @@ public class GameController implements Observer, Serializable {
         setUpGame();
     }
 
+    /**
+     * In the setup phase, this method is used to manage the bonus for the second, third and fourth player.
+     * @param msg the message received
+     * @throws IOException the input received generated an error
+     */
     public void receiveMessageOnSetup(Message msg) throws IOException {
         VirtualView vv = vvMap.get(msg.getSenderUser());
 
@@ -148,6 +175,10 @@ public class GameController implements Observer, Serializable {
 
     }
 
+    /**
+     * Gets tracks, slots and warehouses of each player and sets them up for each one.
+     * @throws IOException if something interrupts the setup
+     */
     public void setUpGame() throws IOException {
         for (Player player : table.getPlayers()) {
             player.getPersonalBoard().getFaithTrack().addObserver(this);
@@ -160,6 +191,10 @@ public class GameController implements Observer, Serializable {
 
     }
 
+    /**
+     * Gives the bonus resources for each player after first.
+     * @throws IOException if some error occurs while assigning the bonuses
+     */
     public void giveInitialBonus() throws IOException {
 
         vvMap.get(table.getPlayers().get(0).getNickname()).displayGenericMessage("You are the first player! \nYou now own the Inkwell!\n");
@@ -186,6 +221,14 @@ public class GameController implements Observer, Serializable {
         condition = true;
     }
 
+    /**
+     * Manages the action that a player can do in a game.
+     * @param msg the message contains what the player wants to do. Requirements are checked and if met, the actions
+     *            can be done
+     * @throws IOException if the action gets an error
+     * @throws IllegalAccessException if the actions is performed at the wrong moment
+     * @throws CloneNotSupportedException something is cloned, but it shouldn't be
+     */
     public void receiveMessageInGame(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         switch (msg.getMessageType()){
             case GOING_MARKET:
@@ -223,6 +266,14 @@ public class GameController implements Observer, Serializable {
         }
     }
 
+    /**
+     * The game finish when certain requirements in the rules are met. Players have one last turn each to get as many
+     * victory points and then we choose a winner
+     * @param msg the message received
+     * @throws IOException is some errors happen during the check
+     * @throws IllegalAccessException something is accessed at the wrong moment
+     * @throws CloneNotSupportedException we clone something that shouldn't be cloned
+     */
     public void receiveMessageOnEndGame(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
 
         if (msg.getMessageType().equals(Content.DONE_ACTION)){
@@ -282,7 +333,7 @@ public class GameController implements Observer, Serializable {
     /**
      * Sends information about the game at the beginning of a player's turn.
      * @param vv current player's virtual view
-     * @throws IOException
+     * @throws IOException if the input meets an error
      */
 
     public void askPlayerAction(VirtualView vv) throws IOException {

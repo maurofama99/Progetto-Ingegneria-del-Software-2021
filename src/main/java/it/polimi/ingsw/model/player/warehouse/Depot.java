@@ -9,16 +9,11 @@ import java.util.Optional;
 
 /**
  * Deposit of the player. Three floors with specific rules to be used. Second floors can be added by
- * leader cards eventually
+ * leader cards eventually. We use an index+1 to control the capacity of a floor only for the main three floors
  */
 public class Depot {
 
-    //il deposito è un arraylist di floor in cui i primi tre elementi sono rispettivamente 1st, 2nd e 3rd floor e si possono
-    //eventualmente aggiungere dinamicamente degli extra floor
-    //per controllare la capacità del piano si usa l'indice+1 solo per i primi 3 piani, gli eventuali restanti sono extradepot da 2 risorse
-
     private final ArrayList<Optional<Resource>> floors = new ArrayList<>();
-    //gli extra floors vengono inizializzati ad empty, la leader card ExtraDepot (quando attivata) provvederà a piazzare il tipo di risorsa con quantità 0
     private final ArrayList<Optional<Resource>> extraFloors = new ArrayList<>();
 
     public Depot() {

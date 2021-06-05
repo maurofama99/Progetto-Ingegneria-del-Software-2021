@@ -7,6 +7,9 @@ import it.polimi.ingsw.view.cli.CliGraphics;
 
 import java.io.Serializable;
 
+/**
+ * Action of the token that removes dev cards from the shop
+ */
 public class RemoveCardsAction implements TokenAction, Serializable {
 
     private Color devCardColor;

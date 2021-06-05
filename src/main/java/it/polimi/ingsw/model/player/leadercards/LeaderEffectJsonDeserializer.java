@@ -9,6 +9,14 @@ import java.lang.reflect.Type;
 
 public class LeaderEffectJsonDeserializer implements JsonDeserializer<LeaderEffect> {
 
+    /**
+     * Deserializer of the json for the leader card effects
+     * @param json the json file
+     * @param typeOf type of effect of the card
+     * @param context the context of the json deserialization
+     * @return
+     * @throws JsonParseException
+     */
     @Override
     public LeaderEffect deserialize(JsonElement json, Type typeOf, JsonDeserializationContext context) throws JsonParseException {
         String type = json.getAsJsonObject().get("effectType").getAsString();

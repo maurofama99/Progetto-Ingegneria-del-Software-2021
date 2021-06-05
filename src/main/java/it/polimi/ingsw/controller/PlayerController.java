@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.util.*;
 
 
-//gestisce tutti gli stati che il player può avere, comprese le mosse
+/**
+ * Manages all the states a player can have, including his moves
+ */
 
 public class PlayerController {
     private final GameController gameController;
@@ -27,7 +29,7 @@ public class PlayerController {
     private int cont = 0;
     private ResourceType typeInput1;
     private ResourceType typeInput2;
-    private ResourceType type1, type2; //usati per il dobbio swap
+    private ResourceType type1, type2; //used for the double swap-white action
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -42,6 +44,12 @@ public class PlayerController {
         return gameController.getVvMap().get(gameController.getTable().getCurrentPlayer().getNickname());
     }
 
+    /**
+     * Receives a message about what the player wants to do. Check the requirements and if met, the action is performed
+     * @param msg the message received by the client
+     * @throws IOException if the input is wrong
+     * @throws CloneNotSupportedException if something is cloned when it should not
+     */
     public void receiveMessage(Message msg) throws IOException, CloneNotSupportedException {
 
         switch (playerAction){
@@ -80,6 +88,12 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Manages the market action. After the player has chosen the line with the goToMarket method, this method
+     * manages the resource placement. Players can discard or switch the warehouse to make space for a resource.
+     * @param msg the message received by the client
+     * @throws IOException
+     */
     public void receiveMessageOnMarket(Message msg) throws IOException {
         switch (msg.getMessageType()) {
             case GOING_MARKET:
@@ -114,7 +128,7 @@ public class PlayerController {
                     }
                 }
                 else if (Integer.parseInt(answer) <= 3 && Integer.parseInt(answer) >= 1) {
-                    //aggiungi la risorsa al deposito
+                    //Add resource to warehouse
                     try {
                         getPlayerPB().getWarehouse().getDepot().addResourceToDepot(resources.get(resources.size() - 1), Integer.parseInt(((ResourcePlacement) msg).getFloor()));
                     } catch (IllegalArgumentException e) {
@@ -177,14 +191,19 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Manages the choosing of a line in the market
+     * @param msg the message by the client
+     * @throws IOException
+     */
     public void goToMarket(Message msg) throws IOException {
         int index  = ((GoingMarket)msg).getIndex();
         boolean rowOrCol = ((GoingMarket)msg).isRowOrColumn();
         boolean doubleSwap = false;
 
-        if (rowOrCol) { //selezione riga
+        if (rowOrCol) { //row selected
             resources.addAll(gameController.getTable().getMarketTray().selectRow(index));
-        } else { //selezione colonna
+        } else { //column selected
             resources.addAll(gameController.getTable().getMarketTray().selectColumn(index));
         }
 
@@ -195,10 +214,10 @@ public class PlayerController {
             }
         }
 
-        //applica effetto swap white se attivo
+        //Use swap-white effect if active
         if (getPlayerPB().hasEffect(EffectType.SWAPWHITE) && !doubleSwap){
             singleSwapWhite();
-        } else if (!doubleSwap){ //altrimenti togli le white resources
+        } else if (!doubleSwap){ //Removes white resources if swap-white is not active
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
         }
 
@@ -224,7 +243,7 @@ public class PlayerController {
         } else {
             type1 = ((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject()).getType();
             type2 = ((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject()).getType();
-            //conta quante biglie bianche ha selezionato
+            //Counts how many white resources you have picked up
             for (Resource resource : resources){
                 if (resource.getType().equals(ResourceType.WHITERESOURCE)) whiteCounter++;
             }
@@ -232,7 +251,7 @@ public class PlayerController {
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
             if (whiteCounter > 0){
                 playerVV().displayGenericMessage("You selected " + whiteCounter + " white marbles, now choose for each marble which Leader Card you want to use to transform it in a new resource!");
-                //devi chiedere whiteCounter volte al player che tipo di risorsa vuole tra type1 o type 2 e poi la aggiungi all'array di risorse resources
+               //Asks (white counter times) to the player the resource he wants, then adds them to the arraylist of resources picked up
                 playerVV().fetchSwapWhite(type1,type2);
             } else {
                 playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
@@ -245,6 +264,9 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Swap white effect is managed by this method
+     */
     private void singleSwapWhite(){
         for(LeaderCard leaderCard : getPlayerPB().getActiveLeaderCards()){
             if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
@@ -258,6 +280,9 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Since faith points are not a "real" resource, we added a filter. This method makes the faith cross move
+     */
     private void faithFilter() {
         for (Resource res : resources){
             if(res.getType().equals(ResourceType.FAITHPOINT)){
@@ -267,6 +292,10 @@ public class PlayerController {
         resources.removeIf(e -> e.getType().equals(ResourceType.FAITHPOINT));
     }
 
+    /**
+     * Lets the player put a resource in the extra depots provided by extra-depot effect leader cards
+     * @throws IOException
+     */
     public void extraDepotAlert() throws IOException {
         if (getPlayerPB().hasEffect(EffectType.EXTRADEPOT)){
             ResourceType extraDepotResource;
@@ -283,8 +312,11 @@ public class PlayerController {
         }
     }
 
-    //quando il giocatore decide di attivare una delle sue leader card
-    //devo mettere nella cli il display delle leader card
+    /**
+     * Activates a leader card (after checking the requirements)
+     * @param msg message received by the player
+     * @throws IOException
+     */
     public void activateLeaderCard(Message msg) throws IOException {
         boolean trueOrFalse = true;
         try {
@@ -362,6 +394,13 @@ public class PlayerController {
 
     }
 
+    /**
+     * Manages the production powers of the player. Asks for requirements and check if they are met, then puts
+     * the output in the strongbox.
+     * @param msg message received by the client
+     * @throws IOException
+     * @throws CloneNotSupportedException
+     */
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
         switch (msg.getMessageType()){
@@ -482,6 +521,10 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Player can discard resources but everything has a price. If the player perform that action, all other players get a faithpoint
+     * @param faithPoints how many steps the cross will make
+     */
     public void addFaithPointsToOpponents(int faithPoints){
         for(Player player : gameController.getTable().getPlayers()){
             if (gameController.isSinglePlayer()){
@@ -492,6 +535,10 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Counts the devcards of the player at the end of the game
+     * @throws IOException
+     */
     public void countDevCards() throws IOException {
         if (gameController.getTable().getCurrentPlayer().getCounterDevCards() == 7){
             gameController.setEndPlayerNumber(gameController.getTable().getCurrentPlayer().getTurnOrder());
@@ -502,6 +549,10 @@ public class PlayerController {
         }
     }
 
+    /**
+     * If someone wants to see your personal board, this methods send it to them
+     * @throws IOException
+     */
     public void sendPBToOthers() throws IOException {
         for (Player player: gameController.getTable().getPlayers()){
             if (!player.getNickname().equals(gameController.getTable().getCurrentPlayer().getNickname())){

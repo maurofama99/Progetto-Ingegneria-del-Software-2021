@@ -21,7 +21,9 @@ public class Deck implements Serializable {
     private ArrayList<DevCard> generalDeck;
 
 
-    //when Deck class is created, generalDeck is already setted with all the devCards
+    /**
+     * Deck contains all the devcards and the constructor uses a json file to create the card
+     */
     public Deck() {
         Gson gson = new Gson();
         int count = 0;

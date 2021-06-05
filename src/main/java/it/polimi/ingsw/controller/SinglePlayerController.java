@@ -70,6 +70,13 @@ public class SinglePlayerController{
         return devCardsRemoved;
     }
 
+    /**
+     * Receives a message in a singleplayer game.
+     * @param msg the message received
+     * @throws IOException
+     * @throws IllegalAccessException
+     * @throws CloneNotSupportedException
+     */
     public void receiveSPMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         switch(singlePlayerTableState){
             case SETUP:

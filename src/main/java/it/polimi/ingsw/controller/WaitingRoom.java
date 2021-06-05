@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Manages the player that enter in the game and acts differently based on how many are joining
+ */
 public class WaitingRoom {
 
     private ArrayList<Player> singlePlayerArray = new ArrayList<>();
