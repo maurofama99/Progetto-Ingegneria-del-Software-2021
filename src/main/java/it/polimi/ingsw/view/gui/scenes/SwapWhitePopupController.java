@@ -2,11 +2,15 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
+import it.polimi.ingsw.network.messagescs.SwappedResource;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -25,13 +29,13 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
     @FXML
     private StackPane rootPane;
     @FXML
-    private Button coinBtn;
+    private Button firstBtn;
     @FXML
-    private Button stoneBtn;
+    private Button secondBtn;
     @FXML
-    private Button servantBtn;
+    private ImageView firstResource;
     @FXML
-    private Button shieldBtn;
+    private ImageView secondResource;
 
 
     public SwapWhitePopupController(ResourceType ty1, ResourceType ty2){
@@ -51,10 +55,27 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
 
-        coinBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenCoinClicked);
-        stoneBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenStoneClicked);
-        servantBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenServantClicked);
-        shieldBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShieldClicked);
+        firstBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenFirstBtnPressed);
+        secondBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenSecondBtnPressed);
+
+        setResourceImages();
+    }
+
+    private void setResourceImages() {
+        firstResource.setImage(new Image("/punchboard/resources/"+ty1.getResourceName().toUpperCase()+".png"));
+        secondResource.setImage(new Image("/punchboard/resources/"+ty2.getResourceName().toUpperCase()+".png"));
+        firstBtn.setText(ty1.getResourceName());
+        secondBtn.setText(ty2.getResourceName());
+    }
+
+    private void whenSecondBtnPressed(MouseEvent event) {
+        notifyObservers(new SwappedResource("client", ty2.getResourceName()));
+        stage.close();
+    }
+
+    private void whenFirstBtnPressed(MouseEvent event) {
+        notifyObservers(new SwappedResource("client", ty1.getResourceName()));
+        stage.close();
     }
 
     /**
@@ -69,22 +90,6 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
     private void whenRootPaneDragged(MouseEvent event){
         stage.setX(event.getScreenX() +x_Offset);
         stage.setY(event.getSceneY()+y_Offset);
-    }
-
-    private void whenShieldClicked(MouseEvent event){
-
-    }
-
-    private void whenServantClicked(MouseEvent event){
-
-    }
-
-    private void whenCoinClicked(MouseEvent event){
-
-    }
-
-    private void whenStoneClicked(MouseEvent event){
-
     }
 
     /**

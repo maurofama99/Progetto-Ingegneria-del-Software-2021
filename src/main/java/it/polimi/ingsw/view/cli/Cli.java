@@ -144,11 +144,11 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException{
-        System.out.println("Do you want a " + type1 + " or a " + type2 + "?");
+        System.out.println("Do you want a " + type1.getResourceName() + " or a " + type2.getResourceName() + "?");
         Scanner scanner = new Scanner(System.in);
         String type = scanner.nextLine().replaceAll("\\s+","");
-        while (!(type.equalsIgnoreCase("servant")) && !(type.equalsIgnoreCase("shield")) && !(type.equalsIgnoreCase("stone")) && !(type.equalsIgnoreCase("coin")) ){
-            System.out.println("\nInvalid input\nDo you want a " + type1 + " or a " + type2 + "?");
+        while (!(type.equalsIgnoreCase(type1.getResourceName())) && !(type.equalsIgnoreCase(type2.getResourceName()))){
+            System.out.println("Invalid input\nDo you want a " + type1 + " or a " + type2 + "?");
             type = scanner.nextLine().replaceAll("\\s+","");
         }
         notifyObservers(new SwappedResource(nickname, type));

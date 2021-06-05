@@ -75,8 +75,6 @@ public class LeaderStartPopupController extends ClientObservable implements Gene
     private double x_Offset;
     private double y_Offset;
 
-
-
     /**
      * These two methods manages the tracking process of the window.
      * @param event the mouse event selected in the initialize method

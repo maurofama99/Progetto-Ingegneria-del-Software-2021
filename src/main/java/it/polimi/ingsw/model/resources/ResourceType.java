@@ -9,18 +9,28 @@ import com.google.gson.annotations.SerializedName;
 
 public enum ResourceType {
     @SerializedName("0")
-    SHIELD,
+    SHIELD("shield"),
     @SerializedName("1")
-    SERVANT,
+    SERVANT("servant"),
     @SerializedName("2")
-    COIN,
+    COIN("coin"),
     @SerializedName("3")
-    STONE,
+    STONE("stone"),
     @SerializedName("4")
-    WHITERESOURCE,
+    WHITERESOURCE("white resource"),
     @SerializedName("5")
-    FAITHPOINT,
+    FAITHPOINT("faith point"),
     @SerializedName("6")
-    NULLRESOURCE;
+    NULLRESOURCE("null resource");
+
+    private final String resourceName;
+
+    ResourceType(String value) {
+       resourceName = value;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
 
 }
