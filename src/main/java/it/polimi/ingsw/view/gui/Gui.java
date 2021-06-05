@@ -155,11 +155,11 @@ public class Gui extends ClientObservable implements View {
      * @param warehouse the depot
      */
     @Override
-    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
+    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse, ArrayList<LeaderCard> activeLeaderCards) {
         modelView.setFaithTrack(faithTrack);
         modelView.setSlots(slots);
         modelView.setWarehouse(warehouse);
-
+        modelView.setActiveLeaderCards(activeLeaderCards);
     }
 
     /**

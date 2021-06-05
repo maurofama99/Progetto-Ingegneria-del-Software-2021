@@ -518,7 +518,7 @@ public class PlayerController {
     public void displayPB () throws IOException {
         playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
                 getPlayerPB().getSlots(),
-                new SerializableWarehouse(getPlayerPB().getWarehouse()));
+                new SerializableWarehouse(getPlayerPB().getWarehouse()), getPlayerPB().getActiveLeaderCards());
     }
 
     public PersonalBoard getPlayerPB(){

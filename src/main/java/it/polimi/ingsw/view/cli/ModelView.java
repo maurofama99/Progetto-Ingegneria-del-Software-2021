@@ -28,6 +28,7 @@ public class ModelView {
     private ArrayList<LeaderCard> activeLeaderCards = new ArrayList<>();
     private HashMap<String, PersonalBoard> othersPersonalBoards = new HashMap<>();
 
+
     public ModelView(Cli cli) {
         this.cli = cli;
     }

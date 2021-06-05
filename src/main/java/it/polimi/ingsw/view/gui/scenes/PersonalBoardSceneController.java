@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.player.leadercards.EffectType;
+import it.polimi.ingsw.model.player.leadercards.ExtraDepot;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
@@ -19,6 +22,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     //TODO: assigning inkwell to first player
     //TODO: blackcross for singleplayer
     private ModelView modelView;
+    private ResourceType NResourceType = ResourceType.NULLRESOURCE;// upper card resource type if extra depot
+    private ResourceType SResourceType = ResourceType.NULLRESOURCE;// lower card resource type if extra depot
 
     private String firstPlayerNick, secondPlayerNick, thirdPlayerNick;
 
@@ -67,9 +72,9 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private Button showDevCardsBtn, firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
     @FXML
-    private ImageView leaderLeft;
+    private ImageView leaderLeft, NEResource, NWResource;
     @FXML
-    private ImageView leaderRight;
+    private ImageView leaderRight, SEResource, SWResource;
     @FXML
     private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
 
@@ -80,6 +85,17 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     public PersonalBoardSceneController(ModelView modelView) {
         this.modelView = modelView;
+
+        for (LeaderCard leaderCard : modelView.getActiveLeaderCards()){
+            if (leaderCard.getLeaderEffect().getEffectType() == EffectType.EXTRADEPOT){
+                if (modelView.getActiveLeaderCards().indexOf(leaderCard) == 0){
+                    NResourceType = (ResourceType) leaderCard.getLeaderEffect().getObject();
+                } else {
+                    SResourceType = (ResourceType) leaderCard.getLeaderEffect().getObject();
+                }
+            }
+        }
+
     }
 
     public void initialize(){
@@ -90,10 +106,32 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         setSlotImages();
         setImagesStrongBox();
         setLeaderImages();
-
+        setExtraDepotImages();
 
         showDevCardsBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowDevCardsBtnClicked);
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
+    }
+
+    private void setExtraDepotImages() {
+        if (NResourceType != ResourceType.NULLRESOURCE){ //significa che è attiva una leader card extra production
+            if (modelView.getWarehouse().getExtraFloors().get(0).getQnt()==1){
+                NWResource.setImage(new Image("/punchboard/resources/"+NResourceType.getResourceName().toUpperCase()+".png"));
+            }
+            else if (modelView.getWarehouse().getExtraFloors().get(0).getQnt()==2) {
+                NWResource.setImage(new Image("/punchboard/resources/"+NResourceType.getResourceName().toUpperCase()+".png"));
+                NEResource.setImage(new Image("/punchboard/resources/"+NResourceType.getResourceName().toUpperCase()+".png"));
+            }
+        }
+
+        if (SResourceType != ResourceType.NULLRESOURCE){ //significa che è attiva una leader card extra production
+            if (modelView.getWarehouse().getExtraFloors().get(1).getQnt()==1) {
+                SWResource.setImage(new Image("/punchboard/resources/"+SResourceType.getResourceName().toUpperCase()+".png"));
+            }
+            else if (modelView.getWarehouse().getExtraFloors().get(1).getQnt()==2) {
+                SWResource.setImage(new Image("/punchboard/resources/"+SResourceType.getResourceName().toUpperCase()+".png"));
+                SEResource.setImage(new Image("/punchboard/resources/"+SResourceType.getResourceName().toUpperCase()+".png"));
+            }
+        }
     }
 
     private void whenThirdPlayerBtnClicked(MouseEvent event) {

@@ -420,7 +420,6 @@ public class Cli extends ClientObservable implements View {
         if (action.equalsIgnoreCase("ACTIVATE")) {
             System.out.print("Choose the leader card you want to activate (insert index)\n>");
             int index = chooseLeader(leaderCards, scanner);
-            modelView.getActiveLeaderCards().add(leaderCards.get(index-1));
             notifyObservers(new ActivateLeader(index - 1, isEndTurn));
         } else if (action.equalsIgnoreCase("DISCARD")){
             System.out.print("Choose the leader card you want to discard (insert index)\n>");
@@ -470,10 +469,12 @@ public class Cli extends ClientObservable implements View {
     }
 
     @Override
-    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
+    public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse, ArrayList<LeaderCard> activeLeaderCards) {
         modelView.setSlots(slots);
         modelView.setWarehouse(warehouse);
         modelView.setFaithTrack(faithTrack);
+        modelView.setActiveLeaderCards(activeLeaderCards);
+        //setta le active leader cards (anche nella gui)
     }
 
     @Override

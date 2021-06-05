@@ -56,7 +56,7 @@ public interface View {
 
     void displayDevCards(DevCard[][] devCards) throws IOException;
 
-    void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse);
+    void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse, ArrayList<LeaderCard> activeLeaderCards);
 
     void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC);
 
@@ -79,7 +79,6 @@ public interface View {
 
     /**
      * Ending message when a player wins
-     * @param win message displayed
      */
     void displayWinningMsg();
 

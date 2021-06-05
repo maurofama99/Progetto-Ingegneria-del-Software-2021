@@ -220,7 +220,7 @@ public class Client implements Runnable, ClientObserver {
                 view.displayDevCards(((DisplayDevCards)msg).getShowedCards());
                 break;
             case DISPLAY_PERSONALBOARD:
-                view.displayPersonalBoard(((DisplayPersonalBoard)msg).getFaithTrack(), ((DisplayPersonalBoard)msg).getSlots(), ((DisplayPersonalBoard)msg).getSerializableWarehouse());
+                view.displayPersonalBoard(((DisplayPersonalBoard)msg).getFaithTrack(), ((DisplayPersonalBoard)msg).getSlots(), ((DisplayPersonalBoard)msg).getSerializableWarehouse(), ((DisplayPersonalBoard)msg).getActiveLeaderCards());
                 break;
             case DISPLAY_GUI_PERSONALBOARD:
                 view.displayGUIPersonalBoard(((DisplayGUIPersonalBoard)msg).getFaithTrack(), ((DisplayGUIPersonalBoard)msg).getSlots(), ((DisplayGUIPersonalBoard)msg).getSerializableWarehouse());

@@ -153,7 +153,7 @@ public class GameController implements Observer, Serializable {
             player.getPersonalBoard().getFaithTrack().addObserver(this);
             vvMap.get(player.getNickname()).displayPersonalBoard(player.getPersonalBoard().getFaithTrack(),
                     player.getPersonalBoard().getSlots(),
-                    new SerializableWarehouse(player.getPersonalBoard().getWarehouse()));
+                    new SerializableWarehouse(player.getPersonalBoard().getWarehouse()), player.getPersonalBoard().getActiveLeaderCards());
         }
         table.setPlayersInGame();
         giveInitialBonus();
@@ -293,7 +293,7 @@ public class GameController implements Observer, Serializable {
         vv.displayDeck(table.getDevCardsDeck().showedCards());
         vv.displayPersonalBoard(table.getCurrentPlayer().getPersonalBoard().getFaithTrack(),
                 table.getCurrentPlayer().getPersonalBoard().getSlots(),
-                new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()));
+                new SerializableWarehouse(table.getCurrentPlayer().getPersonalBoard().getWarehouse()), table.getCurrentPlayer().getPersonalBoard().getActiveLeaderCards());
 
         if (table.getCurrentPlayer().getLeaderCards().size() > 0)
             vv.fetchPlayLeader(table.getCurrentPlayer().getLeaderCards(), false);
