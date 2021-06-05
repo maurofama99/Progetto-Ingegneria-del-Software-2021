@@ -100,4 +100,8 @@ public class VirtualView implements Observer {
             clientHandler.sendMessage(message);
         }
     }
+
+    public void displayBasicProdPopup(int i, String s) throws IOException{
+        clientHandler.sendMessage(new BasicProd(i, s));
+    }
 }

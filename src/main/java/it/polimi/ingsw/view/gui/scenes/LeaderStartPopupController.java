@@ -142,8 +142,7 @@ public class LeaderStartPopupController extends ClientObservable implements Gene
             apc.addAllClientObservers(clientObservers);
             Platform.runLater(() -> SceneController.showPopup(apc, "action_popup.fxml"));
         }
-        else
-            notifyObservers(new DoneAction());
+        else notifyObservers(new DoneAction());
         stage.close();
 
     }

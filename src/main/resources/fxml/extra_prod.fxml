@@ -3,20 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <AnchorPane prefHeight="312.0" prefWidth="450.0" BorderPane.alignment="CENTER">
             <children>
-            <ImageView fitHeight="300.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="482.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../other/background/sfondo_popup.jpg" />
                </image>
             </ImageView>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="37.0" prefWidth="367.0" text="Message" />
-                <ImageView fx:id="leaderCard" fitHeight="211.0" fitWidth="168.0" layoutX="141.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="yesBtn" layoutX="42.0" layoutY="228.0" mnemonicParsing="false" text="Yes" />
-            <Button fx:id="noBtn" layoutX="370.0" layoutY="228.0" mnemonicParsing="false" text="No" />
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="106.0" layoutY="81.0" prefHeight="84.0" prefWidth="489.0" text="Do you also want to activate the production on your leader card?" textAlignment="CENTER" textFill="#4c19e4" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font></Label>
+                <ImageView fx:id="leaderCard" fitHeight="185.0" fitWidth="160.0" layoutX="270.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="yesBtn" layoutX="88.0" layoutY="369.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="161.0" text="Yes" />
+            <Button fx:id="noBtn" layoutX="451.0" layoutY="369.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="161.0" text="No" />
             </children>
         </AnchorPane>
     </top>

@@ -165,7 +165,7 @@ public class Cli extends ClientObservable implements View {
         String y_n = scanner.nextLine();
         y_n = y_n.replaceAll("\\s+","");
         while (!(y_n.equalsIgnoreCase("yes")) && !(y_n.equalsIgnoreCase("no"))){
-            System.out.println("\nInvalid input\n-type y/n");
+            System.out.println("\nInvalid input\n-type yes/no");
             y_n = scanner.nextLine().replaceAll("\\s+","");
         }
         if (y_n.equalsIgnoreCase("no"))
@@ -497,6 +497,11 @@ public class Cli extends ClientObservable implements View {
     public void forcedEnd(String nickname) {
         System.out.println(nickname + " left the game. The match ends now.");
         System.exit(0);
+    }
+
+    @Override
+    public void displayBasicProdPopup(int arrow, String message) {
+        //used onli in GUI mode
     }
 
 }

@@ -71,6 +71,7 @@ public class PlayerController {
                                 "|         Please wait...       |\n" +
                                 "|    It's not your turn yet    |\n" +
                                 "--------------------------------\n");
+                playerVV().displayGUIPersonalBoard(getPlayerPB().getFaithTrack(), getPlayerPB().getSlots(), new SerializableWarehouse(getPlayerPB().getWarehouse()));
                 playerVV().displayPopup("Please wait...\nIt's not your turn yet");
                 if (!gameController.isSinglePlayer()) sendPBToOthers();
                 gameController.getTable().nextPlayer();
@@ -396,11 +397,11 @@ public class PlayerController {
 
                 if (((ActivateProduction)msg).getBasic()==1){
                     cont=0;
-                    playerVV().displayGenericMessage("You can now spend two resources from floors to get one resource in Strongbox!: \n");
-                    playerVV().fetchResourceType();
+                    playerVV().displayGenericMessage("You can now spend two resources to get one in Strongbox!: \n");
+                    playerVV().fetchResourceType(); //fetch basic src 1
+                    //playerVV().displayPopup("Basic production activated, you can now spend two resources to get a new one in Strongbox!\nNow choose the first one");
+                    playerVV().displayBasicProdPopup(1,"Basic production activated, you can now spend two resources to get a new one in Strongbox!\n Now choose the first one");
                 }
-
-
 
                 else if (((ActivateProduction)msg).getBasic()==0) {
                     if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
@@ -439,16 +440,20 @@ public class PlayerController {
                 break;
 
             case RESOURCE_TYPE:
-                if (cont==0){
+                if (cont==0){ //fetch basic src 2
                     typeInput1 =((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
                     playerVV().fetchResourceType();
+                    //playerVV().displayPopup("Now choose the second");
+                    playerVV().displayBasicProdPopup(2,"Now choose the second");
                 }
-                else if (cont==1){
+                else if (cont==1){ //fetch basic dest
                     typeInput2 = ((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
                     playerVV().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!\n");
                     playerVV().fetchResourceType();
+                    //playerVV().displayPopup("\nNow you can choose a type of resource you want to place in StrongBox!\n");
+                    playerVV().displayBasicProdPopup(3,"Now you can choose a type of resource you want to place in StrongBox!");
                 }
                 else {
                     ResourceType typeOut = ((ResourceTypeChosen) msg).getResourceType();

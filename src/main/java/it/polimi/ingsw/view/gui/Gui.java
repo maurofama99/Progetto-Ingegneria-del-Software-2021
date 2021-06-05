@@ -62,12 +62,20 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) {
-
+        Platform.runLater(()-> {
+            SwapWhitePopupController swpc = new SwapWhitePopupController(type1, type2);
+            swpc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(swpc, "swap_white.fxml");
+        });
     }
 
     @Override
     public void fetchExtraProd(Resource resource) {
-
+        Platform.runLater(()-> {
+            ExtraProdPopupController eppc = new ExtraProdPopupController(resource, modelView);
+            eppc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(eppc, "extra_prod.fxml");
+        });
     }
 
     @Override
@@ -152,7 +160,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void displayMarket(MarketTray marketTray) {
         //Platform.runLater(()-> {
-           // MarketPopupSceneController marketPopupSceneController = new MarketPopupSceneController(modelView);
+            // MarketPopupSceneController marketPopupSceneController = new MarketPopupSceneController(modelView);
             modelView.setMarketTray(marketTray);
             //marketPopupSceneController.addAllClientObservers(clientObservers);
         //});
@@ -160,7 +168,7 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayWinningMsg() {
-        System.exit(0);
+
     }
 
     @Override
@@ -177,6 +185,15 @@ public class Gui extends ClientObservable implements View {
             SceneController.showPopup(psc, "popup_scene.fxml");
         });
         System.exit(0);
+    }
+
+    @Override
+    public void displayBasicProdPopup(int arrow, String message) {
+        Platform.runLater(()-> {
+            BasicProdPopupController bppc = new BasicProdPopupController(arrow, message);
+            bppc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(bppc, "basic_prod.fxml");
+        });
     }
 
     @Override

@@ -257,6 +257,10 @@ public class Client implements Runnable, ClientObserver {
                 break;
             case MATCH_FINISHED:
                 view.displayWinningMsg();
+                break;
+            case BASIC_PROD:
+                view.displayBasicProdPopup(((BasicProd)msg).getArrow(), ((BasicProd)msg).getMessage());
+                break;
         }
     }
 

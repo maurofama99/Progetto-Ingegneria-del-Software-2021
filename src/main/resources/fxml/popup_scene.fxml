@@ -21,7 +21,7 @@
                <font>
                   <Font name="System Bold" size="40.0" />
                </font></Label>
-            <Label fx:id="messageOfLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="120.0" prefHeight="178.0" prefWidth="453.0" styleClass="popupMessage" text="Generic message goes here!" textAlignment="CENTER">
+            <Label fx:id="messageOfLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="120.0" prefHeight="178.0" prefWidth="453.0" styleClass="popupMessage" text="Generic message goes here!" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="System Bold Italic" size="23.0" />
                </font></Label>

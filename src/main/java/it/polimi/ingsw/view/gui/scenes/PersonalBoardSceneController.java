@@ -123,7 +123,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenShowDevCardsBtnClicked(MouseEvent event){
         Platform.runLater(() -> {
-            DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView);
+            DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView, false);
             dpds.addAllClientObservers(clientObservers);
             SceneController.showPopup(dpds, "display_devcards.fxml");
         });

@@ -87,4 +87,5 @@ public interface View {
 
     void forcedEnd(String nickname);
 
+    void displayBasicProdPopup(int arrow, String message);
 }

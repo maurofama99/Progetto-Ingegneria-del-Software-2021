@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class LeaderCard implements Serializable {
 
     private int victoryPoints;
-    private  LeaderEffect leaderEffect;
+    private LeaderEffect leaderEffect;
 
     public LeaderCard(int victoryPoints, LeaderEffect leaderEffect) {
         this.victoryPoints = victoryPoints;

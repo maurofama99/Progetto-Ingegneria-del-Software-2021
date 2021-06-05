@@ -91,7 +91,7 @@ public class ActionPopupController extends ClientObservable implements GenericPo
      */
     private void whenBuyButtonClicked(MouseEvent event){
         Platform.runLater(() -> {
-            DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView);
+            DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView, true);
             dpds.addAllClientObservers(clientObservers);
             SceneController.showPopup(dpds, "display_devcards.fxml");
         });

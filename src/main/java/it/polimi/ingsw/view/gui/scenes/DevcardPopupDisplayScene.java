@@ -29,6 +29,8 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     private final Stage stage;
     private ModelView modelView;
+    private boolean interactive;
+
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -51,7 +53,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
      * Simple constructor of the class
      * @param modelView the current modelView that helps keeping the images updated.
      */
-    public DevcardPopupDisplayScene(ModelView modelView){
+    public DevcardPopupDisplayScene(ModelView modelView, boolean interactive){
         stage = new Stage();
         this.modelView = modelView;
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
@@ -60,10 +62,13 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
+        this.interactive = interactive;
     }
 
     public void initialize(){
         setDevCardImages();
+        if (interactive) backBtn.setDisable(true);
+        else disableAll();
 
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
@@ -249,6 +254,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
         secondRowFirstColumnBtn.setDisable(true);
         secondRowSecondColumnBtn.setDisable(true);
         secondRowThirdColumnBtn.setDisable(true);
+        secondRowFourthColumnBtn.setDisable(true);
         thirdRowFirstColumnBtn.setDisable(true);
         thirdRowSecondColumnBtn.setDisable(true);
         thirdRowThirdColumnBtn.setDisable(true);
