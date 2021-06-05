@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The "starter" of the GUI is here. Sets the new scene
+ */
 public class JavaFX extends Application {
 
     protected boolean solo = false;

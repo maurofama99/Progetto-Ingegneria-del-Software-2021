@@ -20,6 +20,10 @@ import javafx.event.Event;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The main class that manages changing scenes, creates the controllers for them and keeps them updated
+ * using the messages from the server and clients. It is unique for every client that is playing a game.
+ */
 public class Gui extends ClientObservable implements View {
 
     private final static  String ERROR = "ERROR";
@@ -27,30 +31,52 @@ public class Gui extends ClientObservable implements View {
     private Client client;
     private final ModelView modelView;
 
+    /**
+     * Constructor of the GUI, sets the ModelView
+     */
     public Gui() {
         this.modelView = new ModelView(this);
     }
 
+    /**
+     * Sets the client
+     * @param client the client to be set
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     * Changes the scene to the login scene, where the player chooses a nickname and the numbers of players
+     */
     @Override
     public void fetchNickname() {
         Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
     }
 
+    /**
+     * Same for the method above, but this is specifically when the player wants to play a single player game in GUI
+     * @param event the event that will cause the change (usually a button click)
+     */
     @Override
     public void localFetchNickname(Event event) {
         Platform.runLater(() ->((PlayerLoginSceneController)SceneController.changeRootPane(clientObservers, event, "player_login_scene.fxml")).setSolo(true));
 
     }
 
+    /**
+     * Changes the scene to the resource choosing for the initial bonus of the player.
+     */
     @Override
     public void fetchResourceType() {
         Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "resource_choosing.fxml"));
     }
 
+    /**
+     * Makes the depot popup appear, letting the player know what resource he has to put and where he wants
+     * to put it
+     * @param resource the resource to be placed
+     */
     @Override
     public void fetchResourcePlacement(Resource resource) {
         Platform.runLater(() -> {
@@ -60,6 +86,11 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * Makes the swap white popup appear asking for what resource the player wants
+     * @param type1 the first resource type
+     * @param type2 the second resource type
+     */
     @Override
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) {
         Platform.runLater(()-> {
@@ -69,6 +100,10 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * manages the popup for all the extra productions of the leader cards
+     * @param resource
+     */
     @Override
     public void fetchExtraProd(Resource resource) {
         Platform.runLater(()-> {
@@ -78,6 +113,10 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * Displays a simple popup with a title and a message
+     * @param message the message shown at the center
+     */
     @Override
     public void displayPopup(String message) {
         Platform.runLater(() -> {
@@ -88,6 +127,10 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * Displays the four leader cards in the scene where you choose two to discard
+     * @param leaderCards the 4 shuffled leader cards
+     */
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) {
         LeaderCardChoosingController llcc = new LeaderCardChoosingController();
@@ -96,11 +139,21 @@ public class Gui extends ClientObservable implements View {
         Platform.runLater(() -> SceneController.changeRootPane(llcc, "leader_choosing.fxml"));
     }
 
+    /**
+     * Displays the dev card shop (updated)
+     * @param devCards the devcards that are at the top in that moment
+     */
     @Override
     public void displayDevCards(DevCard[][] devCards) {
         modelView.setShowedDeck(devCards);
     }
 
+    /**
+     * Displays a personal board with all the stuff on it updated
+     * @param faithTrack the track fo the cross
+     * @param slots the slots for the devcards
+     * @param warehouse the depot
+     */
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
         modelView.setFaithTrack(faithTrack);
@@ -109,11 +162,27 @@ public class Gui extends ClientObservable implements View {
 
     }
 
+    /**
+     * Updates the personal board of other people. Does not matter if they are playing with a CLI or a GUI,
+     * we can show them anyway
+     * @param name the nickname
+     * @param fT player faithtrack
+     * @param slots slots with devcards
+     * @param wH depot
+     * @param lC and leader cards activated
+     */
     @Override
     public void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC) {
         modelView.updateOthersPB(name, fT, slots, wH, lC);
     }
 
+    /**
+     * Displays the personal board of the client owning this GUI and keeps it updated
+     * @param faithTrack his faithtrack
+     * @param slots his slots
+     * @param warehouse his depot
+     * @throws IOException if something in the personal board is missing or corrupted
+     */
     @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException{
         Platform.runLater(()->{
@@ -123,6 +192,10 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * Displays the popup that lets the player choose his first action
+     * @param message message to be shown
+     */
     @Override
     public void fetchPlayerAction(String message) {
         Platform.runLater(() -> {
@@ -132,6 +205,12 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * Popup for the leader cards, let the player activate them or not
+     * @param message message shown
+     * @param leaderCards leader cards of the player
+     * @throws IOException if something in the popup is missing or corrupted
+     */
     @Override
     public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
         Platform.runLater(()-> {
@@ -141,6 +220,11 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+    /**
+     * Same as above, but this popup is shown at the end of the turn
+     * @param leaderCards leader cards of the player
+     * @param isEndTurn boolean value for knowing if it is the end of the turn
+     */
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) {
         Platform.runLater(()-> {
@@ -156,7 +240,10 @@ public class Gui extends ClientObservable implements View {
 
     }
 
-
+    /**
+     * Sets the market tray and keeps that updated for the show market action in the personal board
+     * @param marketTray the current market tray
+     */
     @Override
     public void displayMarket(MarketTray marketTray) {
         //Platform.runLater(()-> {
@@ -176,6 +263,10 @@ public class Gui extends ClientObservable implements View {
 
     }
 
+    /**
+     * If a player disconnects the game is finished
+     * @param nickname the nickname of the player who disconnected
+     */
     @Override
     public void forcedEnd(String nickname) {
         Platform.runLater(() -> {
@@ -187,6 +278,11 @@ public class Gui extends ClientObservable implements View {
         System.exit(0);
     }
 
+    /**
+     * Displays the basic production popup for switching 2 resources for one
+     * @param arrow the arrow that is set as visible
+     * @param message the message shown
+     */
     @Override
     public void displayBasicProdPopup(int arrow, String message) {
         Platform.runLater(()-> {

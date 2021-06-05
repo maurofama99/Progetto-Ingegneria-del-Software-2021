@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * The very first scene of the gui.
+ */
 public class StartSceneController extends ClientObservable implements GenericSceneController {
 
     private boolean solo = false;
@@ -29,6 +32,10 @@ public class StartSceneController extends ClientObservable implements GenericSce
         exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0) );
     }
 
+    /**
+     * Switch the scene to the connection one
+     * @param event the event chosen in the initialize method
+     */
     private void onStartButtonClick(Event event){
 
         startButton.setDisable(true);

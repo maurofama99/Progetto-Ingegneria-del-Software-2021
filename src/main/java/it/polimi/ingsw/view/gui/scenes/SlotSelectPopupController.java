@@ -14,6 +14,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Controller of the slot popup, that it's used for placing bought devcards
+ */
 public class SlotSelectPopupController extends ClientObservable implements GenericPopupController {
     @FXML
     private BorderPane rootPane;
@@ -28,6 +31,12 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
     private double x_Offset;
     private double y_Offset;
 
+    /**
+     * Constructor of the class.
+     * @param modelView the current modelView for knowing if there are cards placed in a certain slot
+     * @param cardIndexRow row of the card chosen in the shop
+     * @param cardIndexColumn column of the card chosen in the shop
+     */
     public SlotSelectPopupController(ModelView modelView, int cardIndexRow, int cardIndexColumn){
         stage = new Stage();
         this.modelView = modelView;
@@ -65,6 +74,10 @@ public class SlotSelectPopupController extends ClientObservable implements Gener
         stage.setY(event.getSceneY()+y_Offset);
     }
 
+    /**
+     * These three methods ask the player where they want to place the devcard bought
+     * @param event the event in the initialize method.
+     */
     private void whenLeftSlotCLicked(MouseEvent event){
         notifyObservers(new BuyDevCard(cardIndexRow, cardIndexColumn, 1));
         stage.close();

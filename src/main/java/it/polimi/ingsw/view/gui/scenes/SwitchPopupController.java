@@ -12,6 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Popup for managing the resources in the depot.
+ */
 public class SwitchPopupController extends ClientObservable implements GenericPopupController {
 
 
@@ -36,6 +39,9 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
     @FXML
     private BorderPane rootPane;
 
+    /**
+     * Simple constructor
+     */
     public SwitchPopupController(){
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
@@ -77,6 +83,10 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         stage.setY(event.getSceneY()+y_Offset);
     }
 
+    /**
+     * Three methods for asking the player where the initial resource to swap is
+     * @param event
+     */
     private void whenSrcFloor1BtnClicked(MouseEvent event){
         src = 1;
         disableSource();
@@ -95,6 +105,10 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         enableDest();
     }
 
+    /**
+     * Three methods for asking the player where he wants to put the new resource
+     * @param event
+     */
     private void whenDstnFloor1BtnClicked(MouseEvent event){
         notifyObservers(new ResourcePlacement("client", "switch", src, 1));
         stage.close();
@@ -110,6 +124,9 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         stage.close();
     }
 
+    /**
+     * Two methods for switching from active to not the buttons.
+     */
     public void disableSource(){
         srcFloor1Btn.setDisable(true);
         srcFloor2Btn.setDisable(true);
