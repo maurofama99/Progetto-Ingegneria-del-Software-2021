@@ -3,6 +3,9 @@ package it.polimi.ingsw.network.messagessc;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Similarly at the generic message, but we use this in the GUI with the popup
+ */
 public class GenericPopup extends Message {
     private final String message;
 

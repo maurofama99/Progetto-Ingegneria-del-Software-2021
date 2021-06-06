@@ -2,6 +2,10 @@ package it.polimi.ingsw.network;
 
 import java.io.Serializable;
 
+/**
+ * The general class for a message sent or received. We have the sender user, the receiver user and what
+ * content the message has.
+ */
 public class Message implements Serializable, Comparable<Message> {
 
     private String receiverNickname;

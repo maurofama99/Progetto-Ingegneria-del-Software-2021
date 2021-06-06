@@ -4,6 +4,10 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * As the DiscardLeader message, we use this to let the player know he wants to discard a single leader card
+ *
+ */
 public class DiscardOneLeader extends Message {
     private int leaderCard;
     private boolean isEndTurn;

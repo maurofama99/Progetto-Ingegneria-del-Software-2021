@@ -9,7 +9,9 @@ import it.polimi.ingsw.network.Message;
 
 import java.util.ArrayList;
 
-
+/**
+ * Displays the personal board and also let the player know which leader cards are active
+ */
 public class DisplayPersonalBoard extends Message {
     private FaithTrack faithTrack;
     private Slot[] slots;

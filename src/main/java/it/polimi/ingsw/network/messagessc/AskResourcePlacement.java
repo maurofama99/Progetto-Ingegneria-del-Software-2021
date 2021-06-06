@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Asks where the player wants to put a received resource
+ */
 public class AskResourcePlacement extends Message {
 
     private final Resource resource;

@@ -75,6 +75,10 @@ public class ClientHandler implements Runnable {
         this.started = started;
     }
 
+    /**
+     * The run method of the ClientHandler, which has a timeout for kicking in case of inactivity or
+     * if the connection is interrupted. In that case we say the connection is dropped.
+     */
     @Override
     public void run() {
 
@@ -84,7 +88,7 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
 
-        //imposta in e out stream
+
         try {
             output = new ObjectOutputStream(client.getOutputStream());
             input = new ObjectInputStream(client.getInputStream());
@@ -150,6 +154,14 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Receive message method of the client handler. For the resilience we use the fact that the virtual views are saved
+     * and matched with nicknames, so if a player reconnects and the nickname matches, he can continue playing
+     * @param msg the message being received
+     * @throws IOException
+     * @throws IllegalAccessException
+     * @throws CloneNotSupportedException
+     */
     //sfrutta il fatto che le vv sono tutte salvate e accoppiate al loro nickname per la resilienza alle disconnessioni:
     //quando un player si riconnette e ha un nickname già associato alla virtual view, è la sua
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)

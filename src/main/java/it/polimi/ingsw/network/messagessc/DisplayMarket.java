@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Displays the market to let the player know how the marbles are organized
+ */
 public class DisplayMarket extends Message {
 
     private MarketTray marketTray;

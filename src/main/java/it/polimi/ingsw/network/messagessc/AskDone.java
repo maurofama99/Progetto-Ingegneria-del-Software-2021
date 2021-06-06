@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.Message;
 
 import java.util.ArrayList;
 
+/**
+ * Asks at the end of the turn if the player wants to pass or activate a leader card
+ */
 public class AskDone extends Message {
     String Question;
     ArrayList<LeaderCard> leaderCards;

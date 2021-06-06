@@ -3,6 +3,9 @@ package it.polimi.ingsw.network.messagescs;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * This message is sent with the nickname and the number of players we want to play with
+ */
 public class LoginData extends Message{
     private final String nickname;
     private final int numPlayers;

@@ -1,6 +1,9 @@
 package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.WaitingRoom;
 
+/**
+ * ServerManager is the class that starts a server for the game.
+ */
 public class ServerManager {
 
     public static void main(String[] args) {

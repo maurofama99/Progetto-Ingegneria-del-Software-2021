@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * This message is a discard action for the leader cards. If he want to discard both leader cards, we use this message
+ */
 public class DiscardLeader extends Message {
 
     private int leaderCard1;

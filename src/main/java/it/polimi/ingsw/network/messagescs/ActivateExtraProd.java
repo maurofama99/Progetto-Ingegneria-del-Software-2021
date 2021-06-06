@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Message for the extra production provided by the leader cards.
+ */
 public class ActivateExtraProd extends Message {
     int type;
 
@@ -12,7 +15,10 @@ public class ActivateExtraProd extends Message {
         this.type = type;
     }
 
-
+    /**
+     * Checks which resource the leader card wants to activate the production
+     * @return the type of resource
+     */
     public ResourceType getType() {
         ResourceType resType;
         switch (type){

@@ -9,7 +9,9 @@ import it.polimi.ingsw.network.Message;
 
 import java.util.ArrayList;
 
-
+/**
+ * Displays the personal board of other players
+ */
 public class SendOtherPersonalBoard extends Message {
     String name;
     FaithTrack faithTrack;

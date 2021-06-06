@@ -4,6 +4,10 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * The message that let the server know what resource the player has chosen for specific actions (such as production
+ * with the possibility of choosing, initial bonus...)
+ */
 public class ResourceTypeChosen extends Message {
     int resourceType;
 

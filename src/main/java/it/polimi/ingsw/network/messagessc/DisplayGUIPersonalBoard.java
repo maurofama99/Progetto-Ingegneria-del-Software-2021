@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Displays the GUI personal board keeping the slots, track and warehouse updated
+ */
 public class DisplayGUIPersonalBoard extends Message {
     private FaithTrack faithTrack;
     private Slot[] slots;

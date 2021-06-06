@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Ask a type of resource to the player for numerous actions.
+ */
 public class AskResourceType extends Message {
 
 

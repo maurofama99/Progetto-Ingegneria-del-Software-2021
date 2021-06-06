@@ -3,6 +3,9 @@ package it.polimi.ingsw.network.messagessc;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Message for the basic prod in the GUI, sent three times and every time it spawn a different arrow
+ */
 public class BasicProd extends Message {
 
     private final int arrow;

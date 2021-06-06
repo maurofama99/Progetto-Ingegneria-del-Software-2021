@@ -3,6 +3,9 @@ package it.polimi.ingsw.network.messagescs;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Switch message for the player, with a source and a destination floor
+ */
 public class ResourcePlacement extends Message {
     String floor;
     int sourceFloor = 0;

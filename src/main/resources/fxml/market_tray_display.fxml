@@ -3,7 +3,6 @@
 <?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -35,7 +34,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-                  <ImageView fx:id="slideMrbl" fitHeight="60.0" fitWidth="60.0" layoutX="452.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slideMrbl" fitHeight="60.0" fitWidth="60.0" layoutX="456.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="column1Btn" layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
                   <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
                   <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />

@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Message for the swap white action of a leader card.
+ */
 public class SwappedResource extends Message {
     String resourceType;
 

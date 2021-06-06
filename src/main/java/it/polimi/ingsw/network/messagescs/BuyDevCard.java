@@ -4,6 +4,10 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * This message is used to buy a dev card in the shop. The player provides the row and column where the card is
+ * and where he wants to place it in his personal board, and we check if the action is possible.
+ */
 public class BuyDevCard extends Message {
     private int row, column;
     private int slot;

@@ -76,6 +76,11 @@ public class Client implements Runnable, ClientObserver {
         return ses;
     }
 
+    /**
+     * This main executes the client. We have a precise usage to decide how and on where you wanna play your game
+     *
+     * @param args the parameters that choose if you want to use the cli, a GUI, play a local game...
+     */
     public static void main(String[] args) {
         int SOCKET_PORT = -1;
         boolean cli = false;

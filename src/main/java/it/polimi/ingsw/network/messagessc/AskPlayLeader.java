@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.Message;
 
 import java.util.ArrayList;
 
+/**
+ * We let the player know what leader cards he hasn't activated yet
+ */
 public class AskPlayLeader extends Message {
     private ArrayList<LeaderCard> leaderCardsNotActivated;
     private boolean isEndTurn;

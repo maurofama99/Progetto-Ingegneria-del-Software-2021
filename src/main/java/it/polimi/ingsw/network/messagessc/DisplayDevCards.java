@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * Displays the leader cards in the shop at that moment
+ */
 public class DisplayDevCards extends Message {
     private DevCard[][] showedCards;
 

@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
+/**
+ * This message is for the double swap white (when both leader cards with that effect are active)
+ */
 public class AskSwapWhite extends Message {
 
     ResourceType type1;

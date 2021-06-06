@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.Message;
 
 import java.util.ArrayList;
 
+/**
+ * Displays an arraylist of leader cards (whether they are the initial four, the two in your hand or else)
+ */
 public class DisplayLeaderCards extends Message {
 
     private ArrayList<LeaderCard> leaderCards;
