@@ -16,6 +16,9 @@ import it.polimi.ingsw.model.singleplayer.Token;
 
 import java.util.ArrayList;
 
+/**
+ * Class of the graphics of the CLI. Every aspect shown in the terminal during a CLI usage is defined and organized here
+ */
 public class CliGraphics {
 
     public static void main(String[] args) {

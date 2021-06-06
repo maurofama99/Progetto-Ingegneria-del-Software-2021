@@ -87,9 +87,9 @@ public class Gui extends ClientObservable implements View {
     }
 
     /**
-     * Makes the swap white popup appear asking for what resource the player wants
-     * @param type1 the first resource type
-     * @param type2 the second resource type
+     * Asks what resource the player wants if two swap whites effect are active
+     * @param type1 the swap white
+     * @param type2 the second swap white
      */
     @Override
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) {

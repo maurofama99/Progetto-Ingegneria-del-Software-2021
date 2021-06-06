@@ -14,6 +14,12 @@ import it.polimi.ingsw.view.gui.Gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The ModelView class is the class that responds to the action of the players and that is updated
+ * by their actions. It has getters and setters for every aspect of the game that changes, such as the market tray,
+ * the slots, the dev card shop... also the personal boards of other players so you can access them to see
+ * how they are doing. Getters are also useful in the GUI to match images since it keeps them updated.
+ */
 public class ModelView {
 
     private Cli cli;

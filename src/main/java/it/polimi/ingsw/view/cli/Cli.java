@@ -21,6 +21,10 @@ import javafx.event.Event;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The CLI class contains every method used during a match to do an action and respond to it. Methods notify the
+ * observer and act accordingly.
+ */
 public class Cli extends ClientObservable implements View {
 
     private CliGraphics cliGraphics = new CliGraphics();
@@ -36,6 +40,9 @@ public class Cli extends ClientObservable implements View {
         this.solo = solo;
     }
 
+    /**
+     * Asks for nickname and number of players to set the lobby of the match.
+     */
     @Override
     public void fetchNickname() {
         System.out.print("What's your nickname?\n>");
@@ -56,6 +63,10 @@ public class Cli extends ClientObservable implements View {
         notifyObservers(new LoginData(nickname, numPlayers));
     }
 
+    /**
+     * Same for the fetchNickname, but for a local game
+     * @param event the event that caused the game to be local
+     */
     @Override
     public void localFetchNickname(Event event) {
         System.out.print("What's your nickname?\n>");
@@ -66,6 +77,9 @@ public class Cli extends ClientObservable implements View {
         notifyObservers(new LoginData(nickname, 1));
     }
 
+    /**
+     * Asks the player for the resource he wants, the player chooses using an integer from 0 to 3.
+     */
     @Override
     public void fetchResourceType() {
         System.out.println(cliGraphics.printDepot(modelView.getWarehouse().getFloors()));
@@ -88,6 +102,12 @@ public class Cli extends ClientObservable implements View {
         notifyObservers(new ResourceTypeChosen(nickname, resourceType));
     }
 
+    /**
+     * The player provides a floor and the resource is placed if possible. Also gives the possibility to the player
+     * to choose the switch action, the discard action or put the resource in an extra depot if present
+     * @param resource the resource to place
+     * @throws IOException
+     */
     @Override
     public void fetchResourcePlacement(Resource resource) throws IOException {
         int floorInt;
@@ -142,6 +162,12 @@ public class Cli extends ClientObservable implements View {
         else notifyObservers(new ResourcePlacement(nickname, floor));
     }
 
+    /**
+     * If a double swap white effect is active, it asks the player which one it wants for that market session
+     * @param type1 first swap white
+     * @param type2 second swap white
+     * @throws IOException
+     */
     @Override
     public void fetchSwapWhite(ResourceType type1, ResourceType type2) throws IOException{
         System.out.println("Do you want a " + type1.getResourceName() + " or a " + type2.getResourceName() + "?");
@@ -154,6 +180,11 @@ public class Cli extends ClientObservable implements View {
         notifyObservers(new SwappedResource(nickname, type));
     }
 
+    /**
+     * If an extra production is active from a leader card, the player can activate it from here
+     * @param resource the resource that has to be provided
+     * @throws IOException
+     */
     @Override
     public void fetchExtraProd(Resource resource) throws IOException {
         StringBuilder s = new StringBuilder();
@@ -190,12 +221,21 @@ public class Cli extends ClientObservable implements View {
 
     }
 
-
+    /**
+     * A simple generic message
+     * @param genericMessage the message displayed
+     * @throws IOException
+     */
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
         System.out.println(genericMessage);
     }
 
+    /**
+     * Displays the initial four leader cards and let the player discard two
+     * @param leaderCards the arraylist of leader cards after the shuffle
+     * @throws IOException
+     */
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
         System.out.println("\nYou can choose two of these leaderCards that you are going to activate during the game!!");
@@ -236,17 +276,28 @@ public class Cli extends ClientObservable implements View {
         }
     }
 
+    /**
+     * Displays the current market tray of the model view
+     * @param marketTray the current market tray
+     */
     @Override
     public void displayMarket(MarketTray marketTray) {
         System.out.println(cliGraphics.showMarketTray(marketTray));
         modelView.setMarketTray(marketTray);
     }
 
+
     @Override
     public void displayPopup(String message) {
         //used only in GUI mode
     }
 
+    /**
+     * Fetches the player action at the start of the turn. In case of Market it displays the market and asks for the line the player wants,
+     * in case of a buy action it lets the player choose a card and if a production action is called it makes
+     * the player choose which productions he wants to do.
+     * @param message the action of the player
+     */
     @Override
     public void fetchPlayerAction(String message){
         cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots(), modelView.getFaithTrack());
@@ -384,6 +435,14 @@ public class Cli extends ClientObservable implements View {
         }
     }
 
+    /**
+     * If a player wants to pass his turn without doing anything else after the main action, this method notifies the
+     * observers and pass the turn. Otherwise, the player can try to activate a leader card if it has one and the
+     * requirements are met
+     * @param message the done or leader action
+     * @param leaderCards the arraylist of leader cards of the player
+     * @throws IOException
+     */
     @Override
     public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
         System.out.print(message + "\n>");
@@ -403,6 +462,12 @@ public class Cli extends ClientObservable implements View {
         }
     }
 
+    /**
+     * At the start of the turn we ask the player before the main action if he wants to plah a leader card
+     * @param leaderCards the player leader cards
+     * @param isEndTurn boolean value for knowing if this is being asked at the start or end of the turn
+     * @throws IOException
+     */
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
         modelView.setLeaderCards(leaderCards);
@@ -431,6 +496,12 @@ public class Cli extends ClientObservable implements View {
 
     }
 
+    /**
+     * Let the player choose a leader card from the list provided
+     * @param leaderCards the leader cards of the player
+     * @param scanner
+     * @return
+     */
     private int chooseLeader(ArrayList<LeaderCard> leaderCards, Scanner scanner) {
         cliGraphics.showLeaderCards(leaderCards);
         int index = -1;
@@ -445,6 +516,12 @@ public class Cli extends ClientObservable implements View {
         return index;
     }
 
+    /**
+     * After a leader is played, this method makes the turn advance or ends it based on the boolean
+     * @param trueOrFalse used to determine if the turn should end or if the main action has not yet be done
+     * @param leaderCards leader cards of the player
+     * @throws IOException
+     */
     public void afterLeaderAction(boolean trueOrFalse, ArrayList<LeaderCard> leaderCards) throws IOException {
         if (!trueOrFalse)
             fetchPlayerAction("\nWhat do you want to do now? (Type MARKET, PRODUCTION, BUY)\n");
@@ -452,22 +529,42 @@ public class Cli extends ClientObservable implements View {
             fetchDoneAction("Type DONE", leaderCards);
     }
 
+    /**
+     * Displays a disconnection message
+     * @param nicknameWhoDisconnected nickname of the player who dropped the connection
+     * @param text string of the message
+     */
     @Override
     public void displayDisconnectedMsg(String nicknameWhoDisconnected, String text) {
 
     }
 
+    /**
+     * Displays a winning message at the end of the game and ends it
+     */
     @Override
     public void displayWinningMsg() {
         System.exit(0);
     }
 
+    /**
+     * Displays the dev card shop in the CLI
+     * @param devCards the dev cards at the top at that moment
+     * @throws IOException
+     */
     @Override
     public void displayDevCards(DevCard[][] devCards) throws IOException {
         cliGraphics.printMatrixDevCards(devCards);
         modelView.setShowedDeck(devCards);
     }
 
+    /**
+     * Displays the personal board of the player
+     * @param faithTrack player's faithtrack
+     * @param slots player's slots
+     * @param warehouse player's depot
+     * @param activeLeaderCards player's active leader cards
+     */
     @Override
     public void displayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse, ArrayList<LeaderCard> activeLeaderCards) {
         modelView.setSlots(slots);
@@ -477,6 +574,14 @@ public class Cli extends ClientObservable implements View {
         //setta le active leader cards (anche nella gui)
     }
 
+    /**
+     * Updates the personal board of the other players in the game
+     * @param name nickname of the player
+     * @param fT his faithtrack
+     * @param slots his slots
+     * @param wH his depot
+     * @param lC his leader cards that are active
+     */
     @Override
     public void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC) {
         modelView.updateOthersPB(name, fT, slots, wH, lC);
@@ -486,14 +591,22 @@ public class Cli extends ClientObservable implements View {
 
     @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) {
-        //used only in CLI mode
+        //used only in GUI mode
     }
 
+    /**
+     * Displays the token played by lorenzo
+     * @param token the token played
+     */
     @Override
     public void displayToken(Token token) {
         cliGraphics.printLorenzo(token);
     }
 
+    /**
+     * Forced end of a game
+     * @param nickname the player who disconnected
+     */
     @Override
     public void forcedEnd(String nickname) {
         System.out.println(nickname + " left the game. The match ends now.");

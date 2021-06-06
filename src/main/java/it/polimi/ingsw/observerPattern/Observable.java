@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//used by model, to notify controller and virtual view
 
+/**
+ * This observable class is used by the model to notify controller and virtual view
+ */
 public abstract class Observable {
 
     private ArrayList<Observer> observers = new ArrayList<>();

@@ -5,6 +5,10 @@ import it.polimi.ingsw.network.Message;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract class for the observable objects. It has an Arraylist of observers, and methods to add observers to this
+ * list. It also notifies them.
+ */
 public abstract class ClientObservable {
     protected final ArrayList<ClientObserver> clientObservers = new ArrayList<>();
 

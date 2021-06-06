@@ -21,13 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Generic view that needs to be implemented by each view type
+ * Generic view that needs to be implemented by each view type. The methods are already described in CLI or GUI class
  */
 public interface View {
 
-    /**
-     * Fetches nickname of player
-     */
     void fetchNickname() throws IOException;
 
     void localFetchNickname(Event event);
@@ -46,10 +43,6 @@ public interface View {
 
     void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException;
 
-    /**
-     * Displays a generic message for the view
-     * @param genericMessage the message displayed
-     */
     void displayGenericMessage(String genericMessage) throws IOException;
 
     void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException;
@@ -62,24 +55,12 @@ public interface View {
 
     void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException;
 
-    /**
-     * Shows the market to the player to let him choose the line to buy
-     * @param marketTray the current market tray
-     */
     void displayMarket(MarketTray marketTray);
 
     void displayPopup(String message);
 
-    /**
-     * Displays the disconnected player
-     * @param nicknameWhoDisconnected
-     * @param text
-     */
     void displayDisconnectedMsg(String nicknameWhoDisconnected, String text);
 
-    /**
-     * Ending message when a player wins
-     */
     void displayWinningMsg();
 
     void displayToken(Token token);
