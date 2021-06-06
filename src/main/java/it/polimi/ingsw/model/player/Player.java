@@ -125,14 +125,19 @@ public class Player extends Observable implements Serializable {
      * @param slotNumber where the player wants to place the card he wants to buy.
      */
 
-    public void buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
+    public boolean buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
         slotNumber = slotNumber -1;
         try {
-            getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
-            victoryPoints += devCardToBuy.getVictoryPointsDevCard();
-            counterDevCards += 1;
+            if (getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy)
+                    && devCardToBuy.checkRequirements(devCardToBuy.getRequirementsDevCard(), this)){
+                victoryPoints += devCardToBuy.getVictoryPointsDevCard();
+                counterDevCards += 1;
+                return true;
+            }
+            else return false;
+
         }
-        catch (IllegalAccessException e) {
+        catch (IllegalAccessException | CloneNotSupportedException e) {
             throw new IllegalAccessException(e.getMessage());
         }
     }

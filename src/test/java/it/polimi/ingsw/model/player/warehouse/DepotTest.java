@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.player.warehouse;
 
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,22 +12,35 @@ import java.util.NoSuchElementException;
 import static org.junit.Assert.*;
 
 public class DepotTest {
+    private Depot depot;
+    private StrongBox strongBox;
+    private Warehouse warehouse;
 
+    Resource oneCoin;
+    Resource twoCoins;
+    Resource twoStones;
+    Resource twoShields;
+    Resource threeServants;
+    Resource threeStones;
+
+    @Before
+    public void setUp(){
+        depot = new Depot();
+        strongBox = new StrongBox();
+        warehouse = new Warehouse(depot, strongBox);
+
+        oneCoin = new Resource(1, ResourceType.COIN);
+        twoCoins = new Resource(2, ResourceType.COIN);
+        twoStones = new Resource(2, ResourceType.STONE);
+        twoShields = new Resource(2, ResourceType.SHIELD);
+        threeServants = new Resource(3, ResourceType.SERVANT);
+        threeStones = new Resource(3, ResourceType.STONE);
+    }
     /**
      * Testing method addResourceToDepot and switchFloors
      */
     @Test
     public void testCheckCorrectPlacement() {
-
-        Depot depot = new Depot();
-        StrongBox sB = new StrongBox();
-        Warehouse wH = new Warehouse(depot, sB);
-
-        Resource oneCoin = new Resource(1, ResourceType.COIN);
-        Resource twoCoins = new Resource(2, ResourceType.COIN);
-        Resource twoStones = new Resource(2, ResourceType.STONE);
-        Resource twoShields = new Resource(2, ResourceType.SHIELD);
-        Resource threeServants = new Resource(3, ResourceType.SERVANT);
 
        depot.addResourceToDepot(oneCoin, 1);
        assertEquals(1, depot.getFloors().get(0).get().getQnt());
@@ -57,15 +72,27 @@ public class DepotTest {
             thrown = true;
         }
         assertTrue(thrown);
+    }
 
+    @Test
+    public void testCheckAvailabilityDepot() throws CloneNotSupportedException {
+        depot.addResourceToDepot(oneCoin, 1);
+        depot.addResourceToDepot(threeStones, 3);
 
+        ArrayList<Resource> resources = new ArrayList<>();
+        resources.add(twoStones);
 
+        assertNull(depot.checkAvailabilityDepot(resources));
 
+        resources.add(twoCoins);
+        resources.add(threeServants);
 
+        assertEquals(2, depot.checkAvailabilityDepot(resources).size());
+        assertTrue(depot.checkAvailabilityDepot(resources).get(0).getQnt()==1 &&
+                depot.checkAvailabilityDepot(resources).get(0).getType().equals(ResourceType.COIN));
 
-
-
-
+        assertTrue(depot.checkAvailabilityDepot(resources).get(1).getQnt()==3 &&
+                depot.checkAvailabilityDepot(resources).get(1).getType().equals(ResourceType.SERVANT));
     }
 }
 

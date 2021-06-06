@@ -135,4 +135,26 @@ public class RemoveCardsAction implements TokenAction, Serializable {
                 "                                    "+
                 "-------------------------------\n";
     }
+
+    @Override
+    public String toStringGui(){
+        String name;
+        switch (devCardColor){
+            case YELLOW:
+                name = "yellow";
+                break;
+            case BLUE:
+                name = "blue";
+                break;
+            case GREEN:
+                name = "green";
+                break;
+            case PURPLE:
+                name = "yellow";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + devCardColor);
+        }
+        return name;
+    }
 }

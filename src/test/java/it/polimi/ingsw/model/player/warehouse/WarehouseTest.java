@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.player.warehouse;
 
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,59 +12,91 @@ import java.util.NoSuchElementException;
 import static org.junit.Assert.*;
 
 public class WarehouseTest {
+    private Depot depot;
+    private StrongBox strongBox;
+    private Warehouse warehouse;
 
-    /**
-     * Testing removeResources using methods of class StrongBox and Depot
-     */
+    private Resource oneCoin;
+    private Resource twoCoins;
+    private Resource twoStones;
+    private Resource twoShields;
+    private Resource twoServants;
+    private Resource fourStones;
+
+
+    @Before
+    public void setUp(){
+        depot = new Depot();
+        strongBox = new StrongBox();
+        warehouse = new Warehouse(depot, strongBox);
+        oneCoin = new Resource(1, ResourceType.COIN);
+        twoCoins = new Resource(2, ResourceType.COIN);
+        twoStones = new Resource(2, ResourceType.STONE);
+        twoShields = new Resource(2, ResourceType.SHIELD);
+        twoServants = new Resource(2, ResourceType.SERVANT);
+        fourStones = new Resource(4, ResourceType.STONE);
+
+    }
+
     @Test
-    public void Test() throws CloneNotSupportedException {
-        Depot depot = new Depot();
-        StrongBox sB = new StrongBox();
-        Warehouse wH = new Warehouse(depot, sB);
-        boolean thrown;
-
-        Resource oneCoin = new Resource(1, ResourceType.COIN);
-        Resource twoCoins = new Resource(2, ResourceType.COIN);
-        Resource twoStones = new Resource(2, ResourceType.STONE);
-        Resource twoShields = new Resource(2, ResourceType.SHIELD);
-        Resource twoServants = new Resource(2, ResourceType.SERVANT);
-        Resource fourStones = new Resource(4, ResourceType.STONE);
-
+    public void testCheckAvailabilityWarehouse() throws CloneNotSupportedException {
         depot.addResourceToDepot(oneCoin, 1);
         depot.addResourceToDepot(twoStones, 2);
         depot.addResourceToDepot(twoServants, 3);
 
         ArrayList<Resource> resourcesToRemove = new ArrayList<>();
-        resourcesToRemove.add(twoCoins);
+        resourcesToRemove.add(fourStones);
+        assertFalse(warehouse.checkAvailabilityWarehouse(resourcesToRemove));
+
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        resourcesToAdd.add(twoStones);
+        strongBox.addResourceToStrongBox(resourcesToAdd);
+        assertTrue(warehouse.checkAvailabilityWarehouse(resourcesToRemove));
+
+    }
+
+    /**
+     * Testing removeResources using methods of class StrongBox and Depot
+     */
+    @Test
+    public void testRemoveResources() throws CloneNotSupportedException {
+        depot.addResourceToDepot(oneCoin, 1);
+        depot.addResourceToDepot(twoStones, 2);
+        depot.addResourceToDepot(twoServants, 3);
+        boolean thrown;
+
+        ArrayList<Resource> resourcesToRemove = new ArrayList<>();
+        resourcesToRemove.add(oneCoin);
+
+        warehouse.removeResources(resourcesToRemove);
+        assertTrue(depot.getFloors().get(0).isEmpty());
+
+
+        depot.addResourceToDepot(oneCoin, 1);
+
+        resourcesToRemove.add(fourStones);
 
         thrown = false;
         try {
-            wH.removeResources(resourcesToRemove);
+            warehouse.removeResources(resourcesToRemove);
         } catch (NoSuchElementException | CloneNotSupportedException e) {
             thrown = true;
         }
+
         assertTrue(thrown);
-
-        resourcesToRemove.remove(twoCoins);
-        resourcesToRemove.add(oneCoin);
-
-        wH.removeResources(resourcesToRemove);
-        assertTrue(depot.getFloors().get(0).isEmpty());
 
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
         resourcesToAdd.add(twoStones);
         resourcesToAdd.add(twoShields);
-        sB.addResourceToStrongBox(resourcesToAdd);
+        strongBox.addResourceToStrongBox(resourcesToAdd);
 
         resourcesToRemove.remove(oneCoin);
-        resourcesToRemove.add(fourStones);
         resourcesToRemove.add(twoShields);
 
-        wH.removeResources(resourcesToRemove);
+        warehouse.removeResources(resourcesToRemove);
         assertTrue(depot.getFloors().get(1).isEmpty());
-        assertEquals(0, sB.getStoredResources()[3].getQnt());
-        assertEquals(0, sB.getStoredResources()[2].getQnt());
+        assertEquals(0, strongBox.getStoredResources()[3].getQnt());
+        assertEquals(0, strongBox.getStoredResources()[2].getQnt());
 
     }
-
 }

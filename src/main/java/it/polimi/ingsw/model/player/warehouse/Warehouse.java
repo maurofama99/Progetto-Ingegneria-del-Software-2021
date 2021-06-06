@@ -20,7 +20,6 @@ public class Warehouse{
     }
 
 
-
     public Depot getDepot() {
         return depot;
     }
@@ -32,44 +31,53 @@ public class Warehouse{
 
     /**
      * It removes resources when needed by the player.
-     *
      * @param resourcesToRemove Resources to remove from warehouse.
      */
 
+    //lancia eccezione se non sono disponibili
     public void removeResources(ArrayList<Resource> resourcesToRemove) throws CloneNotSupportedException {
-        ArrayList<Resource> resourcesInFloor = new ArrayList<>();
+
         ArrayList<Resource> resources = new ArrayList<>();
         for (Resource resource : resourcesToRemove)
             resources.add((Resource) resource.clone());
 
-        for (Resource res : resources) {
-            for (int i = 0; i < 3; i++) {
-                Resource check = new Resource(res.getQnt(), res.getType());
-                if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
-                    if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt()) {
-                        check.setQnt(res.getQnt()-getDepot().getFloors().get(i).get().getQnt());
-                        if (getStrongBox().checkAvailabilityStrongBox(check)) {
-                            getStrongBox().removeResourceStrongBox(check);
-                            resourcesInFloor.add(res);
-                        } else
-                            throw new NoSuchElementException("Resource " + res + " not Available");
-                        getDepot().getFloors().set(i, Optional.empty());
-                    } else {
-                        getDepot().getFloors().get(i).get().setQnt(getDepot().getFloors().get(i).get().getQnt() - res.getQnt());
-                        if (getDepot().getFloors().get(i).get().getQnt() == 0) {
+        if (!checkAvailabilityWarehouse(resources))
+            throw new NoSuchElementException("You do not have enough resources");
+        else {
+            if (getDepot().checkAvailabilityDepot(resources) != null) {
+                for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {
+                    getStrongBox().removeResourceStrongBox(resource);
+                }
+            }
+            for (Resource res : resources) {
+                for (int i = 0; i < 3; i++) {
+                    if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
+                        if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt())
                             getDepot().getFloors().set(i, Optional.empty());
+
+                        else {
+                            getDepot().getFloors().get(i).get().setQnt(getDepot().getFloors().get(i).get().getQnt() - res.getQnt());
+                            if (getDepot().getFloors().get(i).get().getQnt() == 0)
+                                getDepot().getFloors().set(i, Optional.empty());
                         }
-                        resourcesInFloor.add(res);
                     }
                 }
             }
-            if (!resourcesInFloor.contains(res)) {
-                if (getStrongBox().checkAvailabilityStrongBox(res))
-                    getStrongBox().removeResourceStrongBox(res);
-                else
-                    throw new NoSuchElementException("Resource " + res + " not Available");
-            }
-
         }
+
+    }
+
+    //controlla la disponibilità di risorse totale che ha il giocatore nell'intero warehouse.
+    //ritorna vero se le risorse sono disponibili, altrimenti falso.
+    public boolean checkAvailabilityWarehouse (ArrayList<Resource> resources) throws CloneNotSupportedException {
+        if (getDepot().checkAvailabilityDepot(resources) != null){
+            for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {
+                if (!getStrongBox().checkAvailabilityStrongBox(resource)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
+

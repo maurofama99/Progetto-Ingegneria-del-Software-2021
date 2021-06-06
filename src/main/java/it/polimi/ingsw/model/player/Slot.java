@@ -29,15 +29,21 @@ public class Slot implements Serializable{
     }
 
 
-    public void placeDevCard(DevCard devCard) throws IllegalAccessException {
-        if (cards.isEmpty() && devCard.getLevel() != 1)
-            throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() +", but slot is empty!\n");
+    public boolean placeDevCard(DevCard devCard) throws IllegalAccessException {
 
-        if ((cards.isEmpty() && (devCard.getLevel() == 1) || devCard.getLevel()-1 == getShowedCard().getLevel())){
-            this.cards.add(devCard);
+        if (cards.isEmpty() && devCard.getLevel() != 1) {
+            throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() + ", but slot is empty!\n");
+
         }
-        else throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() +
-                                                ", but you need a level " + this.getShowedCard().getLevel() + 1 + "card");
+        else if ((cards.isEmpty() && (devCard.getLevel() == 1) || devCard.getLevel()-1 == getShowedCard().getLevel())){
+            this.cards.add(devCard);
+            return true;
+        }
+        else {
+            throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() +
+                    ", but you need a level " + this.getShowedCard().getLevel() + 1 + "card");
+        }
+
     }
 
 

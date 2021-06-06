@@ -32,6 +32,10 @@ public class WaitingRoom {
         return vvMap;
     }
 
+    public ArrayList<Player> getThreePlayersArray() {
+        return threePlayersArray;
+    }
+
     public void receiveMessage(Message msg) throws IOException {
 
         VirtualView vv = vvMap.get(msg.getSenderUser());

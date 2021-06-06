@@ -372,26 +372,22 @@ public class PlayerController {
             }
         }
 
-        if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn()).checkRequirements(requirements, gameController.getTable().getCurrentPlayer())){
-            try {
-                gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot());
-                gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
+
+        try {
+            if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot())){
+                playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+            }
+            else {
+                gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
                 countDevCards();
                 displayPB();
                 playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
-            } catch (IllegalAccessException e ){
+            }
+        } catch (IllegalAccessException e ){
                 playerVV().displayGenericMessage(e.getMessage());
                 playerVV().fetchPlayerAction();
                 playerVV().displayPopup(e.getMessage());
             }
-        }
-
-        else {
-            playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
-        }
-
-
-
     }
 
     /**
@@ -403,6 +399,7 @@ public class PlayerController {
      */
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
         ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        ArrayList<Resource> resourcesToRemove = new ArrayList<>();
         switch (msg.getMessageType()){
             case ACTIVATE_PRODUCTION:
 
@@ -447,14 +444,13 @@ public class PlayerController {
                         for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
                             if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
                                 playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
+                                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
                             }
                         }
                     }
                     else {
                         getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-
                         displayPB();
-
                         playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                     }
 
@@ -468,14 +464,21 @@ public class PlayerController {
                     playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
                 }
                 else {
-                    resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
-                    getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
-                    playerVV().displayGenericMessage("Extra production activated!\n");
-                    getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-                    displayPB();
-                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    try {
+                        getPlayerPB().getWarehouse().removeResources(resourcesToRemove);
+                        resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
+                        getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+                        playerVV().displayGenericMessage("Extra production activated!\n");
+                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
+                        displayPB();
+                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    }
+                    catch (NoSuchElementException e){
+                        playerVV().displayGenericMessage(e.getMessage());
+                        playerVV().displayPopup(e.getMessage());
+                    }
                 }
-
+                resourcesToRemove.remove(0);
                 break;
 
             case RESOURCE_TYPE:

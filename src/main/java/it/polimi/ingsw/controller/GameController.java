@@ -32,7 +32,7 @@ public class GameController implements Observer, Serializable {
     private boolean singlePlayer;
 
     private Table table;
-    private TableState tableState = TableState.WAITING_FOR_FIRSTPLAYER;
+    private TableState tableState = TableState.SETUP;
 
     private Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
@@ -64,6 +64,10 @@ public class GameController implements Observer, Serializable {
 
     public Table getTable() {
         return table;
+    }
+
+    public TableState getTableState() {
+        return tableState;
     }
 
     public boolean isSinglePlayer() {
@@ -115,7 +119,6 @@ public class GameController implements Observer, Serializable {
         for (String key : vvMap.keySet()) {
             vvMap.get(key).displayGenericMessage("All the players joined the game.\n Game is loading...\n");
         }
-        setTableState(TableState.SETUP);
         setUpGame();
     }
 

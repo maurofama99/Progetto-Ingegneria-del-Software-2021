@@ -388,7 +388,7 @@ public class Cli extends ClientObservable implements View {
                 break;
 
             case "PRODUCTION":
-                System.out.println("Type 1 if you want to activate basic production, 0 if you don't");
+                System.out.println("Type 1 if you want to activate basic production, 0 if you don't.");
                 int yesORnoB = -1;
                 while (yesORnoB!=0 && yesORnoB!=1){
                     try {
@@ -398,14 +398,14 @@ public class Cli extends ClientObservable implements View {
                         scanner.nextLine();
                     }
                 }
-                System.out.println("Type 1 if you want to activate the production, 0 if you don't:\n");
+                System.out.println("\nType 1 if you want to activate the production, 0 if you don't.");
                 System.out.print("SLOT 1:  >");
                 int yesORno1 = -1;
                 while (yesORno1!=0 && yesORno1!=1){
                     try {
                         yesORno1 = scanner.nextInt();
                     } catch (InputMismatchException e){
-                        System.out.println("This is not a number..");
+                        System.out.print("This is not a number..");
                         scanner.nextLine();
                     }
                 }

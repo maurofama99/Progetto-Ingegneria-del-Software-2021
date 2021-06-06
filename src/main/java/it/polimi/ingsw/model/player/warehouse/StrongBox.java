@@ -16,10 +16,10 @@ public class StrongBox{
     private Resource[] storedResources = new Resource[4];
 
     public StrongBox() {
-        this.storedResources[0] = new Resource(20, ResourceType.COIN);
-        this.storedResources[1] = new Resource(20, ResourceType.SERVANT);
-        this.storedResources[2] = new Resource(20, ResourceType.SHIELD);
-        this.storedResources[3] = new Resource(20, ResourceType.STONE);
+        this.storedResources[0] = new Resource(0, ResourceType.COIN);
+        this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
+        this.storedResources[2] = new Resource(0, ResourceType.SHIELD);
+        this.storedResources[3] = new Resource(0, ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {
@@ -74,18 +74,21 @@ public class StrongBox{
      */
     public boolean checkAvailabilityStrongBox(Resource resourceToCheck){
         boolean available = false;
-        if (resourceToCheck.getType().equals(ResourceType.COIN))
-            available = (resourceToCheck.getQnt() <= storedResources[0].getQnt());
 
-        else if (resourceToCheck.getType().equals(ResourceType.SERVANT))
-            available = (resourceToCheck.getQnt() <= storedResources[1].getQnt());
-
-        else if (resourceToCheck.getType().equals(ResourceType.SHIELD))
-            available = (resourceToCheck.getQnt() <= storedResources[2].getQnt());
-
-        else if (resourceToCheck.getType().equals(ResourceType.STONE))
-            available =  (resourceToCheck.getQnt() <= storedResources[3].getQnt());
-
+        switch (resourceToCheck.getType()) {
+            case COIN:
+                available = (resourceToCheck.getQnt() <= storedResources[0].getQnt());
+                break;
+            case SERVANT:
+                available = (resourceToCheck.getQnt() <= storedResources[1].getQnt());
+                break;
+            case SHIELD:
+                available = (resourceToCheck.getQnt() <= storedResources[2].getQnt());
+                break;
+            case STONE:
+                available = (resourceToCheck.getQnt() <= storedResources[3].getQnt());
+                break;
+        }
         return available;
     }
 

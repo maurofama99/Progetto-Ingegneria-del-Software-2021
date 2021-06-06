@@ -28,29 +28,7 @@ public class MarketTrayTest {
 
         System.out.println("Slider: " + slider);
 
-        /*ArrayList<Resource> result = market.selectRow(3);
 
-        System.out.println();
-        //stampa nuovo market
-        for (i=0; i<3; i++){
-            for(j=0; j<4; j++){
-                System.out.print(market.getTray()[i][j].toString() + " ");
-                //SERVANT SERVANT SERVANT SERVANT
-                //STONE COIN FAITHPOINT COIN
-                //STONE WHITE FAITHPOINT COIN
-            }
-            System.out.println();
-        }
-
-        System.out.println();
-        //stampa risultato
-        for(i=0; i<3; i++){
-            System.out.print(result.get(i) + " ");
-        }
-
-        System.out.println();
-        //stampa slider
-        System.out.println(market.getSlide());*/
     }
 
 }

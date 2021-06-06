@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -140,6 +141,37 @@ public class Depot {
         else if ((floors.get(source).get().getQnt() <= destination + 1 ) && (floors.get(destination).get().getQnt() <= source+1)) {
             Collections.swap(this.floors, source, destination);
         } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
+    }
+
+
+    //controlla la disponibilità di un array di risorse, se sono tutte disponibili
+    // nel depot ritorna null altrimenti ritorna un'array con le risorse che mancano
+    public ArrayList<Resource> checkAvailabilityDepot(ArrayList<Resource> resources) throws CloneNotSupportedException {
+        ArrayList<Resource> missingResources = new ArrayList<>();
+        ArrayList<Resource> resourcesToCheck = new ArrayList<>();
+        for (Resource resource : resources){
+            resourcesToCheck.add((Resource) resource.clone());
+        }
+        int j=0;
+        boolean checked = false;
+        while (j<resourcesToCheck.size()) {
+            for (int i = 0; i < 3; i++) {
+                if (floors.get(i).isPresent() && floors.get(i).get().getType().equals(resourcesToCheck.get(j).getType())) {
+                    if (resourcesToCheck.get(j).getQnt() > floors.get(i).get().getQnt()) {
+                        missingResources.add(new Resource(resourcesToCheck.get(j).getQnt() - floors.get(i).get().getQnt(), resourcesToCheck.get(j).getType()));
+                    }
+                    checked = true;
+                }
+            }
+            if (!checked) {
+                missingResources.add(resourcesToCheck.get(j));
+            }
+            j++;
+            checked = false;
+        }
+
+        if (missingResources.size() == 0) return null;
+        else return missingResources;
     }
 
 }

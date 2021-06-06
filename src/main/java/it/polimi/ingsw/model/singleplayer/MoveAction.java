@@ -62,7 +62,7 @@ public class MoveAction implements TokenAction, Serializable {
                     "                                    "+
                     "|                             |\n" +
                     "                                    "+
-                    "|             +2              |\n"  +
+                    "|             +2 ✝            |\n"  +
                     "                                    "+
                     "|                             |\n"  +
                     "                                    "+
@@ -70,6 +70,13 @@ public class MoveAction implements TokenAction, Serializable {
                     "                                    "+
                     "-------------------------------\n";
         }
+        return "";
+    }
+
+    @Override
+    public String toStringGui() {
+        if (moveNumber == 1) return "blackcross";
+        else if (moveNumber == 2) return "shuffle";
         return "";
     }
 }

@@ -155,8 +155,6 @@ public class Table extends Observable implements Serializable{
     public void addPlayer(String nickname){
         Player player = new Player(nickname);
         players.add(player);
-
-        notifyObserver(new GenericMessage(nickname + " has joined the game"));
     }
 
     /**
