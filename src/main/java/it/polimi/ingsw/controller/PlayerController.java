@@ -14,6 +14,7 @@ import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -406,7 +407,7 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot1()==1 ){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(0));
-                        playerVV().displayGenericMessage("You activated production in slot 1!\n");
+                        //playerVV().displayGenericMessage("You activated production in slot 1!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                         playerVV().displayPopup(e.getMessage());
@@ -415,7 +416,7 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot2()==1){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(1));
-                        playerVV().displayGenericMessage("You activated production in slot 2!\n");
+                        //playerVV().displayGenericMessage("You activated production in slot 2!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                         playerVV().displayPopup(e.getMessage());
@@ -424,7 +425,7 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot3()==1){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(2));
-                        playerVV().displayGenericMessage("You activated production in slot 3!\n");
+                        //playerVV().displayGenericMessage("You activated production in slot 3!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                         playerVV().displayPopup(e.getMessage());
@@ -562,6 +563,26 @@ public class PlayerController {
                         getPlayerPB().getActiveLeaderCards());
             }
         }
+    }
+
+    public void finalizeProduction(ArrayList<Resource> outputProduction) throws IOException {
+        if (outputProduction.isEmpty()){
+            displayPB();
+            playerVV().fetchPlayerAction();
+        }
+        else {
+            for (Resource res : outputProduction){
+                if (res.getType().equals(ResourceType.FAITHPOINT)){
+                    for (int i=0; i<res.getQnt(); i++)
+                        getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
+                }
+            }
+            outputProduction.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
+            getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(outputProduction);
+            displayPB();
+            playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+        }
+
     }
 
     public void displayPB () throws IOException {

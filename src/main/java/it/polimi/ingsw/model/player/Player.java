@@ -162,12 +162,6 @@ public class Player extends Observable implements Serializable {
             throw new NoSuchElementException("You don't have the requirements to activate this production");
         }
         else {
-             for (Resource res : output){
-                if (res.getType().equals(ResourceType.FAITHPOINT)){
-                    for (int i=0; i<res.getQnt(); i++) getPersonalBoard().getFaithTrack().moveForward(this, 1);
-                }
-             }
-            output.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
             return output;
         }
 
