@@ -430,6 +430,7 @@ public class PlayerController {
                 }
 
                 if (((ActivateProduction)msg).getBasic()==1){
+                    displayPB();
                     cont=0;
                     playerVV().displayGenericMessage("You can now spend two resources to get one in Strongbox!: \n");
                     playerVV().fetchResourceType(); //fetch basic src 1

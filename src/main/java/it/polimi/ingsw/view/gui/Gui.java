@@ -260,7 +260,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayToken(Token token) {
-
+        Platform.runLater(() -> {
+            SingleplayerPopupSceneController spps = new SingleplayerPopupSceneController(token);
+            spps.addAllClientObservers(clientObservers);
+            SceneController.showPopup(spps, "singleplayer_popup.fxml");
+        });
     }
 
     /**
