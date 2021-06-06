@@ -42,8 +42,6 @@ public class Warehouse{
         for (Resource resource : resourcesToRemove)
             resources.add((Resource) resource.clone());
 
-
-
         for (Resource res : resources) {
             for (int i = 0; i < 3; i++) {
                 Resource check = new Resource(res.getQnt(), res.getType());

@@ -236,8 +236,8 @@ public class PlayerController {
 
             } catch (IndexOutOfBoundsException e){
                 playerVV().displayGenericMessage("You don't have resource to place");
-                playerVV().displayPopup("You don't have resource to place");
                 playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                playerVV().displayPopup("You don't have resource to place");
             }
 
         } else {
@@ -381,8 +381,8 @@ public class PlayerController {
                 playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
             } catch (IllegalAccessException e ){
                 playerVV().displayGenericMessage(e.getMessage());
-                playerVV().displayPopup(e.getMessage());
                 playerVV().fetchPlayerAction();
+                playerVV().displayPopup(e.getMessage());
             }
         }
 

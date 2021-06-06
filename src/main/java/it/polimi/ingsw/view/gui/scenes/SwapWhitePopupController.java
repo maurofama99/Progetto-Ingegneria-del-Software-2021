@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,7 +28,7 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
     private double y_Offset = 0;
 
     @FXML
-    private StackPane rootPane;
+    private BorderPane rootPane;
     @FXML
     private Button firstBtn;
     @FXML

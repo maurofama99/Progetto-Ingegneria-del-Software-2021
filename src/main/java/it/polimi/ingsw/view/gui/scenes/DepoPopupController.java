@@ -35,6 +35,7 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
 
     @FXML
     private BorderPane rootPane;
+
     @FXML
     private Label resourceLbl;
     @FXML
@@ -54,9 +55,6 @@ public class DepoPopupController extends ClientObservable implements GenericPopu
 
     @FXML
     private ImageView firstLevelLeft, firstLevelCenter, firstLevelRight;
-
-
-
 
     public DepoPopupController(Resource resource, ModelView modelView){
         stage = new Stage();

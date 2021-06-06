@@ -57,8 +57,9 @@ public class MarketTray implements Serializable{
      * @return an arraylist of resources, white marbles are ignored when it is time to store
      * @throws IndexOutOfBoundsException if the int is >3
      */
-    public ArrayList<Resource> selectRow(int row) throws IndexOutOfBoundsException{
+    public ArrayList<Resource> selectRow(int row) throws IndexOutOfBoundsException {
         ArrayList<Resource> resources;
+        ArrayList<Resource> result = new ArrayList<Resource>();
         Resource[][] tmptray = new Resource[3][4];
         int i;
 
@@ -79,7 +80,15 @@ public class MarketTray implements Serializable{
             this.slide = resources.get(resources.size() - 1);
         } else throw new IndexOutOfBoundsException();
 
-        return resources;
+        try {
+            for (Resource r : resources) {
+                result.add((Resource) r.clone());
+            }
+        } catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
@@ -90,6 +99,7 @@ public class MarketTray implements Serializable{
      */
     public ArrayList<Resource> selectColumn(int col){
         ArrayList<Resource> resources= new ArrayList<>();
+        ArrayList<Resource> result = new ArrayList<>();
         Resource[][] tmptray = new Resource[3][4];
         int i;
 
@@ -110,7 +120,15 @@ public class MarketTray implements Serializable{
             this.slide = resources.get(resources.size()-1);
         }   else throw new IndexOutOfBoundsException();
 
-        return resources;
+        try {
+            for (Resource r : resources) {
+                result.add((Resource) r.clone());
+            }
+        } catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

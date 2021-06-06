@@ -49,7 +49,7 @@ public class SceneController extends ClientObservable {
             onGoingScene = scene;
             onGoingScene.setRoot(root);
         } catch (IOException e){
-            System.out.println(e.getMessage());
+            System.out.println("Error in changeRootPane(observers) "+ e.getMessage());
         }
         return controller;
     }
@@ -101,7 +101,7 @@ public class SceneController extends ClientObservable {
             onGoingScene = scene;
             onGoingScene.setRoot(root);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error in changeRootPane(controller) "+ e.getMessage());
         }
     }
 
@@ -138,7 +138,7 @@ public class SceneController extends ClientObservable {
             controller.showPopUp();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error in showPopup " + e.getMessage());
         }
 
     }
