@@ -1,7 +1,11 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
+import it.polimi.ingsw.model.singleplayer.MoveAction;
+import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
+import it.polimi.ingsw.model.singleplayer.Token;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -17,5 +21,6 @@ public class SwapWhitePopupControllerTest {
 
         System.out.println("/punchboard/resources/"+ty1.getResourceName().toUpperCase()+".png");
     }
+
 
 }

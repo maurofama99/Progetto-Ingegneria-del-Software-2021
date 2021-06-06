@@ -143,19 +143,19 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
 
     public void setFaithTrackImages() {
 
-        if (modelView.getFaithTrack().isFirstFavorTile()){
+        if (modelView.getOthersPersonalBoards().get(player).getFaithTrack().isFirstFavorTile()){
             firstPopeTile.setImage(new Image("/punchboard/tile_2_front.png"));
         }
         else
             firstPopeTile.setImage(new Image("/punchboard/tile_2_back.png"));
 
-        if (modelView.getFaithTrack().isSecondFavorTile()){
+        if (modelView.getOthersPersonalBoards().get(player).getFaithTrack().isSecondFavorTile()){
             secondPopeTile.setImage(new Image("/punchboard/tile_3_front.png"));
         }
         else
             secondPopeTile.setImage(new Image("/punchboard/tile_3_back.png"));
 
-        if (modelView.getFaithTrack().isThirdFavorTile()){
+        if (modelView.getOthersPersonalBoards().get(player).getFaithTrack().isThirdFavorTile()){
             thirdPopeTile.setImage(new Image("/punchboard/tile_4_front.png"));
         }
         else
@@ -191,7 +191,7 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
         imageViews.add(tile_23);
         imageViews.add(tile_24);
 
-        imageViews.get(modelView.getFaithTrack().getFaithMarkerPosition()).setImage(new Image("/punchboard/croce.png"));
+        imageViews.get(modelView.getOthersPersonalBoards().get(player).getFaithTrack().getFaithMarkerPosition()).setImage(new Image("/punchboard/croce.png"));
 
 
 

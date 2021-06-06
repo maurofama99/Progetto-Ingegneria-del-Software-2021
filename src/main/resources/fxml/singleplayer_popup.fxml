@@ -27,7 +27,7 @@
                         <Font name="System Bold Italic" size="23.0" />
                     </font></Label>
                 <Button fx:id="ConfirmButton" layoutX="225.0" layoutY="295.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="151.0" styleClass="okButton" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="tokenPlayed" fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
             </children>
             <stylesheets>
                 <URL value="@../css/popup_scene.css" />
