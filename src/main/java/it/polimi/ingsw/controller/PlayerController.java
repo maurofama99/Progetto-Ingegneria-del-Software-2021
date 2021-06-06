@@ -449,9 +449,7 @@ public class PlayerController {
                         }
                     }
                     else {
-                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-                        displayPB();
-                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                        finalizeProduction(resourcesToAdd);
                     }
 
 
@@ -467,11 +465,9 @@ public class PlayerController {
                     try {
                         getPlayerPB().getWarehouse().removeResources(resourcesToRemove);
                         resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
-                        getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
-                        playerVV().displayGenericMessage("Extra production activated!\n");
-                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-                        displayPB();
-                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                        resourcesToAdd.add(new Resource(1, ResourceType.FAITHPOINT));
+                        //playerVV().displayGenericMessage("Extra production activated!\n");
+                        finalizeProduction(resourcesToAdd);
                     }
                     catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
@@ -514,9 +510,7 @@ public class PlayerController {
                         }
                     }
                     else {
-                        getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
-                        displayPB();
-                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                        finalizeProduction(resourcesToAdd);
                     }
 
                 }
