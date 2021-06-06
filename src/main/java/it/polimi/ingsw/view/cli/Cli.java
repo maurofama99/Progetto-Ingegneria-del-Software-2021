@@ -160,6 +160,7 @@ public class Cli extends ClientObservable implements View {
             notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
         }
         else notifyObservers(new ResourcePlacement(nickname, floor));
+        cliGraphics.printDepot(modelView.getWarehouse().getFloors());
     }
 
     /**

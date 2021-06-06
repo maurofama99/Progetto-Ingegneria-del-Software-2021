@@ -410,7 +410,6 @@ public class PlayerController {
                         //playerVV().displayGenericMessage("You activated production in slot 1!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
-                        playerVV().displayPopup(e.getMessage());
                     }
                 }
                 if (((ActivateProduction)msg).getSlot2()==1){
@@ -419,7 +418,6 @@ public class PlayerController {
                         //playerVV().displayGenericMessage("You activated production in slot 2!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
-                        playerVV().displayPopup(e.getMessage());
                     }
                 }
                 if (((ActivateProduction)msg).getSlot3()==1){
@@ -428,7 +426,6 @@ public class PlayerController {
                         //playerVV().displayGenericMessage("You activated production in slot 3!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
-                        playerVV().displayPopup(e.getMessage());
                     }
                 }
 
@@ -452,8 +449,6 @@ public class PlayerController {
                     else {
                         finalizeProduction(resourcesToAdd);
                     }
-
-
                 }
                 break;
 
@@ -472,7 +467,7 @@ public class PlayerController {
                     }
                     catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
-                        playerVV().displayPopup(e.getMessage());
+                        finalizeProduction(resourcesToAdd);
                     }
                 }
                 resourcesToRemove.remove(0);
@@ -568,7 +563,9 @@ public class PlayerController {
     public void finalizeProduction(ArrayList<Resource> outputProduction) throws IOException {
         if (outputProduction.isEmpty()){
             displayPB();
+            playerVV().displayGenericMessage("You were not able to activate any production");
             playerVV().fetchPlayerAction();
+            playerVV().displayPopup("You were not able to activate any production");
         }
         else {
             for (Resource res : outputProduction){
