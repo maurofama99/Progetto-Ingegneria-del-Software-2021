@@ -128,8 +128,9 @@ public class Player extends Observable implements Serializable {
     public boolean buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
         slotNumber = slotNumber -1;
         try {
-            if (getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy)
-                    && devCardToBuy.checkRequirements(devCardToBuy.getRequirementsDevCard(), this)){
+            if (getPersonalBoard().getWarehouse().checkAvailabilityWarehouse(devCardToBuy.getRequirementsDevCard())){
+                getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
+                devCardToBuy.checkRequirements(devCardToBuy.getRequirementsDevCard(), this);
                 victoryPoints += devCardToBuy.getVictoryPointsDevCard();
                 counterDevCards += 1;
                 return true;
@@ -171,6 +172,8 @@ public class Player extends Observable implements Serializable {
         }
 
     }
+
+
 
     /**
      * Method that swaps two resources chosen by the player to one single resource.

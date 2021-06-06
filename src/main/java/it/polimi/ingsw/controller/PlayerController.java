@@ -552,6 +552,7 @@ public class PlayerController {
         }
     }
 
+
     /**
      * If someone wants to see your personal board, this methods send it to them
      * @throws IOException
