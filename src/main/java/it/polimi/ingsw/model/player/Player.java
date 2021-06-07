@@ -75,10 +75,6 @@ public class Player extends Observable implements Serializable {
         this.personalBoard = personalBoard;
     }
 
-    public void setCounterDevCards(int counterDevCards) {
-        this.counterDevCards = counterDevCards;
-    }
-
     /**
      * The player can discard two leader cards at the beginning of the game
      * @param leaderCard1 the first leader card
@@ -108,6 +104,7 @@ public class Player extends Observable implements Serializable {
             LeaderCard leaderCard = getLeaderCards().get(leaderCardToAct);
             getLeaderCards().remove(leaderCardToAct);
             getPersonalBoard().addLeaderCard(leaderCard);
+            setVictoryPoints(getVictoryPoints()+leaderCard.getVictoryPoints());
             if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)) {
                 if (getPersonalBoard().getWarehouse().getDepot().getExtraFloors().get(0).isEmpty()) {
                     getPersonalBoard().getWarehouse().getDepot().getExtraFloors().set(0, Optional.of(new Resource(0, (ResourceType) leaderCard.getLeaderEffect().getObject())));
@@ -136,7 +133,6 @@ public class Player extends Observable implements Serializable {
                 return true;
             }
             else return false;
-
         }
         catch (IllegalAccessException | CloneNotSupportedException e) {
             throw new IllegalAccessException(e.getMessage());

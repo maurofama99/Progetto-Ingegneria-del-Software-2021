@@ -53,6 +53,9 @@ public class Deck implements Serializable {
 
     }
 
+    public Stack<DevCard>[][] getFullDeck() {
+        return fullDeck;
+    }
 
     /**
      * This method is literally a getter of the deck on the table

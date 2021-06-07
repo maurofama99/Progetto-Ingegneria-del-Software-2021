@@ -29,9 +29,7 @@ public class Token implements Serializable {
      * @param t table where the stack is
      */
     public void activateAction(Table t){
-
         tokenAction.doAction(t);
-
     }
 
     @Override

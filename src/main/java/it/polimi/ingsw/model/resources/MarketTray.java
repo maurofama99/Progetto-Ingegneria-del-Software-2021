@@ -63,22 +63,16 @@ public class MarketTray implements Serializable{
         Resource[][] tmptray = new Resource[3][4];
         int i;
 
-        //copying in tmptray the initial tray
-        for (i=0; i<3; i++){
+        for (i=0; i<3; i++)
             tmptray[i] = (tray[i].clone());
-        }
 
         if (row>=1 && row<=3) {
-            //adding row's resources in the array to be returned
             resources = new ArrayList<>(Arrays.asList(tray[row - 1]));
-
-            //changes the tray disposition after using the slide
             System.arraycopy(tmptray[row - 1], 0, tray[row - 1], 1, 3);
             tray[row - 1][0] = slide;
-
-            //sets the new slide
             this.slide = resources.get(resources.size() - 1);
-        } else throw new IndexOutOfBoundsException();
+        }
+        else throw new IndexOutOfBoundsException();
 
         try {
             for (Resource r : resources) {

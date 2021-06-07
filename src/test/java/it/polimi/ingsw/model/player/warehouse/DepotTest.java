@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model.player.warehouse;
 
+import it.polimi.ingsw.model.player.PersonalBoard;
+import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.leadercards.ExtraDepot;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import org.junit.Assert;
@@ -8,6 +12,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -53,7 +58,6 @@ public class DepotTest {
         }
         assertTrue(thrown);
 
-
         depot.addResourceToDepot(twoShields, 2);
         assertEquals(2, depot.getFloors().get(1).get().getQnt());
 
@@ -93,6 +97,35 @@ public class DepotTest {
 
         assertTrue(depot.checkAvailabilityDepot(resources).get(1).getQnt()==3 &&
                 depot.checkAvailabilityDepot(resources).get(1).getType().equals(ResourceType.SERVANT));
+    }
+
+    @Test
+    public void testAddExtraDepot(){
+        Player player = new Player("Pippo");
+        player.setPersonalBoard(new PersonalBoard(warehouse));
+
+        boolean thrown = false;
+        try {
+            depot.addResourceToExtraDepot(twoStones);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+
+        player.getPersonalBoard().getWarehouse().getDepot().getExtraFloors().set(0, Optional.of(new Resource(0, ResourceType.STONE)));
+        assertTrue(depot.getExtraFloors().get(0).isPresent());
+
+        depot.addResourceToExtraDepot(twoStones);
+        assertEquals(2, depot.getExtraFloors().get(0).get().getQnt());
+
+        thrown = false;
+        try {
+            depot.addResourceToExtraDepot(twoCoins);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+
     }
 }
 

@@ -26,8 +26,6 @@ public class Depot {
         }
     }
 
-
-
     public ArrayList<Optional<Resource>> getFloors() {
         return floors;
     }
@@ -43,23 +41,12 @@ public class Depot {
         return result;
     }
 
-
-    /**
-     * Sets a floor empty
-     *
-     * @param floor floor to be set
-     */
-    public void setEmptyFloor(int floor) {
-        floors.set(floor - 1, Optional.empty());
-    }
-
-
     /**
      * Places the selected resource in the floor. Need to check if floor is empty and if not, if it's
      * the same resource and if the floor is not full
      *
      * @param resourceToPlace which resource goes in the depot
-     * @param floor           which floor will store the resource
+     * @param floor which floor will store the resource
      * @requires floor >=1 && floor <=3
      */
     public void addResourceToDepot(Resource resourceToPlace, int floor) {
@@ -106,8 +93,8 @@ public class Depot {
         }
         if (index<0)
             throw new IllegalArgumentException("You don't have extra floors available for these type of resource.");
-        else if (index>0 &&
-                extraFloors.get(index).isPresent() && ((extraFloors.get(index).get().getQnt() + resourceToPlace.getQnt()) > 2))
+        else if (index>0 && extraFloors.get(index).isPresent()
+                && ((extraFloors.get(index).get().getQnt() + resourceToPlace.getQnt()) > 2))
             throw new IllegalArgumentException("There is not enough space in the extra floor");
         else
             extraFloors.get(index).get().setQnt(extraFloors.get(index).get().getQnt() + resourceToPlace.getQnt());

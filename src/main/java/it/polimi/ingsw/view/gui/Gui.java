@@ -220,6 +220,8 @@ public class Gui extends ClientObservable implements View {
         });
     }
 
+
+
     /**
      * Same as above, but this popup is shown at the end of the turn
      * @param leaderCards leader cards of the player

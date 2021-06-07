@@ -31,6 +31,7 @@ public class PlayerController {
     private ResourceType typeInput1;
     private ResourceType typeInput2;
     private ResourceType type1, type2; //used for the double swap-white action
+    ArrayList<Resource> resourcesToAdd = new ArrayList<>();
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -399,7 +400,6 @@ public class PlayerController {
      * @throws CloneNotSupportedException
      */
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
-        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
         ArrayList<Resource> resourcesToRemove = new ArrayList<>();
         switch (msg.getMessageType()){
             case ACTIVATE_PRODUCTION:
@@ -448,7 +448,7 @@ public class PlayerController {
                         }
                     }
                     else {
-                        finalizeProduction(resourcesToAdd);
+                        finalizeProduction();
                     }
                 }
                 break;
@@ -464,11 +464,11 @@ public class PlayerController {
                         resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
                         resourcesToAdd.add(new Resource(1, ResourceType.FAITHPOINT));
                         //playerVV().displayGenericMessage("Extra production activated!\n");
-                        finalizeProduction(resourcesToAdd);
+                        finalizeProduction();
                     }
                     catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
-                        finalizeProduction(resourcesToAdd);
+                        finalizeProduction();
                     }
                 }
                 resourcesToRemove.remove(0);
@@ -507,7 +507,7 @@ public class PlayerController {
                         }
                     }
                     else {
-                        finalizeProduction(resourcesToAdd);
+                        finalizeProduction();
                     }
 
                 }
@@ -561,23 +561,24 @@ public class PlayerController {
         }
     }
 
-    public void finalizeProduction(ArrayList<Resource> outputProduction) throws IOException {
-        if (outputProduction.isEmpty()){
+    public void finalizeProduction() throws IOException {
+        if (resourcesToAdd.isEmpty()){
             displayPB();
             playerVV().displayGenericMessage("You were not able to activate any production");
             playerVV().fetchPlayerAction();
             playerVV().displayPopup("You were not able to activate any production");
         }
         else {
-            for (Resource res : outputProduction){
+            for (Resource res : resourcesToAdd){
                 if (res.getType().equals(ResourceType.FAITHPOINT)){
                     for (int i=0; i<res.getQnt(); i++)
                         getPlayerPB().getFaithTrack().moveForward(gameController.getTable().getCurrentPlayer(), 1);
                 }
             }
-            outputProduction.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
-            getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(outputProduction);
+            resourcesToAdd.removeIf(resource -> resource.getType().equals(ResourceType.FAITHPOINT));
+            getPlayerPB().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
             displayPB();
+            resourcesToAdd.clear();
             playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
 

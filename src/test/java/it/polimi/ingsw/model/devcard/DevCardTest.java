@@ -84,13 +84,5 @@ public class DevCardTest {
     }
 
 
-    @Test
-    public void placingTest(){
-        Deck deck = new Deck();
-
-        System.out.println(deck.toString());
-    }
-
-
 
 }
