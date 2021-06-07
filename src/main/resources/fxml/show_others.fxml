@@ -109,6 +109,10 @@
                   <ImageView fx:id="tile_24" fitHeight="44.0" fitWidth="34.0" layoutX="830.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="closeBtn" layoutX="971.0" layoutY="620.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="96.0" text="Close" />
                   <Label fx:id="nickname" layoutX="98.0" layoutY="19.0" prefHeight="42.0" prefWidth="276.0" text="Nickname" />
+                  <ImageView fx:id="SWResource" fitHeight="35.0" fitWidth="35.0" layoutX="1032.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="SEResource" fitHeight="35.0" fitWidth="35.0" layoutX="1082.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="NWResource" fitHeight="35.0" fitWidth="35.0" layoutX="1032.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="NEResource" fitHeight="35.0" fitWidth="35.0" layoutX="1082.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </children>

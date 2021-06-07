@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.player.leadercards.EffectType;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
@@ -22,6 +24,9 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
 
     private Stage stage;
     private final String player;
+    private ModelView modelView;
+    private ResourceType NResourceType = ResourceType.NULLRESOURCE;// upper card resource type if extra depot
+    private ResourceType SResourceType = ResourceType.NULLRESOURCE;// lower card resource type if extra depot
 
     private double x_Offset = 0;
     private double y_Offset = 0;
@@ -29,7 +34,7 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     @FXML
     private StackPane rootPane;
 
-    private ModelView modelView;
+
     @FXML
     private ImageView inkwell;
     //Depot
@@ -59,9 +64,9 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     private ImageView firstPopeTile, secondPopeTile, thirdPopeTile;
     //End of FaithTrack
     @FXML
-    private Button showMarketBtn, showDevCardsBtn, firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
+    private ImageView leaderLeft, NEResource, NWResource;
     @FXML
-    private ImageView leaderLeft, leaderRight;
+    private ImageView leaderRight, SEResource, SWResource;
     @FXML
     private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
 
@@ -74,8 +79,9 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     @FXML
     private Button closeBtn;
 
-    public ShowOthersPopupController(String nickname) {
+    public ShowOthersPopupController(String nickname, ModelView modelView) {
         this.player = nickname;
+        this.modelView = modelView;
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -83,12 +89,25 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
+
+        for (LeaderCard leaderCard : modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards()){
+            if (leaderCard.getLeaderEffect().getEffectType() == EffectType.EXTRADEPOT){
+                if (modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().indexOf(leaderCard) == 0){
+                    NResourceType = (ResourceType) leaderCard.getLeaderEffect().getObject();
+                } else {
+                    SResourceType = (ResourceType) leaderCard.getLeaderEffect().getObject();
+                }
+            }
+        }
     }
 
     public void initialize(){
         setDepotImage();
         setFaithTrackImages();
         setSlotImages();
+        setExtraDepotImages();
+        setImagesStrongBox();
+        setLeaderImages();
 
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
@@ -114,28 +133,28 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     }
 
     private void setDepotImage(){
-        if (!modelView.getWarehouse().getFloors().get(0).getType().equals(ResourceType.NULLRESOURCE)){
-            setResourceImage(modelView.getWarehouse().getFloors().get(0).toStringGui(), thirdLevel);
+        if (!modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(0).getType().equals(ResourceType.NULLRESOURCE)){
+            setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(0).toStringGui(), thirdLevel);
         }
-        if (!modelView.getWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
-            if (modelView.getWarehouse().getFloors().get(1).getQnt()==1)
-                setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
-            else if ((modelView.getWarehouse().getFloors().get(1).getQnt()==2)) {
-                setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
-                setResourceImage(modelView.getWarehouse().getFloors().get(1).toStringGui(), secondLevelRight);
+        if (!modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(1).getType().equals(ResourceType.NULLRESOURCE)){
+            if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(1).getQnt()==1)
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
+            else if ((modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(1).getQnt()==2)) {
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(1).toStringGui(), secondLevelLeft);
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(1).toStringGui(), secondLevelRight);
             }
         }
-        if (!modelView.getWarehouse().getFloors().get(2).getType().equals(ResourceType.NULLRESOURCE)){
-            if (modelView.getWarehouse().getFloors().get(2).getQnt()==1)
-                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
-            else if (modelView.getWarehouse().getFloors().get(2).getQnt()==2){
-                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelRight);
-                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
+        if (!modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).getType().equals(ResourceType.NULLRESOURCE)){
+            if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).getQnt()==1)
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
+            else if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).getQnt()==2){
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).toStringGui(), firstLevelRight);
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
             }
             else {
-                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelRight);
-                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
-                setResourceImage(modelView.getWarehouse().getFloors().get(2).toStringGui(), firstLevelCenter);
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).toStringGui(), firstLevelRight);
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).toStringGui(), firstLevelLeft);
+                setResourceImage(modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getFloors().get(2).toStringGui(), firstLevelCenter);
             }
         }
     }
@@ -198,58 +217,75 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     }
 
     public void setSlotImages(){
-        for (int i =0; i<3; i++){
-            if (modelView.getSlots()[i].getShowedCard() !=null){
-                slotLeft1.setImage(new Image("/front/devcard_color-"
-                        + modelView.getSlots()[i].getShowedCard().getCardColor()
-                        + "_level-" + modelView.getSlots()[i].getShowedCard().getLevel()
-                        + "_vp-" + modelView.getSlots()[i].getShowedCard().getVictoryPointsDevCard() + ".png"));
-            }
+        if (modelView.getOthersPersonalBoards().get(player).getSlots()[0].getShowedCard() !=null){
+            slotLeft1.setImage(new Image("/front/devcard_color-"
+                    + modelView.getOthersPersonalBoards().get(player).getSlots()[0].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getOthersPersonalBoards().get(player).getSlots()[0].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getOthersPersonalBoards().get(player).getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getOthersPersonalBoards().get(player).getSlots()[1].getShowedCard() !=null){
+            slotCenter1.setImage(new Image("/front/devcard_color-"
+                    + modelView.getOthersPersonalBoards().get(player).getSlots()[1].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getOthersPersonalBoards().get(player).getSlots()[1].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getOthersPersonalBoards().get(player).getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+        }
+
+        if (modelView.getOthersPersonalBoards().get(player).getSlots()[2].getShowedCard() !=null){
+            slotRight1.setImage(new Image("/front/devcard_color-"
+                    + modelView.getOthersPersonalBoards().get(player).getSlots()[2].getShowedCard().getCardColor()
+                    + "_level-" + modelView.getOthersPersonalBoards().get(player).getSlots()[2].getShowedCard().getLevel()
+                    + "_vp-" + modelView.getOthersPersonalBoards().get(player).getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
         }
 
     }
 
 
-    public void increaseCounter(Label labelToSet, int quantity, int resourcePresent){
-        resourcePresent = resourcePresent+quantity;
-        labelToSet.setText("x"+Integer.toString(resourcePresent));
+    public void setLeaderImages(){
+        if (modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().size()==0){
+            leaderLeft.setImage(new Image("/back/leader-back.png"));
+            leaderRight.setImage(new Image("/back/leader-back.png"));
+        }
+
+        else if (modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().size()==1){
+            leaderLeft.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderRight.setImage(new Image("/back/leader-back.png"));
+        }
+
+        else {
+            leaderLeft.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderRight.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(1).getLeaderEffect().toString()+".png"));
+        }
     }
 
-    public void decreaseCounter(Label labelToSet, int quantity, int resourcePresent){
-        resourcePresent = resourcePresent-quantity;
-        labelToSet.setText("x"+Integer.toString(resourcePresent));
+
+    public void setImagesStrongBox(){
+        coinCounter.setText(""+modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getStrongbox()[0].getQnt());
+        servantCounter.setText(""+modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getStrongbox()[1].getQnt());
+        shieldCounter.setText(""+modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getStrongbox()[2].getQnt());
+        stoneCounter.setText(""+modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getStrongbox()[3].getQnt());
     }
 
-    public void increaseCoinCounter(int quantity){
-        increaseCounter(coinCounter, quantity, coinQnt);
-    }
+    private void setExtraDepotImages() {
+        if (NResourceType != ResourceType.NULLRESOURCE){ //significa che è attiva una leader card extra production
+            if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getExtraFloors().get(0).getQnt()==1){
+                NWResource.setImage(new Image("/punchboard/resources/"+NResourceType.getResourceName().toUpperCase()+".png"));
+            }
+            else if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getExtraFloors().get(0).getQnt()==2) {
+                NWResource.setImage(new Image("/punchboard/resources/"+NResourceType.getResourceName().toUpperCase()+".png"));
+                NEResource.setImage(new Image("/punchboard/resources/"+NResourceType.getResourceName().toUpperCase()+".png"));
+            }
+        }
 
-    public void decreaseCoinCounter(int quantity){
-        decreaseCounter(coinCounter, quantity, coinQnt);
-    }
-
-    public void increaseStoneCounter(int quantity){
-        increaseCounter(stoneCounter, quantity, stoneQnt);
-    }
-
-    public void decreaseStoneCounter(int quantity){
-        decreaseCounter(stoneCounter, quantity, stoneQnt);
-    }
-
-    public void increaseServantCounter(int quantity){
-        increaseCounter(servantCounter, quantity, servantQnt);
-    }
-
-    public void decreaseServantCounter(int quantity){
-        decreaseCounter(servantCounter, quantity, servantQnt);
-    }
-
-    public void increaseShieldCounter(int quantity){
-        increaseCounter(shieldCounter, quantity, shieldQnt);
-    }
-
-    public void decreaseShieldCounter(int quantity){
-        decreaseCounter(shieldCounter, quantity, shieldQnt);
+        if (SResourceType != ResourceType.NULLRESOURCE){ //significa che è attiva una leader card extra production
+            if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getExtraFloors().get(1).getQnt()==1) {
+                SWResource.setImage(new Image("/punchboard/resources/"+SResourceType.getResourceName().toUpperCase()+".png"));
+            }
+            else if (modelView.getOthersPersonalBoards().get(player).getSerializableWarehouse().getExtraFloors().get(1).getQnt()==2) {
+                SWResource.setImage(new Image("/punchboard/resources/"+SResourceType.getResourceName().toUpperCase()+".png"));
+                SEResource.setImage(new Image("/punchboard/resources/"+SResourceType.getResourceName().toUpperCase()+".png"));
+            }
+        }
     }
 
     public void showPopUp(){

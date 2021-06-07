@@ -61,6 +61,10 @@ public class PersonalBoard{
         return warehouse;
     }
 
+    public SerializableWarehouse getSerializableWarehouse() {
+        return serializableWarehouse;
+    }
+
     public void setFaithTrack(FaithTrack faithTrack) {
         this.faithTrack = faithTrack;
     }

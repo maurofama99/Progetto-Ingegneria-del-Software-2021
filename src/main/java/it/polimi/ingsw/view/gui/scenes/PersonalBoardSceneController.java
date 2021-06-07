@@ -136,7 +136,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenThirdPlayerBtnClicked(MouseEvent event) {
         Platform.runLater(()->{
-            ShowOthersPopupController sosc = new ShowOthersPopupController(thirdPlayerNick);
+            ShowOthersPopupController sosc = new ShowOthersPopupController(thirdPlayerNick, modelView);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
         });
@@ -144,7 +144,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenSecondPlayerBtnClicked(MouseEvent event) {
         Platform.runLater(()->{
-            ShowOthersPopupController sosc = new ShowOthersPopupController(secondPlayerNick);
+            ShowOthersPopupController sosc = new ShowOthersPopupController(secondPlayerNick, modelView);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
         });
@@ -152,7 +152,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     private void whenFirstPlayerBtnClicked(MouseEvent event) {
         Platform.runLater(()->{
-            ShowOthersPopupController sosc = new ShowOthersPopupController(firstPlayerNick);
+            ShowOthersPopupController sosc = new ShowOthersPopupController(firstPlayerNick, modelView);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
         });
