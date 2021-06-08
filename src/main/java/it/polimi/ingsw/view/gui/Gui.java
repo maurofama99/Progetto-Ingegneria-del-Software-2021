@@ -257,7 +257,11 @@ public class Gui extends ClientObservable implements View {
 
     @Override
     public void displayWinningMsg() {
-
+        Platform.runLater(()-> {
+            EndPopupSceneController epsc = new EndPopupSceneController("Thank you for playing, press \"OK\" to quit.");
+            epsc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(epsc, "popup_scene.fxml");
+        });
     }
 
     @Override

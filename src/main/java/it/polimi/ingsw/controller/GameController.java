@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 import java.io.IOException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -158,6 +160,10 @@ public class GameController implements Observer, Serializable {
                     vv.displayGenericMessage("You can't do this move now, please choose a floor");
                     vv.displayPopup("You can't do this move now, please choose a floor");
                     vv.fetchResourcePlacement(resourceChosen);
+                } catch (IllegalArgumentException e){
+                    vv.displayPopup(e.getMessage());
+                    vv.displayGenericMessage(e.getMessage());
+                    vv.fetchResourcePlacement(resourceChosen);
                 }
                 break;
 
@@ -281,13 +287,18 @@ public class GameController implements Observer, Serializable {
      * @throws CloneNotSupportedException we clone something that shouldn't be cloned
      */
     public void receiveMessageOnEndGame(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
+        HashMap<String, Integer> leaderboard = new HashMap<>();
 
         if (msg.getMessageType().equals(Content.DONE_ACTION)){
 
-            if (msg.getSenderUser().equals(endPlayer))
+            if (msg.getSenderUser().equals(endPlayer)) {
                 vvMap.get(endPlayer).displayGenericMessage("You made the game end! :)");
-            else
+                vvMap.get(endPlayer).displayPopup("You made the game end!\nPlease wait...\nAt the end of this round game is over");
+            }
+            else {
                 vvMap.get(msg.getSenderUser()).displayGenericMessage(endPlayer + " ended the game");
+                vvMap.get(msg.getSenderUser()).displayPopup(endPlayer + " ended the game\nPlease wait...\nAt the end of this round game is over");
+            }
 
             vvMap.get(msg.getSenderUser()).displayGenericMessage
                     (       "--------------------------------\n" +
@@ -308,9 +319,12 @@ public class GameController implements Observer, Serializable {
         else{
 
             for (String key : vvMap.keySet()){
-                for(Player player : table.getPlayers())
-                    if (player.getNickname().equals(key))
+                for(Player player : table.getPlayers()) {
+                    if (player.getNickname().equals(key)) {
                         vvMap.get(key).displayGenericMessage("You have totaled " + player.getVictoryPoints());
+                        leaderboard.put(player.getNickname(), player.getVictoryPoints());
+                    }
+                }
             }
 
             winner = table.getPlayers().stream()
@@ -320,11 +334,11 @@ public class GameController implements Observer, Serializable {
             table.getPlayers().forEach(player -> {
                 try {
                     if (player.getNickname().equals(winner)) {
-                        vvMap.get(player.getNickname()).displayGenericMessage("YOU WON THIS GAME!! \nCONGRATULATIONS!!");
-                        vvMap.get(player.getNickname()).displayPopup("YOU WON THIS GAME!! \nCONGRATULATIONS!!");
+                        vvMap.get(player.getNickname()).displayGenericMessage("YOU WON THIS GAME!! \nCONGRATULATIONS!!\nSCORES:\n" + leaderboard);
+                        vvMap.get(player.getNickname()).displayPopup("YOU WON THIS GAME!! \nCONGRATULATIONS!!\nSCORES:\n" + leaderboard);
                     } else {
-                        vvMap.get(player.getNickname()).displayPopup("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\n");
-                        vvMap.get(player.getNickname()).displayGenericMessage("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\n");
+                        vvMap.get(player.getNickname()).displayPopup("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\nSCORES:\n"+ leaderboard);
+                        vvMap.get(player.getNickname()).displayGenericMessage("YOU LOST, I'M SORRY! \n NEXT TIME WILL GO BETTER!\nSCORES:\n"+ leaderboard);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

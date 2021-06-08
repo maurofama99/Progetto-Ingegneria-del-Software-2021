@@ -14,7 +14,6 @@ import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -237,9 +236,9 @@ public class PlayerController {
                 playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
 
             } catch (IndexOutOfBoundsException e){
-                playerVV().displayGenericMessage("You don't have resource to place");
+                playerVV().displayGenericMessage("You don't have resources to place");
                 playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
-                playerVV().displayPopup("You don't have resource to place");
+                playerVV().displayPopup("You don't have resources to place");
             }
 
         } else {
@@ -345,7 +344,6 @@ public class PlayerController {
 
     }
 
-
     /**
      * When the player wants to buy a development card. This method removes the ard from the matrix and place it on a player's slot.
      * @param msg It contains row, column of the matrix and a slot number of the player's personal board.
@@ -373,7 +371,6 @@ public class PlayerController {
                 }
             }
         }
-
 
         try {
             if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot())){
