@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
 
     //TODO: assigning inkwell to first player
-    //TODO: blackcross for singleplayer
     private ModelView modelView;
     private ResourceType NResourceType = ResourceType.NULLRESOURCE;// upper card resource type if extra depot
     private ResourceType SResourceType = ResourceType.NULLRESOURCE;// lower card resource type if extra depot
@@ -283,30 +282,109 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
         imageViews.get(modelView.getFaithTrack().getFaithMarkerPosition()).setImage(new Image("/punchboard/croce.png"));
 
-
+        if(modelView.getFaithTrack().getBlackCrossPosition()>=0)
+        imageViews.get(modelView.getFaithTrack().getBlackCrossPosition()).setImage(new Image("/punchboard/blackcross.png"));
 
     }
 
     public void setSlotImages(){
         if (modelView.getSlots()[0].getShowedCard() !=null){
-            slotLeft1.setImage(new Image("/front/devcard_color-"
-                    + modelView.getSlots()[0].getShowedCard().getCardColor()
-                    + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
-                    + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            if(modelView.getSlots()[0].getCards().size()==1) {
+                slotLeft1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[0].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+            else if(modelView.getSlots()[0].getCards().size()==2){
+                slotLeft1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[0].getCards().get(0).getCardColor()
+                        + "_level-" + modelView.getSlots()[0].getCards().get(0).getLevel()
+                        + "_vp-" + modelView.getSlots()[0].getCards().get(0).getVictoryPointsDevCard() + ".png"));
+                slotLeft2.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[0].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+            else if(modelView.getSlots()[0].getCards().size()==3){
+                slotLeft1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[0].getCards().get(0).getCardColor()
+                        + "_level-" + modelView.getSlots()[0].getCards().get(0).getLevel()
+                        + "_vp-" + modelView.getSlots()[0].getCards().get(0).getVictoryPointsDevCard() + ".png"));
+                slotLeft2.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[0].getCards().get(1).getCardColor()
+                        + "_level-" + modelView.getSlots()[0].getCards().get(1).getLevel()
+                        + "_vp-" + modelView.getSlots()[0].getCards().get(1).getVictoryPointsDevCard() + ".png"));
+                slotLeft3.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[0].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[0].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[0].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
         }
 
         if (modelView.getSlots()[1].getShowedCard() !=null){
-            slotCenter1.setImage(new Image("/front/devcard_color-"
-                    + modelView.getSlots()[1].getShowedCard().getCardColor()
-                    + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
-                    + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            if(modelView.getSlots()[1].getCards().size()==1) {
+                slotCenter1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[1].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+            else if(modelView.getSlots()[1].getCards().size()==2) {
+                slotCenter1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[1].getCards().get(0).getCardColor()
+                        + "_level-" + modelView.getSlots()[1].getCards().get(0).getLevel()
+                        + "_vp-" + modelView.getSlots()[1].getCards().get(0).getVictoryPointsDevCard() + ".png"));
+                slotCenter2.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[1].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+            else if(modelView.getSlots()[1].getCards().size()==3) {
+                slotCenter1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[1].getCards().get(0).getCardColor()
+                        + "_level-" + modelView.getSlots()[1].getCards().get(0).getLevel()
+                        + "_vp-" + modelView.getSlots()[1].getCards().get(0).getVictoryPointsDevCard() + ".png"));
+                slotCenter2.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[1].getCards().get(1).getCardColor()
+                        + "_level-" + modelView.getSlots()[1].getCards().get(1).getLevel()
+                        + "_vp-" + modelView.getSlots()[1].getCards().get(1).getVictoryPointsDevCard() + ".png"));
+                slotCenter3.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[1].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[1].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[1].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
         }
 
         if (modelView.getSlots()[2].getShowedCard() !=null){
-            slotRight1.setImage(new Image("/front/devcard_color-"
-                    + modelView.getSlots()[2].getShowedCard().getCardColor()
-                    + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
-                    + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            if(modelView.getSlots()[2].getCards().size()==1) {
+                slotRight1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[2].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+            else if(modelView.getSlots()[2].getCards().size()==2) {
+                slotRight1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[2].getCards().get(0).getCardColor()
+                        + "_level-" + modelView.getSlots()[2].getCards().get(0).getLevel()
+                        + "_vp-" + modelView.getSlots()[2].getCards().get(0).getVictoryPointsDevCard() + ".png"));
+                slotRight2.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[2].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
+            else if(modelView.getSlots()[2].getCards().size()==3) {
+                slotRight1.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[2].getCards().get(0).getCardColor()
+                        + "_level-" + modelView.getSlots()[2].getCards().get(0).getLevel()
+                        + "_vp-" + modelView.getSlots()[2].getCards().get(0).getVictoryPointsDevCard() + ".png"));
+                slotRight2.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[2].getCards().get(1).getCardColor()
+                        + "_level-" + modelView.getSlots()[2].getCards().get(1).getLevel()
+                        + "_vp-" + modelView.getSlots()[2].getCards().get(1).getVictoryPointsDevCard() + ".png"));
+                slotRight3.setImage(new Image("/front/devcard_color-"
+                        + modelView.getSlots()[2].getShowedCard().getCardColor()
+                        + "_level-" + modelView.getSlots()[2].getShowedCard().getLevel()
+                        + "_vp-" + modelView.getSlots()[2].getShowedCard().getVictoryPointsDevCard() + ".png"));
+            }
         }
 
 

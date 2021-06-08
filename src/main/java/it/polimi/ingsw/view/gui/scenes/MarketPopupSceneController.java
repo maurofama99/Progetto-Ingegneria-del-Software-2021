@@ -192,7 +192,26 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
 
     public void setMarbles(){
 
-        slideMrbl = setMarble(modelView.getMarketTray().getSlide().getType());
+       switch (modelView.getMarketTray().getSlide().getType()){
+           case SHIELD :
+               slideMrbl.setImage(new Image("/punchboard/marbles/cyan.png"));
+               break;
+           case SERVANT :
+               slideMrbl.setImage(new Image("/punchboard/marbles/purple.png"));
+               break;
+           case STONE :
+               slideMrbl.setImage(new Image("/punchboard/marbles/grey.png"));
+               break;
+           case COIN:
+               slideMrbl.setImage(new Image("/punchboard/marbles/yellow.png"));
+               break;
+           case WHITERESOURCE :
+               slideMrbl.setImage(new Image("/punchboard/marbles/white.png"));
+               break;
+           case FAITHPOINT:
+               slideMrbl.setImage(new Image("/punchboard/marbles/red.png"));
+               break;
+       }
 
         for(int j=0; j<3;j++){
             for(int k=0; k<4; k++){

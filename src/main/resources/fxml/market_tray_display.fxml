@@ -10,18 +10,18 @@
     <children>
         <Group rotate="180.0">
             <children>
-                <AnchorPane layoutX="-54.0" layoutY="-72.0" prefHeight="720.0" prefWidth="555.0">
+                <AnchorPane prefHeight="720.0" prefWidth="900.0">
                     <children>
-                  <ImageView fitHeight="314.0" fitWidth="377.0" layoutX="452.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="314.0" fitWidth="377.0" layoutX="443.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../other/background/nero_sfondo.png" />
                      </image></ImageView>
-                        <ImageView fitHeight="720.0" fitWidth="560.0" layoutX="362.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="720.0" fitWidth="560.0" layoutX="353.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../punchboard/market_tray.png" />
                             </image>
                         </ImageView>
-                  <GridPane fx:id="marketTray" layoutX="506.0" layoutY="166.0" prefHeight="182.0" prefWidth="286.0" rotate="180.0">
+                  <GridPane fx:id="marketTray" layoutX="496.0" layoutY="172.0" prefHeight="182.0" prefWidth="282.0" rotate="180.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -34,7 +34,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-                  <ImageView fx:id="slideMrbl" fitHeight="60.0" fitWidth="60.0" layoutX="456.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slideMrbl" fitHeight="49.0" fitWidth="51.0" layoutX="447.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="column1Btn" layoutX="706.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
                   <Button fx:id="column2Btn" layoutX="645.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
                   <Button fx:id="column3Btn" layoutX="581.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
