@@ -160,6 +160,10 @@ public class GameController implements Observer, Serializable {
                     vv.displayGenericMessage("You can't do this move now, please choose a floor");
                     vv.displayPopup("You can't do this move now, please choose a floor");
                     vv.fetchResourcePlacement(resourceChosen);
+                } catch (IllegalArgumentException e){
+                    vv.displayPopup(e.getMessage());
+                    vv.displayGenericMessage(e.getMessage());
+                    vv.fetchResourcePlacement(resourceChosen);
                 }
                 break;
 
