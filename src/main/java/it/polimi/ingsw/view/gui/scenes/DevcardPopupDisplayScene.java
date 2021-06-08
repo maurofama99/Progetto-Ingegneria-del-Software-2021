@@ -291,6 +291,7 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
                 if(modelView.getShowedDeck()[i][j] != null){
                     devCardGrid.add(setDevCardImage(modelView.getShowedDeck()[i][j]),j,i);
                 } else if(modelView.getShowedDeck()[i][j] == null){
+
                     ImageView backImage = new ImageView();
                     Image image = new Image("/back/devcard-back-"+ i + "-" + j + ".png");
                     backImage.setImage(image);

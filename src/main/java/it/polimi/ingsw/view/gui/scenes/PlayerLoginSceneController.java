@@ -32,12 +32,35 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
     @FXML
     private Button exitGameButton;
+    @FXML
+    private Button singleBtn, twoPlayers, threePlayers, fourPlayers;
 
 
     @FXML
     public void initialize(){
         joinGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinGameClick);
         exitGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onExitGameClick);
+
+        singleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSingleClicked);
+        twoPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenTwoClicked);
+        threePlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThreeClicked);
+        fourPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourPlayers);
+    }
+
+    private void whenSingleClicked(MouseEvent event){
+
+    }
+
+    private void whenTwoClicked(MouseEvent event){
+
+    }
+
+    private void whenThreeClicked(MouseEvent event){
+
+    }
+
+    private void whenFourPlayers(MouseEvent event){
+
     }
 
     private void onJoinGameClick(Event event){

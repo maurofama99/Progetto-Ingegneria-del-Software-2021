@@ -111,6 +111,10 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
     }
 
+    private void setInkwell(){
+        inkwell.setImage(new Image("/punchboard/inkwell.png"));
+    }
+
     private void setExtraDepotImages() {
         if (NResourceType != ResourceType.NULLRESOURCE){ //significa che è attiva una leader card extra production
             if (modelView.getWarehouse().getExtraFloors().get(0).getQnt()==1){

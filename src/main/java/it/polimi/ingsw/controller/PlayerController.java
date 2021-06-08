@@ -353,34 +353,35 @@ public class PlayerController {
      */
 
     public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException {
-        if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn())==null){
+        if (gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn()) == null) {
             playerVV().displayGenericMessage("Selected card is not available anymore!\n");
             playerVV().fetchPlayerAction();
+            playerVV().displayPopup("Selected card is not available anymore!\n");
         }
-
-
-        DevCard devCard = gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
-        ArrayList<Resource> requirements = new ArrayList<>();
-        for (Resource  resource : devCard.getRequirementsDevCard()){
-            requirements.add((Resource) resource.clone());
-        }
-        requirements = hasDiscountEffect(requirements);
-
-        try {
-            if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, requirements, ((BuyDevCard) msg).getSlot())){
-                playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+        else
+        {
+            DevCard devCard = gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
+            ArrayList<Resource> requirements = new ArrayList<>();
+            for (Resource resource : devCard.getRequirementsDevCard()) {
+                requirements.add((Resource) resource.clone());
             }
-            else {
-                gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
-                countDevCards();
-                displayPB();
-                playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
-            }
-        } catch (IllegalAccessException e ){
+            requirements = hasDiscountEffect(requirements);
+
+            try {
+                if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, requirements, ((BuyDevCard) msg).getSlot())) {
+                    playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+                } else {
+                    gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
+                    countDevCards();
+                    displayPB();
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                }
+            } catch (IllegalAccessException e) {
                 playerVV().displayGenericMessage(e.getMessage());
                 playerVV().fetchPlayerAction();
                 playerVV().displayPopup(e.getMessage());
             }
+        }
     }
 
     /**

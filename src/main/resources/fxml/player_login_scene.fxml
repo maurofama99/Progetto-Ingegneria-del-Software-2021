@@ -32,6 +32,10 @@
                         <Image url="@../other/texts/player_number.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="singleBtn" layoutX="21.0" layoutY="291.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Button" />
+                  <Button fx:id="twoPlayers" layoutX="139.0" layoutY="291.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Button" />
+                  <Button fx:id="threePlayers" layoutX="589.0" layoutY="291.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Button" />
+                  <Button fx:id="fourPlayers" layoutX="697.0" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Button" />
                </children>
             </AnchorPane>
          </children></Group>
