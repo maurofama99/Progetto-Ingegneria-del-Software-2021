@@ -77,15 +77,15 @@ public class PlayerTest{
         player.getPersonalBoard().getWarehouse().getStrongBox().addResourceToStrongBox(resourcesToAdd);
 
         //buy dCard1 and dCard2:total cost 4 stones
-        player.buyDevCard(dCard1, 1);
-        player.buyDevCard(dCard2, 1);
+        player.buyDevCard(dCard1, dCard1.getRequirementsDevCard(), 1);
+        player.buyDevCard(dCard2,dCard2.getRequirementsDevCard(), 1);
         assertTrue(player.getPersonalBoard().getSlots()[0].getCards().contains(dCard1) &&
                 player.getPersonalBoard().getSlots()[0].getCards().contains(dCard2));
 
 
         boolean thrown = false;
         try {
-            player.buyDevCard(dCard2, 3);
+            player.buyDevCard(dCard2,dCard2.getRequirementsDevCard(), 3);
         } catch (IllegalAccessException e ) {
             thrown = true;
         }
@@ -114,10 +114,10 @@ public class PlayerTest{
         assertTrue(player.getLeaderCards().contains(lCard1) && player.getLeaderCards().contains(lCard2)
                 && !player.getLeaderCards().contains(lCard3) && !player.getLeaderCards().contains(lCard4));
 
-        player.buyDevCard(new DevCard(1, Color.GREEN, 3, requirements, production), 1);
+        player.buyDevCard(new DevCard(1, Color.GREEN, 3, requirements, production), requirements, 1);
         depot.addResourceToDepot(new Resource(2, ResourceType.STONE), 2);
         depot.addResourceToDepot(new Resource(3, ResourceType.COIN), 3);
-        player.buyDevCard(new DevCard(2, Color.GREEN, 3, requirements, production), 1);
+        player.buyDevCard(new DevCard(2, Color.GREEN, 3, requirements, production), requirements,  1);
         depot.addResourceToDepot(new Resource(2, ResourceType.STONE), 2);
         depot.addResourceToDepot(new Resource(3, ResourceType.COIN), 3);
 
@@ -137,7 +137,7 @@ public class PlayerTest{
 
     @Test
     public void testActivateProduction() throws IllegalAccessException, CloneNotSupportedException {
-        player.buyDevCard(new DevCard(1, Color.GREEN, 3, requirements, production), 1);
+        player.buyDevCard(new DevCard(1, Color.GREEN, 3, requirements, production),requirements, 1);
 
         strongBox.addResourceToStrongBox(player.activateProd(0));
 

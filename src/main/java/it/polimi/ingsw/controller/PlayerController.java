@@ -31,6 +31,8 @@ public class PlayerController {
     private ResourceType typeInput2;
     private ResourceType type1, type2; //used for the double swap-white action
     ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+    ArrayList<Resource> resourcesToRemove = new ArrayList<>();
+    boolean alreadyAskedExtra = false;
 
     public PlayerController(GameController gameController) {
         this.gameController = gameController;
@@ -356,24 +358,16 @@ public class PlayerController {
             playerVV().fetchPlayerAction();
         }
 
+
         DevCard devCard = gameController.getTable().getDevCardsDeck().getDevCard(((BuyDevCard)msg).getRow(), ((BuyDevCard)msg).getColumn());
         ArrayList<Resource> requirements = new ArrayList<>();
         for (Resource  resource : devCard.getRequirementsDevCard()){
             requirements.add((Resource) resource.clone());
         }
-
-        if (getPlayerPB().hasEffect(EffectType.DISCOUNT)){
-            for (int i=0; i<devCard.getRequirementsDevCard().size(); i++){
-                for (int j = 0; j<getPlayerPB().getActiveLeaderCards().size(); j++){
-                    if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT)
-                            && requirements.get(i).getType().equals(getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject()))
-                        requirements.get(i).setQnt(requirements.get(i).getQnt() - 1);
-                }
-            }
-        }
+        requirements = hasDiscountEffect(requirements);
 
         try {
-            if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, ((BuyDevCard) msg).getSlot())){
+            if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, requirements, ((BuyDevCard) msg).getSlot())){
                 playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
             }
             else {
@@ -397,14 +391,12 @@ public class PlayerController {
      * @throws CloneNotSupportedException
      */
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
-        ArrayList<Resource> resourcesToRemove = new ArrayList<>();
         switch (msg.getMessageType()){
             case ACTIVATE_PRODUCTION:
 
                 if (((ActivateProduction)msg).getSlot1()==1 ){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(0));
-                        //playerVV().displayGenericMessage("You activated production in slot 1!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                     }
@@ -412,7 +404,6 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot2()==1){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(1));
-                        //playerVV().displayGenericMessage("You activated production in slot 2!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                     }
@@ -420,7 +411,6 @@ public class PlayerController {
                 if (((ActivateProduction)msg).getSlot3()==1){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(2));
-                        //playerVV().displayGenericMessage("You activated production in slot 3!\n");
                     } catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                     }
@@ -430,45 +420,56 @@ public class PlayerController {
                     displayPB();
                     cont=0;
                     playerVV().displayGenericMessage("You can now spend two resources to get one in Strongbox!: \n");
-                    playerVV().fetchResourceType(); //fetch basic src 1
-                    //playerVV().displayPopup("Basic production activated, you can now spend two resources to get a new one in Strongbox!\nNow choose the first one");
+                    playerVV().fetchResourceType();
                     playerVV().displayBasicProdPopup(1,"Basic production activated, you can now spend two resources to get a new one in Strongbox!\n Now choose the first one");
                 }
 
                 else if (((ActivateProduction)msg).getBasic()==0) {
                     if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
-                        for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
-                            if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
-                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
-                                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
+                            if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
+                                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
+                            }
+                            else if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+                                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
                             }
                         }
                     }
                     else {
                         finalizeProduction();
                     }
-                }
                 break;
 
             case ACTIVATE_EXTRAPRODUCTION:
+
                 if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
-                    displayPB();
-                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    if (!alreadyAskedExtra) {
+                        hasTwoExtraProduction();
+                        alreadyAskedExtra = true;
+                    }
+                    else {
+                        displayPB();
+                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                    }
+
                 }
                 else {
                     try {
                         getPlayerPB().getWarehouse().removeResources(resourcesToRemove);
                         resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
                         resourcesToAdd.add(new Resource(1, ResourceType.FAITHPOINT));
-                        //playerVV().displayGenericMessage("Extra production activated!\n");
-                        finalizeProduction();
+                        if (!alreadyAskedExtra) {
+                            hasTwoExtraProduction();
+                            alreadyAskedExtra = true;
+                        }
+                        else finalizeProduction();
                     }
                     catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
                         finalizeProduction();
                     }
                 }
-                resourcesToRemove.remove(0);
                 break;
 
             case RESOURCE_TYPE:
@@ -506,14 +507,13 @@ public class PlayerController {
                     else {
                         finalizeProduction();
                     }
-
                 }
                 break;
         }
     }
 
     /**
-     * Player can discard resources but everything has a price. If the player perform that action, all other players get a faithpoint
+     * Player can discard resources but everything has a price. If the player perform that action, all other players get a faith point
      * @param faithPoints how many steps the cross will make
      */
     public void addFaithPointsToOpponents(int faithPoints){
@@ -523,6 +523,35 @@ public class PlayerController {
             }
             if(!gameController.getTable().getCurrentPlayer().equals(player))
                 player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
+        }
+    }
+
+
+    public ArrayList<Resource> hasDiscountEffect(ArrayList<Resource> requirements){
+        if (getPlayerPB().hasEffect(EffectType.DISCOUNT)){
+            for (int i=0; i<requirements.size();i++) {
+                if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT) &&
+                        requirements.get(i).getType().equals(getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
+                    requirements.get(i).setQnt(requirements.get(i).getQnt() - 1);
+                if (getPlayerPB().getActiveLeaderCards().size()==2) {
+                    if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT) &&
+                            requirements.get(i).getType().equals(getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject()))
+                        requirements.get(i).setQnt(requirements.get(i).getQnt() - 1);
+                }
+            }
+        }
+        return requirements;
+    }
+
+    //returns true if and only if the player has activated both add production leader cards
+    public boolean hasTwoExtraProduction() throws IOException {
+        if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
+                getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
+            return false;
+        else {
+            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+            return true;
         }
     }
 
@@ -561,6 +590,8 @@ public class PlayerController {
     }
 
     public void finalizeProduction() throws IOException {
+        alreadyAskedExtra=false;
+        resourcesToRemove.clear();
         if (resourcesToAdd.isEmpty()){
             displayPB();
             playerVV().displayGenericMessage("You were not able to activate any production");

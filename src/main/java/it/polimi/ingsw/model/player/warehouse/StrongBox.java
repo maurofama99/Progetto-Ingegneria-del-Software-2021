@@ -13,13 +13,13 @@ import java.util.NoSuchElementException;
  */
 public class StrongBox{
 
-    private Resource[] storedResources = new Resource[4];
+    private final Resource[] storedResources = new Resource[4];
 
     public StrongBox() {
-        this.storedResources[0] = new Resource(0, ResourceType.COIN);
-        this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
-        this.storedResources[2] = new Resource(0, ResourceType.SHIELD);
-        this.storedResources[3] = new Resource(0, ResourceType.STONE);
+        this.storedResources[0] = new Resource(30, ResourceType.COIN);
+        this.storedResources[1] = new Resource(30, ResourceType.SERVANT);
+        this.storedResources[2] = new Resource(30, ResourceType.SHIELD);
+        this.storedResources[3] = new Resource(30, ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {

@@ -96,7 +96,6 @@ public class Player extends Observable implements Serializable {
      * Method that adds to Personal Board the card that the player wants to activate
      * @param leaderCardToAct leader card to activate
      */
-
     public void activateLeaderCard(int leaderCardToAct){
         if (!getLeaderCards().get(leaderCardToAct).getLeaderEffect().checkRequirementsLeaderCard(this))
             throw new IllegalArgumentException ("You still don't have the requirements");
@@ -121,13 +120,12 @@ public class Player extends Observable implements Serializable {
      * @param devCardToBuy the card selected.
      * @param slotNumber where the player wants to place the card he wants to buy.
      */
-
-    public boolean buyDevCard(DevCard devCardToBuy, int slotNumber) throws IllegalAccessException {
+    public boolean buyDevCard(DevCard devCardToBuy, ArrayList<Resource> requirements, int slotNumber) throws IllegalAccessException {
         slotNumber = slotNumber -1;
         try {
-            if (getPersonalBoard().getWarehouse().checkAvailabilityWarehouse(devCardToBuy.getRequirementsDevCard())){
+            if (getPersonalBoard().getWarehouse().checkAvailabilityWarehouse(requirements)){
                 getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
-                devCardToBuy.checkRequirements(devCardToBuy.getRequirementsDevCard(), this);
+                devCardToBuy.checkRequirements(requirements, this);
                 victoryPoints += devCardToBuy.getVictoryPointsDevCard();
                 counterDevCards += 1;
                 return true;
