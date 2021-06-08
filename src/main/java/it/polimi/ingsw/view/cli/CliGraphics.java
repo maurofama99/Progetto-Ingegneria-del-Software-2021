@@ -193,12 +193,11 @@ public class CliGraphics {
         System.out.println(s);
     }
 
-    public void printPersonalBoard(SerializableWarehouse wH, Slot[] slots, FaithTrack ft){
+    public void printPersonalBoard(SerializableWarehouse wH, Slot[] slots, FaithTrack ft, ArrayList<LeaderCard> lc){
         StringBuilder s = new StringBuilder();
         int i=0;
         String [] wareHouse = ("                                \n" + printWarehouse(wH)).split("\n");
         String [] slot = printSlots(slots).split("\n");
-
 
 
         s.append(printFaithTrack(ft));
@@ -207,6 +206,7 @@ public class CliGraphics {
             i++;
         }
 
+        //todo aggiungere extra depot al posto di questi spazi
         while (i>7 && i<10){
             s.append("                                          ").append(slot[i]).append("\n");
             i++;
@@ -216,7 +216,12 @@ public class CliGraphics {
             System.out.println(CliColor.ANSI_BLUE.escape() + " BLACK CROSS TOKEN POSITION: " +ft.getBlackCrossPosition() + CliColor.RESET);
         }
         System.out.println(s);
-
+        if (lc.size()==1){
+            System.out.println(CliColor.ANSI_BRED + "LEADER EFFECT ACTIVATED: " + printEffect(lc.get(0))+CliColor.RESET);
+        }
+        if (lc.size()==2){
+            System.out.println(CliColor.ANSI_BRED + "LEADER EFFECT ACTIVATED: " + printEffect(lc.get(1))+CliColor.RESET);
+        }
     }
 
 
@@ -344,14 +349,14 @@ public class CliGraphics {
                 vp = "▁" + points + CliColor.ANSI_YELLOW.escape() + "✷" + CliColor.RESET;
 
             if (slots[0].getCards().size()==1) {
-                card0 = (printDevCard(slots[0].getShowedCard()) + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                card0 = (printDevCard(slots[0].getShowedCard()) +
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
                 card0 = (printDevCard(slots[0].getShowedCard()) + CliColor.RESET +
                         getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
@@ -385,13 +390,13 @@ public class CliGraphics {
 
             if (slots[1].getCards().size()==1) {
                 card1 = (printDevCard(slots[1].getShowedCard()) +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
                 card1 = (printDevCard(slots[1].getShowedCard()) +
                         getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
@@ -422,13 +427,13 @@ public class CliGraphics {
 
             if (slots[2].getCards().size()==1) {
                 card2 = (printDevCard(slots[2].getShowedCard()) +
-                        "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[2].getCards().size()==2){
                 card2 = (printDevCard(slots[2].getShowedCard()) +
                         getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {

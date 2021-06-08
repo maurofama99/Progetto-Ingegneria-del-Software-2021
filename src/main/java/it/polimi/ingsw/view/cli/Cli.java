@@ -301,7 +301,7 @@ public class Cli extends ClientObservable implements View {
      */
     @Override
     public void fetchPlayerAction(String message){
-        cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots(), modelView.getFaithTrack());
+        cliGraphics.printPersonalBoard(modelView.getWarehouse(), modelView.getSlots(), modelView.getFaithTrack(), modelView.getActiveLeaderCards());
         boolean rowOrCol = false;
         int index = 0;
         int row, col, slot;
@@ -572,7 +572,6 @@ public class Cli extends ClientObservable implements View {
         modelView.setWarehouse(warehouse);
         modelView.setFaithTrack(faithTrack);
         modelView.setActiveLeaderCards(activeLeaderCards);
-        //setta le active leader cards (anche nella gui)
     }
 
     /**
@@ -586,8 +585,9 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void updateOtherPersonalBoard(String name, FaithTrack fT, Slot[] slots, SerializableWarehouse wH, ArrayList<LeaderCard> lC) {
         modelView.updateOthersPB(name, fT, slots, wH, lC);
-        System.out.println("Player " +name+ " finished his turn!\nThis is its updated personal board :)\n");
-        cliGraphics.printPersonalBoard(wH, slots, fT);
+        System.out.println("Player " +name+ " finished his turn!" +
+                "\nThis is its updated personal board :)\n");
+        cliGraphics.printPersonalBoard(wH, slots, fT, lC);
     }
 
     @Override

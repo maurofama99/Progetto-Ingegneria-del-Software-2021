@@ -477,7 +477,6 @@ public class PlayerController {
                     typeInput1 =((ResourceTypeChosen) msg).getResourceType();
                     cont ++;
                     playerVV().fetchResourceType();
-                    //playerVV().displayPopup("Now choose the second");
                     playerVV().displayBasicProdPopup(2,"Now choose the second");
                 }
                 else if (cont==1){ //fetch basic dest
@@ -485,7 +484,6 @@ public class PlayerController {
                     cont ++;
                     playerVV().displayGenericMessage("\nNow you can choose a type of resource you want to place in StrongBox!\n");
                     playerVV().fetchResourceType();
-                    //playerVV().displayPopup("\nNow you can choose a type of resource you want to place in StrongBox!\n");
                     playerVV().displayBasicProdPopup(3,"Now you can choose a type of resource you want to place in StrongBox!");
                 }
                 else {
