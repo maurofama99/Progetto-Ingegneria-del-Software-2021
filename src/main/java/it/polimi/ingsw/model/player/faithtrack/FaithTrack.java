@@ -94,6 +94,7 @@ public class FaithTrack extends Observable implements Serializable {
     public void checkFaithMarkerPosition (Player player, int faithMarkerPosition) {
         if (faithMarkerPosition == 24) {
             player.setVictoryPoints(player.getVictoryPoints() + 4);
+            notifyObserver(new TurnFavorTiles(player.getNickname()));
             notifyObserver(new EndGame(player.getTurnOrder()));
         } else if (faithMarkerPosition % 3 == 0) {
             track.get(faithMarkerPosition).addPoints(player);
@@ -108,9 +109,11 @@ public class FaithTrack extends Observable implements Serializable {
      * @param blackCrossPosition player's position on Faith Track.
      */
     public void checkBlackCrossPosition (Player singlePlayer, int blackCrossPosition) {
-        if (faithMarkerPosition == 24) {
+        if (blackCrossPosition == 24) {
+            notifyObserver(new TurnFavorTiles(singlePlayer.getNickname()));
             notifyObserver(new EndSoloGame(false));
-        } else if (faithMarkerPosition % 8 == 0) {
+        }
+        else if (blackCrossPosition % 8 == 0) {
             notifyObserver(new TurnFavorTiles(singlePlayer.getNickname()));
         }
     }

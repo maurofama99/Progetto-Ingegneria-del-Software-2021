@@ -18,10 +18,6 @@ public abstract class Observable {
         observers.add(observer);
     }
 
-    public void addAllObservers(List<Observer> observerList) {
-        observers.addAll(observerList);
-    }
-
     public void notifyObserver(Message message){
         observers.forEach(observer -> {
             try {

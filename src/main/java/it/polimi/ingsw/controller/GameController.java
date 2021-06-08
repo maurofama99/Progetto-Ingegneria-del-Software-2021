@@ -9,7 +9,6 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.*;
 import it.polimi.ingsw.network.messagessc.EndGame;
-import it.polimi.ingsw.network.messagessc.EndSoloGame;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -66,6 +65,10 @@ public class GameController implements Observer, Serializable {
 
     public Table getTable() {
         return table;
+    }
+
+    public SinglePlayerController getSinglePlayerController() {
+        return singlePlayerController;
     }
 
     public TableState getTableState() {
@@ -387,10 +390,7 @@ public class GameController implements Observer, Serializable {
         }
     }
 
-    public void endSoloGame(boolean isWinner) throws IOException {
-        singlePlayerController.setSinglePlayerTableState(SinglePlayerTableState.END);
-        singlePlayerController.endGame(isWinner);
-    }
+
 
     @Override
     public void update(Message message) throws IOException {
@@ -406,10 +406,6 @@ public class GameController implements Observer, Serializable {
                 setTableState(TableState.END);
                 endPlayer = message.getSenderUser();
                 endPlayerNumber = ((EndGame) message).getPlayerNumber();
-                break;
-
-            case END_SOLOGAME:
-                endSoloGame(((EndSoloGame)message).isPlayerWinner());
                 break;
         }
     }

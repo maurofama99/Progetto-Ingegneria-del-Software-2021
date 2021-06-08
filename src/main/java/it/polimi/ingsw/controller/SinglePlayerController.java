@@ -5,12 +5,16 @@ import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.singleplayer.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
+import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.DiscardLeader;
+import it.polimi.ingsw.network.messagessc.EndGame;
+import it.polimi.ingsw.network.messagessc.EndSoloGame;
 import it.polimi.ingsw.network.messagessc.TurnToken;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
+import it.polimi.ingsw.view.cli.CliColor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ import java.util.HashMap;
 /**
  * This is the single player controller
  */
-public class SinglePlayerController{
+public class SinglePlayerController implements Observer {
     private GameController gameController;
     private Player singlePlayer;
     private VirtualView vv;
@@ -95,6 +99,7 @@ public class SinglePlayerController{
 
     public void setUpSingleGame() throws IOException {
         vv.displayGenericMessage("You are going to play a singlePlayer game.\n Game is loading...\n");
+        table.getSinglePlayer().getPersonalBoard().getFaithTrack().addObserver(this);
         table.dealLeaderCards(singlePlayer.getNickname());
         setSinglePlayerTableState(SinglePlayerTableState.SETUP);
     }
@@ -109,16 +114,22 @@ public class SinglePlayerController{
 
     }
 
-    public void endGame(boolean isPlayerWinner) throws IOException {
+    public void endSoloGame(boolean isPlayerWinner) throws IOException {
+        setSinglePlayerTableState(SinglePlayerTableState.END);
         if (isPlayerWinner) {
             vv.displayGenericMessage("YOU WON!");
             vv.displayPopup("YOU WON!");
         }
         else {
-            vv.displayGenericMessage("YOU LOST!");
+            vv.displayGenericMessage
+                    (CliColor.ANSI_BLUE.escape() +
+                            "--------------------------------\n" +
+                            "|           YOU LOST!          |\n" +
+                            "|    LORENZO IL MAGNIFICO      |" +
+                            "|    PLAYED BETTER THAN YOU!   |\n" +
+                            "--------------------------------\n" + CliColor.RESET);
             vv.displayPopup("YOU LOST!");
         }
-
         gameController.endGame();
 
     }
@@ -132,11 +143,18 @@ public class SinglePlayerController{
 
         for (int i=1; i<5;i++){
             if (table.getDevCardsDeck().getDevCard(3, i) ==null){
-                gameController.endSoloGame(false);
+                endSoloGame(false);
             }
         }
 
         setSinglePlayerTableState(SinglePlayerTableState.PLAYERS_TURN);
         gameController.askPlayerAction(vv);
     }
+
+    @Override
+    public void update(Message message) throws IOException {
+        if (message.getMessageType() == Content.END_SOLOGAME)
+            endSoloGame(((EndSoloGame) message).isPlayerWinner());
+    }
+
 }

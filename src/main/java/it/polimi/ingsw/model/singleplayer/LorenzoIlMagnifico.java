@@ -43,7 +43,6 @@ public class LorenzoIlMagnifico {
      * @param t table, used to get the token stack
      */
     public void turnToken(Table t){
-        //Sets the showed token and activates it
         showedToken.activateAction(t);
 
         t.getTokenStack().remove(0);
