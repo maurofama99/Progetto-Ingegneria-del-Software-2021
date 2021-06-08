@@ -282,8 +282,14 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
         imageViews.get(modelView.getFaithTrack().getFaithMarkerPosition()).setImage(new Image("/punchboard/croce.png"));
 
-        if(modelView.getFaithTrack().getBlackCrossPosition()>=0)
-        imageViews.get(modelView.getFaithTrack().getBlackCrossPosition()).setImage(new Image("/punchboard/blackcross.png"));
+        if(modelView.getFaithTrack().getBlackCrossPosition()==modelView.getFaithTrack().getFaithMarkerPosition()) {
+
+            imageViews.get(modelView.getFaithTrack().getFaithMarkerPosition()).setImage(new Image("/punchboard/double_cross.png"));
+        }
+        else if(modelView.getFaithTrack().getBlackCrossPosition()>=0)
+        {
+            imageViews.get(modelView.getFaithTrack().getBlackCrossPosition()).setImage(new Image("/punchboard/blackcross.png"));
+        }
 
     }
 
