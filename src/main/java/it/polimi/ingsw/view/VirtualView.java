@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The virtual view of the game. The methods are already described in CLI or GUI class. Here they just use the client
- * handler of the server to send messages accordingly to players' action in the GUI or CLI
+ * The virtual view of the game. The methods are already described in CLI or GUI class. Here they use the client
+ * handler of the server to send messages accordingly to players' action in the GUI or CLI.
  */
 public class VirtualView implements Observer {
     private final ClientHandler clientHandler;

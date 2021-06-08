@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 /**
- * Simple enumeration of all the action the player can do during his turn
+ * Enumeration of all the actions the player can do during his turn.
  */
 public enum PlayerAction {
     ACTIVATE_LEADER,

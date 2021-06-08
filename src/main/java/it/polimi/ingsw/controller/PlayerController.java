@@ -18,13 +18,13 @@ import java.util.*;
 
 
 /**
- * Manages all the states a player can have, including his moves
+ * Manages all the states a player can have, including his moves.
  */
 
 public class PlayerController {
     private final GameController gameController;
     private PlayerAction playerAction;
-    private ArrayList<Resource> resources = new ArrayList<>();
+    private final ArrayList<Resource> resources = new ArrayList<>();
     private int whiteCounter = 0;
     private int cont = 0;
     private ResourceType typeInput1;
@@ -48,10 +48,10 @@ public class PlayerController {
     }
 
     /**
-     * Receives a message about what the player wants to do. Check the requirements and if met, the action is performed
+     * Dispatches the message received by the client to the specific method that manages the player action.
      * @param msg the message received by the client
      * @throws IOException if the input is wrong
-     * @throws CloneNotSupportedException if something is cloned when it should not
+     * @throws CloneNotSupportedException if clone is not supported
      */
     public void receiveMessage(Message msg) throws IOException, CloneNotSupportedException {
 
@@ -95,7 +95,7 @@ public class PlayerController {
      * Manages the market action. After the player has chosen the line with the goToMarket method, this method
      * manages the resource placement. Players can discard or switch the warehouse to make space for a resource.
      * @param msg the message received by the client
-     * @throws IOException
+     * @throws IOException S
      */
     public void receiveMessageOnMarket(Message msg) throws IOException {
         switch (msg.getMessageType()) {
@@ -197,7 +197,7 @@ public class PlayerController {
     /**
      * Manages the choosing of a line in the market
      * @param msg the message by the client
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      */
     public void goToMarket(Message msg) throws IOException {
         int index  = ((GoingMarket)msg).getIndex();
@@ -228,7 +228,7 @@ public class PlayerController {
 
         if (!doubleSwap) {
             try {
-                playerVV().displayGenericMessage("You chose: " + resources.toString() +
+                playerVV().displayGenericMessage("You chose: " + resources +
                         "\n" +
                         resources.get(resources.size() - 1).toString()
                         + "\nIn which floor of the depot do you want to place this resource? \n" +
@@ -250,7 +250,7 @@ public class PlayerController {
             for (Resource resource : resources){
                 if (resource.getType().equals(ResourceType.WHITERESOURCE)) whiteCounter++;
             }
-            playerVV().displayGenericMessage("You chose: " + resources.toString());
+            playerVV().displayGenericMessage("You chose: " + resources);
             resources.removeIf(e -> e.getType().equals(ResourceType.WHITERESOURCE));
             if (whiteCounter > 0){
                 playerVV().displayGenericMessage("You selected " + whiteCounter + " white marbles, now choose for each marble which Leader Card you want to use to transform it in a new resource!");
@@ -297,7 +297,7 @@ public class PlayerController {
 
     /**
      * Lets the player put a resource in the extra depots provided by extra-depot effect leader cards
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      */
     public void extraDepotAlert() throws IOException {
         if (getPlayerPB().hasEffect(EffectType.EXTRADEPOT)){
@@ -318,7 +318,7 @@ public class PlayerController {
     /**
      * Activates a leader card (after checking the requirements)
      * @param msg message received by the player
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      */
     public void activateLeaderCard(Message msg) throws IOException {
         boolean trueOrFalse = true;
@@ -349,7 +349,7 @@ public class PlayerController {
     /**
      * When the player wants to buy a development card. This method removes the ard from the matrix and place it on a player's slot.
      * @param msg It contains row, column of the matrix and a slot number of the player's personal board.
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      */
 
     public void buyDevCard(Message msg) throws IOException, CloneNotSupportedException {
@@ -388,8 +388,8 @@ public class PlayerController {
      * Manages the production powers of the player. Asks for requirements and check if they are met, then puts
      * the output in the strongbox.
      * @param msg message received by the client
-     * @throws IOException
-     * @throws CloneNotSupportedException
+     * @throws IOException If virtual view fails to send message.
+     * @throws CloneNotSupportedException If clone fails.
      */
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
         switch (msg.getMessageType()){
@@ -446,7 +446,7 @@ public class PlayerController {
 
                 if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
                     if (!alreadyAskedExtra) {
-                        hasTwoExtraProduction();
+                        hasTwoExtraProduction();//todo questo metodo restituisce true o false ma non viene mai assegnato
                         alreadyAskedExtra = true;
                     }
                     else {
@@ -528,21 +528,20 @@ public class PlayerController {
 
     public ArrayList<Resource> hasDiscountEffect(ArrayList<Resource> requirements){
         if (getPlayerPB().hasEffect(EffectType.DISCOUNT)){
-            for (int i=0; i<requirements.size();i++) {
+            for (Resource requirement : requirements) {
                 if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT) &&
-                        requirements.get(i).getType().equals(getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
-                    requirements.get(i).setQnt(requirements.get(i).getQnt() - 1);
-                if (getPlayerPB().getActiveLeaderCards().size()==2) {
+                        requirement.getType().equals(getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject()))
+                    requirement.setQnt(requirement.getQnt() - 1);
+                if (getPlayerPB().getActiveLeaderCards().size() == 2) {
                     if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.DISCOUNT) &&
-                            requirements.get(i).getType().equals(getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject()))
-                        requirements.get(i).setQnt(requirements.get(i).getQnt() - 1);
+                            requirement.getType().equals(getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject()))
+                        requirement.setQnt(requirement.getQnt() - 1);
                 }
             }
         }
         return requirements;
     }
 
-    //returns true if and only if the player has activated both add production leader cards
     public boolean hasTwoExtraProduction() throws IOException {
         if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
                 getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
@@ -556,7 +555,7 @@ public class PlayerController {
 
     /**
      * Counts the devcards of the player at the end of the game
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      */
     public void countDevCards() throws IOException {
         if (gameController.getTable().getCurrentPlayer().getCounterDevCards() == 7){
@@ -573,7 +572,7 @@ public class PlayerController {
 
     /**
      * If someone wants to see your personal board, this methods send it to them
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      */
     public void sendPBToOthers() throws IOException {
         for (Player player: gameController.getTable().getPlayers()){
@@ -588,6 +587,10 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Check if the player that is performing the production action can activate the requested productions and moves the faith marker on the faith track if the productions produce faith points.
+     * @throws IOException If virtual view fails to send message
+     */
     public void finalizeProduction() throws IOException {
         alreadyAskedExtra=false;
         resourcesToRemove.clear();
@@ -613,6 +616,10 @@ public class PlayerController {
 
     }
 
+    /**
+     * Update current player's personal board.
+     * @throws IOException If virtual view fails to send message
+     */
     public void displayPB () throws IOException {
         playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
                 getPlayerPB().getSlots(),

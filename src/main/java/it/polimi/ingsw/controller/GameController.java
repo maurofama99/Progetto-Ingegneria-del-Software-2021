@@ -16,8 +16,6 @@ import java.io.Serializable;
 
 import java.io.IOException;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -35,7 +33,7 @@ public class GameController implements Observer, Serializable {
     private Table table;
     private TableState tableState = TableState.SETUP;
 
-    private Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
+    private final Resource resourceChosen = new Resource(1, ResourceType.WHITERESOURCE);
     private HashMap<String, VirtualView> vvMap = new HashMap<>();
     private String winner = "";
     private String endPlayer = "";
@@ -372,6 +370,10 @@ public class GameController implements Observer, Serializable {
             vv.fetchPlayerAction();
     }
 
+    /**
+     * Sends to all connected clients in this game a message that ends the game because of a disconnection from a player.
+     * @param nickname Nickname of the player who has logged out from the game.
+     */
     public void forcedEndGame(String nickname) {
         for (String key : vvMap.keySet()){
             for(Player player : table.getPlayers())
@@ -383,6 +385,9 @@ public class GameController implements Observer, Serializable {
         }
     }
 
+    /**
+     * Sends to all connected clients in this game a message that ends the game for everyone.
+     */
     public void endGame(){
         for (String key : vvMap.keySet()){
             for(Player player : table.getPlayers())

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group>
             <children>
@@ -24,18 +24,18 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-                        <Button fx:id="firstRowFirstColumnBtn" layoutX="315.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="firstRowSecondColumnBtn" layoutX="480.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="firstRowThirdColumnBtn" layoutX="645.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="firstRowFourthColumnBtn" layoutX="810.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="secondRowFirstColumnBtn" layoutX="315.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="secondRowSecondColumnBtn" layoutX="480.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="secondRowThirdColumnBtn" layoutX="645.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="secondRowFourthColumnBtn" layoutX="810.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="thirdRowFirstColumnBtn" layoutX="315.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="thirdRowSecondColumnBtn" layoutX="480.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="thirdRowThirdColumnBtn" layoutX="645.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
-                        <Button fx:id="thirdRowFourthColumnBtn" layoutX="810.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" text="Button" />
+                        <Button fx:id="firstRowFirstColumnBtn" layoutX="315.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="firstRowSecondColumnBtn" layoutX="480.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="firstRowThirdColumnBtn" layoutX="645.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="firstRowFourthColumnBtn" layoutX="810.0" layoutY="35.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="secondRowFirstColumnBtn" layoutX="315.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="secondRowSecondColumnBtn" layoutX="480.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="secondRowThirdColumnBtn" layoutX="645.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="secondRowFourthColumnBtn" layoutX="810.0" layoutY="255.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="thirdRowFirstColumnBtn" layoutX="315.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="thirdRowSecondColumnBtn" layoutX="480.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="thirdRowThirdColumnBtn" layoutX="645.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
+                        <Button fx:id="thirdRowFourthColumnBtn" layoutX="810.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
                         <Button fx:id="backBtn" layoutX="39.0" layoutY="661.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="107.0" text="Back" />
                     </children>
                 </AnchorPane>

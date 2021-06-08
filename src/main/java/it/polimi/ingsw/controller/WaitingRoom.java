@@ -2,27 +2,29 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Manages the player that enter in the game and acts differently based on how many are joining
+ * Manages the player that enter in the game and acts differently based on how many are joining. Manages multiple games functionality with array lists of players that work as waiting rooms.
+ * There are four waiting rooms, one for each possible number of players.
  */
 public class WaitingRoom {
 
-    private ArrayList<Player> singlePlayerArray = new ArrayList<>();
-    private ArrayList<Player> twoPlayersArray = new ArrayList<>();
-    private ArrayList<Player> threePlayersArray = new ArrayList<>();
-    private ArrayList<Player> fourPlayersArray = new ArrayList<>();
-    private HashMap<String, VirtualView> vvMap = new HashMap<>();
-    private HashMap<Player, GameController> gameControllerHashMap = new HashMap<>();
-    private HashMap<String, ClientHandler> playerClientHandlerHashMap = new HashMap<>();
+    private final ArrayList<Player> singlePlayerArray = new ArrayList<>();
+    private final ArrayList<Player> twoPlayersArray = new ArrayList<>();
+    private final ArrayList<Player> threePlayersArray = new ArrayList<>();
+    private final ArrayList<Player> fourPlayersArray = new ArrayList<>();
+    private final HashMap<String, VirtualView> vvMap = new HashMap<>();
+    private final HashMap<String, ClientHandler> playerClientHandlerHashMap = new HashMap<>();
 
     public HashMap<String, ClientHandler> getPlayerClientHandlerHashMap() {
         return playerClientHandlerHashMap;
@@ -32,25 +34,27 @@ public class WaitingRoom {
         return vvMap;
     }
 
-    public ArrayList<Player> getThreePlayersArray() {
-        return threePlayersArray;
-    }
-
+    /**
+     * Manages login data and the first connection of the players.
+     * @param msg Message received from the client.
+     * @throws IOException If virtual view fails to send message.
+     */
     public void receiveMessage(Message msg) throws IOException {
 
         VirtualView vv = vvMap.get(msg.getSenderUser());
 
-        switch (msg.getMessageType()){
-            case LOGIN_DATA:
-                //aggiungi all'arraylist corrispondente il player
-                playerInWait(((LoginData)msg).getNickname(), ((LoginData)msg).getNumPlayers());
-                //controlla se puoi far iniziare un game
-                boolean bool = checkGameStart();
-                if (!bool) vv.displayGenericMessage("Please wait for other players to join...");
-                break;
-        }
+        if (msg.getMessageType() == Content.LOGIN_DATA) {
+            playerInWait(((LoginData) msg).getNickname(), ((LoginData) msg).getNumPlayers());
+            boolean bool = checkGameStart();
+            if (!bool) vv.displayGenericMessage("Please wait for other players to join...");
+        } else throw new InvalidObjectException("Received message should be Login Data.");
     }
 
+    /**
+     * Check if a waiting room is full and starts the game for the players in it.
+     * @return True if a game is starting.
+     * @throws IOException If virtual view fails to send message.
+     */
     private boolean checkGameStart() throws IOException {
         if (singlePlayerArray.size()==1){
             setupSingleController(singlePlayerArray);
@@ -75,6 +79,11 @@ public class WaitingRoom {
         return false;
     }
 
+    /**
+     * Sets all the variables in the single player controller class in order to start the game.
+     * @param players Array List of players in the waiting room.
+     * @throws IOException If virtual view fails to send message.
+     */
     public void setupSingleController(ArrayList<Player> players) throws IOException{
         SinglePlayerController singlePlayerController = new SinglePlayerController(players.get(0));
         singlePlayerController.getTable().addObserver(vvMap.get(players.get(0).getNickname()));
@@ -94,22 +103,20 @@ public class WaitingRoom {
         singlePlayerController.setUpSingleGame();
     }
 
+    /**
+     * Sets all the variables in the player controller class in order to start the game.
+     * @param playersArray Array List of players in the waiting room.
+     * @throws IOException If virtual view fails to send message.
+     */
     public void setupGameController(ArrayList<Player> playersArray) throws IOException {
-        //crea game controller e butta dentro i player dell'array
         GameController gc = new GameController();
         gc.setTable(new Table());
         gc.setVvMap(getPlayersVirtualView(playersArray));
-        //associo ad ogni player il game controller
-        for (Player player : playersArray){
-            gameControllerHashMap.put(player, gc);
-        }
-        //setta il tavolo del game controller
         for(Player player : playersArray){
             gc.getTable().addPlayer(player.getNickname());
             gc.getTable().addObserver(vvMap.get(player.getNickname()));
             gc.getTable().setNumPlayers(playersArray.size());
         }
-        //setta i client handler dei player
         for(Player player : playersArray){
             playerClientHandlerHashMap.get(player.getNickname()).setStarted(true);
             playerClientHandlerHashMap.get(player.getNickname()).setGameController(gc);
@@ -117,6 +124,11 @@ public class WaitingRoom {
         gc.startGame();
     }
 
+    /**
+     * Adds the player to the waiting room corresponding to the number of player he choose.
+     * @param nickname Nickname of the player.
+     * @param numPlayers Desired number of player of the game by the player.
+     */
     private void playerInWait(String nickname, int numPlayers) {
         switch (numPlayers){
             case 1:
@@ -134,6 +146,11 @@ public class WaitingRoom {
         }
     }
 
+    /**
+     * Check if the chosen nickname is already taken by another player.
+     * @param nickname Nickname chosen by the player
+     * @return True if the nickname is already taken.
+     */
     public boolean nicknameAlreadyPresent(String nickname){
         return (singlePlayerArray.stream().anyMatch(o -> o.getNickname().equals(nickname)) ||
                 twoPlayersArray.stream().anyMatch(o -> o.getNickname().equals(nickname)) ||
@@ -141,6 +158,10 @@ public class WaitingRoom {
                 fourPlayersArray.stream().anyMatch(o -> o.getNickname().equals(nickname)));
     }
 
+    /**
+     * @param players Players whose virtual view we want.
+     * @return An Hash Map that asscoiates for every player is virtual view.
+     */
     public HashMap<String, VirtualView> getPlayersVirtualView(ArrayList<Player> players){
         HashMap<String, VirtualView> result = new HashMap<>();
         for(Player player : players) {

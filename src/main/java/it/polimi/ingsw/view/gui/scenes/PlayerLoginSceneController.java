@@ -4,6 +4,7 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -71,8 +72,16 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         nickname = nickname.replaceAll("\\s+","");
 
         if (!solo) {
-            int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText()); //todo try catch che gestisce il parseInt
-            notifyObservers(new LoginData(nickname, numberOfPlayers));
+            try {
+                int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
+                notifyObservers(new LoginData(nickname, numberOfPlayers));
+            } catch (NumberFormatException e){
+                Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
+                PopupSceneController psc = new PopupSceneController("That's not a number!");
+                psc.setTitleLabel("Error");
+                psc.addAllClientObservers(clientObservers);
+                Platform.runLater(() -> SceneController.showPopup(psc, "popup_scene.fxml"));
+            }
         } else notifyObservers(new LoginData(nickname, 1));
 
     }

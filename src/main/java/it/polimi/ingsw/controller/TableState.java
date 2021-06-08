@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 /**
- * States of the table
+ * Possible states of the table during the game.
  */
 public enum TableState {
     SETUP,

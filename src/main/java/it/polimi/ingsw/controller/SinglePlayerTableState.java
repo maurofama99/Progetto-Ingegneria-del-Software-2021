@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 /**
- * Since the singleplayer game has only one player and the "CPU" we have a state for Lorenzo turn
+ * Possible states of the table during a single player match.
  */
 public enum SinglePlayerTableState {
     SETUP,

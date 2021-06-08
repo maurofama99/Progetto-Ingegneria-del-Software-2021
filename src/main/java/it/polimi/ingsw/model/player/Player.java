@@ -81,7 +81,6 @@ public class Player extends Observable implements Serializable {
      * @param leaderCard2 the second leader card
      */
     public void discardLeader(int leaderCard1, int leaderCard2){
-        //todo se local game no
         ArrayList<Integer> indexes = new ArrayList<>();
         indexes.add(leaderCard1);
         indexes.add(leaderCard2);

@@ -1,36 +1,24 @@
 package it.polimi.ingsw.controller;
-
 import it.polimi.ingsw.model.Table;
-import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.singleplayer.LorenzoIlMagnifico;
-import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.network.messagescs.DiscardLeader;
-import it.polimi.ingsw.network.messagessc.EndGame;
 import it.polimi.ingsw.network.messagessc.EndSoloGame;
-import it.polimi.ingsw.network.messagessc.TurnToken;
-import it.polimi.ingsw.network.server.ClientHandler;
+
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 import it.polimi.ingsw.view.cli.CliColor;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- * This is the single player controller
+ * Manages the single player game.
  */
 public class SinglePlayerController implements Observer {
     private GameController gameController;
-    private Player singlePlayer;
+    private final Player singlePlayer;
     private VirtualView vv;
-    private Table table;
-    private HashMap<String, ClientHandler> playerClientHandlerHashMap = new HashMap<>();
-    private int devCardsBought = 0;
-    private ArrayList<Integer> devCardsRemoved;
+    private final Table table;
     private SinglePlayerTableState singlePlayerTableState = SinglePlayerTableState.SETUP;
 
     public SinglePlayerController(Player singlePlayer) {
@@ -66,20 +54,12 @@ public class SinglePlayerController implements Observer {
         return table;
     }
 
-    public int getDevCardsBought() {
-        return devCardsBought;
-    }
-
-    public ArrayList<Integer> getDevCardsRemoved() {
-        return devCardsRemoved;
-    }
-
     /**
      * Receives a message in a singleplayer game.
      * @param msg the message received
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message.
      * @throws IllegalAccessException
-     * @throws CloneNotSupportedException
+     * @throws CloneNotSupportedException If resource cloning fails.
      */
     public void receiveSPMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         switch(singlePlayerTableState){
@@ -97,8 +77,12 @@ public class SinglePlayerController implements Observer {
         }
     }
 
+    /**
+     * Sets up the single player game. It makes the player choose the starting leader cards and starts the game.
+     * @throws IOException If virtual view fails to send message.
+     */
     public void setUpSingleGame() throws IOException {
-        vv.displayGenericMessage("You are going to play a singlePlayer game.\n Game is loading...\n");
+        vv.displayGenericMessage("You are going to play a single player game.\n Game is loading...\n");
         table.getSinglePlayer().getPersonalBoard().getFaithTrack().addObserver(this);
         table.dealLeaderCards(singlePlayer.getNickname());
         setSinglePlayerTableState(SinglePlayerTableState.SETUP);
@@ -111,9 +95,13 @@ public class SinglePlayerController implements Observer {
 
     public void receiveSPMessageOnPlayer(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         gameController.receiveMessageInGame(msg);
-
     }
 
+    /**
+     * Sends game results messages and ends the game.
+     * @param isPlayerWinner True if the player won the game.
+     * @throws IOException If virtual view fails to send message.
+     */
     public void endSoloGame(boolean isPlayerWinner) throws IOException {
         setSinglePlayerTableState(SinglePlayerTableState.END);
         if (isPlayerWinner) {
@@ -125,17 +113,17 @@ public class SinglePlayerController implements Observer {
                     (CliColor.ANSI_BLUE.escape() +
                             "--------------------------------\n" +
                             "|           YOU LOST!          |\n" +
-                            "|    LORENZO IL MAGNIFICO      |" +
+                            "|     LORENZO IL MAGNIFICO      |" +
                             "|    PLAYED BETTER THAN YOU!   |\n" +
                             "--------------------------------\n" + CliColor.RESET);
-            vv.displayPopup("YOU LOST!");
+            vv.displayPopup("YOU LOST!\nLORENZO IL MAGNIFICO DEFEATED YOU.");
         }
         gameController.endGame();
 
     }
 
     /**
-     * What lorenzo does in his turn
+     * Take the action of Lorenzo il Magnifico's turn picking a token from the table. Every token corresponds to a possible Lorenzo Il Magnifico's action.
      */
     public void lorenzoTurn() throws IOException {
         table.getLorenzoIlMagnifico().turnToken(table);
