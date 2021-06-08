@@ -212,6 +212,9 @@ public class CliGraphics {
             i++;
         }
 
+        if (ft.getBlackCrossPosition()>=0){
+            System.out.println(CliColor.ANSI_BLUE.escape() + " BLACK CROSS TOKEN POSITION: " +ft.getBlackCrossPosition() + CliColor.RESET);
+        }
         System.out.println(s);
 
     }

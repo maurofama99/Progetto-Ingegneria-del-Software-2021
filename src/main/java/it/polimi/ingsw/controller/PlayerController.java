@@ -535,11 +535,13 @@ public class PlayerController {
      */
     public void countDevCards() throws IOException {
         if (gameController.getTable().getCurrentPlayer().getCounterDevCards() == 7){
-            gameController.setEndPlayerNumber(gameController.getTable().getCurrentPlayer().getTurnOrder());
             if (gameController.isSinglePlayer()) {
-                gameController.endSoloGame(true);
+                gameController.getSinglePlayerController().endSoloGame(true);
             }
-            else gameController.setTableState(TableState.END);
+            else {
+                gameController.setTableState(TableState.END);
+                gameController.setEndPlayerNumber(gameController.getTable().getCurrentPlayer().getTurnOrder());
+            }
         }
     }
 

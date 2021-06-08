@@ -106,7 +106,7 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
     }
 
     public void setLeaderCard(){
-        for (LeaderCard leaderCard : modelView.getLeaderCards()){//todo: è l'arraylist sbagliato, bisogna usare quello delle active leader cards
+        for (LeaderCard leaderCard : modelView.getActiveLeaderCards()){
             if (leaderCard.getLeaderEffect().getEffectType() == EffectType.ADDPRODUCTION ){
                 if (((Resource)leaderCard.getLeaderEffect().getObject()).getType().equals(resource.getType())){
                     this.leaderCard.setImage(new Image("/front/leader_"+ leaderCard.getLeaderEffect().toString()+".png"));

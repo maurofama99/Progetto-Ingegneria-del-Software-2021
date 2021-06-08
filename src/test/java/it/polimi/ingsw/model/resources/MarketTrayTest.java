@@ -10,14 +10,11 @@ import static org.junit.Assert.*;
 
 public class MarketTrayTest {
     MarketTray marketTray;
-    private Resource[][] tray;
-    private Resource slide;
 
     /*
     @Before
     public void setUp(){
         marketTray = new MarketTray();
-        tray = new Resource[3][4];
         slide = new Resource(1, ResourceType.FAITHPOINT);
 
         for (int i=0; i<3; i++) {

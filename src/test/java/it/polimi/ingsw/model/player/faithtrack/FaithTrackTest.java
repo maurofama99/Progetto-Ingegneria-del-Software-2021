@@ -15,18 +15,6 @@ public class FaithTrackTest {
     Player p = new Player("Test");
 
     @Test
-    public void sayStuffOnTrack(){
-        int position = 5;
-        assertEquals(position, testFT.getTrack().get(position).getPosition());
-        assertTrue(testFT.getTrack().get(position).isFirstSection());
-        assertFalse(testFT.getTrack().get(position).isSecondSection());
-        assertFalse(testFT.getTrack().get(position).isThirdSection());
-
-        position=10;
-        assertFalse(testFT.getTrack().get(position).isFirstSection());
-    }
-
-    @Test
     public void testTurnFavorTile(){
         p.setVictoryPoints(2);
         p.getPersonalBoard().getFaithTrack().setFaithMarkerPosition(6);
