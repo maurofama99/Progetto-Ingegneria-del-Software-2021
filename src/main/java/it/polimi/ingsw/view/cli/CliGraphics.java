@@ -217,10 +217,11 @@ public class CliGraphics {
         }
         System.out.println(s);
         if (lc.size()==1){
-            System.out.println(CliColor.ANSI_BRED + "LEADER EFFECT ACTIVATED: " + printEffect(lc.get(0))+CliColor.RESET);
+            System.out.println(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(0))  + "\n");
         }
-        if (lc.size()==2){
-            System.out.println(CliColor.ANSI_BRED + "LEADER EFFECT ACTIVATED: " + printEffect(lc.get(1))+CliColor.RESET);
+        else if (lc.size()==2){
+            System.out.println(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(0))  + "\n");
+            System.out.println(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(1)));
         }
     }
 

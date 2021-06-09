@@ -105,11 +105,6 @@ public class SceneController extends ClientObservable {
         }
     }
 
-    public static void changeRootPane(GenericSceneController controller, Event event, String fxml) {
-        Scene scene = ((Node) event.getSource()).getScene();
-        changeRootPane(controller, scene, fxml);
-    }
-
     /**
      * If we don't want to specify the Scene, we overload the method and it calls the first one with the
      * onGoingScene as a parameter

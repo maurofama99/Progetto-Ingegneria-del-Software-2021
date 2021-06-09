@@ -446,21 +446,32 @@ public class Cli extends ClientObservable implements View {
      */
     @Override
     public void fetchDoneAction(String message, ArrayList<LeaderCard> leaderCards) throws IOException {
-        System.out.print(message + "\n>");
         Scanner scanner = new Scanner(System.in);
-        String answer = scanner.nextLine();
-        answer = answer.replaceAll("\\s+","");
-        while (!answer.equalsIgnoreCase("done") && !answer.equalsIgnoreCase("leader")){
-            System.out.println("\nInvalid input");
-            answer = scanner.nextLine();
-            answer = answer.replaceAll("\\s+","");
+        if (leaderCards.size()>0) {
+            System.out.print("Type DONE if you are done or LEADER if you want to play a leader card." + "\n>");
+            String answer = scanner.nextLine().replaceAll("\\s+", "");
+            while (!answer.equalsIgnoreCase("done") && !answer.equalsIgnoreCase("leader")) {
+                System.out.println("\nInvalid input");
+                answer = scanner.nextLine().replaceAll("\\s+", "");
+            }
+            if (answer.equalsIgnoreCase("DONE")) {
+                notifyObservers(new DoneAction());
+            } else if (answer.equalsIgnoreCase("LEADER")) {
+                fetchPlayLeader(leaderCards, true);
+            }
+        }
+        else {
+            System.out.print("Type DONE" + "\n>");
+            String done = scanner.nextLine().replaceAll("\\s+", "");
+            while (!done.equalsIgnoreCase("done") && !done.equalsIgnoreCase("leader")) {
+                System.out.println("\nInvalid input");
+                done = scanner.nextLine().replaceAll("\\s+", "");
+            }
+
+            if (done.equalsIgnoreCase("DONE"))
+                notifyObservers(new DoneAction());
         }
 
-        if (answer.equalsIgnoreCase("DONE")){
-            notifyObservers(new DoneAction());
-        } else if (answer.equalsIgnoreCase("LEADER")){
-            fetchPlayLeader(leaderCards, true);
-        }
     }
 
     /**

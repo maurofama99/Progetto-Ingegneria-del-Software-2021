@@ -128,15 +128,14 @@ public class SinglePlayerController implements Observer {
     public void lorenzoTurn() throws IOException {
         table.getLorenzoIlMagnifico().turnToken(table);
         vv.displayToken(table.getLorenzoIlMagnifico().getShowedToken());
-
         for (int i=1; i<5;i++){
             if (table.getDevCardsDeck().getDevCard(3, i) ==null){
                 endSoloGame(false);
             }
         }
-
         setSinglePlayerTableState(SinglePlayerTableState.PLAYERS_TURN);
         gameController.askPlayerAction(vv);
+
     }
 
     @Override
