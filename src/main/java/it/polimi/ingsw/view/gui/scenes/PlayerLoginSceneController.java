@@ -16,10 +16,11 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
     private String nickname;
     private boolean solo = false;
+    private int numPlayers;
 
     public void setSolo(boolean solo) {
         this.solo = solo;
-        numberOfPlayersField.setDisable(true);
+        disableAll();
     }
 
     @FXML
@@ -29,13 +30,10 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     private Button joinGameButton;
 
     @FXML
-    private TextField numberOfPlayersField;
-
-    @FXML
     private Button exitGameButton;
+
     @FXML
     private Button singleBtn, twoPlayers, threePlayers, fourPlayers;
-
 
     @FXML
     public void initialize(){
@@ -49,19 +47,23 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     }
 
     private void whenSingleClicked(MouseEvent event){
-
+        numPlayers = 1;
+        disableAll();
     }
 
     private void whenTwoClicked(MouseEvent event){
-
+        numPlayers = 2;
+        disableAll();
     }
 
     private void whenThreeClicked(MouseEvent event){
-
+        numPlayers = 3;
+        disableAll();
     }
 
     private void whenFourPlayers(MouseEvent event){
-
+        numPlayers = 4;
+        disableAll();
     }
 
     private void onJoinGameClick(Event event){
@@ -71,29 +73,30 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
 
-        if (!solo) {
-            try {
-                int numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());
-                notifyObservers(new LoginData(nickname, numberOfPlayers));
-            } catch (NumberFormatException e){
-                Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "player_login_scene.fxml"));
-                PopupSceneController psc = new PopupSceneController("That's not a number!");
-                psc.setTitleLabel("Error");
-                psc.addAllClientObservers(clientObservers);
-                Platform.runLater(() -> SceneController.showPopup(psc, "popup_scene.fxml"));
-            }
-        } else notifyObservers(new LoginData(nickname, 1));
+        if(nickname.matches("")){
+            SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
+            PopupSceneController psc= new PopupSceneController("Please enter your nickname");
+            psc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(psc, "popup_scene.fxml");
+        } else {
+            if (!solo) notifyObservers(new LoginData(nickname, numPlayers));
+            else notifyObservers(new LoginData(nickname, 1));
+        }
 
     }
 
     private void onExitGameClick(Event event){
-        joinGameButton.setDisable(true);
-        exitGameButton.setDisable(true);
-
-        SceneController.changeRootPane(clientObservers, event, "connection_scene.fxml");
+        System.exit(0);
     }
 
     public String getNickname() {
         return nickname;
+    }
+
+    public void disableAll(){
+        singleBtn.setDisable(true);
+        twoPlayers.setDisable(true);
+        threePlayers.setDisable(true);
+        fourPlayers.setDisable(true);
     }
 }

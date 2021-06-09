@@ -23,13 +23,13 @@ public class StartSceneController extends ClientObservable implements GenericSce
     private AnchorPane rootPane;
     @FXML
     private Button startButton;
-    @FXML
-    private Button exitButton;
+    //@FXML
+    //private Button exitButton;
 
     @FXML
     public void initialize(){
         startButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onStartButtonClick);
-        exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0) );
+        //exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0) );
     }
 
     /**
@@ -39,7 +39,7 @@ public class StartSceneController extends ClientObservable implements GenericSce
     private void onStartButtonClick(Event event){
 
         startButton.setDisable(true);
-        exitButton.setDisable(true);
+        //exitButton.setDisable(true);
 
         if (solo){
             client.setEvent(event);

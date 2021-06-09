@@ -20,6 +20,7 @@
     -fx-cursor: hand;
 }
 
+/*
 .exitButton{
     -fx-background-image: url("/other/buttons/quit_button.png");
 
@@ -34,3 +35,4 @@
     -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
     -fx-cursor: hand;
 }
+*/
