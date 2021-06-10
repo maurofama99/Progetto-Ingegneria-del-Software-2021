@@ -16,8 +16,8 @@ import java.util.HashMap;
 
 /**
  * The ModelView class is the class that responds to the action of the players and that is updated
- * by their actions. It has getters and setters for every aspect of the game that changes, such as the market tray,
- * the slots, the dev card shop... also the personal boards of other players so you can access them to see
+ * by their actions. It has getters and setters for every aspect of the game that changes.
+ * You can access he personal boards of other players to see
  * how they are doing. Getters are also useful in the GUI to match images since it keeps them updated.
  */
 public class ModelView {
@@ -32,8 +32,8 @@ public class ModelView {
     private SerializableWarehouse warehouse;
     private ArrayList<LeaderCard> leaderCards;
     private ArrayList<LeaderCard> activeLeaderCards = new ArrayList<>();
+    private String firstPlayer;
     private HashMap<String, PersonalBoard> othersPersonalBoards = new HashMap<>();
-
 
     public ModelView(Cli cli) {
         this.cli = cli;
@@ -41,6 +41,10 @@ public class ModelView {
 
     public ModelView(Gui gui) {
         this.gui = gui;
+    }
+
+    public void setFirstPlayer(String firstPlayer) {
+        this.firstPlayer = firstPlayer;
     }
 
     public HashMap<String, PersonalBoard> getOthersPersonalBoards() {

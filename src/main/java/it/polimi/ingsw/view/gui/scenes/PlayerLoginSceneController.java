@@ -74,7 +74,8 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         nickname = nickname.replaceAll("\\s+","");
 
         if(nickname.matches("")){
-            SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
+            if (solo) Platform.runLater(() ->((PlayerLoginSceneController)SceneController.changeRootPane(clientObservers, event, "player_login_scene.fxml")).setSolo(true));
+            else SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
             PopupSceneController psc= new PopupSceneController("Please enter your nickname");
             psc.addAllClientObservers(clientObservers);
             SceneController.showPopup(psc, "popup_scene.fxml");

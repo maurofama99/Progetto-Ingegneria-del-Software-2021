@@ -268,6 +268,9 @@ public class Client implements Runnable, ClientObserver {
             case BASIC_PROD:
                 view.displayBasicProdPopup(((BasicProd)msg).getArrow(), ((BasicProd)msg).getMessage());
                 break;
+            case FIRST_PLAYER:
+                view.setFirstPlayer(true);
+                break;
         }
     }
 

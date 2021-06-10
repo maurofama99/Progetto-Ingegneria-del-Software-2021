@@ -10,6 +10,8 @@ import it.polimi.ingsw.model.player.leadercards.LeaderEffectJsonDeserializer;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.singleplayer.*;
 import it.polimi.ingsw.model.devcard.*;
+import it.polimi.ingsw.network.Content;
+import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
@@ -54,12 +56,9 @@ public class Table extends Observable implements Serializable{
 
             leaderCardsDeck = gson.fromJson(reader, leaderCardArrayListType);
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         this.marketTray = new MarketTray();
         this.devCardsDeck = new Deck();
@@ -80,7 +79,6 @@ public class Table extends Observable implements Serializable{
             Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
 
             leaderCardsDeck = gson.fromJson(reader, leaderCardArrayListType);
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -158,23 +156,21 @@ public class Table extends Observable implements Serializable{
     }
 
     /**
-     * Method used to shuffle the order of the players.
-     * Now TurnOrder is 1 for first player, 2 for second and so on.
+     * Method used to shuffle and set the turn order of the players.
      */
     public void setPlayersInGame(){
         Collections.shuffle(players);
         setCurrentPlayer(players.get(0));
+        notifyObserver(new Message("server", players.get(0).getNickname(), Content.FIRST_PLAYER));
         for (Player player : players){
             player.setTurnOrder(players.indexOf(player));
         }
-
     }
 
     /**
      * Shuffle leader card deck and deals them to ach player in game.
      * @param playerNickname player that receives leaderCards
      */
-
     public void dealLeaderCards(String playerNickname) {
         Collections.shuffle(leaderCardsDeck);
 

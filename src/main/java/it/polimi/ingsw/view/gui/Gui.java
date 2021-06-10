@@ -30,6 +30,7 @@ public class Gui extends ClientObservable implements View {
     private final static String START_SCENE = "start_scene.fxml";
     private Client client;
     private final ModelView modelView;
+    private boolean firstPlayer = false;
 
     /**
      * Constructor of the GUI, sets the ModelView
@@ -44,6 +45,11 @@ public class Gui extends ClientObservable implements View {
      */
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public void setFirstPlayer(boolean firstPlayer) {
+        this.firstPlayer = firstPlayer;
     }
 
     /**
@@ -186,7 +192,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void displayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse warehouse) throws IOException{
         Platform.runLater(()->{
-            PersonalBoardSceneController pbsc = new PersonalBoardSceneController(modelView);
+            PersonalBoardSceneController pbsc = new PersonalBoardSceneController(modelView, firstPlayer);
             pbsc.addAllClientObservers(clientObservers);
             SceneController.changeRootPane(pbsc, "personal_board.fxml");
         });

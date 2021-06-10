@@ -31,6 +31,7 @@ public class Cli extends ClientObservable implements View {
     private String nickname;
     private boolean solo = false;
     private final ModelView modelView;
+    private boolean firstPlayer;
 
     public Cli() {
         this.modelView = new ModelView(this);
@@ -39,6 +40,9 @@ public class Cli extends ClientObservable implements View {
     public void setSolo(boolean solo) {
         this.solo = solo;
     }
+
+    @Override
+    public void setFirstPlayer(boolean var) {this.firstPlayer=var;}
 
     /**
      * Asks for nickname and number of players to set the lobby of the match.

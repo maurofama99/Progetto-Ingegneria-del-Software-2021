@@ -23,8 +23,8 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     private ModelView modelView;
     private ResourceType NResourceType = ResourceType.NULLRESOURCE;// upper card resource type if extra depot
     private ResourceType SResourceType = ResourceType.NULLRESOURCE;// lower card resource type if extra depot
-
     private String firstPlayerNick, secondPlayerNick, thirdPlayerNick;
+    private boolean firstPlayer = false;
 
     @FXML
     private ImageView inkwell;
@@ -82,8 +82,9 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     public int servantQnt = 0;
     public int shieldQnt = 0;
 
-    public PersonalBoardSceneController(ModelView modelView) {
+    public PersonalBoardSceneController(ModelView modelView, boolean firstPlayer) {
         this.modelView = modelView;
+        this.firstPlayer = firstPlayer;
 
         for (LeaderCard leaderCard : modelView.getActiveLeaderCards()){
             if (leaderCard.getLeaderEffect().getEffectType() == EffectType.EXTRADEPOT){
@@ -106,13 +107,14 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         setImagesStrongBox();
         setLeaderImages();
         setExtraDepotImages();
+        setInkwell();
 
         showDevCardsBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowDevCardsBtnClicked);
         showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
     }
 
     private void setInkwell(){
-        inkwell.setImage(new Image("/punchboard/inkwell.png"));
+        if (firstPlayer) inkwell.setImage(new Image("/punchboard/inkwell.png"));
     }
 
     private void setExtraDepotImages() {

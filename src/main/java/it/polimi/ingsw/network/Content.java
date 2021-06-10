@@ -12,6 +12,7 @@ public enum Content {
     EXTRA_PRODUCTION,
     MATCH_FINISHED,
     BASIC_PROD,
+    FIRST_PLAYER,
 
 
     NORESOURCE_AVAILABLE,
