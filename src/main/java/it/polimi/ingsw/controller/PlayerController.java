@@ -144,10 +144,10 @@ public class PlayerController {
                     }
                 }
                 if (!resources.isEmpty()) {
-                    playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                    playerVV().displayGenericMessage("\n"+resources.get(resources.size() - 1).toString() +
                                                              "\nIn which floor of the depot do you want to place this resource? " +
-                            "\n'DISCARD' to discard this resource and give one faith point to your opponents or " +
-                            "\n'SWITCH' to switch two floors");
+                            "\n- 'DISCARD' to discard this resource and give one faith point to your opponents or " +
+                            "\n- 'SWITCH' to switch two floors");
                     extraDepotAlert();
                     displayPB();
                     playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
@@ -184,10 +184,10 @@ public class PlayerController {
                 }
                 else {
                     whiteCounter=0;
-                    playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                    playerVV().displayGenericMessage("\n" + resources.get(resources.size() - 1).toString() +
                             "\nIn which floor of the depot do you want to place this resource? \n" +
-                            "'DISCARD' to discard this resource and give one faith point to your opponents\n" +
-                            "'SWITCH' to switch two floors");
+                            "- 'DISCARD' to discard this resource and give one faith point to your opponents\n" +
+                            "- 'SWITCH' to switch two floors");
                     extraDepotAlert();
                     playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
                 }
@@ -232,8 +232,8 @@ public class PlayerController {
                         "\n" +
                         resources.get(resources.size() - 1).toString()
                         + "\nIn which floor of the depot do you want to place this resource? \n" +
-                        "'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
-                        "'SWITCH' to switch two floors");
+                        "- 'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
+                        "- 'SWITCH' to switch two floors");
                 extraDepotAlert();
                 playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
 
@@ -257,10 +257,10 @@ public class PlayerController {
                //Asks (white counter times) to the player the resource he wants, then adds them to the arraylist of resources picked up
                 playerVV().fetchSwapWhite(type1,type2);
             } else {
-                playerVV().displayGenericMessage(resources.get(resources.size() - 1).toString() +
+                playerVV().displayGenericMessage("\n" + resources.get(resources.size() - 1).toString() +
                         "\nIn which floor of the depot do you want to place this resource? \n" +
-                        "'DISCARD' to discard this resource and give one faith point to your opponents or \n" +
-                        "'SWITCH' to switch two floors");
+                        "- 'DISCARD' to discard this resource and give one faith point to your opponents \n" +
+                        "- 'SWITCH' to switch two floors");
                 extraDepotAlert();
                 playerVV().fetchResourcePlacement(resources.get(resources.size() - 1));
             }
@@ -328,8 +328,8 @@ public class PlayerController {
         }
         catch (IllegalArgumentException e){
             playerVV().displayGenericMessage("You don't have the requirements to activate it");
-            playerVV().displayPopup("You don't have the requirements to activate it");
             playerVV().fetchPlayLeader(gameController.getTable().getCurrentPlayer().getLeaderCards(), ((ActivateLeader)msg).isEndTurn());
+            playerVV().displayPopup("You don't have the requirements to activate it");
             trueOrFalse = false;
         }
 
@@ -490,7 +490,7 @@ public class PlayerController {
                         resourcesToAdd.add(gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
                     } catch (NoSuchElementException e) {
                         playerVV().displayGenericMessage("You don't have the requirements to do this production");
-                        playerVV().displayPopup("You don't have the requirements to do this production");
+                        // todo playerVV().displayPopup("You don't have the requirements to do this production");
                     }
 
                     if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){

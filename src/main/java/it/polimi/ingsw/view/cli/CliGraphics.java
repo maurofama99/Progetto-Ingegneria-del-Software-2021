@@ -227,7 +227,7 @@ public class CliGraphics {
 
 
     public String printWarehouse(SerializableWarehouse warehouse){
-        return printDepot(warehouse.getFloors()) + printStrongBox(warehouse.getStrongbox());
+        return printDepot(warehouse.getFloors()) + "                                \n" + printStrongBox(warehouse.getStrongbox());
     }
 
     public String printStrongBox(Resource[] strongbox){
@@ -272,7 +272,7 @@ public class CliGraphics {
         else thirdFloor = " " +printRes(floors.get(2)) + printRes(floors.get(2)) + printRes(floors.get(2));
 
         s = "         1  " + firstFloor +"             " +
-                "\n         2  " + secondFloor + "             \n         3  "+thirdFloor + "             \n                                \n";
+                "\n         2  " + secondFloor + "             \n         3  "+thirdFloor + "             \n";
 
         return s;
     }

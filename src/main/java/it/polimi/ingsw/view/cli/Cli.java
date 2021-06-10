@@ -114,6 +114,7 @@ public class Cli extends ClientObservable implements View {
      */
     @Override
     public void fetchResourcePlacement(Resource resource) throws IOException {
+        System.out.println(cliGraphics.printDepot(modelView.getWarehouse().getFloors()));
         int floorInt;
         Scanner scanner = new Scanner(System.in);
         System.out.print(">");
@@ -164,7 +165,6 @@ public class Cli extends ClientObservable implements View {
             notifyObservers(new ResourcePlacement(nickname, floor, sourceFloor, destFloor));
         }
         else notifyObservers(new ResourcePlacement(nickname, floor));
-        cliGraphics.printDepot(modelView.getWarehouse().getFloors());
     }
 
     /**
