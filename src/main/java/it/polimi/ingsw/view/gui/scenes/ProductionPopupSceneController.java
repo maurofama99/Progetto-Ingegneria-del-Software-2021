@@ -4,6 +4,7 @@ import it.polimi.ingsw.network.messagescs.ActivateProduction;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -70,11 +71,21 @@ public class ProductionPopupSceneController extends ClientObservable implements 
     }
 
     private void whenDoneBtnClicked(MouseEvent event){
-        if (basicBtn.isSelected()) productions.set(0,1);
-        if (leftSlotBtn.isSelected()) productions.set(1,1);
-        if (centerSlotBtn.isSelected()) productions.set(2,1);
-        if (rightSlotBtn.isSelected()) productions.set(3,1);
-        notifyObservers(new ActivateProduction(productions.get(0), productions.get(1), productions.get(2), productions.get(3)));
+        if (!rightSlotBtn.isSelected() && !centerSlotBtn.isSelected()
+                && !leftSlotBtn.isSelected() && !basicBtn.isSelected()){
+            Platform.runLater(() -> {
+                ActionPopupController apc = new ActionPopupController(modelView);
+                apc.addAllClientObservers(clientObservers);
+                SceneController.showPopup(apc, "action_popup.fxml");
+            });
+        }
+        else {
+            if (basicBtn.isSelected()) productions.set(0, 1);
+            if (leftSlotBtn.isSelected()) productions.set(1, 1);
+            if (centerSlotBtn.isSelected()) productions.set(2, 1);
+            if (rightSlotBtn.isSelected()) productions.set(3, 1);
+            notifyObservers(new ActivateProduction(productions.get(0), productions.get(1), productions.get(2), productions.get(3)));
+        }
         stage.close();
     }
 

@@ -425,21 +425,18 @@ public class PlayerController {
                     playerVV().displayBasicProdPopup(1,"Basic production activated, you can now spend two resources to get a new one in Strongbox!\n Now choose the first one");
                 }
 
-                else if (((ActivateProduction)msg).getBasic()==0) {
-                    if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
-                            if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
-                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
-                                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
-                            }
-                            else if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
-                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-                                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-                            }
+                if (((ActivateProduction)msg).getBasic()==0) {
+                    if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)) {
+                        if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
+                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
+                            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
+                        } else if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
+                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+                            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
                         }
                     }
-                    else {
-                        finalizeProduction();
-                    }
+                    else finalizeProduction();
+                }
                 break;
 
             case ACTIVATE_EXTRAPRODUCTION:
