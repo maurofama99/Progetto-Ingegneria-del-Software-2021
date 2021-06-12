@@ -33,8 +33,6 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
 
     @FXML
     private StackPane rootPane;
-
-
     @FXML
     private ImageView inkwell;
     //Depot
@@ -69,15 +67,15 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     private ImageView leaderRight, SEResource, SWResource;
     @FXML
     private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
+    @FXML
+    private Label nickname = new Label();
+    @FXML
+    private Button closeBtn;
 
     public int coinQnt = 0;
     public int stoneQnt = 0;
     public int servantQnt = 0;
     public int shieldQnt = 0;
-    @FXML
-    private Label nickname;
-    @FXML
-    private Button closeBtn;
 
     public ShowOthersPopupController(String nickname, ModelView modelView) {
         this.player = nickname;
@@ -181,9 +179,6 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
         }
         else
             thirdPopeTile.setImage(new Image("/punchboard/tile_4_back.png"));
-
-
-
 
         ArrayList<ImageView> imageViews = new ArrayList<>();
         imageViews.add(tile_0);

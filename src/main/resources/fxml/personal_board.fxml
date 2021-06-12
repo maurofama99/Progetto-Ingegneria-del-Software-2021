@@ -36,8 +36,6 @@
                   <ImageView fx:id="firstPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="241.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="secondPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="490.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="thirdPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="788.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button fx:id="showMarketBtn" layoutX="1034.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="showMarketBtn" />
-                  <Button fx:id="showDevCardsBtn" layoutX="1157.0" layoutY="649.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="showDevCardButton" />
                   <ImageView fx:id="leaderLeft" fitHeight="190.0" fitWidth="145.0" layoutX="1069.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="leaderRight" fitHeight="190.0" fitWidth="145.0" layoutX="1069.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="inkwell" fitHeight="92.0" fitWidth="100.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />

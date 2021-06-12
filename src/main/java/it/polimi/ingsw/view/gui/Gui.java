@@ -292,12 +292,11 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void forcedEnd(String nickname) {
         Platform.runLater(() -> {
-            PopupSceneController psc = new PopupSceneController(nickname + " left the game. The match ends now.");
+            EndPopupSceneController psc = new EndPopupSceneController(nickname + " left the game. The match ends now.");
             psc.addAllClientObservers(clientObservers);
             psc.setTitleLabel("Disconnection Alert");
             SceneController.showPopup(psc, "popup_scene.fxml");
         });
-        System.exit(0);
     }
 
     /**

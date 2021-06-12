@@ -67,9 +67,7 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     private ImageView thirdPopeTile;
     //End of FaithTrack
     @FXML
-    private Button showMarketBtn = new Button();
-    @FXML
-    private Button showDevCardsBtn, firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
+    private Button firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
     @FXML
     private ImageView leaderLeft, NEResource, NWResource;
     @FXML
@@ -108,9 +106,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
         setLeaderImages();
         setExtraDepotImages();
         setInkwell();
-
-        showDevCardsBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowDevCardsBtnClicked);
-        showMarketBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShowMarketBtnClicked);
     }
 
     private void setInkwell(){
@@ -160,23 +155,6 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
             ShowOthersPopupController sosc = new ShowOthersPopupController(firstPlayerNick, modelView);
             sosc.addAllClientObservers(clientObservers);
             SceneController.showPopup(sosc, "show_others.fxml");
-        });
-    }
-
-
-    private void whenShowDevCardsBtnClicked(MouseEvent event){
-        Platform.runLater(() -> {
-            DevcardPopupDisplayScene dpds = new DevcardPopupDisplayScene(modelView, false);
-            dpds.addAllClientObservers(clientObservers);
-            SceneController.showPopup(dpds, "display_devcards.fxml");
-        });
-    }
-
-    private void whenShowMarketBtnClicked(MouseEvent event){
-        Platform.runLater(() -> {
-            MarketPopupSceneController mpsc = new MarketPopupSceneController(modelView, false);
-            mpsc.addAllClientObservers(clientObservers);
-            SceneController.showPopup(mpsc, "market_tray_display.fxml");
         });
     }
 
