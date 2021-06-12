@@ -21,6 +21,7 @@
 .tablePane {
     -fx-background-image: url("/other/background/sfondo_tavolo.jpg");
     -fx-background-size: stretch;
+    -fx-background-position: center;
 }
 
 
