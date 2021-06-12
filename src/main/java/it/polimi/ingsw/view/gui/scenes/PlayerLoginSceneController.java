@@ -25,7 +25,7 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
     public void setSolo(boolean solo) {
         this.solo = solo;
-        disableAll();
+        choiceBox.setDisable(true);
     }
 
     @FXML
@@ -40,42 +40,14 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
     @FXML
     private Button exitGameButton;
 
-    @FXML
-    private Button singleBtn, twoPlayers, threePlayers, fourPlayers;
 
     @FXML
     public void initialize(){
         choiceBox.setItems(players);
         joinGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinGameClick);
         exitGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onExitGameClick);
-
-        singleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSingleClicked);
-        twoPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenTwoClicked);
-        threePlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThreeClicked);
-        fourPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourPlayers);
-
     }
 
-
-    private void whenSingleClicked(MouseEvent event){
-        numPlayers = 1;
-        disableAll();
-    }
-
-    private void whenTwoClicked(MouseEvent event){
-        numPlayers = 2;
-        disableAll();
-    }
-
-    private void whenThreeClicked(MouseEvent event){
-        numPlayers = 3;
-        disableAll();
-    }
-
-    private void whenFourPlayers(MouseEvent event){
-        numPlayers = 4;
-        disableAll();
-    }
 
     private void onJoinGameClick(Event event){
         joinGameButton.setDisable(true);
@@ -84,21 +56,6 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
 
-        switch(choiceBox.getSelectionModel().getSelectedItem()){
-            case "single" :
-                numPlayers = 1;
-                break;
-            case "2" :
-                numPlayers = 2;
-                break;
-            case "3" :
-                numPlayers = 3;
-                break;
-            case "4" :
-                numPlayers = 4;
-                break;
-        }
-
         if(nickname.matches("")){
             if (solo) Platform.runLater(() ->((PlayerLoginSceneController)SceneController.changeRootPane(clientObservers, event, "player_login_scene.fxml")).setSolo(true));
             else SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
@@ -106,7 +63,23 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
             psc.addAllClientObservers(clientObservers);
             SceneController.showPopup(psc, "popup_scene.fxml");
         } else {
-            if (!solo) notifyObservers(new LoginData(nickname, numPlayers));
+            if (!solo) {
+                switch(choiceBox.getSelectionModel().getSelectedItem()){
+                    case "single" :
+                        numPlayers = 1;
+                        break;
+                    case "2" :
+                        numPlayers = 2;
+                        break;
+                    case "3" :
+                        numPlayers = 3;
+                        break;
+                    case "4" :
+                        numPlayers = 4;
+                        break;
+                }
+                notifyObservers(new LoginData(nickname, numPlayers));
+            }
             else notifyObservers(new LoginData(nickname, 1));
         }
 
@@ -120,10 +93,4 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         return nickname;
     }
 
-    public void disableAll(){
-        singleBtn.setDisable(true);
-        twoPlayers.setDisable(true);
-        threePlayers.setDisable(true);
-        fourPlayers.setDisable(true);
-    }
 }

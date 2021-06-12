@@ -7,6 +7,7 @@ import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -68,8 +69,8 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
 
     public void initialize(){
 
-        if (interactive) backBtn.setDisable(true);
-        else disable(true);
+        //if (interactive) backBtn.setDisable(true);
+        //else disable(true);
 
         setMarbles();
 
@@ -101,6 +102,11 @@ public class MarketPopupSceneController extends ClientObservable implements Gene
     }
 
     private void whenBackBtnClicked(MouseEvent event){
+        Platform.runLater(() -> {
+            ActionPopupController apc = new ActionPopupController(modelView);
+            apc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(apc, "action_popup.fxml");
+        });
         stage.close();
     }
 

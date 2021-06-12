@@ -24,7 +24,6 @@
 .backToMenuBtn{
 
     -fx-background-image: url("/other/buttons/back_button.png");
-
     -fx-border-color: transparent;
     -fx-background-size: stretch;
     -fx-border-width: 0;

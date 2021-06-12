@@ -67,8 +67,8 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
 
     public void initialize(){
         setDevCardImages();
-        if (interactive) backBtn.setDisable(true);
-        else disableAll();
+        //if (interactive) backBtn.setDisable(true);
+        //else disableAll();
 
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
@@ -104,6 +104,11 @@ public class DevcardPopupDisplayScene extends ClientObservable implements Generi
     }
 
     private void whenBackBtnClicked(MouseEvent event){
+        Platform.runLater(() -> {
+            ActionPopupController apc = new ActionPopupController(modelView);
+            apc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(apc, "action_popup.fxml");
+        });
         stage.close();
     }
 

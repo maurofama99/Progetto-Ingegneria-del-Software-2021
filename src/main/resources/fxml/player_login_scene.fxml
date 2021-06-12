@@ -7,36 +7,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../css/player_login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController">
+<StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../css/player_login.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController">
    <children>
       <Group>
          <children>
-            <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0">
+            <AnchorPane fx:id="rootPane" layoutX="457.0" layoutY="167.0" prefHeight="718.0" prefWidth="1275.0">
                <children>
-                  <Button fx:id="joinGameButton" layoutX="303.0" layoutY="513.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
+                  <Button fx:id="joinGameButton" layoutX="826.0" layoutY="466.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
                      <font>
                         <Font name="Informal Roman" size="16.0" />
                      </font></Button>
-                  <Button fx:id="exitGameButton" layoutX="671.0" layoutY="16.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="backBtn" stylesheets="@../css/player_login.css">
+                  <Button fx:id="exitGameButton" layoutX="44.0" layoutY="42.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="backBtn" stylesheets="@../css/player_login.css">
                      <font>
                         <Font name="Informal Roman" size="16.0" />
                      </font></Button>
-                  <TextField fx:id="nicknameField" layoutX="366.0" layoutY="404.0" prefHeight="40.0" prefWidth="300.0" />
-                  <ImageView fitHeight="72.0" fitWidth="246.0" layoutX="148.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true">
+                  <TextField fx:id="nicknameField" layoutX="437.0" layoutY="466.0" prefHeight="40.0" prefWidth="300.0" />
+                  <ImageView fitHeight="72.0" fitWidth="246.0" layoutX="219.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../other/texts/nickname.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="98.0" fitWidth="292.0" layoutX="118.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="98.0" fitWidth="292.0" layoutX="189.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../other/texts/player_number.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="singleBtn" layoutX="699.0" layoutY="337.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="1" />
-                  <Button fx:id="twoPlayers" layoutX="688.0" layoutY="388.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="2" />
-                  <Button fx:id="threePlayers" layoutX="696.0" layoutY="444.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="3" />
-                  <Button fx:id="fourPlayers" layoutX="690.0" layoutY="482.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="4" />
-                  <ChoiceBox fx:id="choiceBox" layoutX="432.0" layoutY="466.0" prefWidth="150.0">
+                  <ChoiceBox fx:id="choiceBox" layoutX="503.0" layoutY="528.0" prefWidth="150.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
