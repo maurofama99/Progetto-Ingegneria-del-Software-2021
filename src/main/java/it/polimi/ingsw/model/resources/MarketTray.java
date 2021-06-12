@@ -36,6 +36,14 @@ public class MarketTray implements Serializable{
         return slide;
     }
 
+    public void setTray(Resource[][] tray) {
+        this.tray = tray;
+    }
+
+    public void setSlide(Resource slide) {
+        this.slide = slide;
+    }
+
     public ArrayList<Resource> createMarbles(){
         ArrayList<Resource> marbles = new ArrayList<>();
         for (int i=0; i<4; i++){

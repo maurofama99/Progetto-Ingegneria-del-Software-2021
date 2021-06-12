@@ -3,9 +3,12 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.BuyDevCard;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.network.messagescs.LoginData;
+import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
+import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,10 +21,12 @@ import static org.junit.Assert.*;
 
 public class GameControllerTest {
 
+    /*
     private GameController gameController;
     private WaitingRoom waitingRoom;
     private PlayerController playerController;
     private HashMap<String, VirtualView> vvMap;
+    private ClientHandler clientHandler;
 
 
     @Before
@@ -32,15 +37,11 @@ public class GameControllerTest {
         players.add(new Player("Valeria"));
         players.add(new Player("Mauro"));
         players.add(new Player("Christian"));
-        vvMap = waitingRoom.getPlayersVirtualView(players);
         gameController.setTable(new Table());
-        gameController.setVvMap(vvMap);
         for(Player player : players){
-            gameController.getTable().addObserver(vvMap.get(player.getNickname()));
             gameController.getTable().addPlayer(player.getNickname());
-            gameController.getTable().setNumPlayers(players.size());
         }
-        gameController.getTable().setPlayersInGame();
+        gameController.getTable().setNumPlayers(players.size());
         playerController = new PlayerController(gameController);
     }
 
@@ -52,12 +53,19 @@ public class GameControllerTest {
         assertEquals(gameController.getTableState(), TableState.IN_GAME);
     }
 
-    /*
+    @Test
+    public void testChooseResource() throws IOException {
+        ResourceTypeChosen resourceTypeChosen = new ResourceTypeChosen("Valeria", 1);
+        gameController.receiveMessageOnSetup(resourceTypeChosen);
+        assertEquals(ResourceType.SERVANT, gameController.getResourceChosen().getType());
+    }
+
+
     @Test
     public void testGoToMarket() throws IOException, CloneNotSupportedException {
-        ArrayList<Resource> resources = gameController.getTable().getMarketTray().selectRow(1);
         GoingMarket goingMarket = new GoingMarket(1, true);
-        playerController.receiveMessage(goingMarket);
+        playerController.receiveMessageOnMarket(goingMarket);
+
 
     }
 

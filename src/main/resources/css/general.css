@@ -19,7 +19,7 @@
 }
 
 .tablePane {
-    -fx-background-image: url("/other/background/sfondo_tavolo.jpg");
+    -fx-background-image: url("/other/background/beigeBackground.png");
     -fx-background-size: stretch;
     -fx-background-position: center;
 }
@@ -36,7 +36,7 @@
 }
 
 .backButton{
-    -fx-background-image: url("/other/buttons/back_button.png");
+    -fx-background-image: url("/other/buttons/back_arrow.png");
 
     -fx-border-color: transparent;
     -fx-background-size: stretch;

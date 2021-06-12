@@ -32,12 +32,5 @@ public class Token implements Serializable {
         tokenAction.doAction(t);
     }
 
-    @Override
-    public String toString() {
-        return "Token{" +
-                "tokenAction=" + tokenAction +
-                '}';
-    }
-
 
 }

@@ -137,7 +137,7 @@ public class PlayerController {
                     } catch (IllegalArgumentException e) {
                         goAhead = false;
                         playerVV().displayGenericMessage(e.getMessage() + ". Try Again...\n");
-                        playerVV().displayPopup(e.getMessage() + ". Try Again...\n");
+                        playerVV().displayPopup("You can't place this Resource here. Try Again...\n");
                     }
                     if (goAhead) {
                         resources.remove(resources.get(resources.size() - 1));

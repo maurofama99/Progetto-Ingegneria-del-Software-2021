@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ShowOthersPopupController extends ClientObservable implements GenericPopupController {
 
     private Stage stage;
-    private final String player;
+    private String player;
     private ModelView modelView;
     private ResourceType NResourceType = ResourceType.NULLRESOURCE;// upper card resource type if extra depot
     private ResourceType SResourceType = ResourceType.NULLRESOURCE;// lower card resource type if extra depot
@@ -89,7 +89,8 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;
         y_Offset = 0;
-        this.nickname.setText(nickname);
+        this.player = nickname;
+        this.nickname.setText(player);
 
         for (LeaderCard leaderCard : modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards()){
             if (leaderCard.getLeaderEffect().getEffectType() == EffectType.EXTRADEPOT){

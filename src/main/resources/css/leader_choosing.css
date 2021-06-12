@@ -60,7 +60,11 @@
     -fx-cursor: hand;
 }
 
-.fourthButton:hover{
+.fourthButton:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+.firstLeader:hover{
     -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
     -fx-cursor: hand;
 }

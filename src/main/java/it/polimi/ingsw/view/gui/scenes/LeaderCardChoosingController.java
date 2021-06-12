@@ -26,13 +26,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     private StackPane rootPane;
 
     @FXML
-    private ImageView firstLeader;
-    @FXML
-    private ImageView secondLeader;
-    @FXML
-    private ImageView thirdLeader;
-    @FXML
-    private ImageView fourthLeader;
+    private ImageView firstLeader, secondLeader, thirdLeader, fourthLeader;
 
 
     @FXML
@@ -61,7 +55,9 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             index1 = 0;
             first = false;
             firstLeader.setDisable(true);
+            firstLeader.setOpacity(0.6);
         } else {
+            firstLeader.setOpacity(0.6);
             firstLeader.setDisable(true);
             secondLeader.setDisable(true);
             thirdLeader.setDisable(true);
@@ -74,8 +70,10 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 1;
             first = false;
+            secondLeader.setOpacity(0.6);
             secondLeader.setDisable(true);
         } else {
+            secondLeader.setOpacity(0.6);
             firstLeader.setDisable(true);
             secondLeader.setDisable(true);
             thirdLeader.setDisable(true);
@@ -88,8 +86,10 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 2;
             first = false;
+            thirdLeader.setOpacity(0.6);
             thirdLeader.setDisable(true);
         } else {
+            thirdLeader.setOpacity(0.6);
             firstLeader.setDisable(true);
             secondLeader.setDisable(true);
             thirdLeader.setDisable(true);
@@ -102,8 +102,10 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 3;
             first = false;
+            fourthLeader.setOpacity(0.6);
             fourthLeader.setDisable(true);
         } else {
+            fourthLeader.setOpacity(0.6);
             firstLeader.setDisable(true);
             secondLeader.setDisable(true);
             thirdLeader.setDisable(true);
