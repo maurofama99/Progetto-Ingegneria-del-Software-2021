@@ -22,7 +22,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
     private boolean firstPlayer;
     private int index1;
-    private boolean first;
+    private boolean first = true;
     private boolean solo;
 
     public LeaderCardChoosingController(boolean firstPlayer, boolean solo) {

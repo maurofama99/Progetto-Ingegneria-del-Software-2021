@@ -64,21 +64,28 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
             SceneController.showPopup(psc, "popup_scene.fxml");
         } else {
             if (!solo) {
-                switch(choiceBox.getSelectionModel().getSelectedItem()){
-                    case "single" :
-                        numPlayers = 1;
-                        break;
-                    case "2" :
-                        numPlayers = 2;
-                        break;
-                    case "3" :
-                        numPlayers = 3;
-                        break;
-                    case "4" :
-                        numPlayers = 4;
-                        break;
+                try {
+                    switch (choiceBox.getSelectionModel().getSelectedItem()) {
+                        case "single":
+                            numPlayers = 1;
+                            break;
+                        case "2":
+                            numPlayers = 2;
+                            break;
+                        case "3":
+                            numPlayers = 3;
+                            break;
+                        case "4":
+                            numPlayers = 4;
+                            break;
+                    }
+                    notifyObservers(new LoginData(nickname, numPlayers));
+                } catch (NullPointerException e){
+                    SceneController.changeRootPane(clientObservers, "player_login_scene.fxml");
+                    PopupSceneController psc= new PopupSceneController("Please choose the number of players");
+                    psc.addAllClientObservers(clientObservers);
+                    SceneController.showPopup(psc, "popup_scene.fxml");
                 }
-                notifyObservers(new LoginData(nickname, numPlayers));
             }
             else notifyObservers(new LoginData(nickname, 1));
         }
