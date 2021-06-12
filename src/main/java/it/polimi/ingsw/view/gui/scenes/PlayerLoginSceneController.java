@@ -5,15 +5,20 @@ import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 
 public class PlayerLoginSceneController extends ClientObservable implements GenericSceneController{
 
+    ObservableList<String> players = FXCollections.observableArrayList("single", "2", "3", "4");
     private String nickname;
     private boolean solo = false;
     private int numPlayers;
@@ -22,6 +27,9 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         this.solo = solo;
         disableAll();
     }
+
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
     @FXML
     private TextField nicknameField;
@@ -37,6 +45,7 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
     @FXML
     public void initialize(){
+        choiceBox.setItems(players);
         joinGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinGameClick);
         exitGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onExitGameClick);
 
@@ -44,7 +53,9 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         twoPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenTwoClicked);
         threePlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThreeClicked);
         fourPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourPlayers);
+
     }
+
 
     private void whenSingleClicked(MouseEvent event){
         numPlayers = 1;
@@ -72,6 +83,21 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
 
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
+
+        switch(choiceBox.getSelectionModel().getSelectedItem()){
+            case "single" :
+                numPlayers = 1;
+                break;
+            case "2" :
+                numPlayers = 2;
+                break;
+            case "3" :
+                numPlayers = 3;
+                break;
+            case "4" :
+                numPlayers = 4;
+                break;
+        }
 
         if(nickname.matches("")){
             if (solo) Platform.runLater(() ->((PlayerLoginSceneController)SceneController.changeRootPane(clientObservers, event, "player_login_scene.fxml")).setSolo(true));

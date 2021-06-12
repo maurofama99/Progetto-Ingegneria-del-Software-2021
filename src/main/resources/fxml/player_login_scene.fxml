@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../css/player_login.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController">
+<StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../css/player_login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.PlayerLoginSceneController">
    <children>
       <Group>
          <children>
@@ -40,7 +36,7 @@
                   <Button fx:id="twoPlayers" layoutX="688.0" layoutY="388.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="2" />
                   <Button fx:id="threePlayers" layoutX="696.0" layoutY="444.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="3" />
                   <Button fx:id="fourPlayers" layoutX="690.0" layoutY="482.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="4" />
-                  <ChoiceBox layoutX="432.0" layoutY="466.0" prefWidth="150.0">
+                  <ChoiceBox fx:id="choiceBox" layoutX="432.0" layoutY="466.0" prefWidth="150.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

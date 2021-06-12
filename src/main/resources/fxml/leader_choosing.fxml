@@ -17,21 +17,20 @@
                         <Image url="@../other/texts/what_leader.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="firstBtn" layoutX="37.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="firstButton" />
-                  <Button fx:id="secondBtn" layoutX="233.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="secondButton" />
-                  <Button fx:id="thirdBtn" layoutX="497.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="thirdButton" />
-                  <Button fx:id="fourthBtn" layoutX="698.0" layoutY="489.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="fourthButton" />
-                  <ImageView fx:id="firstLeader" fitHeight="250.0" fitWidth="175.0" layoutX="37.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="firstLeader" fitHeight="250.0" fitWidth="175.0" layoutX="37.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-                  <ImageView fx:id="secondLeader" fitHeight="250.0" fitWidth="175.0" layoutX="233.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="secondLeader" fitHeight="250.0" fitWidth="175.0" layoutX="233.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
-                  <ImageView fx:id="thirdLeader" fitHeight="250.0" fitWidth="175.0" layoutX="497.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="thirdLeader" fitHeight="250.0" fitWidth="175.0" layoutX="497.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                      </ImageView>
-                  <ImageView fx:id="fourthLeader" fitHeight="250.0" fitWidth="175.0" layoutX="698.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="fourthLeader" fitHeight="250.0" fitWidth="175.0" layoutX="698.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                      </ImageView>
                </children></AnchorPane>
          </children>
       </Group>
    </children>
-   <stylesheets><URL value="@../css/leader_choosing.css" /></stylesheets>
+   <stylesheets>
+      <URL value="@../css/leader_choosing.css" />
+      <URL value="@../css/images_buttons.css" />
+   </stylesheets>
 </StackPane>

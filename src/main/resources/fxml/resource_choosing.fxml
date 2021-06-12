@@ -17,23 +17,19 @@
                         <Image url="@../other/texts/what_resource.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="coinBtn" layoutX="37.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="coinButton" />
-                  <Button fx:id="stoneBtn" layoutX="233.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="stoneButton" />
-                  <Button fx:id="servantBtn" layoutX="497.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="servantButton" />
-                  <Button fx:id="shieldBtn" layoutX="698.0" layoutY="500.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="175.0" styleClass="shieldButton" />
-                  <ImageView fitHeight="164.0" fitWidth="175.0" layoutX="37.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="coin" fitHeight="164.0" fitWidth="175.0" layoutX="37.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/COIN.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="233.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="stone" fitHeight="175.0" fitWidth="175.0" layoutX="233.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/STONE.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="497.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="servant" fitHeight="175.0" fitWidth="175.0" layoutX="497.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/SERVANT.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="157.0" fitWidth="214.0" layoutX="698.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="imageBtn" fx:id="shield" fitHeight="157.0" fitWidth="214.0" layoutX="698.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../punchboard/resources/SHIELD.png" />
                      </image></ImageView>
@@ -41,5 +37,8 @@
          </children>
       </Group>
    </children>
-   <stylesheets><URL value="@../css/resource_choosing.css" /></stylesheets>
+   <stylesheets>
+      <URL value="@../css/resource_choosing.css" />
+      <URL value="@../css/images_buttons.css" />
+   </stylesheets>
 </StackPane>

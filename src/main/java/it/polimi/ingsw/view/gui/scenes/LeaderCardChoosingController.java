@@ -24,14 +24,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
 
     @FXML
     private StackPane rootPane;
-    @FXML
-    private Button firstBtn;
-    @FXML
-    private Button secondBtn;
-    @FXML
-    private Button thirdBtn;
-    @FXML
-    private Button fourthBtn;
+
     @FXML
     private ImageView firstLeader;
     @FXML
@@ -45,10 +38,10 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
     @FXML
     public void initialize(){
         setLeaderCardsImages();
-        firstBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstClicked);
-        secondBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondClicked);
-        thirdBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdClicked);
-        fourthBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourthClicked);
+        firstLeader.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFirstClicked);
+        secondLeader.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenSecondClicked);
+        thirdLeader.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenThirdClicked);
+        fourthLeader.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenFourthClicked);
     }
 
     /**
@@ -67,12 +60,12 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 0;
             first = false;
-            firstBtn.setDisable(true);
+            firstLeader.setDisable(true);
         } else {
-            firstBtn.setDisable(true);
-            secondBtn.setDisable(true);
-            thirdBtn.setDisable(true);
-            fourthBtn.setDisable(true);
+            firstLeader.setDisable(true);
+            secondLeader.setDisable(true);
+            thirdLeader.setDisable(true);
+            fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 0));
         }
     }
@@ -81,12 +74,12 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 1;
             first = false;
-            secondBtn.setDisable(true);
+            secondLeader.setDisable(true);
         } else {
-            firstBtn.setDisable(true);
-            secondBtn.setDisable(true);
-            thirdBtn.setDisable(true);
-            fourthBtn.setDisable(true);
+            firstLeader.setDisable(true);
+            secondLeader.setDisable(true);
+            thirdLeader.setDisable(true);
+            fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 1));
         }
     }
@@ -95,12 +88,12 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 2;
             first = false;
-            thirdBtn.setDisable(true);
+            thirdLeader.setDisable(true);
         } else {
-            firstBtn.setDisable(true);
-            secondBtn.setDisable(true);
-            thirdBtn.setDisable(true);
-            fourthBtn.setDisable(true);
+            firstLeader.setDisable(true);
+            secondLeader.setDisable(true);
+            thirdLeader.setDisable(true);
+            fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 2));
         }
     }
@@ -109,12 +102,12 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         if (first) {
             index1 = 3;
             first = false;
-            fourthBtn.setDisable(true);
+            fourthLeader.setDisable(true);
         } else {
-            firstBtn.setDisable(true);
-            secondBtn.setDisable(true);
-            thirdBtn.setDisable(true);
-            fourthBtn.setDisable(true);
+            firstLeader.setDisable(true);
+            secondLeader.setDisable(true);
+            thirdLeader.setDisable(true);
+            fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 3));
         }
 
