@@ -63,8 +63,6 @@ public class ConnectionSceneController extends ClientObservable implements Gener
             }
         }
 
-
-
     }
 
     private void exitButtonClick(Event event){

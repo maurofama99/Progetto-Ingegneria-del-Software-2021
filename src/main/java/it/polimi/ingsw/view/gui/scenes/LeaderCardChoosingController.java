@@ -3,6 +3,8 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.network.messagescs.DiscardLeader;
 import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -17,14 +19,19 @@ import java.util.ArrayList;
  */
 public class LeaderCardChoosingController extends ClientObservable implements GenericSceneController {
 
-    ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-
+    private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+    private boolean firstPlayer;
     private int index1;
-    private boolean first = true;
+    private boolean first;
+    private boolean solo;
+
+    public LeaderCardChoosingController(boolean firstPlayer, boolean solo) {
+        this.firstPlayer = firstPlayer;
+        this.solo = solo;
+    }
 
     @FXML
     private StackPane rootPane;
-
     @FXML
     private ImageView firstLeader, secondLeader, thirdLeader, fourthLeader;
 
@@ -63,6 +70,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 0));
+            if (!firstPlayer && !solo) waiting();
         }
     }
 
@@ -79,6 +87,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 1));
+            if (!firstPlayer && !solo) waiting();
         }
     }
 
@@ -95,6 +104,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 2));
+            if (!firstPlayer && !solo) waiting();
         }
     }
 
@@ -111,6 +121,7 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 3));
+            if (!firstPlayer && !solo) waiting();
         }
 
     }
@@ -133,6 +144,14 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         secondLeader.setImage(setLeaderImage(leaderCards.get(1)));
         thirdLeader.setImage(setLeaderImage(leaderCards.get(2)));
         fourthLeader.setImage(setLeaderImage(leaderCards.get(3)));
+    }
+
+    public void waiting(){
+        Platform.runLater(()->{
+            PopupSceneController psc = new PopupSceneController("Please wait for your turn, your opponents are now playing their first turn.");
+            psc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(psc, "popup_scene.fxml");
+        });
     }
 
 

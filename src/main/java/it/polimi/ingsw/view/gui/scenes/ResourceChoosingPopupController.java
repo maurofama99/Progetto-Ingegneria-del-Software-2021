@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
@@ -17,6 +18,12 @@ public class ResourceChoosingPopupController extends ClientObservable implements
 
     private double x_Offset = 0;
     private double y_Offset = 0;
+
+    private int resourceType;
+
+    public int getResourceType() {
+        return resourceType;
+    }
 
     @FXML
     private BorderPane rootPane;
@@ -59,19 +66,47 @@ public class ResourceChoosingPopupController extends ClientObservable implements
     }
 
     private void whenCoinClicked(MouseEvent event){
+        resourceType = 2;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
 
+        coin.setDisable(true);
+        stone.setDisable(true);
+        servant.setDisable(true);
+        shield.setDisable(true);
+        stage.close();
     }
 
     private void whenStoneClicked(MouseEvent event){
+        resourceType = 3;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
 
+        coin.setDisable(true);
+        stone.setDisable(true);
+        servant.setDisable(true);
+        shield.setDisable(true);
+        stage.close();
     }
 
     private void whenServantClicked(MouseEvent event){
+        resourceType = 1;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
 
+        coin.setDisable(true);
+        stone.setDisable(true);
+        servant.setDisable(true);
+        shield.setDisable(true);
+        stage.close();
     }
 
     private void whenShieldClicked(MouseEvent event){
+        resourceType = 0;
+        notifyObservers(new ResourceTypeChosen("client", resourceType));
 
+        coin.setDisable(true);
+        stone.setDisable(true);
+        servant.setDisable(true);
+        shield.setDisable(true);
+        stage.close();
     }
 
     /**

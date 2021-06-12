@@ -11,9 +11,9 @@
    <children>
       <Group>
          <children>
-            <AnchorPane fx:id="rootPane" layoutX="457.0" layoutY="167.0" prefHeight="718.0" prefWidth="1275.0">
+            <AnchorPane fx:id="rootPane" layoutX="1156.0" layoutY="239.0" prefHeight="718.0" prefWidth="1275.0">
                <children>
-                  <Button fx:id="joinGameButton" layoutX="826.0" layoutY="466.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
+                  <Button fx:id="joinGameButton" layoutX="856.0" layoutY="548.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="joinBtn" stylesheets="@../css/player_login.css">
                      <font>
                         <Font name="Informal Roman" size="16.0" />
                      </font></Button>
@@ -21,18 +21,18 @@
                      <font>
                         <Font name="Informal Roman" size="16.0" />
                      </font></Button>
-                  <TextField fx:id="nicknameField" layoutX="437.0" layoutY="466.0" prefHeight="40.0" prefWidth="300.0" />
-                  <ImageView fitHeight="72.0" fitWidth="246.0" layoutX="219.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
+                  <TextField fx:id="nicknameField" layoutX="467.0" layoutY="548.0" prefHeight="40.0" prefWidth="300.0" />
+                  <ImageView fitHeight="72.0" fitWidth="246.0" layoutX="249.0" layoutY="535.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../other/texts/nickname.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="98.0" fitWidth="292.0" layoutX="189.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="98.0" fitWidth="292.0" layoutX="219.0" layoutY="581.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../other/texts/player_number.png" />
                      </image>
                   </ImageView>
-                  <ChoiceBox fx:id="choiceBox" layoutX="503.0" layoutY="528.0" prefWidth="150.0">
+                  <ChoiceBox fx:id="choiceBox" layoutX="533.0" layoutY="610.0" prefWidth="150.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

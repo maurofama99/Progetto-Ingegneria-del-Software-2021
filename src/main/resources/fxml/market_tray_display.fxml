@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="900.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="900.0" styleClass="tablePane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group rotate="180.0">
             <children>
@@ -34,7 +34,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-                  <ImageView fx:id="slideMrbl" fitHeight="49.0" fitWidth="51.0" layoutX="411.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slideMrbl" fitHeight="55.0" fitWidth="58.0" layoutX="411.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="column1Btn" layoutX="672.0" layoutY="465.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
                   <Button fx:id="column2Btn" layoutX="610.0" layoutY="456.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />
                   <Button fx:id="column3Btn" layoutX="544.0" layoutY="470.0" mnemonicParsing="false" prefWidth="80.0" rotate="90.0" styleClass="choiceBtn" />

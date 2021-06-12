@@ -2,11 +2,10 @@
 
 <?import java.net.*?>
 <?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"> <!--fx:controller="it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController"-->
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"> <!--fx:controller="it.polimi.ingsw.view.gui.scenes.LeaderCardChoosingController"-->
    <children>
       <Group>
          <children>
@@ -17,13 +16,13 @@
                         <Image url="@../other/texts/what_leader.png" />
                      </image>
                   </ImageView>
-                  <ImageView styleClass="imageBtn" fx:id="firstLeader" fitHeight="250.0" fitWidth="175.0" layoutX="37.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="firstLeader" fitHeight="250.0" fitWidth="175.0" layoutX="32.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                   </ImageView>
-                  <ImageView styleClass="imageBtn" fx:id="secondLeader" fitHeight="250.0" fitWidth="175.0" layoutX="233.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="secondLeader" fitHeight="250.0" fitWidth="175.0" layoutX="228.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                     </ImageView>
-                  <ImageView styleClass="imageBtn" fx:id="thirdLeader" fitHeight="250.0" fitWidth="175.0" layoutX="497.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thirdLeader" fitHeight="250.0" fitWidth="175.0" layoutX="492.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                      </ImageView>
-                  <ImageView styleClass="imageBtn" fx:id="fourthLeader" fitHeight="250.0" fitWidth="175.0" layoutX="698.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="fourthLeader" fitHeight="250.0" fitWidth="175.0" layoutX="693.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                      </ImageView>
                </children></AnchorPane>
          </children>

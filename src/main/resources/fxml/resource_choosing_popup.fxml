@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <AnchorPane prefHeight="400.0" prefWidth="606.0" BorderPane.alignment="CENTER">
             <children>
@@ -13,22 +13,27 @@
                         <Image url="@../other/background/sfondo_popup.jpg" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="coin" fitHeight="100.0" fitWidth="100.0" layoutX="43.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
+                <ImageView fx:id="coin" fitHeight="100.0" fitWidth="100.0" layoutX="46.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                <image>
                   <Image url="@../punchboard/resources/COIN.png" />
                </image></ImageView>
-                <ImageView fx:id="stone" fitHeight="100.0" fitWidth="100.0" layoutX="165.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
+                <ImageView fx:id="stone" fitHeight="100.0" fitWidth="100.0" layoutX="184.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                <image>
                   <Image url="@../punchboard/resources/STONE.png" />
                </image></ImageView>
-                <ImageView fx:id="servant" fitHeight="100.0" fitWidth="100.0" layoutX="335.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
+                <ImageView fx:id="servant" fitHeight="100.0" fitWidth="100.0" layoutX="327.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                <image>
                   <Image url="@../punchboard/resources/SERVANT.png" />
                </image></ImageView>
-                <ImageView fx:id="shield" fitHeight="100.0" fitWidth="100.0" layoutX="469.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
+                <ImageView fx:id="shield" fitHeight="100.0" fitWidth="100.0" layoutX="469.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn">
                <image>
                   <Image url="@../punchboard/resources/SHIELD.png" />
                </image></ImageView>
+            <ImageView fitHeight="176.0" fitWidth="406.0" layoutX="100.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../other/texts/what_resource.png" />
+               </image>
+            </ImageView>
             </children>
             <stylesheets>
                 <URL value="@../css/devcard_display.css" />

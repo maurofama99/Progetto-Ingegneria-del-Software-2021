@@ -31,6 +31,7 @@ public class Gui extends ClientObservable implements View {
     private Client client;
     private final ModelView modelView;
     private boolean firstPlayer = false;
+    private boolean solo = false;
 
     /**
      * Constructor of the GUI, sets the ModelView
@@ -67,7 +68,7 @@ public class Gui extends ClientObservable implements View {
     @Override
     public void localFetchNickname(Event event) {
         Platform.runLater(() ->((PlayerLoginSceneController)SceneController.changeRootPane(clientObservers, event, "player_login_scene.fxml")).setSolo(true));
-
+        solo = true;
     }
 
     /**
@@ -75,7 +76,12 @@ public class Gui extends ClientObservable implements View {
      */
     @Override
     public void fetchResourceType() {
-        Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "resource_choosing.fxml"));
+        //Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "resource_choosing.fxml"));
+        Platform.runLater(() -> {
+            ResourceChoosingPopupController rcpc = new ResourceChoosingPopupController();
+            rcpc.addAllClientObservers(clientObservers);
+            SceneController.showPopup(rcpc, "resource_choosing_popup.fxml");
+        });
     }
 
     /**
@@ -139,7 +145,7 @@ public class Gui extends ClientObservable implements View {
      */
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) {
-        LeaderCardChoosingController llcc = new LeaderCardChoosingController();
+        LeaderCardChoosingController llcc = new LeaderCardChoosingController(firstPlayer, solo);
         llcc.setLeaderCards(leaderCards);
         llcc.addAllClientObservers(clientObservers);
         Platform.runLater(() -> SceneController.changeRootPane(llcc, "leader_choosing.fxml"));
