@@ -56,14 +56,15 @@ public class ResourceChoosingPopupController extends ClientObservable implements
      * @param event the mouse event selected in the initialize method
      */
     private void whenRootPanePressed(MouseEvent event){
-        x_Offset = stage.getX() - event.getScreenX();
-        y_Offset = stage.getY() - event.getScreenY();
+        x_Offset = stage.getX() - event.getSceneX();
+        y_Offset = stage.getY() - event.getSceneY();
     }
 
     private void whenRootPaneDragged(MouseEvent event){
-        stage.setX(event.getScreenX() +x_Offset);
-        stage.setY(event.getSceneY()+y_Offset);
+        stage.setX(event.getScreenX() - x_Offset);
+        stage.setY(event.getScreenY() - y_Offset);
     }
+
 
     private void whenCoinClicked(MouseEvent event){
         resourceType = 2;
