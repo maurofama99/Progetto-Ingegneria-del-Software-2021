@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagessc.EndSoloGame;
@@ -128,6 +129,9 @@ public class SinglePlayerController implements Observer {
     public void lorenzoTurn() throws IOException {
         table.getLorenzoIlMagnifico().turnToken(table);
         vv.displayToken(table.getLorenzoIlMagnifico().getShowedToken());
+        vv.displayGUIPersonalBoard(gameController.getTable().getSinglePlayer().getPersonalBoard().getFaithTrack(),
+                gameController.getTable().getSinglePlayer().getPersonalBoard().getSlots(),
+                new SerializableWarehouse(gameController.getTable().getSinglePlayer().getPersonalBoard().getWarehouse()));
         for (int i=1; i<5;i++){
             if (table.getDevCardsDeck().getDevCard(3, i) ==null){
                 endSoloGame(false);

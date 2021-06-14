@@ -351,18 +351,18 @@ public class CliGraphics {
 
             if (slots[0].getCards().size()==1) {
                 card0 = (printDevCard(slots[0].getShowedCard()) +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
+                        CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
                 card0 = (printDevCard(slots[0].getShowedCard()) + CliColor.RESET +
-                        getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n" +
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
                 card0 = (printDevCard(slots[0].getShowedCard()) +
-                        getDevColor(slots[0].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                        getDevColor(slots[0].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n" +
                         getDevColor(slots[0].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET+vp+getDevColor(slots[0].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
             }
 
@@ -376,9 +376,9 @@ public class CliGraphics {
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
 
         if (slots[1].getCards().size()>0){
@@ -391,19 +391,19 @@ public class CliGraphics {
 
             if (slots[1].getCards().size()==1) {
                 card1 = (printDevCard(slots[1].getShowedCard()) +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
+                        CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[0].getCards().size()==2){
                 card1 = (printDevCard(slots[1].getShowedCard()) +
-                        getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n" +
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
                 card1 = (printDevCard(slots[1].getShowedCard()) +
-                        getDevColor(slots[1].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET+vp+getDevColor(slots[1].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
+                        getDevColor(slots[1].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n" +
+                        getDevColor(slots[1].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET+vp+getDevColor(slots[1].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n").split("\n");
             }
         }
         else
@@ -414,9 +414,9 @@ public class CliGraphics {
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
         if (slots[2].getCards().size()>0){
             int points =  slots[2].getCards().stream().mapToInt(DevCard::getVictoryPointsDevCard).sum();
@@ -428,19 +428,19 @@ public class CliGraphics {
 
             if (slots[2].getCards().size()==1) {
                 card2 = (printDevCard(slots[2].getShowedCard()) +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
+                        CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
             else if (slots[2].getCards().size()==2){
                 card2 = (printDevCard(slots[2].getShowedCard()) +
-                        getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        ""+CliColor.RESET+"▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                        getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n" +
+                        "▕▁▁▁▁▁▁▁▁▁"+vp+"▁▁▁▁▁▁▁▁▁▏\n").split("\n");
             }
 
             else {
                 card2 = (printDevCard(slots[2].getShowedCard()) +
-                        getDevColor(slots[2].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
-                        getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET + vp+getDevColor(slots[2].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET).split("\n");
+                        getDevColor(slots[2].getCards().get(1)).escape()+"▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET +"\n" +
+                        getDevColor(slots[2].getCards().get(0)).escape()+"▕▁▁▁▁▁▁▁▁▁"+CliColor.RESET + vp+getDevColor(slots[2].getCards().get(0)).escape()+"▁▁▁▁▁▁▁▁▁▏"+ CliColor.RESET + "\n").split("\n");
             }
         }
         else
@@ -451,11 +451,11 @@ public class CliGraphics {
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
                      "▕                     ▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" +
-                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                     "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n" + CliColor.RESET +
+                    "▕▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏\n").split("\n");
 
-        while (j< card1.length){
+        while (j<card1.length){
             slot.append(card0[j]).append(card1[j]).append(card2[j]).append("\n");
             j++;
         }
