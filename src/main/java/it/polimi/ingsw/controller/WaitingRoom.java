@@ -34,6 +34,18 @@ public class WaitingRoom {
         return vvMap;
     }
 
+    public ArrayList<Player> getTwoPlayersArray() {
+        return twoPlayersArray;
+    }
+
+    public ArrayList<Player> getThreePlayersArray() {
+        return threePlayersArray;
+    }
+
+    public ArrayList<Player> getFourPlayersArray() {
+        return fourPlayersArray;
+    }
+
     /**
      * Manages login data and the first connection of the players.
      * @param msg Message received from the client.
@@ -48,6 +60,7 @@ public class WaitingRoom {
             boolean bool = checkGameStart();
             if (!bool) vv.displayGenericMessage("Please wait for other players to join...");
         } else throw new InvalidObjectException("Received message should be Login Data.");
+
     }
 
     /**

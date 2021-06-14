@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.SinglePlayerController;
 import it.polimi.ingsw.controller.WaitingRoom;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.client.LocalGameManager;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.GenericPopup;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
 import it.polimi.ingsw.view.VirtualView;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,6 +19,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A class that represents the client inside the server.
@@ -27,6 +32,7 @@ public class ClientHandler implements Runnable {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private String nickname;
+    private int numPlayers;
     private GameController gameController;
     private SinglePlayerController singlePlayerController;
     private final WaitingRoom waitingRoom;
@@ -88,7 +94,6 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
 
-
         try {
             output = new ObjectOutputStream(client.getOutputStream());
             input = new ObjectInputStream(client.getInputStream());
@@ -107,7 +112,27 @@ public class ClientHandler implements Runnable {
         }
         catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");
-            gameController.forcedEndGame(nickname);
+
+            try {
+                gameController.forcedEndGame(nickname);
+            }  catch (NullPointerException ignore){}
+
+            switch (numPlayers){
+                case 2:
+                    Iterator<Player> iter2 = waitingRoom.getTwoPlayersArray().iterator();
+                    removeDisconnectedPlayer(iter2);
+                    break;
+                case 3:
+                    Iterator<Player> iter3 = waitingRoom.getThreePlayersArray().iterator();
+                    removeDisconnectedPlayer(iter3);
+                    break;
+                case 4:
+                    Iterator<Player> iter4 = waitingRoom.getFourPlayersArray().iterator();
+                    removeDisconnectedPlayer(iter4);
+                    break;
+                default:
+                    break;
+            }
         }
 
         try {
@@ -154,6 +179,19 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    public void removeDisconnectedPlayer(Iterator<Player> iter){
+        while (iter.hasNext()){
+            Player player = iter.next();
+            if (player.getNickname().equals(nickname)){
+                for (String nick : waitingRoom.getPlayerClientHandlerHashMap().keySet()){
+                    if (nick.equals(nickname) && waitingRoom.getPlayerClientHandlerHashMap().get(nickname).equals(this)){
+                        iter.remove();
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Receive message method of the client handler. For the resilience we use the fact that the virtual views are saved
      * and matched with nicknames, so if a player reconnects and the nickname matches, he can continue playing
@@ -174,11 +212,12 @@ public class ClientHandler implements Runnable {
                 sendMessage(new GenericPopup("Nickname already present"));
                 sendMessage(new LoginRequest());
             } else {
-            VirtualView vv = new VirtualView(this);
-            waitingRoom.getVvMap().put(((LoginData) msg).getNickname(), vv);
-            nickname = ((LoginData) msg).getNickname();
-            waitingRoom.getPlayerClientHandlerHashMap().put(nickname, this);
-            waitingRoom.receiveMessage(msg);
+                VirtualView vv = new VirtualView(this);
+                waitingRoom.getVvMap().put(((LoginData) msg).getNickname(), vv);
+                nickname = ((LoginData) msg).getNickname();
+                numPlayers = ((LoginData) msg).getNumPlayers();
+                waitingRoom.getPlayerClientHandlerHashMap().put(nickname, this);
+                waitingRoom.receiveMessage(msg);
             }
         }
         else if (singlePlayer) {
