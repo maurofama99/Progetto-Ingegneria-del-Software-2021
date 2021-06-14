@@ -18,7 +18,7 @@ import javafx.scene.input.MouseEvent;
 
 public class PlayerLoginSceneController extends ClientObservable implements GenericSceneController{
 
-    ObservableList<String> players = FXCollections.observableArrayList("single", "2", "3", "4");
+    ObservableList<String> players = FXCollections.observableArrayList("Single player", "2", "3", "4");
     private String nickname;
     private boolean solo = false;
     private int numPlayers;
@@ -48,10 +48,10 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
         exitGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onExitGameClick);
     }
 
-
     private void onJoinGameClick(Event event){
         joinGameButton.setDisable(true);
         exitGameButton.setDisable(true);
+        choiceBox.setDisable(true);
 
         nickname = nicknameField.getText();
         nickname = nickname.replaceAll("\\s+","");
