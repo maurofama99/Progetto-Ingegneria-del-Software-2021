@@ -75,8 +75,8 @@ public class MoveAction implements TokenAction, Serializable {
 
     @Override
     public String toStringGui() {
-        if (moveNumber == 1) return "blackcross";
-        else if (moveNumber == 2) return "shuffle";
+        if (moveNumber == 2) return "blackcross";
+        else if (moveNumber == 1) return "shuffle";
         return "";
     }
 }
