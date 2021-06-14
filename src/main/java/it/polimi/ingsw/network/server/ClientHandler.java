@@ -149,7 +149,6 @@ public class ClientHandler implements Runnable {
         try {
             //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
             while (!stop) {
-                /* read messages from the client, process them, and send replies */
                 Message msg = (Message) input.readObject();
                 receiveMessage(msg);
             }

@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ShowOthersPopupController extends ClientObservable implements GenericPopupController {
 
@@ -108,6 +109,7 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
         setExtraDepotImages();
         setImagesStrongBox();
         setLeaderImages();
+        setNickname();
 
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
@@ -125,8 +127,14 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     }
 
 
+
+
     private void whenCloseBtnClicked(MouseEvent event){
         stage.close();
+    }
+
+    private void setNickname(){
+        nickname.setText(player);
     }
 
     static void setResourceImage(String resource, ImageView spot) {
