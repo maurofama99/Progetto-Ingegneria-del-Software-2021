@@ -1,5 +1,7 @@
 # Prova Finale Ingegneria del Sofware 2020/21
 
+![alt text](src/main/resources/other/background/backgroundMaestri.png)
+
 ## Sviluppatori
 
 [Valeria Detomas](https://github.com/valeriadetomas)
