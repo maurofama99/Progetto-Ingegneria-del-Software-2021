@@ -1,6 +1,6 @@
 # Prova Finale Ingegneria del Sofware 2020/21
 
-### Sviluppatori
+## Sviluppatori
 
 [Valeria Detomas](https://github.com/valeriadetomas)
 
@@ -8,12 +8,13 @@
 
 [Christian Fabio Grazian](https://github.com/grazcri)
 
-### Funzionalità implementate
+## Funzionalità implementate
 
 * Regole complete
 * CLI + GUI
-* 2 Funzionalità avanzate
-** Partite multiple
-** Partita locale
+* Socket
+* __2 Funzionalità avanzate__
+    * Partite multiple
+    * Partita locale
 
-
+## Istruzioni per l'esecuzione
