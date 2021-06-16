@@ -20,7 +20,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 /**
- * This the main controller of a game. It has a player controller (or a singleplayer controller if that is the case)
+ * This the main controller of a game. It has a player controller (or a single player controller if that is the case)
  * as attributes to manage the player actions and respond to them. It implements the observer interface since
  * it has to answer to player updates and actions.
  */
@@ -38,8 +38,7 @@ public class GameController implements Observer, Serializable {
     private String winner = "";
     private String endPlayer = "";
     private int endPlayerNumber =0;
-    private boolean condition = false;
-    private int playerCounter=0; //to count how many players discarded leaderCards
+    private int playerCounter=0;
 
     /**
      * Constructors of the class. If the game is for a single person, we overload the method.
@@ -156,17 +155,19 @@ public class GameController implements Observer, Serializable {
                         if (msg.getSenderUser().equals(player.getNickname()))
                             player.getPersonalBoard().getWarehouse().getDepot().addResourceToDepot(resourceChosen, Integer.parseInt(((ResourcePlacement) msg).getFloor()));
                     }
-                    if (condition)
-                        table.dealLeaderCards(msg.getSenderUser());
-                } catch (NumberFormatException e){
-                    vv.displayGenericMessage("You can't do this move now, please choose a floor");
-                    vv.displayPopup("You can't do this move now, please choose a floor");
-                    vv.fetchResourcePlacement(resourceChosen);
-                } catch (IllegalArgumentException e){
-                    vv.displayPopup(e.getMessage());
-                    vv.displayGenericMessage(e.getMessage());
-                    vv.fetchResourcePlacement(resourceChosen);
-                }
+
+                    playerCounter++;
+                    setInGame();
+
+                    } catch(NumberFormatException e){
+                        vv.displayGenericMessage("You can't do this move now, please choose a floor");
+                        vv.displayPopup("You can't do this move now, please choose a floor");
+                        vv.fetchResourcePlacement(resourceChosen);
+                    } catch(IllegalArgumentException e){
+                        vv.displayPopup(e.getMessage());
+                        vv.displayGenericMessage(e.getMessage());
+                        vv.fetchResourcePlacement(resourceChosen);
+                    }
                 break;
 
             case DISCARD_LEADER:
@@ -179,10 +180,33 @@ public class GameController implements Observer, Serializable {
 
                 if (playerCounter == table.getNumPlayers()) {
                     playerCounter=0;
-                    setTableState(TableState.IN_GAME);
                     playerController = new PlayerController(this);
-                    askPlayerAction(vvMap.get(table.getCurrentPlayer().getNickname()));
+
+                    vvMap.get(table.getPlayers().get(0).getNickname()).displayGenericMessage("You are the first player! \nYou now own the Inkwell!\n");
+                    vvMap.get(table.getPlayers().get(0).getNickname()).displayPopup("You are the first player! \nYou now own the Inkwell!\n");
+
+                    if (table.getPlayers().size()>1) {
+                        vvMap.get(table.getPlayers().get(1).getNickname()).displayGenericMessage("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
+                        vvMap.get(table.getPlayers().get(1).getNickname()).displayPopup("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
+                        vvMap.get(table.getPlayers().get(1).getNickname()).fetchResourceType();
+                    }
+
+                    if (table.getPlayers().size()>2){
+                        vvMap.get(table.getPlayers().get(2).getNickname()).displayGenericMessage("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
+                        vvMap.get(table.getPlayers().get(2).getNickname()).displayPopup("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
+                        vvMap.get(table.getPlayers().get(2).getNickname()).fetchResourceType();
+                        table.getPlayers().get(2).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(2), 1);
+                    }
+                    if (table.getPlayers().size() >3){
+                        vvMap.get(table.getPlayers().get(3).getNickname()).displayGenericMessage("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
+                        vvMap.get(table.getPlayers().get(3).getNickname()).displayPopup("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
+                        vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
+                        table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(3), 1);
+
+                    }
+
                 }
+
                 break;
 
         }
@@ -201,7 +225,7 @@ public class GameController implements Observer, Serializable {
                     new SerializableWarehouse(player.getPersonalBoard().getWarehouse()), player.getPersonalBoard().getActiveLeaderCards());
         }
         table.setPlayersInGame();
-        giveInitialBonus();
+        giveInitialLeaderCards();
 
     }
 
@@ -209,30 +233,10 @@ public class GameController implements Observer, Serializable {
      * Gives the bonus resources for each player after first.
      * @throws IOException if some error occurs while assigning the bonuses
      */
-    public void giveInitialBonus() throws IOException {
-
-        vvMap.get(table.getPlayers().get(0).getNickname()).displayGenericMessage("You are the first player! \nYou now own the Inkwell!\n");
-        vvMap.get(table.getPlayers().get(0).getNickname()).displayPopup("You are the first player! \nYou now own the Inkwell!\n");
-        table.dealLeaderCards(table.getPlayers().get(0).getNickname());
-
-        vvMap.get(table.getPlayers().get(1).getNickname()).displayGenericMessage("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
-        vvMap.get(table.getPlayers().get(1).getNickname()).displayPopup("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
-        vvMap.get(table.getPlayers().get(1).getNickname()).fetchResourceType();
-
-        if (table.getNumPlayers() > 2) {
-            vvMap.get(table.getPlayers().get(2).getNickname()).displayGenericMessage("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
-            vvMap.get(table.getPlayers().get(2).getNickname()).displayPopup("You are the third player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)one extra resource\n");
-            vvMap.get(table.getPlayers().get(2).getNickname()).fetchResourceType();
-            table.getPlayers().get(2).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(2), 1);
+    public void giveInitialLeaderCards() throws IOException {
+        for (Player player: table.getPlayers()){
+            table.dealLeaderCards(player.getNickname());
         }
-        if (table.getNumPlayers() > 3) {
-            vvMap.get(table.getPlayers().get(3).getNickname()).displayGenericMessage("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
-            vvMap.get(table.getPlayers().get(3).getNickname()).displayPopup("You are the fourth player!\nYou have an initial bonus:\n1) one extra faithPoint \n2)two extra resources\n");
-            vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
-            table.getPlayers().get(3).getPersonalBoard().getFaithTrack().moveForward(table.getPlayers().get(3), 1);
-            vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
-        }
-        condition = true;
     }
 
     /**
@@ -350,6 +354,34 @@ public class GameController implements Observer, Serializable {
 
         }
 
+    }
+
+    public void setInGame() throws IOException {
+        switch (table.getPlayers().size()){
+            case 2:
+                if (playerCounter==1){
+                    setTableState(TableState.IN_GAME);
+                    askPlayerAction(vvMap.get(table.getCurrentPlayer().getNickname()));
+                }
+                break;
+            case 3:
+                if (playerCounter==2){
+                    setTableState(TableState.IN_GAME);
+                    askPlayerAction(vvMap.get(table.getCurrentPlayer().getNickname()));
+                }
+                break;
+            case 4:
+                if (playerCounter==3){
+                    vvMap.get(table.getPlayers().get(3).getNickname()).fetchResourceType();
+                }
+                else if (playerCounter==4){
+                    setTableState(TableState.IN_GAME);
+                    askPlayerAction(vvMap.get(table.getCurrentPlayer().getNickname()));
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + table.getPlayers().size());
+        }
     }
 
     /**

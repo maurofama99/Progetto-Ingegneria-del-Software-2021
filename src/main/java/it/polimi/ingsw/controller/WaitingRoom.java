@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Manages the player that enter in the game and acts differently based on how many are joining. Manages multiple games functionality with array lists of players that work as waiting rooms.
+ * This class handles the player that enters in the game and acts differently based on how many are joining. Manages multiple games functionality with array lists of players that work as waiting rooms.
  * There are four waiting rooms, one for each possible number of players.
  */
 public class WaitingRoom {

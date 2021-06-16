@@ -128,6 +128,7 @@ public class SceneController extends ClientObservable {
 
             loader.setController(controller);
             Parent parent = loader.load();
+            //new stage
             Scene popupScene = new Scene(parent);
             controller.setScene(popupScene);
             controller.showPopUp();

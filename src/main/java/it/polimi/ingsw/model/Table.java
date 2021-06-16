@@ -201,7 +201,6 @@ public class Table extends Observable implements Serializable{
      */
     public ArrayList<Token> createTokenStack(){
         tokenStack = new ArrayList<>();
-
         tokenStack.add(new Token(new RemoveCardsAction(Color.GREEN)));
         tokenStack.add(new Token(new RemoveCardsAction(Color.BLUE)));
         tokenStack.add(new Token(new RemoveCardsAction(Color.YELLOW)));
@@ -210,9 +209,7 @@ public class Table extends Observable implements Serializable{
         tokenStack.add(new Token(new MoveAction(1)));
 
         Collections.shuffle(tokenStack);
-
         lorenzoIlMagnifico.setShowedToken(tokenStack.get(0));
-
         return tokenStack;
     }
 

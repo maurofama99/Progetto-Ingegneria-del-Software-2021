@@ -89,7 +89,7 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         try {
-            client.setSoTimeout(300000);
+            client.setSoTimeout(1500000);
         } catch (SocketException e) {
             e.printStackTrace();
         }
