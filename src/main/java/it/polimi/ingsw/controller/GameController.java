@@ -185,6 +185,11 @@ public class GameController implements Observer, Serializable {
                     vvMap.get(table.getPlayers().get(0).getNickname()).displayGenericMessage("You are the first player! \nYou now own the Inkwell!\n");
                     vvMap.get(table.getPlayers().get(0).getNickname()).displayPopup("You are the first player! \nYou now own the Inkwell!\n");
 
+                    if (table.getPlayers().size()==1){
+                        setTableState(TableState.IN_GAME);
+                        askPlayerAction( vvMap.get(table.getSinglePlayer().getNickname()));
+                    }
+
                     if (table.getPlayers().size()>1) {
                         vvMap.get(table.getPlayers().get(1).getNickname()).displayGenericMessage("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");
                         vvMap.get(table.getPlayers().get(1).getNickname()).displayPopup("You are the second Player!\nYou have an initial bonus:\n1)one extra resource\n");

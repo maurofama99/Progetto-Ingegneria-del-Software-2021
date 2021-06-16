@@ -3,10 +3,7 @@ package it.polimi.ingsw.model.devcard;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -28,18 +25,20 @@ public class Deck implements Serializable {
         Gson gson = new Gson();
         int count = 0;
 
-        try (Reader reader = new FileReader("src/main/resources/DevelopmentCards.json")) {
+        //try (Reader reader = new FileReader(getClass().getResourceAsStream("/DevelopmentCards.json"))) {
 
             Type devCardListType = new TypeToken<ArrayList<DevCard>>() {
             }.getType();
 
-            generalDeck = gson.fromJson(reader, devCardListType);
-
+            generalDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/DevelopmentCards.json")), devCardListType);
+/*
         } catch (IOException e) {
             System.out.println("Can't find DevelopmentCards.json path");
             e.printStackTrace();
         }
 
+
+ */
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
                 fullDeck[i][j] = new Stack<>();

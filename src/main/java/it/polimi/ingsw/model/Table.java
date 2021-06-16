@@ -16,10 +16,7 @@ import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
 import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,17 +69,19 @@ public class Table extends Observable implements Serializable{
 
         this.singlePlayer = singlePlayer;
 
-        try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
+        //try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
 
             Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
 
             Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
 
-            leaderCardsDeck = gson.fromJson(reader, leaderCardArrayListType);
-
+            leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
+/*
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+ */
 
         this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
         this.tokenStack = createTokenStack();
