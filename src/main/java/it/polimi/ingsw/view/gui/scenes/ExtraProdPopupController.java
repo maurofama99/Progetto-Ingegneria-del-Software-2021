@@ -44,7 +44,7 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
     public ExtraProdPopupController(Resource resource, ModelView modelView){
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.NONE);
         //stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;

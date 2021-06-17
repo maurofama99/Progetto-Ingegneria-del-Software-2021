@@ -42,7 +42,7 @@ public class SwapWhitePopupController extends ClientObservable implements Generi
     public SwapWhitePopupController(ResourceType ty1, ResourceType ty2){
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.NONE);
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 0;

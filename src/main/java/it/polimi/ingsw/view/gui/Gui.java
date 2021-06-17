@@ -77,7 +77,6 @@ public class Gui extends ClientObservable implements View {
      */
     @Override
     public void fetchResourceType() {
-        //Platform.runLater(() -> SceneController.changeRootPane(clientObservers, "resource_choosing.fxml"));
         Platform.runLater(() -> {
             ResourceChoosingPopupController rcpc = new ResourceChoosingPopupController();
             rcpc.addAllClientObservers(clientObservers);

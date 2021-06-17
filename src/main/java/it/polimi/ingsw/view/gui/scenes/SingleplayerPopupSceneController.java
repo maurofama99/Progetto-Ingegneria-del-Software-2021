@@ -49,7 +49,7 @@ public class SingleplayerPopupSceneController extends ClientObservable implement
         messageOfLabel.setText("Lorenzo plays : ");
         stage = new Stage();
         stage.initOwner(SceneController.getOnGoingScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.NONE);
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
         x_Offset = 150;
