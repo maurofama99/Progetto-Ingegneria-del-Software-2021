@@ -111,7 +111,7 @@ public class Depot {
     source -= 1;
     destination -= 1;
         if (floors.get(source).isEmpty() && floors.get(destination).isEmpty()) {
-            throw new IllegalArgumentException("You are trying to swap two empty floors.");
+            assert true;
         }
         else if (floors.get(source).isEmpty() && floors.get(destination).isPresent()) {
             if (floors.get(destination).get().getQnt() <= source + 1) {

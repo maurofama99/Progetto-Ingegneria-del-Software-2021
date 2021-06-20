@@ -63,11 +63,13 @@ public class Table extends Observable implements Serializable{
 
         this.singlePlayer = singlePlayer;
 
-        Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
+            Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
 
-        leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
+            Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
+
+            leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
+
 
         this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
         this.tokenStack = createTokenStack();

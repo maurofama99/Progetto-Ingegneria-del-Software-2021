@@ -2,6 +2,10 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
+import it.polimi.ingsw.view.gui.SceneController;
+import it.polimi.ingsw.view.gui.scenes.EndPopupSceneController;
+import it.polimi.ingsw.view.gui.scenes.PopupSceneController;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -121,6 +125,10 @@ public class ServerHandler implements Runnable {
             output.reset();
         } catch (IOException e) {
             System.out.println("Communication error, server is unreachable. Game ends now.");
+            Platform.runLater(()-> {
+                EndPopupSceneController epsc = new EndPopupSceneController("Communication error, server is unreachable. Game ends now.");
+                SceneController.showPopup(epsc, "popup_scene.fxml");
+            });
             client.getSes().shutdown();
             try {
                 client.receiveMessage(new Message("client", "client", Content.FORCEDEND));
