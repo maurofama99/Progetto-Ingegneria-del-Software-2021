@@ -443,7 +443,7 @@ public class PlayerController {
 
                 if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
                     if (!alreadyAskedExtra) {
-                        hasTwoExtraProduction();//todo questo metodo restituisce true o false ma non viene mai assegnato
+                        hasTwoExtraProduction();
                         alreadyAskedExtra = true;
                     }
                     else {
@@ -539,19 +539,19 @@ public class PlayerController {
         return requirements;
     }
 
-    public boolean hasTwoExtraProduction() throws IOException {
+    public void hasTwoExtraProduction() throws IOException {
         if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
-                getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
-            return false;
+                getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+            assert true;
+        }
         else {
             playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
             resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-            return true;
         }
     }
 
     /**
-     * Counts the devcards of the player at the end of the game
+     * Counts the development cards of the player at the end of the game
      * @throws IOException If virtual view fails to send message.
      */
     public void countDevCards() throws IOException {
@@ -615,13 +615,18 @@ public class PlayerController {
 
     /**
      * Update current player's personal board.
-     * @throws IOException If virtual view fails to send message
+     * @throws IOException If virtual view fails to send message.
      */
     public void displayPB () throws IOException {
         playerVV().displayPersonalBoard(getPlayerPB().getFaithTrack(),
                 getPlayerPB().getSlots(),
                 new SerializableWarehouse(getPlayerPB().getWarehouse()), getPlayerPB().getActiveLeaderCards());
     }
+
+    /**
+     * Getter of current player's personal board.
+     * @return player's personal board.
+     */
 
     public PersonalBoard getPlayerPB(){
         return gameController.getTable().getCurrentPlayer().getPersonalBoard();

@@ -6,9 +6,12 @@ import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.io.Serializable;
 
+/**
+ * Abstract class that models a leader effect.
+ */
 public abstract class LeaderEffect implements Serializable {
 
-    private EffectType effectType;
+    private final EffectType effectType;
 
     public LeaderEffect(EffectType effectType) {
         this.effectType = effectType;
@@ -19,13 +22,13 @@ public abstract class LeaderEffect implements Serializable {
     }
 
     /**
-     * Special getter
+     * Special getter for leader cards effects.
      * @return a characteristic of the leader card effect.
      */
     public abstract Object getObject();
 
     /**
-     * Special getter
+     * Special getter for leader cards requirements.
      * @return requirements of leader card effect.
      */
     public abstract Object getRequirements();

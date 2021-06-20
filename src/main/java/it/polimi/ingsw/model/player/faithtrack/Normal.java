@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.player.Player;
 import java.io.Serializable;
 
 /**
- * Normal tile of the track. It just "exists" as a spot to place the marker.
+ * Class that extends {@link Tile}. It models a normal tile of faith track.
  */
 public class Normal extends Tile implements Serializable {
 

@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 
 /**
- * Class of the leader cards that act as an extra floor to put resources in.
+ * Class of the leader card's effect that act an extra spaces in depot for a defined resources.
  */
 public class ExtraDepot extends LeaderEffect implements Serializable {
 
-    private ResourceType toStore;
-    private ResourceType resourceRequired;
+    private final ResourceType toStore;
+    private final ResourceType resourceRequired;
 
     public ExtraDepot(ResourceType toStore, ResourceType resourceRequired) {
         super(EffectType.EXTRADEPOT);

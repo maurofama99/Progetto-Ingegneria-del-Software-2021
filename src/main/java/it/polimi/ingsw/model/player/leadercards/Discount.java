@@ -8,12 +8,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Class for the leader cards that give a discount when buying a development card
+ * Class for the leader card's effect that give a discount when buying a development card
  */
 public class Discount extends LeaderEffect implements Serializable {
 
-    private ResourceType discountOn;
-    private ArrayList<Color> cardColorRequired;
+    private final ResourceType discountOn;
+    private final ArrayList<Color> cardColorRequired;
 
     public Discount(ResourceType discountOn, ArrayList<Color> cardColorRequired) {
         super(EffectType.DISCOUNT);

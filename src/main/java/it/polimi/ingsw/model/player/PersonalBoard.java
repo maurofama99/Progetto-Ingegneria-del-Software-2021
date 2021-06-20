@@ -15,8 +15,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
- * Class of the personal board of every player. It does things like setting the tracks,
- * editing the slots...
+ * Class that models the player's personal board
  */
 public class PersonalBoard{
     private final Warehouse warehouse;
@@ -25,6 +24,10 @@ public class PersonalBoard{
     private FaithTrack faithTrack;
     private ArrayList<LeaderCard> activeLeaderCards;
 
+    /**
+     * Constructs a player's personal board.
+     * @param warehouse player's initial warehouse.
+     */
     public PersonalBoard(Warehouse warehouse) {
         this.warehouse = warehouse;
         slots[0] = new Slot(1);
@@ -35,6 +38,14 @@ public class PersonalBoard{
         this.activeLeaderCards = new ArrayList<>();
     }
 
+    /**
+     * Constructs a player's personal board with serializable warehouse.
+     * It can be serialized and can be send to a client through sockets.
+     * @param wH player's serialized warehouse.
+     * @param s player's slots.
+     * @param ft player's faith track.
+     * @param lC player's activated leader cards.
+     */
     public PersonalBoard(SerializableWarehouse wH, Slot[] s, FaithTrack ft, ArrayList<LeaderCard> lC){
         this.warehouse =null;
         this.serializableWarehouse = wH;
@@ -88,9 +99,8 @@ public class PersonalBoard{
     /**
      * Checks if the player has activated a type of leader card.
      * @param effectType leader card's type of effect.
-     * @return If the player has activated effectType.
+     * @return true if and only if the player has activated effectType.
      */
-
     public boolean hasEffect(EffectType effectType) {
         for (int i=0; i<activeLeaderCards.size();i++) {
             if (activeLeaderCards.get(i).getLeaderEffect().getEffectType().equals(effectType))

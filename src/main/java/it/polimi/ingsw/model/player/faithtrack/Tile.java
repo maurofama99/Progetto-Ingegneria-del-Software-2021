@@ -5,13 +5,14 @@ import it.polimi.ingsw.model.player.Player;
 import java.io.Serializable;
 
 /**
- * This is the general Tile class. It is the base of all others tiles.
- */
+ * Abstract class that models tiles of faith track.
+ *
+ * */
 public abstract class Tile implements Serializable {
-    private int position;
-    private boolean isFirstSection;
-    private boolean isSecondSection;
-    private boolean isThirdSection;
+    private final int position;
+    private final boolean isFirstSection;
+    private final boolean isSecondSection;
+    private final boolean isThirdSection;
 
     public Tile(int position, boolean isFirstSection, boolean isSecondSection, boolean isThirdSection) {
         this.position = position;

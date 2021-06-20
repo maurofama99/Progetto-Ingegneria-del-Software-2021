@@ -8,12 +8,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Leader cards that give extra resources when getting white resources from the market
+ * Leader card's effect that give extra resources when getting white resources from the market.
  */
 public class SwapWhite extends LeaderEffect implements Serializable {
 
-    private ArrayList<Color> cardColorRequired;
-    private Resource newResource;
+    private final ArrayList<Color> cardColorRequired;
+    private final Resource newResource;
 
     public SwapWhite(ArrayList<Color> cardColorRequired, Resource newResource) {
         super(EffectType.SWAPWHITE);

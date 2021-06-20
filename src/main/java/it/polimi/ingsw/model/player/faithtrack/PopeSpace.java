@@ -5,9 +5,9 @@ import it.polimi.ingsw.model.player.*;
 import java.io.Serializable;
 
 /**
- * Pope space class, the tiles with the pope's hat on them to be clear. It decides if a player is
- * in range to turn the favor tile and get some VP.
+ * Class that extends {@link Tile}. It models a pope space tile of faith track.
  */
+
 public class PopeSpace extends Tile implements Serializable {
 
     public PopeSpace(int position, boolean isFirstSection, boolean isSecondSection, boolean isThirdSection) {

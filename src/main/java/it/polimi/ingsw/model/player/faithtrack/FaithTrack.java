@@ -11,8 +11,7 @@ import java.util.ArrayList;
 
 
 /**
- * Class that initializes and controls the track of every player. We made as every player
- * has its own track to make it easier to use the Favor Tiles
+ * Class that models player's faith track.
  */
 public class FaithTrack extends Observable implements Serializable {
     private int faithMarkerPosition;
@@ -23,6 +22,9 @@ public class FaithTrack extends Observable implements Serializable {
     private boolean thirdFavorTile;
 
 
+    /**
+     * Constructs player's faith track.
+     */
     public FaithTrack() {
         this.faithMarkerPosition = 0;
         this.blackCrossPosition = -1;
@@ -77,7 +79,7 @@ public class FaithTrack extends Observable implements Serializable {
     }
 
     /**
-     * This is the method that moves the marker forward.
+     * Moves the player's faith marker forward.
      * @param faithToAdd Number of steps to make.
      */
     public void moveForward(Player p, int faithToAdd){
@@ -87,8 +89,9 @@ public class FaithTrack extends Observable implements Serializable {
 
 
     /**
-     * Adds victory points when player's faith marker reaches a tile that has victory points.
-     * @param player player that needs victory points.
+     * Checks player's faith marker position. Based on the position it can add victory points,
+     * turn favor tile or end the game
+     * @param player player that owns the fiath track.
      * @param faithMarkerPosition player's position on Faith Track.
      */
     public void checkFaithMarkerPosition (Player player, int faithMarkerPosition) {
@@ -105,8 +108,10 @@ public class FaithTrack extends Observable implements Serializable {
 
 
     /**
-     * Adds victory points when player's faith marker reaches a tile that has victory points.
-     * @param blackCrossPosition player's position on Faith Track.
+     * Checks Lorenzo's black cross position. Based on the position it can check
+     * single player's favor tile or end the game.
+     * @param singlePlayer single player in game.
+     * @param blackCrossPosition Lorenzo's position on faith track.
      */
     public void checkBlackCrossPosition (Player singlePlayer, int blackCrossPosition) {
         if (blackCrossPosition == 24) {

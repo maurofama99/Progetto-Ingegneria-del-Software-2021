@@ -78,5 +78,9 @@ public class DevCard implements Serializable{
         return true;
     }
 
+    @Override
+    public String toString() {
+        return cardColor + "CARD of LEVEL "+ level+ " ";
+    }
 }
 

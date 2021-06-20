@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
+
 public class LeaderEffectJsonDeserializer implements JsonDeserializer<LeaderEffect> {
 
     /**

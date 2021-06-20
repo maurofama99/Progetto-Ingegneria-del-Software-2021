@@ -7,12 +7,12 @@ import it.polimi.ingsw.model.resources.Resource;
 import java.io.Serializable;
 
 /**
- * Class for the leader cards that add a production power
+ * Class for the leader card's effect that add a production power.
  */
 public class AddProduction extends LeaderEffect implements Serializable {
 
-    private Color cardColorRequired;
-    private Resource resourceRequired;
+    private final Color cardColorRequired;
+    private final Resource resourceRequired;
 
     public AddProduction(Color cardColorRequired, Resource resourceRequired) {
         super(EffectType.ADDPRODUCTION);

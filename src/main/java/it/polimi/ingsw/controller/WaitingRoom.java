@@ -172,6 +172,7 @@ public class WaitingRoom {
     }
 
     /**
+     *
      * @param players Players whose virtual view we want.
      * @return An Hash Map that asscoiates for every player is virtual view.
      */

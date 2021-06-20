@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
- * Player's class. Used a lot to set and get in other methods and interfaces
+ * Class that models a player
  */
 public class Player extends Observable implements Serializable {
 
@@ -31,6 +31,10 @@ public class Player extends Observable implements Serializable {
     private PersonalBoard personalBoard;
     private int counterDevCards = 0;
 
+    /**
+     * Constructs a player
+     * @param nickname player's nickname
+     */
     public Player(String nickname) {
         this.nickname = nickname;
         this.turnOrder = 0;
@@ -76,7 +80,7 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * The player can discard two leader cards at the beginning of the game
+     * Discard initial leader cards of player at the beginning of the game
      * @param leaderCard1 the first leader card
      * @param leaderCard2 the second leader card
      */
@@ -92,8 +96,8 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * Method that adds to Personal Board the card that the player wants to activate
-     * @param leaderCardToAct leader card to activate
+     * Activate a leader card: adds it to personal board.
+     * @param leaderCardToAct index of leader card to activate
      */
     public void activateLeaderCard(int leaderCardToAct){
         if (!getLeaderCards().get(leaderCardToAct).getLeaderEffect().checkRequirementsLeaderCard(this))
@@ -114,10 +118,11 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * The player decides to buy a dev card and place it. Calls all the methods to check if
-     * it can be bought.
-     * @param devCardToBuy the card selected.
-     * @param slotNumber where the player wants to place the card he wants to buy.
+     * Buy a development card and place it in player's personal board.
+     * @param devCardToBuy the card selected by the player.
+     * @param requirements developmnet card requirements.
+     * @param slotNumber index of the slot where the card is supposed to be placed.
+     * @return return true if and only if the player has all the requirements to buy the development card.
      */
     public boolean buyDevCard(DevCard devCardToBuy, ArrayList<Resource> requirements, int slotNumber) throws IllegalAccessException {
         slotNumber = slotNumber -1;
@@ -137,8 +142,9 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * when the player wants to activate a production of a development car he owns.
+     * Activate a production of a development card placed in a slot. It removes resources from player's warehouse if available.
      * @param slot slot chosen by the player.
+     * @return output of development card's production.
      */
     public ArrayList<Resource> activateProd(int slot) throws CloneNotSupportedException {
 
@@ -163,10 +169,11 @@ public class Player extends Observable implements Serializable {
 
 
     /**
-     * Method that swaps two resources chosen by the player to one single resource.
+     * Activates basic production. Removes resources from player's warehouse if available.
      * @param firstInput one resource used to product the resource in output.
      * @param secondInput one resource used to product the resource in output.
      * @param output one resource that the player gets by the production.
+     * @return resource to add in strongbox.
      */
     public Resource basicProduction(ResourceType firstInput, ResourceType secondInput, ResourceType output) throws CloneNotSupportedException {
         ArrayList<Resource> resourceToRemove = new ArrayList<>();

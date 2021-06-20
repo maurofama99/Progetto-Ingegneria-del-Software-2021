@@ -3,13 +3,16 @@ package it.polimi.ingsw.model.player.leadercards;
 import java.io.Serializable;
 
 /**
- * General class of all the leader cards. It has the constructor to initialize them.
+ * Class of that models a leader card.
  */
 public class LeaderCard implements Serializable {
 
-    private int victoryPoints;
-    private LeaderEffect leaderEffect;
+    private final int victoryPoints;
+    private final LeaderEffect leaderEffect;
 
+    /**
+    * Constructor to initialize a leader card.
+     */
     public LeaderCard(int victoryPoints, LeaderEffect leaderEffect) {
         this.victoryPoints = victoryPoints;
         this.leaderEffect = leaderEffect;
