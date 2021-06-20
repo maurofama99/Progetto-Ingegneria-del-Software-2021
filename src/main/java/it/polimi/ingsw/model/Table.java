@@ -32,13 +32,13 @@ public class Table extends Observable implements Serializable{
     private static final long serialVersionUID = 719340001294526493L;
 
     private int numPlayers;
-    private ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> players = new ArrayList<>();
     private Player singlePlayer;
-    private ArrayList<LeaderCard> leaderCardsDeck;
+    private final ArrayList<LeaderCard> leaderCardsDeck;
     private Player currentPlayer;
     private ArrayList<Token> tokenStack;
-    private MarketTray marketTray;
-    private Deck devCardsDeck;
+    private final MarketTray marketTray;
+    private final Deck devCardsDeck;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
     private int topCardIndex = 15;
 
@@ -174,7 +174,9 @@ public class Table extends Observable implements Serializable{
     }
 
 
-
+    /**
+     * Sets current player with the new player active in game.
+     */
     public void nextPlayer(){
         if (getPlayers().indexOf(currentPlayer) < (players.size()-1))
             setCurrentPlayer(players.get(getPlayers().indexOf(currentPlayer) + 1));

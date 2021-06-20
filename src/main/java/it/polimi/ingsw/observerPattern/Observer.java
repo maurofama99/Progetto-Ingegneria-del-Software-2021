@@ -9,5 +9,8 @@ import java.io.IOException;
  */
 public interface Observer {
 
+    /**
+    It is called whenever the observed class is changed.
+     */
     void update (Message message) throws IOException;
 }

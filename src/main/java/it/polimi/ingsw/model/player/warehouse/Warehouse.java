@@ -11,8 +11,8 @@ import java.util.Optional;
  */
 public class Warehouse{
 
-    private Depot depot;
-    private StrongBox strongBox;
+    private final Depot depot;
+    private final StrongBox strongBox;
 
     public Warehouse(Depot depot, StrongBox strongBox) {
         this.depot = depot;
@@ -33,8 +33,6 @@ public class Warehouse{
      * It removes resources when needed by the player.
      * @param resourcesToRemove Resources to remove from warehouse.
      */
-
-    //lancia eccezione se non sono disponibili
     public void removeResources(ArrayList<Resource> resourcesToRemove) throws CloneNotSupportedException {
 
         ArrayList<Resource> resources = new ArrayList<>();
@@ -67,8 +65,11 @@ public class Warehouse{
 
     }
 
-    //controlla la disponibilità di risorse totale che ha il giocatore nell'intero warehouse.
-    //ritorna vero se le risorse sono disponibili, altrimenti falso.
+    /**
+     * check the availability of resources in the whole warehouse.
+     * @param resources resources that need to be checked.
+     * @return true if and only if all of the resources are available.
+     */
     public boolean checkAvailabilityWarehouse (ArrayList<Resource> resources) throws CloneNotSupportedException {
         if (getDepot().checkAvailabilityDepot(resources) != null){
             for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {

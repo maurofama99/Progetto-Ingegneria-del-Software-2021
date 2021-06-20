@@ -12,12 +12,23 @@ import java.util.List;
  */
 public abstract class Observable {
 
+    /**
+     * List of observers
+     */
     private ArrayList<Observer> observers = new ArrayList<>();
 
+    /**
+     * Adds a new observer to the list of observers
+     * @param observer is the new observer
+     */
     public void addObserver(Observer observer){
         observers.add(observer);
     }
 
+    /**
+     * Send a notify to all the observers about a change
+     * @param message is the message that has to be notified to the observers
+     */
     public void notifyObserver(Message message){
         observers.forEach(observer -> {
             try {

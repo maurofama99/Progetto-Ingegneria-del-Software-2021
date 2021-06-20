@@ -25,20 +25,11 @@ public class Deck implements Serializable {
         Gson gson = new Gson();
         int count = 0;
 
-        //try (Reader reader = new FileReader(getClass().getResourceAsStream("/DevelopmentCards.json"))) {
-
-            Type devCardListType = new TypeToken<ArrayList<DevCard>>() {
+        Type devCardListType = new TypeToken<ArrayList<DevCard>>() {
             }.getType();
 
-            generalDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/DevelopmentCards.json")), devCardListType);
-/*
-        } catch (IOException e) {
-            System.out.println("Can't find DevelopmentCards.json path");
-            e.printStackTrace();
-        }
+        generalDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/DevelopmentCards.json")), devCardListType);
 
-
- */
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
                 fullDeck[i][j] = new Stack<>();
@@ -58,7 +49,6 @@ public class Deck implements Serializable {
 
     /**
      * This method is literally a getter of the deck on the table
-     *
      * @return the matrix of the cards still on the table (not taken by players or removed)
      */
     public DevCard[][] showedCards() {
@@ -78,10 +68,9 @@ public class Deck implements Serializable {
 
     /**
      * Returns a single card to check for its parameters
-     *
      * @param row    row selected (starts from 1)
      * @param column column selected (starts from 1)
-     * @return the card selected if present
+     * @return the card selected if present, if not present returns null.
      */
     public DevCard getDevCard(int row, int column) {
         if (!fullDeck[row-1][column-1].empty())

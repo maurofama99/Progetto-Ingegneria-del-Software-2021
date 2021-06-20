@@ -10,12 +10,24 @@ import java.util.List;
  * list. It also notifies them.
  */
 public abstract class ClientObservable {
+
+    /**
+     * List of client observers.
+     */
     protected final ArrayList<ClientObserver> clientObservers = new ArrayList<>();
 
+    /**
+     * Adds a new observer to the list of client observers
+     * @param clientObserver is the new client observer
+     */
     public void addClientObserver(ClientObserver clientObserver) {
         clientObservers.add(clientObserver);
     }
 
+    /**
+     * Adds a list of observers.
+     * @param observerList the list of observers to be added to the observers' list.
+     */
     public void addAllClientObservers(List<ClientObserver> observerList) {
         clientObservers.addAll(observerList);
     }

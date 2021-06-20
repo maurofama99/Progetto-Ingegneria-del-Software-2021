@@ -56,10 +56,9 @@ public class SinglePlayerController implements Observer {
     }
 
     /**
-     * Receives a message in a singleplayer game.
+     * Receives a message in a single player game.
      * @param msg the message received
      * @throws IOException If virtual view fails to send message.
-     * @throws IllegalAccessException
      * @throws CloneNotSupportedException If resource cloning fails.
      */
     public void receiveSPMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
@@ -124,7 +123,7 @@ public class SinglePlayerController implements Observer {
     }
 
     /**
-     * Take the action of Lorenzo il Magnifico's turn picking a token from the table. Every token corresponds to a possible Lorenzo Il Magnifico's action.
+     * Take the action of Lorenzo's turn picking a token from the table. Every token corresponds to a possible Lorenzo Il Magnifico's action.
      */
     public void lorenzoTurn() throws IOException {
         table.getLorenzoIlMagnifico().turnToken(table);

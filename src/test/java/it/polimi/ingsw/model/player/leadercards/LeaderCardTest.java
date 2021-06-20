@@ -38,6 +38,7 @@ public class LeaderCardTest  {
                         res.setType(newResource.getType());
                     }
                 }
+                //TODO
                 System.out.println("After Swap White Effect: " + resources);
             }
         }

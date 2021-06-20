@@ -8,9 +8,9 @@ import java.io.Serializable;
  */
 public class Message implements Serializable, Comparable<Message> {
 
-    private String receiverNickname;
+    private final String receiverNickname;
     private String senderUser;
-    private Content messageType;
+    private final Content messageType;
 
     public void setSenderUser(String senderUser) {
         this.senderUser = senderUser;

@@ -17,7 +17,7 @@ public class Production implements Serializable {
 
     private final String productionName;
     private ArrayList<Resource> input;
-    private ArrayList<Resource> output;
+    private final ArrayList<Resource> output;
 
     public ArrayList<Resource> getInput() {
         return input;

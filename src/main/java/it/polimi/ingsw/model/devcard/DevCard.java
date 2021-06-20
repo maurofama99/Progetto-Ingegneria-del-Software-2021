@@ -17,12 +17,12 @@ public class DevCard implements Serializable{
 
     private static final long serialVersionUID = -2556498201540838238L;
 
-    private int level;
+    private final int level;
     @SerializedName("cardColor")
-    private Color cardColor;
-    private int victoryPointsDevCard;
-    private boolean isPlaced;
-    private ArrayList<Resource> requirementsDevCard;
+    private final Color cardColor;
+    private final int victoryPointsDevCard;
+    private final boolean isPlaced;
+    private final ArrayList<Resource> requirementsDevCard;
     private Production production;
 
     public DevCard(int level, Color color, int victoryPointsDevCard, ArrayList<Resource> requirementsDevCard, Production production) {
