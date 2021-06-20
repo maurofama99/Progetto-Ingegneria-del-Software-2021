@@ -150,6 +150,15 @@ public class GameController implements Observer, Serializable {
                 break;
 
             case RESOURCE_PLACEMENT:
+                String answer = ((ResourcePlacement) msg).getFloor();
+                String nickname = msg.getSenderUser();
+                Player currentplayer = null;
+                for (Player player : getTable().getPlayers()){
+                    if (player.getNickname().equals(nickname)){
+                        currentplayer=player;
+                    }
+                }
+                if (currentplayer == null) throw new NullPointerException("Problem while finding the player");
                 try {
                     for (Player player : table.getPlayers()) {
                         if (msg.getSenderUser().equals(player.getNickname()))
@@ -160,9 +169,19 @@ public class GameController implements Observer, Serializable {
                     setInGame();
 
                     } catch(NumberFormatException e){
-                        vv.displayGenericMessage("You can't do this move now, please choose a floor");
-                        vv.displayPopup("You can't do this move now, please choose a floor");
-                        vv.fetchResourcePlacement(resourceChosen);
+                        if(((ResourcePlacement) msg).getFloor().equals("extra")){
+                            vv.displayGenericMessage("You can't do this move now, please choose a floor");
+                            vv.displayPopup("You can't do this move now, please choose a floor");
+                            vv.fetchResourcePlacement(resourceChosen);
+                        } else if (answer.equalsIgnoreCase("switch")) {
+                            try{
+                                currentplayer.getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
+                                vvMap.get(nickname).fetchResourcePlacement(resourceChosen);
+                            } catch (IllegalArgumentException ex){
+                                vvMap.get(nickname).displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                                vvMap.get(nickname).displayPopup(e.getMessage() + ". Try Again...\n");
+                            }
+                        }
                     } catch(IllegalArgumentException e){
                         vv.displayPopup(e.getMessage());
                         vv.displayGenericMessage(e.getMessage());

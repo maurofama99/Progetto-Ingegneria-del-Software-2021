@@ -45,17 +45,11 @@ public class Table extends Observable implements Serializable{
     public Table() {
         this.numPlayers = 0;
 
-        try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
+        Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
 
-            Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
 
-            Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
-
-            leaderCardsDeck = gson.fromJson(reader, leaderCardArrayListType);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
 
         this.marketTray = new MarketTray();
         this.devCardsDeck = new Deck();
@@ -69,19 +63,13 @@ public class Table extends Observable implements Serializable{
 
         this.singlePlayer = singlePlayer;
 
-        //try (Reader reader = new FileReader("src/main/resources/LeaderCards.json")) {
 
             Type leaderCardArrayListType = new TypeToken<ArrayList<LeaderCard>>(){}.getType();
 
             Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
 
             leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
-/*
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
- */
 
         this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
         this.tokenStack = createTokenStack();

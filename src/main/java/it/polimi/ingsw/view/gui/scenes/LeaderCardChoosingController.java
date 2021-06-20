@@ -70,7 +70,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 0));
-            if (!firstPlayer && !solo) waiting();
         }
     }
 
@@ -87,7 +86,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 1));
-            if (!firstPlayer && !solo) waiting();
         }
     }
 
@@ -104,7 +102,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 2));
-            if (!firstPlayer && !solo) waiting();
         }
     }
 
@@ -121,7 +118,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
             thirdLeader.setDisable(true);
             fourthLeader.setDisable(true);
             notifyObservers(new DiscardLeader("client", index1, 3));
-            if (!firstPlayer && !solo) waiting();
         }
 
     }
@@ -144,14 +140,6 @@ public class LeaderCardChoosingController extends ClientObservable implements Ge
         secondLeader.setImage(setLeaderImage(leaderCards.get(1)));
         thirdLeader.setImage(setLeaderImage(leaderCards.get(2)));
         fourthLeader.setImage(setLeaderImage(leaderCards.get(3)));
-    }
-
-    public void waiting(){
-        Platform.runLater(()->{
-            PopupSceneController psc = new PopupSceneController("Please wait for your turn, your opponents are now playing their first turn.");
-            psc.addAllClientObservers(clientObservers);
-            SceneController.showPopup(psc, "popup_scene.fxml");
-        });
     }
 
 
