@@ -1,13 +1,19 @@
 package it.polimi.ingsw.model.player.faithtrack;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.messagessc.EndGame;
 import it.polimi.ingsw.network.messagessc.EndSoloGame;
 import it.polimi.ingsw.network.messagessc.TurnFavorTiles;
 import it.polimi.ingsw.observerPattern.Observable;
 
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -28,10 +34,16 @@ public class FaithTrack extends Observable implements Serializable {
     public FaithTrack() {
         this.faithMarkerPosition = 0;
         this.blackCrossPosition = -1;
-        this.track = createTrack();
         this.firstFavorTile = false;
         this.secondFavorTile = false;
         this.thirdFavorTile = false;
+
+        Gson gson = new Gson();
+
+        Type tileListType = new TypeToken<ArrayList<Tile>>() {
+        }.getType();
+
+        this.track = gson.fromJson(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles.json"))), tileListType);
     }
 
     public int getFaithMarkerPosition() {
@@ -100,7 +112,8 @@ public class FaithTrack extends Observable implements Serializable {
             notifyObserver(new TurnFavorTiles(player.getNickname()));
             notifyObserver(new EndGame(player.getTurnOrder()));
         } else if (faithMarkerPosition % 3 == 0 && faithMarkerPosition<24) {
-            track.get(faithMarkerPosition).addPoints(player);
+            //track.get(faithMarkerPosition).addPoints(player);
+            player.setVictoryPoints(track.get(faithMarkerPosition).getVictoryPoints());
         } else if (faithMarkerPosition % 8 == 0 && faithMarkerPosition<24) {
             notifyObserver(new TurnFavorTiles(player.getNickname()));
         }
@@ -121,45 +134,6 @@ public class FaithTrack extends Observable implements Serializable {
         else if (blackCrossPosition % 8 == 0 && blackCrossPosition<24) {
             notifyObserver(new TurnFavorTiles(singlePlayer.getNickname()));
         }
-    }
-
-
-
-
-    /**
-     * This method initializes the track. Every tile can be modified, moved or deleted. Also creates the
-     * three sections.
-     */
-    public ArrayList<Tile> createTrack(){
-        track = new ArrayList<>();
-
-        track.add(new Normal(0,false,false,false));
-        track.add(new Normal(1, false,false,false));
-        track.add(new Normal(2,false, false, false));
-        track.add(new Victory(3, false,false,false,1));
-        track.add(new Normal(4, false,false,false));
-        track.add(new Normal(5,true, false, false));
-        track.add(new Victory(6,true,false,false,1));
-        track.add(new Normal(7,true,false,false));
-        track.add(new PopeSpace(8, true, false,false));
-        track.add(new Victory(9, false,false,false,2));
-        track.add(new Normal(10,false,false,false));
-        track.add(new Normal(11,false,false,false));
-        track.add(new Victory(12,false,true,false,2));
-        track.add(new Normal(13,false,true,false));
-        track.add(new Normal(14,false,true,false));
-        track.add(new Victory(15,false,true,false,3));
-        track.add(new PopeSpace(16,false,true,false));
-        track.add(new Normal(17,false,false,false));
-        track.add(new Victory(18,false,false,false, 3));
-        track.add(new Normal(19, false,false, true));
-        track.add(new Normal(20,false,false,true));
-        track.add(new Victory(21, false,false,true,4));
-        track.add(new Normal(22, false,false,true));
-        track.add(new Normal(23, false,false,true));
-        track.add(new PopeSpace(24,false,false,true));
-
-        return track;
     }
 
 

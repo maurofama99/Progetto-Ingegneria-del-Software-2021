@@ -86,7 +86,7 @@ public class Client implements Runnable, ClientObserver {
         boolean cli = false;
         boolean gui = false;
         boolean solo = false;
-        String usage = "Usage: Client [-cli -port portNumber | -gui | -local [-cli | -gui]]";
+        String usage = "Usage: java -jar client.jar [-cli -port portNumber | -gui | -local [-cli | -gui]]";
 
         if (args.length == 0) {
             System.err.println(usage);

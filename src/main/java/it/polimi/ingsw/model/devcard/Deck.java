@@ -14,7 +14,7 @@ public class Deck implements Serializable {
 
     private static final long serialVersionUID = -4782394927810413440L;
 
-    private Stack<DevCard>[][] fullDeck = new Stack[3][4];
+    private final Stack<DevCard>[][] fullDeck = new Stack[3][4];
     private ArrayList<DevCard> generalDeck;
 
 
@@ -29,6 +29,8 @@ public class Deck implements Serializable {
             }.getType();
 
         generalDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/DevelopmentCards.json")), devCardListType);
+
+
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
@@ -83,12 +85,11 @@ public class Deck implements Serializable {
      *
      * @param row row of the deck, from one (more intuitive)
      * @param col column of the deck, from one (more intuitive)
-     * @return a pop of the deck, removing the selected card (the top one)
      */
-    public DevCard removeAndGetCard(int row, int col) {
-        if (!fullDeck[row-1][col-1].empty())
-            return fullDeck[row - 1][col - 1].pop();
-        else return null;
+    public void removeAndGetCard(int row, int col) {
+        if (!fullDeck[row-1][col-1].empty()) {
+            fullDeck[row - 1][col - 1].pop();
+        }
     }
 
 

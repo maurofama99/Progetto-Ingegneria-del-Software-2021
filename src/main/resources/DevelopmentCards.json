@@ -7,7 +7,6 @@
         { "qnt": 2, "type": "3" }
       ],
       "production" :  {
-        "productionName": "OneCoinToOneFaithPoint",
         "input": [
           { "qnt": 1, "type": "1" }              			 ],
         "output": [
@@ -25,7 +24,6 @@
         { "qnt": 2, "type": "3" }, { "qnt": 2 , "type": "0" }
       ],
       "production" :  {
-        "productionName": "OneCoinOneServantToTwoShieldsOneFaithPoint",
         "input": [
           { "qnt": 1 , "type": "2" }, { "qnt": 1 , "type": "1" }
         ],
@@ -44,7 +42,6 @@
         { "qnt": 1, "type": "0" }, { "qnt": 1 , "type": "3" }, { "qnt": 1 , "type": "2" }
       ],
       "production" :  {
-        "productionName": "OneShieldToOneCoin",
         "input": [
           { "qnt": 1 , "type": "0" }              			 ],
         "output": [
@@ -62,7 +59,6 @@
         { "qnt": 2, "type": "3" }
       ],
       "production" :  {
-        "productionName": "TwoShieldsToOneCoinServantStone",
         "input": [
           { "qnt": 2 , "type": "0" }              			 ],
         "output": [
@@ -82,7 +78,6 @@
       { "qnt": 2, "type": "0" }, { "qnt": 2, "type": "2" }
     ],
     "production" :  {
-      "productionName": "OneStoneServantToTwoCoinsOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "3" }, { "qnt": 1 , "type": "1" }
       ],
@@ -101,7 +96,6 @@
       { "qnt": 1, "type": "0" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "3" }
     ],
     "production" :  {
-      "productionName": "OneStoneToOneServant",
       "input": [
         { "qnt": 1 , "type": "3" }
       ],
@@ -120,7 +114,6 @@
       { "qnt": 2, "type": "0" }
     ],
     "production" :  {
-      "productionName": "OneCoinToOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "2" }
       ],
@@ -139,7 +132,6 @@
       { "qnt": 3, "type": "0" }
     ],
     "production" :  {
-      "productionName": "TwoServantsToOneCoinShieldStone",
       "input": [
         { "qnt": 2 , "type": "1" }
       ],
@@ -158,7 +150,6 @@
       { "qnt": 1, "type": "2" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "3" }
     ],
     "production" :  {
-      "productionName": "OneServantToStone",
       "input": [
         { "qnt": 1 , "type": "1" }
       ],
@@ -177,7 +168,6 @@
       { "qnt": 3, "type": "2" }
     ],
     "production" :  {
-      "productionName": "TwoStonesToOneCoinServantShield",
       "input": [
         { "qnt": 2 , "type": "3" }
       ],
@@ -196,7 +186,6 @@
       { "qnt": 2, "type": "2" }, { "qnt": 2, "type": "1" }
     ],
     "production" :  {
-      "productionName": "OneShieldStoneToTwoServantsOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "0" }, { "qnt": 1, "type": "3" }
       ],
@@ -215,7 +204,6 @@
       { "qnt": 2, "type": "2" }
     ],
     "production" :  {
-      "productionName": "OneShieldToOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "0" }
       ],
@@ -234,7 +222,6 @@
       { "qnt": 2, "type": "1" }
     ],
     "production" :  {
-      "productionName": "OneStoneToOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "3" }
       ],
@@ -254,7 +241,6 @@
       { "qnt": 1, "type": "0" }, { "qnt": 1, "type": "1" }, { "qnt": 1, "type": "2" }
     ],
     "production" :  {
-      "productionName": "OneCoinToOneShield",
       "input": [
         { "qnt": 1 , "type": "2" }
       ],
@@ -274,7 +260,6 @@
       { "qnt": 3, "type": "1" }
     ],
     "production" :  {
-      "productionName": "TwoCoinsToOneServantShieldStone",
       "input": [
         { "qnt": 2 , "type": "2" }
       ],
@@ -294,7 +279,6 @@
       { "qnt": 2, "type": "1" }, { "qnt": 2, "type": "3" }
     ],
     "production" :  {
-      "productionName": "OneCoinShieldToTwoStonesOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "0" }
       ],
@@ -318,7 +302,6 @@
         { "qnt": 5, "type": "3" }
       ],
       "production" :  {
-        "productionName": "TwoShieldsToTwoServantsFaithPoints",
         "input": [
           { "qnt": 2 , "type": "0" }              			 ],
         "output": [
@@ -336,7 +319,6 @@
         { "qnt": 3, "type": "3" }, { "qnt": 2, "type": "0" }
       ],
       "production" :  {
-        "productionName": "OneStoneShieldToThreeCoins",
         "input": [
           { "qnt": 1 , "type": "0" }, { "qnt": 1 , "type": "3" }
         ],
@@ -354,7 +336,6 @@
         { "qnt": 3, "type": "3" }, { "qnt": 3, "type": "1" }
       ],
       "production" :  {
-        "productionName": "OneShieldToTwoCoinsOneFaithPoint",
         "input": [
           { "qnt": 1 , "type": "0" }
         ],
@@ -373,7 +354,6 @@
         { "qnt": 4, "type": "3" }
       ],
       "production" :  {
-        "productionName": "OneShieldToTwoFaithPoints",
         "input": [
           { "qnt": 1 , "type": "0" }
         ],
@@ -392,7 +372,6 @@
       { "qnt": 4, "type": "0" }
     ],
     "production" :  {
-      "productionName": "OneStoneToTwoFaithPoints",
       "input": [
         { "qnt": 1 , "type": "3" }
       ],
@@ -411,7 +390,6 @@
       { "qnt": 3, "type": "0" }, { "qnt": 2, "type": "1" }
     ],
     "production" :  {
-      "productionName": "OneShieldServantToThreeStones",
       "input": [
         { "qnt": 1 , "type": "0" }, { "qnt": 1, "type": "1" }
       ],
@@ -430,7 +408,6 @@
       { "qnt": 3, "type": "0" }, { "qnt": 3, "type": "2" }
     ],
     "production" :  {
-      "productionName": "OneCoinToTwoShieldsOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "2" }
       ],
@@ -449,7 +426,6 @@
       { "qnt": 5, "type": "0" }
     ],
     "production" :  {
-      "productionName": "TwoCoinsToTwoStonesTwoFaithPoints",
       "input": [
         { "qnt": 2 , "type": "2" }
       ],
@@ -468,7 +444,6 @@
       { "qnt": 4, "type": "2" }
     ],
     "production" :  {
-      "productionName": "OneServantToTwoFaithPoint",
       "input": [
         { "qnt": 1 , "type": "1" }
       ],
@@ -487,7 +462,6 @@
       { "qnt": 3, "type": "2" }, { "qnt": 3, "type": "3" }
     ],
     "production" :  {
-      "productionName": "OneServantToOneFaithPointTwoStones",
       "input": [
         { "qnt": 1 , "type": "1" }
       ],
@@ -506,7 +480,6 @@
       { "qnt": 3, "type": "2" }, { "qnt": 2, "type": "3" }
     ],
     "production" :  {
-      "productionName": "OneCoinStoneToThreeServants",
       "input": [
         { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "3" }
       ],
@@ -525,7 +498,6 @@
       { "qnt": 5, "type": "2" }
     ],
     "production" :  {
-      "productionName": "TwoServantsToTwoShieldsFaithPoints",
       "input": [
         { "qnt": 2 , "type": "1" }
       ],
@@ -544,7 +516,6 @@
       { "qnt": 4, "type": "1" }
     ],
     "production" :  {
-      "productionName": "OneCoinToTwoFaithPoints",
       "input": [
         { "qnt": 1 , "type": "2" }
       ],
@@ -564,7 +535,6 @@
       { "qnt": 3, "type": "1" }, { "qnt": 2, "type": "2" }
     ],
     "production" :  {
-      "productionName": "OneCoinServantToThreeShields",
       "input": [
         { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "1" }
       ],
@@ -584,7 +554,6 @@
       { "qnt": 5, "type": "1" }
     ],
     "production" :  {
-      "productionName": "TwoStonesToTwoCoinsFaithPoints",
       "input": [
         { "qnt": 2 , "type": "3" }
       ],
@@ -604,7 +573,6 @@
       { "qnt": 3, "type": "1" }, { "qnt": 3, "type": "0" }
     ],
     "production" :  {
-      "productionName": "OneStoneToTwoServantsOneFaithPoint",
       "input": [
         { "qnt": 1 , "type": "3" }
       ],
@@ -623,7 +591,6 @@
         { "qnt": 5, "type": "3" }, { "qnt": 2, "type": "1" }
       ],
       "production" :  {
-        "productionName": "OneStoneOneServantToTwoCoinsShieldsOneFaithPoint",
         "input": [
           { "qnt": 1 , "type": "3" }, { "qnt": 1 , "type": "1" }
         ],
@@ -643,7 +610,6 @@
         { "qnt": 6, "type": "3" }
       ],
       "production" :  {
-        "productionName": "TwoShieldsToThreeServantsTwoFaithPoints",
         "input": [
           { "qnt": 2 , "type": "0" }
         ],
@@ -662,7 +628,6 @@
         { "qnt": 7, "type": "3" }
       ],
       "production" :  {
-        "productionName": "OneShieldToOneServantThreeFaithPoints",
         "input": [
           { "qnt": 1 , "type": "0" }
         ],
@@ -681,7 +646,6 @@
         { "qnt": 4, "type": "3" }, { "qnt": 4, "type": "1" }
       ],
       "production" :  {
-        "productionName": "OneShieldToThreeServantsOneStone",
         "input": [
           { "qnt": 1 , "type": "0" }
         ],
@@ -700,7 +664,6 @@
         { "qnt": 5, "type": "0" }, { "qnt": 2, "type": "1" }
       ],
       "production" :  {
-        "productionName": "OneCoinServantToTwoShieldsStonesOneFaithPoint",
         "input": [
           { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "1" }
         ],
@@ -719,7 +682,6 @@
         { "qnt": 7, "type": "0" }
       ],
       "production" :  {
-        "productionName": "OneServantToOneCoinThreeFaithPoints",
         "input": [
           { "qnt": 1 , "type": "1" }
         ],
@@ -738,7 +700,6 @@
         { "qnt": 6, "type": "0" }
       ],
       "production" :  {
-        "productionName": "TwoCoinsToThreeStonesTwoFaithPoints",
         "input": [
           { "qnt": 2 , "type": "2" }
         ],
@@ -758,7 +719,6 @@
         { "qnt": 4, "type": "0" }, { "qnt": 4, "type": "2" }
       ],
       "production" :  {
-        "productionName": "OneStoneToThreeCoinsOneShield",
         "input": [
           { "qnt": 1 , "type": "3" }
         ],
@@ -777,7 +737,6 @@
         { "qnt": 6, "type": "2" }
       ],
       "production" :  {
-        "productionName": "TwoServantsToThreeShieldsTwoFaithPoints",
         "input": [
           { "qnt": 2 , "type": "1" }
         ],
@@ -796,7 +755,6 @@
         { "qnt": 5, "type": "2" }, { "qnt": 2, "type": "3" }
       ],
       "production" :  {
-        "productionName": "OneCoinShieldToTwoServantsStonesOneFaithPoint",
         "input": [
           { "qnt": 1 , "type": "2" }, { "qnt": 1, "type": "0" }
         ],
@@ -815,7 +773,6 @@
         { "qnt": 7, "type": "2" }
       ],
       "production" :  {
-        "productionName": "OneStoneToOneShieldThreeFaithPoint",
         "input": [
           { "qnt": 1 , "type": "3" }
         ],
@@ -834,7 +791,6 @@
         { "qnt": 4, "type": "2" }, { "qnt": 4, "type": "3" }
       ],
       "production" :  {
-        "productionName": "OneServantToOneCoinThreeShields",
         "input": [
           { "qnt": 1 , "type": "1" }
         ],
@@ -853,7 +809,6 @@
         { "qnt": 6, "type": "1" }
       ],
       "production" :  {
-        "productionName": "TwoStonesToThreeCoinsTwoFaithPoints",
         "input": [
           { "qnt": 2 , "type": "3" }
         ],
@@ -873,7 +828,6 @@
         { "qnt": 5, "type": "1" }, { "qnt": 2, "type": "2" }
       ],
       "production" :  {
-        "productionName": "OneStoneShieldToTwoCoinsServantsOneFaithPoint",
         "input": [
           { "qnt": 1 , "type": "3" }, { "qnt": 1, "type": "0" }
         ],
@@ -893,7 +847,6 @@
         { "qnt": 7, "type": "1" }
       ],
       "production" :  {
-        "productionName": "OneCoinToOneStoneThreeFaithPoints",
         "input": [
           { "qnt": 1 , "type": "2" }
         ],
@@ -913,7 +866,6 @@
         { "qnt": 4 , "type": "1" }, { "qnt": 4, "type": "0" }
       ],
       "production" :  {
-        "productionName": "OneCoinToThreeStonesOneServant",
         "input": [
           { "qnt": 1 , "type": "2" }
         ],

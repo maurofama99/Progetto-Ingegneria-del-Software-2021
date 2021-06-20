@@ -1,15 +1,10 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
-import it.polimi.ingsw.model.player.faithtrack.PopeSpace;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
-import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
@@ -18,7 +13,6 @@ import javafx.event.Event;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Generic view that needs to be implemented by each view type. The methods are already described in CLI or GUI class

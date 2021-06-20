@@ -1,0 +1,203 @@
+[
+
+  {
+    "position" : 0,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 1,
+    "isFirstSection" : false,
+    "isSecondSection" : false ,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 2,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : false ,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" :3 ,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : false,
+    "victoryPoints" : 1
+  },
+
+  {
+    "position" : 4,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 5,
+    "isFirstSection" : true,
+    "isSecondSection" : false,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 6,
+    "isFirstSection" : true,
+    "isSecondSection" : false,
+    "isThirdSection" :false,
+    "victoryPoints" : 1
+  },
+
+  {
+    "position" : 7,
+    "isFirstSection" : true,
+    "isSecondSection" :false ,
+    "isThirdSection" :false ,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 8,
+    "isFirstSection" : true,
+    "isSecondSection" :false ,
+    "isThirdSection" :false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" :9 ,
+    "isFirstSection" :false,
+    "isSecondSection" : false,
+    "isThirdSection" : false,
+    "victoryPoints" :  2
+  },
+
+  {
+    "position" : 10,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 11,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" :false ,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" :12 ,
+    "isFirstSection" : false,
+    "isSecondSection" : true,
+    "isThirdSection" : false,
+    "victoryPoints" : 2
+  },
+
+  {
+    "position" : 13,
+    "isFirstSection" : false,
+    "isSecondSection" : true,
+    "isThirdSection" :false ,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 14,
+    "isFirstSection" : false,
+    "isSecondSection" : true,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 15,
+    "isFirstSection" : false,
+    "isSecondSection" : true,
+    "isThirdSection" : false,
+    "victoryPoints" : 3
+  },
+
+  {
+    "position" : 16,
+    "isFirstSection" : false,
+    "isSecondSection" : true,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 17,
+    "isFirstSection" : false,
+    "isSecondSection" :false ,
+    "isThirdSection" : false,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 18,
+    "isFirstSection" :false ,
+    "isSecondSection" :false,
+    "isThirdSection" : false,
+    "victoryPoints" : 3
+  },
+
+  {
+    "position" : 19,
+    "isFirstSection" : false,
+    "isSecondSection" :false,
+    "isThirdSection" : true ,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 20,
+    "isFirstSection" : false,
+    "isSecondSection" :false,
+    "isThirdSection" : true,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 21,
+    "isFirstSection" : false,
+    "isSecondSection" :false ,
+    "isThirdSection" : true,
+    "victoryPoints" : 4
+  },
+
+  {
+    "position" : 22,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : true,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 23,
+    "isFirstSection" : false,
+    "isSecondSection" : false,
+    "isThirdSection" : true,
+    "victoryPoints" : 0
+  },
+
+  {
+    "position" : 24,
+    "isFirstSection" : false,
+    "isSecondSection" :false ,
+    "isThirdSection" : true,
+    "victoryPoints" : 0
+  }
+
+]

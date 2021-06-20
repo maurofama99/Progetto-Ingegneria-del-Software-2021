@@ -35,7 +35,7 @@ public class DevCardTest {
         input.add(new Resource(2,ResourceType.COIN));
         ArrayList<Resource> output= new ArrayList<>();
         output.add(new Resource(3, ResourceType.SHIELD));
-        Production prod = new Production("prova",input,output);
+        Production prod = new Production(input,output);
 
         // dC input: 1 stone, 2 coin
         // dC output: 3 shield

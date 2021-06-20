@@ -59,6 +59,7 @@ public class SinglePlayerController implements Observer {
      * Receives a message in a single player game.
      * @param msg the message received
      * @throws IOException If virtual view fails to send message.
+     * @throws IllegalAccessException If wrong developent card placement
      * @throws CloneNotSupportedException If resource cloning fails.
      */
     public void receiveSPMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {

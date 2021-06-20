@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.devcard;
 
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.NoSuchElementException;
 public class Production implements Serializable {
     private static final long serialVersionUID = -7532159946421192623L;
 
-    private final String productionName;
     private ArrayList<Resource> input;
     private final ArrayList<Resource> output;
 
@@ -27,8 +25,7 @@ public class Production implements Serializable {
         return output;
     }
 
-    public Production(String productionName, ArrayList<Resource> input, ArrayList<Resource> output) {
-        this.productionName = productionName;
+    public Production(ArrayList<Resource> input, ArrayList<Resource> output) {
         this.input = input;
         this.output = output;
     }

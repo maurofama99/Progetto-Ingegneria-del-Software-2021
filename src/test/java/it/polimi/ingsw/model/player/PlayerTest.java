@@ -55,7 +55,7 @@ public class PlayerTest{
         output.add(new Resource(5, ResourceType.STONE));
         output.add(new Resource(5,ResourceType.COIN));
 
-        production = new Production("test",input,output);
+        production = new Production(input,output);
 
         depot.addResourceToDepot(new Resource(1, ResourceType.SHIELD), 1);
         depot.addResourceToDepot(new Resource(2, ResourceType.STONE), 2);

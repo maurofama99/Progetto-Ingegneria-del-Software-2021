@@ -8,18 +8,21 @@ import java.io.Serializable;
  * Abstract class that models tiles of faith track.
  *
  * */
-public abstract class Tile implements Serializable {
+public class Tile implements Serializable {
     private final int position;
     private final boolean isFirstSection;
     private final boolean isSecondSection;
     private final boolean isThirdSection;
+    private final int victoryPoints;
 
-    public Tile(int position, boolean isFirstSection, boolean isSecondSection, boolean isThirdSection) {
+    public Tile(int position, boolean isFirstSection, boolean isSecondSection, boolean isThirdSection, int i) {
         this.position = position;
         this.isFirstSection = isFirstSection;
         this.isSecondSection = isSecondSection;
         this.isThirdSection = isThirdSection;
+        this.victoryPoints =i;
     }
+
 
     public boolean isFirstSection() {
         return isFirstSection;
@@ -37,11 +40,9 @@ public abstract class Tile implements Serializable {
         return position;
     }
 
-    /**
-     * Method that add points when called on the track.
-     * @param p Player who will get the points
-     */
-    public abstract void addPoints(Player p);
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
 
 
     /**
