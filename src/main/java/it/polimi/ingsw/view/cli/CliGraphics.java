@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Slot;
 import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
+import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.StrongBox;
@@ -198,8 +199,6 @@ public class CliGraphics {
             s.append(wareHouse[i]).append("          ").append(slot[i]).append("\n");
             i++;
         }
-
-        //todo aggiungere extra depot
         while (i>7 && i<10){
             s.append("                                          ").append(slot[i]).append("\n");
             i++;
@@ -210,12 +209,21 @@ public class CliGraphics {
         }
         System.out.println(s);
         if (lc.size()==1){
-            System.out.println(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(0))  + "\n");
+            printExtraDepot(wH, lc, 0);
         }
         else if (lc.size()==2){
-            System.out.println(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(0))  + "\n");
-            System.out.println(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(1)));
+            printExtraDepot(wH, lc, 0 );
+            printExtraDepot(wH, lc, 1 );
         }
+    }
+
+    private void printExtraDepot(SerializableWarehouse wH, ArrayList<LeaderCard> lc, int i) {
+        System.out.print(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(0)));
+        if (lc.get(i).getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)){
+            System.out.println("You have: " + wH.getExtraFloors().get(i).getQnt() + printRes(wH.getExtraFloors().get(i))+" in this extra depot\n");
+        }
+        else
+            System.out.println("\n");
     }
 
 
