@@ -147,7 +147,6 @@ public class ClientHandler implements Runnable {
         sendMessage(new LoginRequest());
 
         try {
-            //non va bene true dobbiamo impostare la condizione per cui il while termina se il thread termina
             while (!stop) {
                 Message msg = (Message) input.readObject();
                 receiveMessage(msg);

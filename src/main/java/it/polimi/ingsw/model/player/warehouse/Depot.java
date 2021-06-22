@@ -131,8 +131,12 @@ public class Depot {
     }
 
 
-    //controlla la disponibilità di un array di risorse, se sono tutte disponibili
-    // nel depot ritorna null altrimenti ritorna un'array con le risorse che mancano
+    /**
+     * Checks availability of the resources in all the players depots for doing a certain action
+     * @param resources the resources needed for the action
+     * @return null if the resources are available or the missing resources otherwise
+     * @throws CloneNotSupportedException
+     */
     public ArrayList<Resource> checkAvailabilityDepot(ArrayList<Resource> resources) throws CloneNotSupportedException {
         ArrayList<Resource> missingResources = new ArrayList<>();
         ArrayList<Resource> resourcesToCheck = new ArrayList<>();
