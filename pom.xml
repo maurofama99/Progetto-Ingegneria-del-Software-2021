@@ -91,8 +91,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <finalName>server</finalName>
                             <transformers>
-                                <finalName>server</finalName>
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>it.polimi.ingsw.network.server.ServerManager</mainClass>

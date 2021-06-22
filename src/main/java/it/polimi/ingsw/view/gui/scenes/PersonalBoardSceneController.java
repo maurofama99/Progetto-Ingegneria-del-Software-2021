@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class PersonalBoardSceneController extends ClientObservable implements GenericSceneController {
 
-    //TODO: assigning inkwell to first player
     private ModelView modelView;
     private ResourceType NResourceType = ResourceType.NULLRESOURCE;// upper card resource type if extra depot
     private ResourceType SResourceType = ResourceType.NULLRESOURCE;// lower card resource type if extra depot

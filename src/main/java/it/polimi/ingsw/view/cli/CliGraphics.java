@@ -21,13 +21,6 @@ import java.util.ArrayList;
  */
 public class CliGraphics {
 
-    public static void main(String[] args) {
-        Table t = new Table();
-        CliGraphics cg = new CliGraphics();
-        cg.printMatrixDevCards(t.getDevCardsDeck().showedCards());
-        cg.showLeaderCards(t.getLeaderCardsDeck());
-    }
-
     public void showLeaderCards(ArrayList<LeaderCard> leaderCards){
         StringBuilder s = new StringBuilder();
 
@@ -206,7 +199,7 @@ public class CliGraphics {
             i++;
         }
 
-        //todo aggiungere extra depot al posto di questi spazi
+        //todo aggiungere extra depot
         while (i>7 && i<10){
             s.append("                                          ").append(slot[i]).append("\n");
             i++;

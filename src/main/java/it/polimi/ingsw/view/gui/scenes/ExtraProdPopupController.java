@@ -66,12 +66,12 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
         notifyObservers(new ActivateExtraProd(-1));
         stage.close();
     }
-//todo sistema
+    //todo testa extra production
     private void yes (MouseEvent event) {
         Platform.runLater(()-> {
             ExtraProdResourcePopupController eprpc = new ExtraProdResourcePopupController();
             eprpc.addAllClientObservers(clientObservers);
-            SceneController.showPopup(eprpc, "swap_white.fxml");
+            SceneController.showPopup(eprpc, "resource_choosing_popup.fxml");
         });
         Platform.runLater(() -> {
             PopupSceneController psc = new PopupSceneController("You can choose a type of resource you want");

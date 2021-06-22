@@ -443,7 +443,7 @@ public class PlayerController {
 
                 if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
                     if (!alreadyAskedExtra) {
-                        hasTwoExtraProduction();//todo questo metodo restituisce true o false ma non viene mai assegnato
+                        hasTwoExtraProduction();
                         alreadyAskedExtra = true;
                     }
                     else {
@@ -490,7 +490,7 @@ public class PlayerController {
                         resourcesToAdd.add(gameController.getTable().getCurrentPlayer().basicProduction(typeInput1, typeInput2, typeOut));
                     } catch (NoSuchElementException e) {
                         playerVV().displayGenericMessage("You don't have the requirements to do this production");
-                        // todo playerVV().displayPopup("You don't have the requirements to do this production");
+                        playerVV().displayPopup("You don't have the requirements to do this production");
                     }
 
                     if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
