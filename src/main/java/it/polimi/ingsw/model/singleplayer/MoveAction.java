@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.singleplayer;
 
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.view.cli.CliColor;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -10,7 +11,7 @@ import java.util.Collections;
  */
 public class MoveAction implements TokenAction, Serializable {
 
-    private int moveNumber;
+    private final int moveNumber;
 
     public MoveAction(int moveNumber) {
         this.moveNumber = moveNumber;
@@ -41,34 +42,10 @@ public class MoveAction implements TokenAction, Serializable {
     @Override
     public String toString() {
         if (moveNumber == 1) {
-            return  "-------------------------------\n"  +
-                    "                                    " +
-                    "|                             |\n"  +
-                    "                                    " +
-                    "|             +1              |\n" +
-                    "                                    " +
-                    "|             &               |\n"  +
-                    "                                    " +
-                    "|          SHUFFLE            |\n"  +
-                    "                                    "+
-                    "|                             |\n"  +
-                    "                                    " +
-                    "-------------------------------\n";
+            return CliColor.ANSI_BLUE.escape() + "LORENZO MOVED BLACK CROSS +1 and SHUFFLED TOKEN STACK" + CliColor.RESET;
         }
         else if (moveNumber == 2){
-            return  "-------------------------------\n"  +
-                    "                                    "+
-                    "|                             |\n"  +
-                    "                                    "+
-                    "|                             |\n" +
-                    "                                    "+
-                    "|             +2 ✝            |\n"  +
-                    "                                    "+
-                    "|                             |\n"  +
-                    "                                    "+
-                    "|                             |\n"  +
-                    "                                    "+
-                    "-------------------------------\n";
+            return CliColor.ANSI_BLUE.escape() + "LORENZO MOVED BLACK CROSS +2" + CliColor.RESET;
         }
         return "";
     }

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * General class of the tokens.
  */
 public class Token implements Serializable {
-    private TokenAction tokenAction;
+    private final TokenAction tokenAction;
 
     public Token(TokenAction tokenAction) {
         this.tokenAction = tokenAction;
@@ -17,10 +17,6 @@ public class Token implements Serializable {
 
     public TokenAction getTokenAction() {
         return tokenAction;
-    }
-
-    public Color getRemoveColor(RemoveCardsAction removeCardsAction){
-        return removeCardsAction.getDevCardColor();
     }
 
     /**

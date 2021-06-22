@@ -53,7 +53,6 @@ public class LorenzoIlMagnifico {
 
     @Override
     public String toString() {
-        return
-                "showedToken=" + showedToken.getTokenAction();
+        return "showedToken=" + showedToken.getTokenAction();
     }
 }

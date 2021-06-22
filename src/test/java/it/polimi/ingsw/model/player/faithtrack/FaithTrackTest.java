@@ -11,11 +11,17 @@ import static org.junit.Assert.*;
 
 public class FaithTrackTest {
 
-    FaithTrack testFT = new FaithTrack();
-    Player p = new Player("Test");
+    FaithTrack testFT;
+    Player p;
+
+    @Before
+    public void setUp() throws Exception {
+        testFT = new FaithTrack();
+        p = new Player("Test");
+    }
 
     @Test
-    public void testTurnFavorTile(){
+    public void testFirstFavorTile(){
         p.setVictoryPoints(2);
         p.getPersonalBoard().getFaithTrack().setFaithMarkerPosition(6);
 
@@ -29,6 +35,30 @@ public class FaithTrackTest {
         assertTrue(p.getPersonalBoard().getFaithTrack().isFirstFavorTile());
         assertFalse(p.getPersonalBoard().getFaithTrack().isSecondFavorTile());
         assertEquals(8, p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
+    }
+
+    @Test
+    public void testSecondFavorTile() {
+        p.getPersonalBoard().getFaithTrack().setFaithMarkerPosition(15);
+        assertFalse(p.getPersonalBoard().getFaithTrack().isSecondFavorTile());
+        p.getPersonalBoard().getFaithTrack().moveForward(p, 1);
+        p.getPersonalBoard().getFaithTrack().getTrack()
+                .get(p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition())
+                .turnFavorAddPoints(p, p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
+        assertTrue(p.getPersonalBoard().getFaithTrack().isSecondFavorTile());
+        assertEquals(3, p.getVictoryPoints());
+    }
+
+    @Test
+    public void testThirdFavorTile() {
+        p.getPersonalBoard().getFaithTrack().setFaithMarkerPosition(23);
+        assertFalse(p.getPersonalBoard().getFaithTrack().isThirdFavorTile());
+        p.getPersonalBoard().getFaithTrack().moveForward(p, 1);
+        p.getPersonalBoard().getFaithTrack().getTrack()
+                .get(p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition())
+                .turnFavorAddPoints(p, p.getPersonalBoard().getFaithTrack().getFaithMarkerPosition());
+        assertTrue(p.getPersonalBoard().getFaithTrack().isThirdFavorTile());
+        assertEquals(8, p.getVictoryPoints());
     }
 
     @Test

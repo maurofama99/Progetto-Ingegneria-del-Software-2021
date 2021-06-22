@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 /**
- * Class of dev. cards' deck.
+ * Class of development cards' deck.
  */
 public class Deck implements Serializable {
 
@@ -19,7 +19,7 @@ public class Deck implements Serializable {
 
 
     /**
-     * Deck contains all the devcards and the constructor uses a json file to create the card
+     * Deck contains all the development cards and the constructor uses a json file to create the card
      */
     public Deck() {
         Gson gson = new Gson();

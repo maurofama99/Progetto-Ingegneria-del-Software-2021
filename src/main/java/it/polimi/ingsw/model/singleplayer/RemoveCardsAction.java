@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class RemoveCardsAction implements TokenAction, Serializable {
 
-    private Color devCardColor;
+    private final Color devCardColor;
 
     public RemoveCardsAction(Color devCardColor) {
         this.devCardColor = devCardColor;
@@ -22,9 +22,6 @@ public class RemoveCardsAction implements TokenAction, Serializable {
         return devCardColor;
     }
 
-
-    //Lorenzo's takes the cards removed, he can't play them of course. Visually easier to implement and
-    //it's better to see.
 
     /**
      * Override of token action, here it removes the cards. Always two cards of level 1 of the color
@@ -93,29 +90,18 @@ public class RemoveCardsAction implements TokenAction, Serializable {
 
     @Override
     public String toString() {
-        String color = "";
         switch (devCardColor){
             case YELLOW:
-                color = CliColor.ANSI_YELLOW.escape();
-                break;
+                return CliColor.ANSI_BLUE.escape() + "LORENZO REMOVED TWO YELLOW DEVELOPMENT CARDS" + CliColor.RESET;
             case BLUE:
-                color = CliColor.ANSI_BLUE.escape();
-                break;
+                return CliColor.ANSI_BLUE.escape() + "LORENZO REMOVED TWO BLUE DEVELOPMENT CARDS" + CliColor.RESET;
             case GREEN:
-                color = CliColor.ANSI_GREEN.escape();
-                break;
+                return CliColor.ANSI_BLUE.escape() + "LORENZO REMOVED TWO GREEN DEVELOPMENT CARDS" + CliColor.RESET;
             case PURPLE:
-                color = CliColor.ANSI_PURPLE.escape();
-                break;
+                return CliColor.ANSI_BLUE.escape() + "LORENZO REMOVED TWO PURPLE DEVELOPMENT CARDS" + CliColor.RESET;
+            default:
+                return "";
         }
-
-        return  "-------------------------------\n                                    "+
-                "|                             |\n                                    "+
-                "|              "+color+"▉▉▉▉"+CliColor.RESET + "           |\n                                    "+
-                "|          -2  "+color+"▉▉▉▉"+CliColor.RESET + " ︎           |\n                                    "+
-                "|              "+color+"▉▉▉▉"+CliColor.RESET + "           |\n                                    "+
-                "|                             |\n                                    "+
-                "-------------------------------\n";
     }
 
     /**

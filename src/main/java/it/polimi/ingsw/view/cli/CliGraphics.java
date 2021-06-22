@@ -649,7 +649,5 @@ public class CliGraphics {
                 "                                    " + token.getTokenAction().toString());
 
 
-
-
     }
 }

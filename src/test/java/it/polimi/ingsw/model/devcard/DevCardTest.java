@@ -2,51 +2,44 @@ package it.polimi.ingsw.model.devcard;
 
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.*;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Stack;
+import java.util.*;
 
 public class DevCardTest {
+    Depot depot;
+    StrongBox strongBox;
+    Warehouse warehouse;
+    PersonalBoard personalBoard;
+    DevCard devCard;
 
+    @Before
+    public void setUp(){
+        depot = new Depot();
+        strongBox = new StrongBox();
+        warehouse = new Warehouse(depot, strongBox);
+        personalBoard = new PersonalBoard(warehouse);
+    }
 
     @Test
-    public void Test1() throws IllegalAccessException, CloneNotSupportedException {
-        Depot depot = new Depot();
-        StrongBox sB = new StrongBox();
-        Warehouse wH = new Warehouse(depot, sB);
-        PersonalBoard pB = new PersonalBoard(wH);   //creo il tavolo di gioco
-
-        ArrayList<Resource> requirements;
-        requirements = new ArrayList<>();
-        requirements.add(new Resource(2,ResourceType.STONE));
-
-        ArrayList<Resource> input= new ArrayList<>();
-        input.add(new Resource(2, ResourceType.STONE));
-        input.add(new Resource(2,ResourceType.COIN));
-        ArrayList<Resource> output= new ArrayList<>();
-        output.add(new Resource(3, ResourceType.SHIELD));
-        Production prod = new Production(input,output);
-
-        // dC input: 1 stone, 2 coin
-        // dC output: 3 shield
-        // dC requirements: 2 stone
-        DevCard dC = new DevCard(1, Color.GREEN, 3, requirements, prod);
-
-        ArrayList<LeaderCard> lCards= new ArrayList<>();
+    public void testBuyDevCards() throws CloneNotSupportedException, IllegalAccessException {
 
         Player p1 = new Player("Vale");
+        p1.setPersonalBoard(personalBoard);
 
-        p1.setPersonalBoard(pB);
+        devCard = createDevelopmentCards(1);
+        boolean check = false;
+
+        p1.buyDevCard(devCard, devCard.getRequirementsDevCard(), 1);
+
+        assertFalse(p1.buyDevCard(devCard, devCard.getRequirementsDevCard(), 1));
 
 
         //add 3 stone to depot
@@ -72,8 +65,9 @@ public class DevCardTest {
         assertEquals(ResourceType.COIN, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(0).get().getType());
 
         //buy dC
-        assertTrue(dC.checkRequirements(dC.getRequirementsDevCard(), p1));
-        p1.getPersonalBoard().getSlots()[0].placeDevCard(dC);
+        devCard = createDevelopmentCards(1);
+        assertTrue(devCard.checkRequirements(devCard.getRequirementsDevCard(), p1));
+        p1.getPersonalBoard().getSlots()[0].placeDevCard(devCard);
         assertEquals(2, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt());
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getDepot().getFloors().get(2).get().getQnt());
 
@@ -83,6 +77,22 @@ public class DevCardTest {
         assertEquals(1, p1.getPersonalBoard().getWarehouse().getStrongBox().getStoredResources()[3].getQnt());
     }
 
+
+    public DevCard createDevelopmentCards (int level){
+        ArrayList<Resource> requirements;
+        requirements = new ArrayList<>();
+        requirements.add(new Resource(2,ResourceType.STONE));
+
+        ArrayList<Resource> input= new ArrayList<>();
+        input.add(new Resource(2, ResourceType.STONE));
+        input.add(new Resource(2,ResourceType.COIN));
+        ArrayList<Resource> output= new ArrayList<>();
+        output.add(new Resource(3, ResourceType.SHIELD));
+        Production prod = new Production(input,output);
+
+        return new DevCard(level, Color.GREEN, 3, requirements, prod);
+
+    }
 
 
 }

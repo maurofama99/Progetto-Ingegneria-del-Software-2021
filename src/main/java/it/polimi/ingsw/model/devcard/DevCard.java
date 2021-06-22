@@ -20,7 +20,6 @@ public class DevCard implements Serializable{
     @SerializedName("cardColor")
     private final Color cardColor;
     private final int victoryPointsDevCard;
-    private final boolean isPlaced;
     private final ArrayList<Resource> requirementsDevCard;
     private Production production;
 
@@ -28,7 +27,6 @@ public class DevCard implements Serializable{
         this.level = level;
         this.cardColor = color;
         this.victoryPointsDevCard = victoryPointsDevCard;
-        this.isPlaced = false;
         this.requirementsDevCard = requirementsDevCard;
         this.production = production;
     }
@@ -47,10 +45,6 @@ public class DevCard implements Serializable{
 
     public int getVictoryPointsDevCard() {
         return victoryPointsDevCard;
-    }
-
-    public boolean isPlaced() {
-        return isPlaced;
     }
 
     public ArrayList<Resource> getRequirementsDevCard() {

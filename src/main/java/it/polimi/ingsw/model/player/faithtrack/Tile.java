@@ -36,10 +36,6 @@ public class Tile implements Serializable {
         return isThirdSection;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
     public int getVictoryPoints() {
         return victoryPoints;
     }
@@ -59,17 +55,11 @@ public class Tile implements Serializable {
                 p.setVictoryPoints(p.getVictoryPoints() + 2);
                 p.getPersonalBoard().getFaithTrack().setFirstFavorTile(true);
             }
-            else {
-                System.out.println("Not in range");
-            }
         }
         else if(isSecondSection && !(p.getPersonalBoard().getFaithTrack().isSecondFavorTile())){
             p.getPersonalBoard().getFaithTrack().setSecondFavorTile(true);
             if(p.getPersonalBoard().getFaithTrack().getTrack().get(currentPos).isSecondSection()) {
                 p.setVictoryPoints(p.getVictoryPoints()+3);
-            }
-            else {
-                System.out.println("Not in range");
             }
         }
         else if(isThirdSection && !(p.getPersonalBoard().getFaithTrack().isThirdFavorTile())){
@@ -77,10 +67,6 @@ public class Tile implements Serializable {
             if(p.getPersonalBoard().getFaithTrack().getTrack().get(currentPos).isThirdSection()) {
                 p.setVictoryPoints(p.getVictoryPoints() + 4);
             }
-            else {
-                System.out.println("Not in range");
-            }
-
         }
     }
 

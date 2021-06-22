@@ -17,7 +17,6 @@ public class WarehouseTest {
     private Warehouse warehouse;
 
     private Resource oneCoin;
-    private Resource twoCoins;
     private Resource twoStones;
     private Resource twoShields;
     private Resource twoServants;
@@ -30,7 +29,6 @@ public class WarehouseTest {
         strongBox = new StrongBox();
         warehouse = new Warehouse(depot, strongBox);
         oneCoin = new Resource(1, ResourceType.COIN);
-        twoCoins = new Resource(2, ResourceType.COIN);
         twoStones = new Resource(2, ResourceType.STONE);
         twoShields = new Resource(2, ResourceType.SHIELD);
         twoServants = new Resource(2, ResourceType.SERVANT);
@@ -98,5 +96,25 @@ public class WarehouseTest {
         assertEquals(0, strongBox.getStoredResources()[3].getQnt());
         assertEquals(0, strongBox.getStoredResources()[2].getQnt());
 
+    }
+
+    @Test
+    public void testSerializableWarehouse(){
+
+        ArrayList<Resource> resourcesToAdd = new ArrayList<>();
+        resourcesToAdd.add(twoStones);
+        resourcesToAdd.add(twoShields);
+        strongBox.addResourceToStrongBox(resourcesToAdd);
+        warehouse.getDepot().addResourceToDepot(twoServants, 2);
+
+        SerializableWarehouse serializableWarehouse = new SerializableWarehouse(warehouse);
+
+        assertEquals(2, serializableWarehouse.getFloors().get(1).getQnt());
+        assertEquals(2, serializableWarehouse.getStrongbox()[2].getQnt());
+        assertEquals(ResourceType.STONE, serializableWarehouse.getStrongbox()[3].getType());
+    }
+
+    @After
+    public void tearDown() {
     }
 }

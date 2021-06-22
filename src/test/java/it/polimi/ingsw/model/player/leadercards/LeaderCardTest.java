@@ -1,23 +1,33 @@
 package it.polimi.ingsw.model.player.leadercards;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.SinglePlayerController;
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class LeaderCardTest  {
+public class LeaderCardTest {
+    GameController gameController;
+    Player player;
+
+    @Before
+    public void setUp(){
+        player = new Player("Vale");
+        gameController = new GameController(new SinglePlayerController(player));
+        gameController.setTable(new Table(player));
+    }
 
     @Test
     public void swapWhiteTest(){
-        GameController gameController = new GameController();
         ArrayList<Resource> resources = new ArrayList<>();
         ArrayList<LeaderCard> activeLeaderCards;
-        Table table = new Table();
         Resource newResource;
 
         resources.add(new Resource(1, ResourceType.STONE));
@@ -25,10 +35,7 @@ public class LeaderCardTest  {
         resources.add(new Resource(1, ResourceType.WHITERESOURCE));
         resources.add(new Resource(1, ResourceType.FAITHPOINT));
 
-        activeLeaderCards = table.getLeaderCardsDeck();
-        System.out.println(activeLeaderCards);
-
-        System.out.println("Original resources: " + resources);
+        activeLeaderCards = gameController.getTable().getLeaderCardsDeck();
 
         for(LeaderCard leaderCard : activeLeaderCards){
             if (leaderCard.getLeaderEffect().getEffectType().equals(EffectType.SWAPWHITE)){
@@ -40,13 +47,10 @@ public class LeaderCardTest  {
                 }
             }
         }
-
     }
 
     @Test
-    public void sayStuff(){
-        Table table = new Table();
-        System.out.println("/front/leader_" + table.getLeaderCardsDeck().get(0).getLeaderEffect().toString() + ".png");
-    }
+    public void testExtraDepot(){
 
+    }
 }

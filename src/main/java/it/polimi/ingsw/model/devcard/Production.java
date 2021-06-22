@@ -17,21 +17,17 @@ public class Production implements Serializable {
     private ArrayList<Resource> input;
     private final ArrayList<Resource> output;
 
+    public Production(ArrayList<Resource> input, ArrayList<Resource> output) {
+        this.input = input;
+        this.output = output;
+    }
+
     public ArrayList<Resource> getInput() {
         return input;
     }
 
     public ArrayList<Resource> getOutput() {
         return output;
-    }
-
-    public Production(ArrayList<Resource> input, ArrayList<Resource> output) {
-        this.input = input;
-        this.output = output;
-    }
-
-    public void setInput(ArrayList<Resource> input) {
-        this.input = input;
     }
 
     /**
@@ -43,8 +39,8 @@ public class Production implements Serializable {
         try {
             player.getPersonalBoard().getWarehouse().removeResources(input);
         } catch (NoSuchElementException | CloneNotSupportedException ex){
-            return false;}
-
+            return false;
+        }
         return true;
     }
 

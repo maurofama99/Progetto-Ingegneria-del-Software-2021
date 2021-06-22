@@ -70,8 +70,6 @@ public class Resource implements Cloneable, Serializable {
      * @return a string (that should match a file name in the resources folder)
      */
     public String toStringGui(){
-        String s;
-
         switch (type){
             case COIN:
                 return "COIN";

@@ -17,7 +17,7 @@ public class SinglePlayerTest {
     public LorenzoIlMagnifico lorenzo;
     public Player single;
     Table table;
-    Token token0, token1, token2, token3, token4;
+    Token token0, token1, token2, token3, token4, token5;
 
     @Before
     public void setUp(){
@@ -29,6 +29,7 @@ public class SinglePlayerTest {
         token2 = new Token(new MoveAction(2));
         token3 = new Token(new MoveAction(1));
         token4 = new Token(new RemoveCardsAction(Color.YELLOW));
+        token5 = new Token(new RemoveCardsAction(Color.PURPLE));
     }
 
     @Test
@@ -38,6 +39,7 @@ public class SinglePlayerTest {
         lorenzo.turnToken(table);
         lorenzo.setShowedToken(token0);
         lorenzo.turnToken(table);
+        assertEquals("green", token0.getTokenAction().toStringGui());
         assertNull(table.getDevCardsDeck().getDevCard(1, 2));
 
         lorenzo.setShowedToken(token1);
@@ -52,6 +54,24 @@ public class SinglePlayerTest {
         lorenzo.setShowedToken(token4);
         lorenzo.turnToken(table);
         assertEquals(2, table.getDevCardsDeck().getFullDeck()[0][0].size());
+        lorenzo.setShowedToken(token4);
+        lorenzo.turnToken(table);
+        lorenzo.setShowedToken(token4);
+        lorenzo.turnToken(table);
+        assertEquals(2, table.getDevCardsDeck().getFullDeck()[1][0].size());
+
+        lorenzo.setShowedToken(token5);
+        lorenzo.turnToken(table);
+        assertEquals(2, table.getDevCardsDeck().getFullDeck()[0][3].size());
+        lorenzo.setShowedToken(token5);
+        lorenzo.turnToken(table);
+        lorenzo.setShowedToken(token5);
+        lorenzo.turnToken(table);
+        lorenzo.setShowedToken(token5);
+        lorenzo.turnToken(table);
+        assertEquals("purple", token5.getTokenAction().toStringGui());
+        assertNull(table.getDevCardsDeck().getDevCard(2, 4));
+        assertEquals(4, table.getDevCardsDeck().getFullDeck()[2][3].size());
 
     }
 
