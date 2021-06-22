@@ -197,6 +197,11 @@ public class Client implements Runnable, ClientObserver {
 
     }
 
+    /**
+     * Handles the received message and acts accordingly to the switch
+     * @param msg the received message (with its type)
+     * @throws IOException
+     */
     public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
             case LOGIN_REQUEST:
@@ -274,6 +279,11 @@ public class Client implements Runnable, ClientObserver {
         }
     }
 
+    /**
+     * Tries to connect to the desired server.
+     * @param ip ip of the server
+     * @param SOCKET_PORT port of the server
+     */
     public void tryConnection(String ip, int SOCKET_PORT){
             try {
                 server = new Socket(ip, SOCKET_PORT);

@@ -73,6 +73,10 @@ public class MoveAction implements TokenAction, Serializable {
         return "";
     }
 
+    /**
+     * Used in the matching system between images and attributes in the GUI
+     * @return a string (that should match a file name in the resources folder)
+     */
     @Override
     public String toStringGui() {
         if (moveNumber == 2) return "blackcross";

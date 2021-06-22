@@ -65,6 +65,10 @@ public class Resource implements Cloneable, Serializable {
         return s.toString();
     }
 
+    /**
+     * Used in the matching system between images and attributes in the GUI
+     * @return a string (that should match a file name in the resources folder)
+     */
     public String toStringGui(){
         String s;
 

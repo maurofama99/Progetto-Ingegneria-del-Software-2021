@@ -44,6 +44,10 @@ public class MarketTray implements Serializable{
         this.slide = slide;
     }
 
+    /**
+     * Creates the marbles for the market tray and shuffles them to ensure randomness in every game
+     * @return the shuffled marbles that will be put in the tray
+     */
     public ArrayList<Resource> createMarbles(){
         ArrayList<Resource> marbles = new ArrayList<>();
         for (int i=0; i<4; i++){

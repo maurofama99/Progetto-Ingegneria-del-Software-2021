@@ -1,5 +1,8 @@
 package it.polimi.ingsw.network;
 
+/**
+ * Enum for the content of a message sent or received
+ */
 public enum Content {
     //s->c
     LOGIN_REQUEST,
