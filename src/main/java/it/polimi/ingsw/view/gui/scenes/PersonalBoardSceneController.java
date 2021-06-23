@@ -68,9 +68,9 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
     @FXML
     private Button firstPlayerBtn, secondPlayerBtn, thirdPlayerBtn;
     @FXML
-    private ImageView leaderLeft, NEResource, NWResource;
+    private ImageView leaderNorth, NEResource, NWResource;
     @FXML
-    private ImageView leaderRight, SEResource, SWResource;
+    private ImageView leaderSouth, SEResource, SWResource;
     @FXML
     private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
 
@@ -381,18 +381,18 @@ public class PersonalBoardSceneController extends ClientObservable implements Ge
 
     public void setLeaderImages(){
         if (modelView.getActiveLeaderCards().size()==0){
-            leaderLeft.setImage(new Image("/back/leader-back.png"));
-            leaderRight.setImage(new Image("/back/leader-back.png"));
+            leaderNorth.setImage(new Image("/back/leader-back.png"));
+            leaderSouth.setImage(new Image("/back/leader-back.png"));
         }
 
         else if (modelView.getActiveLeaderCards().size()==1){
-            leaderLeft.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
-            leaderRight.setImage(new Image("/back/leader-back.png"));
+            leaderNorth.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderSouth.setImage(new Image("/back/leader-back.png"));
         }
 
         else {
-            leaderLeft.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
-            leaderRight.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(1).getLeaderEffect().toString()+".png"));
+            leaderNorth.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderSouth.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(1).getLeaderEffect().toString()+".png"));
         }
     }
 

@@ -63,9 +63,9 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
     private ImageView firstPopeTile, secondPopeTile, thirdPopeTile;
     //End of FaithTrack
     @FXML
-    private ImageView leaderLeft, NEResource, NWResource;
+    private ImageView leaderNorth, NEResource, NWResource;
     @FXML
-    private ImageView leaderRight, SEResource, SWResource;
+    private ImageView leaderSouth, SEResource, SWResource;
     @FXML
     private Label coinCounter, stoneCounter, servantCounter, shieldCounter;
     @FXML
@@ -249,18 +249,18 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
 
     public void setLeaderImages(){
         if (modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().size()==0){
-            leaderLeft.setImage(new Image("/back/leader-back.png"));
-            leaderRight.setImage(new Image("/back/leader-back.png"));
+            leaderNorth.setImage(new Image("/back/leader-back.png"));
+            leaderSouth.setImage(new Image("/back/leader-back.png"));
         }
 
         else if (modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().size()==1){
-            leaderLeft.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
-            leaderRight.setImage(new Image("/back/leader-back.png"));
+            leaderNorth.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderSouth.setImage(new Image("/back/leader-back.png"));
         }
 
         else {
-            leaderLeft.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
-            leaderRight.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(1).getLeaderEffect().toString()+".png"));
+            leaderNorth.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderSouth.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(1).getLeaderEffect().toString()+".png"));
         }
     }
 

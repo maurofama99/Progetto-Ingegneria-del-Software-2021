@@ -36,8 +36,8 @@
                   <ImageView fx:id="firstPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="215.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="secondPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="439.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="thirdPopeTile" fitHeight="80.0" fitWidth="80.0" layoutX="705.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="leaderRight" fitHeight="166.0" fitWidth="125.0" layoutX="1019.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="leaderLeft" fitHeight="166.0" fitWidth="125.0" layoutX="1019.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="leaderNorth" fitHeight="166.0" fitWidth="125.0" layoutX="1019.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="leaderSouth" fitHeight="166.0" fitWidth="125.0" layoutX="1019.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
                   <GridPane layoutX="27.0" layoutY="547.0" prefHeight="100.0" prefWidth="166.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -112,10 +112,10 @@
                      <font>
                         <Font name="Ubuntu" size="39.0" />
                      </font></Label>
-                  <ImageView fx:id="SWResource" fitHeight="35.0" fitWidth="35.0" layoutX="1032.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="SEResource" fitHeight="35.0" fitWidth="35.0" layoutX="1082.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="NWResource" fitHeight="35.0" fitWidth="35.0" layoutX="1032.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="NEResource" fitHeight="35.0" fitWidth="35.0" layoutX="1082.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="SWResource" fitHeight="35.0" fitWidth="35.0" layoutX="1032.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="SEResource" fitHeight="35.0" fitWidth="35.0" layoutX="1082.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </children>

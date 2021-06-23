@@ -30,9 +30,9 @@ public class PersonalBoard{
      */
     public PersonalBoard(Warehouse warehouse) {
         this.warehouse = warehouse;
-        slots[0] = new Slot(1);
-        slots[1] = new Slot(2);
-        slots[2] = new Slot(3);
+        slots[0] = new Slot();
+        slots[1] = new Slot();
+        slots[2] = new Slot();
         this.faithTrack = new FaithTrack();
 
         this.activeLeaderCards = new ArrayList<>();
