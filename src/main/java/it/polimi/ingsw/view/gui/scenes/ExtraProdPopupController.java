@@ -78,6 +78,8 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
             psc.addAllClientObservers(clientObservers);
             SceneController.showPopup(psc, "popup_scene.fxml");
         });
+
+        stage.close();
     }
 
     /**
