@@ -72,7 +72,6 @@ public class Player extends Observable implements Serializable {
 
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
-        System.out.println(nickname + ": punti vittoria: " +victoryPoints);
     }
 
     public void setPersonalBoard(PersonalBoard personalBoard) {

@@ -1,16 +1,13 @@
 package it.polimi.ingsw.network.client;
-import it.polimi.ingsw.model.resources.ResourceType;
+
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.*;
 import it.polimi.ingsw.observerPattern.ClientObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.cli.CliColor;
-import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.JavaFX;
-import it.polimi.ingsw.view.gui.scenes.ConnectionSceneController;
 import javafx.event.Event;
 
 import java.io.IOException;
@@ -192,15 +189,15 @@ public class Client implements Runnable, ClientObserver {
             localGameManager.run();
         }
 
-        ses.scheduleAtFixedRate( () -> serverHandler.sendMessage(new Message("client", "server", Content.HEARTBEAT)),
-                0, 5, TimeUnit.SECONDS);
+        //ses.scheduleAtFixedRate( () -> serverHandler.sendMessage(new Message("server", Content.HEARTBEAT)),
+        //        0, 5, TimeUnit.SECONDS);
 
     }
 
     /**
      * Handles the received message and acts accordingly to the switch
      * @param msg the received message (with its type)
-     * @throws IOException
+     * @throws IOException  If virtual view fails to send message.
      */
     public void receiveMessage(Message msg) throws IOException {
         switch (msg.getMessageType()){
@@ -299,8 +296,6 @@ public class Client implements Runnable, ClientObserver {
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
     }
-
-    //todo: nel cleanup togliere il nickname dal costruttore dei messaggi
 
     @Override
     public void update(Message message) {

@@ -119,7 +119,7 @@ public class GameController implements Observer, Serializable {
     /**
      * Starts the game, sending a start message to all the players joined and their personal boards (organized
      * in an hashmap)
-     * @throws IOException something as interrupted the setup, a player has disconnected before hand...
+     * @throws IOException Error during setup
      */
     public void startGame() throws IOException {
         for (String key : vvMap.keySet()) {

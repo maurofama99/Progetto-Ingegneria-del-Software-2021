@@ -9,13 +9,7 @@ import java.io.Serializable;
  * Class that models a slot in the personal board. Development cards are placed here.
  */
 public class Slot implements Serializable{
-    private ArrayList<DevCard> cards = new ArrayList<>();
-    private int slotNumber;
-
-
-    public Slot(int slotNumber) {
-        this.slotNumber = slotNumber;
-    }
+    private final ArrayList<DevCard> cards = new ArrayList<>();
 
     public ArrayList<DevCard> getCards() {
         return cards;
@@ -35,10 +29,9 @@ public class Slot implements Serializable{
     /**
      * Places development card in the slot.
      * @param devCard development card to place.
-     * @return true if and only if the player has the requirements to place it.
      * @throws IllegalAccessException if the player can not place the development card.
      */
-    public boolean placeDevCard(DevCard devCard) throws IllegalAccessException {
+    public void placeDevCard(DevCard devCard) throws IllegalAccessException {
 
         if (cards.isEmpty() && devCard.getLevel() != 1) {
             throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() + ", but slot is empty!\n");
@@ -46,7 +39,6 @@ public class Slot implements Serializable{
         }
         else if ((cards.isEmpty() && (devCard.getLevel() == 1) || devCard.getLevel()-1 == getShowedCard().getLevel())){
             this.cards.add(devCard);
-            return true;
         }
         else {
             throw new IllegalAccessException("Can't place " + devCard + "here, " + devCard + "level is " + devCard.getLevel() +

@@ -131,7 +131,7 @@ public class ServerHandler implements Runnable {
             });
             client.getSes().shutdown();
             try {
-                client.receiveMessage(new Message("client", "client", Content.FORCEDEND));
+                client.receiveMessage(new Message("client", Content.FORCEDEND));
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

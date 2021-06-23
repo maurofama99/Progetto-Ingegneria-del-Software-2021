@@ -66,7 +66,7 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
         notifyObservers(new ActivateExtraProd(-1));
         stage.close();
     }
-    //todo testa extra production
+
     private void yes (MouseEvent event) {
         Platform.runLater(()-> {
             ExtraProdResourcePopupController eprpc = new ExtraProdResourcePopupController();

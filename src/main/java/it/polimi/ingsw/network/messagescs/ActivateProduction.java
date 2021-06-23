@@ -11,7 +11,7 @@ public class ActivateProduction extends Message {
     int basic, slot1, slot2, slot3;
 
     public ActivateProduction(int basic, int slot1, int slot2, int slot3) {
-        super("server", "client", Content.ACTIVATE_PRODUCTION);
+        super( "client", Content.ACTIVATE_PRODUCTION);
         this.basic = basic;
         this.slot1 = slot1;
         this.slot2 = slot2;

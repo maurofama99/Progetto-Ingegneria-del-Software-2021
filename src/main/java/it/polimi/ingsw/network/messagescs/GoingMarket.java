@@ -13,7 +13,7 @@ public class GoingMarket extends Message {
     boolean rowOrColumn;
 
     public GoingMarket(int index, boolean rowOrColumn) {
-        super("client", "server", Content.GOING_MARKET);
+        super( "server", Content.GOING_MARKET);
         this.index = index;
         this.rowOrColumn = rowOrColumn;
     }

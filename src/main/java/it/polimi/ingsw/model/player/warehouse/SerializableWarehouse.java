@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Serializable class that acts as the depot of the player. Resources are put into arraylist, that can be modified by actions in the game
- *
+ * Serializable class that acts as the depot of the player. Resources are put into arraylist, that can be modified by actions in the game.
  */
 public class SerializableWarehouse implements Serializable {
     private final ArrayList<Resource> floors;

@@ -22,6 +22,11 @@ public class Message implements Serializable, Comparable<Message> {
         this.messageType = messageType;
     }
 
+    public Message(String receiverNickname, Content messageType) {
+        this.receiverNickname = receiverNickname;
+        this.messageType = messageType;
+    }
+
     public String getReceiverNickname() {
         return receiverNickname;
     }

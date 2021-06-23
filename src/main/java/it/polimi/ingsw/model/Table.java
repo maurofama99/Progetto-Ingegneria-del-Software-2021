@@ -20,6 +20,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -49,7 +50,7 @@ public class Table extends Observable implements Serializable{
 
         Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
 
-        leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
+        leaderCardsDeck = gson.fromJson(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/LeaderCards.json"))), leaderCardArrayListType);
 
         this.marketTray = new MarketTray();
         this.devCardsDeck = new Deck();
@@ -68,7 +69,7 @@ public class Table extends Observable implements Serializable{
 
             Gson gson = new GsonBuilder().registerTypeAdapter(LeaderEffect.class, new LeaderEffectJsonDeserializer()).create();
 
-            leaderCardsDeck = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/LeaderCards.json")), leaderCardArrayListType);
+            leaderCardsDeck = gson.fromJson(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/LeaderCards.json"))), leaderCardArrayListType);
 
 
         this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
@@ -113,7 +114,6 @@ public class Table extends Observable implements Serializable{
      * @param numPlayers how many players will play the game
      */
     public void setNumPlayers(int numPlayers) {
-        System.out.println("Number of players set, players in game:" + players.size());
         this.numPlayers = numPlayers;
     }
 
@@ -148,7 +148,7 @@ public class Table extends Observable implements Serializable{
     public void setPlayersInGame(){
         Collections.shuffle(players);
         setCurrentPlayer(players.get(0));
-        notifyObserver(new Message("server", players.get(0).getNickname(), Content.FIRST_PLAYER));
+        notifyObserver(new Message( players.get(0).getNickname(), Content.FIRST_PLAYER));
         for (Player player : players){
             player.setTurnOrder(players.indexOf(player));
         }

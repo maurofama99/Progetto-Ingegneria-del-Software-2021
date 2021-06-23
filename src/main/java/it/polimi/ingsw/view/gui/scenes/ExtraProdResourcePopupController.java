@@ -24,14 +24,13 @@ public class ExtraProdResourcePopupController extends ClientObservable implement
     @FXML
     private StackPane rootPane;
     @FXML
-    private Button coinBtn;
+    private Button coin;
     @FXML
-    private Button stoneBtn;
+    private Button stone;
     @FXML
-    private Button servantBtn;
+    private Button servant;
     @FXML
-    private Button shieldBtn;
-
+    private Button shield;
 
     public ExtraProdResourcePopupController(){
         stage = new Stage();
@@ -48,10 +47,10 @@ public class ExtraProdResourcePopupController extends ClientObservable implement
         rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::whenRootPanePressed);
         rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::whenRootPaneDragged);
 
-        coinBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenCoinClicked);
-        stoneBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenStoneClicked);
-        servantBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenServantClicked);
-        shieldBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShieldClicked);
+        coin.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenCoinClicked);
+        stone.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenStoneClicked);
+        servant.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenServantClicked);
+        shield.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenShieldClicked);
     }
 
     private void whenRootPanePressed(MouseEvent event){

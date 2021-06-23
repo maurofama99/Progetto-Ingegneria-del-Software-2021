@@ -11,12 +11,13 @@ import java.lang.reflect.Type;
 public class LeaderEffectJsonDeserializer implements JsonDeserializer<LeaderEffect> {
 
     /**
-     * Deserializer of the json for the leader card effects
-     * @param json the json file
-     * @param typeOf type of effect of the card
+     * Json deserializer created to execute custom deserialization of the leader cards Json for the leader card effect. LeaderEffect
+     * abstract class attribute in LeaderCard class is instantiated with one of his child class depending on its attribute effectType.
+     * @param json Leader card Json file
+     * @param typeOf The type of the data structure to deserialize to
      * @param context the context of the json deserialization
-     * @return
-     * @throws JsonParseException
+     * @return deserialized leader effect
+     * @throws JsonParseException if json is not in the expected format of typeofT
      */
     @Override
     public LeaderEffect deserialize(JsonElement json, Type typeOf, JsonDeserializationContext context) throws JsonParseException {

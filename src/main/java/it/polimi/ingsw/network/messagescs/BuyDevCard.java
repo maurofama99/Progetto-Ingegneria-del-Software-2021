@@ -14,7 +14,7 @@ public class BuyDevCard extends Message {
 
 
     public BuyDevCard(int row, int column, int slot) {
-        super("client", "server", Content.BUY_DEVCARD);
+        super( "server", Content.BUY_DEVCARD);
         this.row = row;
         this.column = column;
         this.slot = slot;

@@ -13,7 +13,7 @@ public class DiscardOneLeader extends Message {
     private boolean isEndTurn;
 
     public DiscardOneLeader(int leaderCard, boolean isEndTurn) {
-        super("client", "server", Content.DISCARDED_LEADER);
+        super( "server", Content.DISCARDED_LEADER);
         this.leaderCard = leaderCard;
         this.isEndTurn = isEndTurn;
     }

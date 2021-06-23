@@ -8,6 +8,9 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Manages messages exchange between view and controller in local game.
+ */
 public class LocalGameManager implements Runnable {
     private final Client client;
     private final ClientHandler clientHandler;
@@ -24,6 +27,10 @@ public class LocalGameManager implements Runnable {
         return client;
     }
 
+    /**
+     * Receives and processes messages between View and Controller running two threads simultaneously.
+     * Uses Linked Blocking Queues to maintain the correct receiving order.
+     */
     @Override
     public void run() {
         try {
@@ -57,6 +64,10 @@ public class LocalGameManager implements Runnable {
         thread2.start();
     }
 
+    /**
+     * Queue the message to be sent to the controller
+     * @param msg Message sent to Controller
+     */
     public void sendMessageClientHandler(Message msg) {
         try {
             messageQueueClientHandler.put(msg);
@@ -65,6 +76,10 @@ public class LocalGameManager implements Runnable {
         }
     }
 
+    /**
+     * Queue the message to be sent to the view
+     * @param msg Message sent to View
+     */
     public void sendMessageServerHandler(Message msg) {
         try {
             messageQueueServerHandler.put(msg);

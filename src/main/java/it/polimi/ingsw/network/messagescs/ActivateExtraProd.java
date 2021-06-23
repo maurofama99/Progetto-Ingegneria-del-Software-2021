@@ -11,7 +11,7 @@ public class ActivateExtraProd extends Message {
     int type;
 
     public ActivateExtraProd(int type) {
-        super("client", "server", Content.ACTIVATE_EXTRAPRODUCTION);
+        super( "server", Content.ACTIVATE_EXTRAPRODUCTION);
         this.type = type;
     }
 

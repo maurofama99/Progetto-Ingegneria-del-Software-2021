@@ -91,7 +91,7 @@ public class VirtualView implements Observer {
     }
 
     public void displayWinningMsg() throws IOException {
-        clientHandler.sendMessage(new Message("server", "client", Content.MATCH_FINISHED));
+        clientHandler.sendMessage(new Message( "client", Content.MATCH_FINISHED));
     }
 
     public void forcedEnd(String nickname) throws IOException {

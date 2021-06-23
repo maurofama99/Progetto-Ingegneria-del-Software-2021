@@ -539,15 +539,17 @@ public class PlayerController {
         return requirements;
     }
 
-    public boolean hasTwoExtraProduction() throws IOException {
-        if (getPlayerPB().getActiveLeaderCards().size()==1) return false;
+    //todo problema di versioni, nell'elseif non ci vorrebbe un or?
+    public void hasTwoExtraProduction() throws IOException {
+        if (getPlayerPB().getActiveLeaderCards().size()==1) {
+            assert true;
+        }
         else if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
-                !getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
-            return false;
+                !getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
+        }
         else {
             playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
             resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-            return true;
         }
     }
 
