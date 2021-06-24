@@ -10,6 +10,10 @@ public class ForcedEnd extends Message {
 
     private final String nickname;
 
+    /**
+     * Default constructor
+     * @param nickname nickname of the player who disconnected
+     */
     public ForcedEnd(String nickname) {
         super("server", "client", Content.FORCEDEND);
         this.nickname = nickname;

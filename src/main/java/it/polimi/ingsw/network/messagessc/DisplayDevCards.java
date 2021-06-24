@@ -10,6 +10,10 @@ import it.polimi.ingsw.network.Message;
 public class DisplayDevCards extends Message {
     private DevCard[][] showedCards;
 
+    /**
+     * Default constructor
+     * @param showedCards the devcard in the shop in that moment, a matrix 4*3
+     */
     public DisplayDevCards(DevCard[][] showedCards) {
         super("server", "client", Content.DISPLAY_DEVCARDS);
         this.showedCards = showedCards;

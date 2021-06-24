@@ -13,6 +13,11 @@ public class AskPlayLeader extends Message {
     private ArrayList<LeaderCard> leaderCardsNotActivated;
     private boolean isEndTurn;
 
+    /**
+     * Default constructor
+     * @param leaderCardsNotActivated the leader cards owned not activated
+     * @param isEndTurn boolean to know if it is the start of the end of the turn
+     */
     public AskPlayLeader(ArrayList<LeaderCard> leaderCardsNotActivated, boolean isEndTurn ) {
         super("server", "client", Content.ASK_PLAYLEADER);
         this.leaderCardsNotActivated = leaderCardsNotActivated;

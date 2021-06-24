@@ -10,6 +10,10 @@ public class EndSoloGame extends Message {
 
     boolean isPlayerWinner;
 
+    /**
+     * Default constructor
+     * @param isPlayerWinner boolean to know if the player won
+     */
     public EndSoloGame(boolean isPlayerWinner) {
         super("model", "controller", Content.END_SOLOGAME);
         this.isPlayerWinner = isPlayerWinner;

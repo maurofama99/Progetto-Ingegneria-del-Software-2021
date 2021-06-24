@@ -10,7 +10,7 @@ import it.polimi.ingsw.network.Message;
 import java.util.ArrayList;
 
 /**
- * Displays the personal board and also let the player know which leader cards are active
+ * Displays the personal board and also let the player know which leader cards are active in the CLI
  */
 public class DisplayPersonalBoard extends Message {
     private FaithTrack faithTrack;
@@ -18,6 +18,13 @@ public class DisplayPersonalBoard extends Message {
     private SerializableWarehouse serializableWarehouse;
     private ArrayList<LeaderCard> activeLeaderCards;
 
+    /**
+     * Default constructor
+     * @param faithTrack player's faithtrack (with cross updated)
+     * @param slots player's slots (with devcards)
+     * @param serializableWarehouse player's warehouses (with resources)
+     * @param activeLeaderCards player's activated leader cards
+     */
     public DisplayPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse serializableWarehouse, ArrayList<LeaderCard> activeLeaderCards) {
         super("server", "client", Content.DISPLAY_PERSONALBOARD);
         this.faithTrack = faithTrack;

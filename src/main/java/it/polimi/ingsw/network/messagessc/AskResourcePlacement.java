@@ -11,6 +11,10 @@ public class AskResourcePlacement extends Message {
 
     private final Resource resource;
 
+    /**
+     * Default constructor
+     * @param resource the resource received
+     */
     public AskResourcePlacement(Resource resource) {
         super("server", "client", Content.ASK_RESOURCE_PLACEMENT);
         this.resource = resource;

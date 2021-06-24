@@ -12,6 +12,11 @@ public class AskSwapWhite extends Message {
     ResourceType type1;
     ResourceType type2;
 
+    /**
+     * Default constructor
+     * @param type1 first swap effect
+     * @param type2 second swap effect
+     */
     public AskSwapWhite(ResourceType type1, ResourceType type2) {
         super("server", "client", Content.ASK_SWAP_WHITE);
         this.type1 = type1;

@@ -9,9 +9,13 @@ import it.polimi.ingsw.network.Message;
  */
 public class GoingMarket extends Message {
     int index;
-    //true row, false column
     boolean rowOrColumn;
 
+    /**
+     * Default constructor
+     * @param index int the defines the number of the row/column
+     * @param rowOrColumn booleawn true for row, false for column
+     */
     public GoingMarket(int index, boolean rowOrColumn) {
         super( "server", Content.GOING_MARKET);
         this.index = index;

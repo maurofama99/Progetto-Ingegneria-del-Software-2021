@@ -14,6 +14,12 @@ public class DisplayGUIPersonalBoard extends Message {
     private Slot[] slots;
     private SerializableWarehouse serializableWarehouse;
 
+    /**
+     * Default constructor
+     * @param faithTrack player's faithtrack (with cross updated)
+     * @param slots player's slots (with devcards)
+     * @param serializableWarehouse playerìs warehouses (with resources)
+     */
     public DisplayGUIPersonalBoard(FaithTrack faithTrack, Slot[] slots, SerializableWarehouse serializableWarehouse) {
         super("server", "client", Content.DISPLAY_GUI_PERSONALBOARD);
         this.faithTrack = faithTrack;

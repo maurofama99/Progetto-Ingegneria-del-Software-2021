@@ -11,6 +11,11 @@ public class BasicProd extends Message {
     private final int arrow;
     private final String message;
 
+    /**
+     * Default constructor
+     * @param arrow the arrow to be spawned
+     * @param message lets the player know which resource is choosing in the basic production
+     */
     public BasicProd(int arrow, String message) {
         super("server", "client", Content.BASIC_PROD);
         this.arrow = arrow;
