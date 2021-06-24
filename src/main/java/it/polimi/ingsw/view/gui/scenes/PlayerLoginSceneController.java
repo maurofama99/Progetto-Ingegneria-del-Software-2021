@@ -66,7 +66,7 @@ public class PlayerLoginSceneController extends ClientObservable implements Gene
             if (!solo) {
                 try {
                     switch (choiceBox.getSelectionModel().getSelectedItem()) {
-                        case "single":
+                        case "Single player":
                             numPlayers = 1;
                             break;
                         case "2":
