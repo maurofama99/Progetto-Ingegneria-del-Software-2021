@@ -12,7 +12,13 @@ public class BuyDevCard extends Message {
     private int row, column;
     private int slot;
 
-
+    /**
+     * Default constructor
+     *
+     * @param row row of the devcard shop
+     * @param column column of the devcard shop
+     * @param slot the slot where the player wants to place the devcard
+     */
     public BuyDevCard(int row, int column, int slot) {
         super( "server", Content.BUY_DEVCARD);
         this.row = row;

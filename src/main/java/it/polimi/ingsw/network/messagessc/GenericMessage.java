@@ -9,6 +9,10 @@ import it.polimi.ingsw.network.Message;
 public class GenericMessage extends Message {
     private String genericMessage;
 
+    /**
+     * Default constructor
+     * @param genericMessage the text of the message
+     */
     public GenericMessage(String genericMessage) {
         super("server", "client", Content.GENERIC_MESSAGE);
         this.genericMessage = genericMessage;

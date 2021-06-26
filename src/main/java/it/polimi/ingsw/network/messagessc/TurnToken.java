@@ -10,6 +10,10 @@ import it.polimi.ingsw.network.Message;
 public class TurnToken extends Message {
     private Token token;
 
+    /**
+     * Default constructor
+     * @param token the token that was turned
+     */
     public TurnToken(Token token) {
         super("server", "client", Content.TURN_TOKEN);
         this.token = token;

@@ -5,13 +5,17 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
 /**
- * As the DiscardLeader message, we use this to let the player know he wants to discard a single leader card
- *
+ * Message used to discard a leader card to get one faith point
  */
 public class DiscardOneLeader extends Message {
     private int leaderCard;
     private boolean isEndTurn;
 
+    /**
+     * Default constructor
+     * @param leaderCard the leader card to discard
+     * @param isEndTurn we use a boolean to know when the action is performed (start or end turn)
+     */
     public DiscardOneLeader(int leaderCard, boolean isEndTurn) {
         super( "server", Content.DISCARDED_LEADER);
         this.leaderCard = leaderCard;

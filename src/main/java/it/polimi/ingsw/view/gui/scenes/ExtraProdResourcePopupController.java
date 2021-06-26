@@ -81,7 +81,7 @@ public class ExtraProdResourcePopupController extends ClientObservable implement
     }
 
     public void showPopUp(){
-        stage.showAndWait();
+        stage.show();
     }
 
     public void setScene(Scene scene){

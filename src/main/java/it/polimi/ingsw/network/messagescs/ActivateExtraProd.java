@@ -10,13 +10,18 @@ import it.polimi.ingsw.network.Message;
 public class ActivateExtraProd extends Message {
     int type;
 
+    /**
+     * Default constructor
+     *
+     * @param type the type of the resource the player wants
+     */
     public ActivateExtraProd(int type) {
         super( "server", Content.ACTIVATE_EXTRAPRODUCTION);
         this.type = type;
     }
 
     /**
-     * Checks which resource the leader card wants to activate the production
+     * Checks which resource the player wants in addition to the faithpoint
      * @return the type of resource
      */
     public ResourceType getType() {

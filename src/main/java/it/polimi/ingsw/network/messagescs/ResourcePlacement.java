@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
 /**
- * Switch message for the player, with a source and a destination floor
+ * Message for placing a resource in the deposit, switching it or using an extra depot
  */
 public class ResourcePlacement extends Message {
     String floor;
@@ -12,11 +12,23 @@ public class ResourcePlacement extends Message {
     int destFloor = 0;
     String type;
 
+    /**
+     * Default constructor for placing a resource in a floor
+     * @param senderUser nickname of the player
+     * @param floor floor chosen by the player
+     */
     public ResourcePlacement(String senderUser, String floor) {
         super(senderUser, "server", Content.RESOURCE_PLACEMENT);
         this.floor = floor;
     }
 
+    /**
+     * Default constructor for the switch action
+     * @param senderUser nickname of the player
+     * @param floor floor chosen
+     * @param sourceFloor source of the resource(s) to be switched
+     * @param destFloor destination of the resource(s) to be switched
+     */
     public ResourcePlacement(String senderUser, String floor, int sourceFloor, int destFloor) {
         super(senderUser, "server", Content.RESOURCE_PLACEMENT);
         this.floor=floor;

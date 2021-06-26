@@ -9,6 +9,9 @@ import it.polimi.ingsw.network.Message;
 public class AskAction extends Message {
     String question;
 
+    /**
+     * Constructor of the message
+     */
     public AskAction() {
         super("server", "client", Content.ASK_ACTION);
         this.question = "It's your turn!\nWhat do you wanna do now? (Type MARKET, PRODUCTION, BUY)";

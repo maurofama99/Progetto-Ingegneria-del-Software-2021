@@ -12,6 +12,12 @@ public class ActivateLeader extends Message {
     private int leaderCard;
     boolean isEndTurn;
 
+    /**
+     * Default constructor
+     *
+     * @param leaderCard the leader card the player wants to activate
+     * @param isEndTurn specifies if the activation request is done at the start or end of the turn
+     */
     public ActivateLeader(int leaderCard, boolean isEndTurn) {
         super("server", Content.ACTIVATE_LEADER);
         this.leaderCard = leaderCard;

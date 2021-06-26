@@ -6,16 +6,25 @@ import it.polimi.ingsw.network.Message;
 
 /**
  * The message that let the server know what resource the player has chosen for specific actions (such as production
- * with the possibility of choosing, initial bonus...)
+ * with the possibility of choosing, initial bonus and swap white)
  */
 public class ResourceTypeChosen extends Message {
     int resourceType;
 
+    /**
+     * Default constructor
+     * @param senderUser nickname fo the player
+     * @param resourceType resource chosen
+     */
     public ResourceTypeChosen(String senderUser, int resourceType) {
         super(senderUser, "server", Content.RESOURCE_TYPE);
         this.resourceType = resourceType;
     }
 
+    /**
+     * Getter for the resource type chosen, using the int
+     * @return the resource chosen
+     */
     public ResourceType getResourceType() {
         ResourceType type;
         switch (resourceType){

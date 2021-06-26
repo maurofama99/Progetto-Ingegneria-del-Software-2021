@@ -11,6 +11,10 @@ public class DisplayMarket extends Message {
 
     private MarketTray marketTray;
 
+    /**
+     * Default constructor
+     * @param marketTray the current market tray (with slide marble)
+     */
     public DisplayMarket(MarketTray marketTray) {
         super("server", "client", Content.DISPLAY_MARKET);
         this.marketTray = marketTray;

@@ -13,6 +13,10 @@ public class AskDone extends Message {
     String Question;
     ArrayList<LeaderCard> leaderCards;
 
+    /**
+     * Default constructor
+     * @param leaderCards the leader cards owned by the player
+     */
     public AskDone(ArrayList<LeaderCard> leaderCards) {
         super("server", "client", Content.ASK_DONE);
         Question = "Type DONE if you are done or LEADER if you want to play a leader card.";

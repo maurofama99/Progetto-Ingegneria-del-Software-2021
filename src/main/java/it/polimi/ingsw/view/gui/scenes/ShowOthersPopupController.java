@@ -254,7 +254,7 @@ public class ShowOthersPopupController extends ClientObservable implements Gener
         }
 
         else if (modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().size()==1){
-            leaderNorth.setImage(new Image("/front/leader_"+modelView.getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
+            leaderNorth.setImage(new Image("/front/leader_"+modelView.getOthersPersonalBoards().get(player).getActiveLeaderCards().get(0).getLeaderEffect().toString()+".png"));
             leaderSouth.setImage(new Image("/back/leader-back.png"));
         }
 

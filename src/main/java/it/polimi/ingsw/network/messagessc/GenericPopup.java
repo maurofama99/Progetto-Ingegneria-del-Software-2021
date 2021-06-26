@@ -9,6 +9,10 @@ import it.polimi.ingsw.network.Message;
 public class GenericPopup extends Message {
     private final String message;
 
+    /**
+     * Default constructor
+     * @param message the text of the popup
+     */
     public GenericPopup(String message) {
         super("server", "client", Content.GENERIC_POPUP);
         this.message = message;

@@ -10,7 +10,7 @@ import it.polimi.ingsw.network.Message;
 import java.util.ArrayList;
 
 /**
- * Displays the personal board of other players
+ * Displays the personal board of other players both in CLI or GUI
  */
 public class SendOtherPersonalBoard extends Message {
     String name;
@@ -19,6 +19,14 @@ public class SendOtherPersonalBoard extends Message {
     SerializableWarehouse serializableWarehouse;
     ArrayList<LeaderCard> leaderCards;
 
+    /**
+     *
+     * @param name player that owns the leader borad
+     * @param faithTrack player's faithtrack (with cross updated)
+     * @param slot player's slots (with devcards)
+     * @param serializableWarehouse player's warehouses (with resources)
+     * @param leaderCards player's activated leader cards
+     */
     public SendOtherPersonalBoard(String name, FaithTrack faithTrack, Slot[] slot, SerializableWarehouse serializableWarehouse, ArrayList<LeaderCard> leaderCards) {
         super("server", "client", Content.SEND_PERSONALBOARD);
         this.name = name;

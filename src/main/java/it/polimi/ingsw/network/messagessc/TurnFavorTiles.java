@@ -5,10 +5,13 @@ import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 
 /**
- * After a cross reaches a pope tile, the game does a check and turns or remove the tiles of all players based on where they are
+ * Lets the client know a player reached a pope space and to check if they should turn or discard the tile
  */
 public class TurnFavorTiles extends Message {
-
+    /**
+     * Default constructor
+     * @param senderUser server
+     */
     public TurnFavorTiles(String senderUser) {
         super(senderUser, "client", Content.TURN_FAVORTILE);
     }
