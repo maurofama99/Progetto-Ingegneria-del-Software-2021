@@ -219,13 +219,12 @@ public class Cli extends ClientObservable implements View {
             }
             notifyObservers(new ActivateExtraProd(resourceType));
         }
-
     }
 
     /**
-     * A simple generic message
+     * A simple method to print on CLI a generic message
      * @param genericMessage the message displayed
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message
      */
     @Override
     public void displayGenericMessage(String genericMessage) throws IOException {
@@ -235,7 +234,7 @@ public class Cli extends ClientObservable implements View {
     /**
      * Displays the initial four leader cards and let the player discard two
      * @param leaderCards the arraylist of leader cards after the shuffle
-     * @throws IOException
+     * @throws IOException If virtual view fails to send message
      */
     @Override
     public void displayLeaderCards(ArrayList<LeaderCard> leaderCards) throws IOException {
@@ -287,7 +286,10 @@ public class Cli extends ClientObservable implements View {
         modelView.setMarketTray(marketTray);
     }
 
-
+    /**
+     * Shows a popup with a message on GUI
+     * @param message the message displayed
+     */
     @Override
     public void displayPopup(String message) {
         //used only in GUI mode

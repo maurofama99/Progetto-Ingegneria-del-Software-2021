@@ -539,22 +539,22 @@ public class PlayerController {
         return requirements;
     }
 
-    //todo problema di versioni, nell'elseif non ci vorrebbe un or?
+    /**
+     * Checks if the player has two extra production leader cards, if so it sends another extra production request to client.
+     * @throws IOException If virtual view fails to send message.
+     */
     public void hasTwoExtraProduction() throws IOException {
-        if (getPlayerPB().getActiveLeaderCards().size()==1) {
-            assert true;
-        }
-        else if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
-                !getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
-        }
-        else {
+        if (!(getPlayerPB().getActiveLeaderCards().size()==1) &&
+                getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
+                getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
+         {
             playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
             resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
         }
     }
 
     /**
-     * Counts the devcards of the player at the end of the game
+     * Counts the development cards of the player at the end of the game
      * @throws IOException If virtual view fails to send message.
      */
     public void countDevCards() throws IOException {

@@ -30,7 +30,7 @@ public class Gui extends ClientObservable implements View {
     private final static  String ERROR = "ERROR";
     private final static String START_SCENE = "start_scene.fxml";
     private Client client;
-    private final ModelView modelView;
+    private ModelView modelView;
     private boolean firstPlayer = false;
     private boolean solo = false;
 

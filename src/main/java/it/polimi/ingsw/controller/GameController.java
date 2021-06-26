@@ -169,7 +169,7 @@ public class GameController implements Observer, Serializable {
                     setInGame();
 
                     } catch(NumberFormatException e){
-                        if(((ResourcePlacement) msg).getFloor().equals("extra")){
+                        if(((ResourcePlacement) msg).getFloor().equals("extra") || ((ResourcePlacement) msg).getFloor().equals("discard")){
                             vv.displayGenericMessage("You can't do this move now, please choose a floor");
                             vv.displayPopup("You can't do this move now, please choose a floor");
                             vv.fetchResourcePlacement(resourceChosen);
@@ -448,14 +448,18 @@ public class GameController implements Observer, Serializable {
     /**
      * Sends to all connected clients in this game a message that ends the game for everyone.
      */
-    public void endGame(){
-        for (String key : vvMap.keySet()){
-            for(Player player : table.getPlayers())
-                if (player.getNickname().equals(key)) {
-                    try {
-                        vvMap.get(key).displayWinningMsg();
-                    } catch (IOException ignored) {}
-                }
+    public void endGame() throws IOException {
+        if (singlePlayer) singlePlayerController.endSoloGame(true);
+        else {
+            for (String key : vvMap.keySet()) {
+                for (Player player : table.getPlayers())
+                    if (player.getNickname().equals(key)) {
+                        try {
+                            vvMap.get(key).displayWinningMsg();
+                        } catch (IOException ignored) {
+                        }
+                    }
+            }
         }
     }
 
