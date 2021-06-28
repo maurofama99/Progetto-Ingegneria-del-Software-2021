@@ -127,6 +127,52 @@ public class DepotTest {
         assertTrue(thrown);
 
     }
+
+    @Test
+    public void testSwitchExtraDepot(){
+        warehouse.getDepot().addResourceToDepot(oneCoin, 2);
+
+        boolean thrown = false;
+        try {
+            warehouse.getDepot().switchFloorToExtra(2);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+        thrown =false;
+
+        assertEquals(1, warehouse.getDepot().getFloors().get(1).get().getQnt());
+
+        warehouse.getDepot().getExtraFloors().set(0, Optional.of(new Resource(0, ResourceType.STONE)));
+        try {
+            warehouse.getDepot().switchFloorToExtra(2);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+        thrown = false;
+        assertEquals(1, warehouse.getDepot().getFloors().get(1).get().getQnt());
+
+        warehouse.getDepot().addResourceToDepot(twoStones, 3);
+        warehouse.getDepot().switchFloorToExtra(3);
+        assertEquals(1, warehouse.getDepot().getFloors().get(2).get().getQnt());
+        warehouse.getDepot().switchFloorToExtra(3);
+        assertTrue(warehouse.getDepot().getFloors().get(2).isEmpty());
+        assertEquals(2, warehouse.getDepot().getExtraFloors().get(0).get().getQnt());
+
+        warehouse.getDepot().getExtraFloors().set(1, Optional.of(new Resource(0, ResourceType.COIN)));
+        warehouse.getDepot().switchFloorToExtra(2);
+        assertTrue(warehouse.getDepot().getFloors().get(1).isEmpty());
+        assertEquals(1, warehouse.getDepot().getExtraFloors().get(1).get().getQnt());
+
+        warehouse.getDepot().addResourceToDepot(twoStones, 3);
+        try {
+            warehouse.getDepot().switchFloorToExtra(3);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 }
 
 

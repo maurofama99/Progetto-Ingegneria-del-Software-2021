@@ -27,7 +27,6 @@ public class FaithTrack extends Observable implements Serializable {
     private boolean secondFavorTile;
     private boolean thirdFavorTile;
 
-
     /**
      * Constructs player's faith track.
      */

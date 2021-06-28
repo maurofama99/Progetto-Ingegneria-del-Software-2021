@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -101,33 +100,68 @@ public class Depot {
 
     }
 
-
     /**
      * Switches resources between two floors only if is a legal move
-     *
      * @requires (source >=1 && source <=3) && (destination >=1 && destination <=3)
      */
     public void switchFloors(int source, int destination) {
-    source -= 1;
-    destination -= 1;
-        if (floors.get(source).isEmpty() && floors.get(destination).isEmpty()) {
+        if (destination==4) switchFloorToExtra(source);
+        else {
+            source -= 1;
+            destination -= 1;
+            if (floors.get(source).isEmpty() && floors.get(destination).isEmpty()) {
+                assert true;
+            } else if (floors.get(source).isEmpty() && floors.get(destination).isPresent()) {
+                if (floors.get(destination).get().getQnt() <= source + 1) {
+                    floors.set(source, floors.get(destination));
+                    floors.set(destination, Optional.empty());
+                } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
+            } else if (floors.get(source).isPresent() && floors.get(destination).isEmpty()) {
+                if (floors.get(source).get().getQnt() <= destination + 1) {
+                    floors.set(destination, floors.get(source));
+                    floors.set(source, Optional.empty());
+                } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
+            } else if ((floors.get(source).get().getQnt() <= destination + 1) && (floors.get(destination).get().getQnt() <= source + 1)) {
+                Collections.swap(this.floors, source, destination);
+            } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
+        }
+    }
+
+
+
+    /**
+     * Puts one resource of the source floor resources in the extra depot if legal
+     * @param source Source floor
+     */
+    public void switchFloorToExtra(int source) {
+        source -= 1;
+        int destination = -1;
+
+        if ((extraFloors.get(0).isEmpty() && extraFloors.get(1).isEmpty())){
             assert true;
+        } else {
+            for (Optional<Resource> floor : extraFloors){
+                if (floor.isPresent() && floor.get().getType().equals(floors.get(source).get().getType())){
+                    destination = extraFloors.indexOf(floor);
+                }
+            }
         }
-        else if (floors.get(source).isEmpty() && floors.get(destination).isPresent()) {
-            if (floors.get(destination).get().getQnt() <= source + 1) {
-                floors.set(source, floors.get(destination));
-                floors.set(destination, Optional.empty());
-            } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
-        }
-        else if (floors.get(source).isPresent() && floors.get(destination).isEmpty()) {
-            if (floors.get(source).get().getQnt() <= destination + 1) {
-                floors.set(destination, floors.get(source));
+
+        if (destination != -1 && floors.get(source).isPresent()) {
+
+            if (extraFloors.get(destination).isPresent() && extraFloors.get(destination).get().getQnt()==2){
+                throw new IllegalArgumentException("There is not enough space in the extra floor.");
+            }
+            else if(floors.get(source).get().getQnt()==1){
+                extraFloors.get(destination).get().setQnt(extraFloors.get(destination).get().getQnt()+1);
                 floors.set(source, Optional.empty());
-            } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
-        }
-        else if ((floors.get(source).get().getQnt() <= destination + 1 ) && (floors.get(destination).get().getQnt() <= source+1)) {
-            Collections.swap(this.floors, source, destination);
-        } else throw new IllegalArgumentException("There is not enough space to swap these floors.");
+            }
+            else if(floors.get(source).get().getQnt()>1){
+                extraFloors.get(destination).get().setQnt(extraFloors.get(destination).get().getQnt()+1);
+                floors.get(source).get().setQnt(floors.get(source).get().getQnt()-1);
+            } else throw new IllegalArgumentException("Should not enter in this condition");
+        } else throw new IllegalArgumentException("You don't have any extra floor available or source floor is empty");
+
     }
 
 
@@ -135,7 +169,7 @@ public class Depot {
      * Checks availability of the resources in all the players depots for doing a certain action
      * @param resources the resources needed for the action
      * @return null if the resources are available or the missing resources otherwise
-     * @throws CloneNotSupportedException
+     * @throws CloneNotSupportedException If resource cloning fails
      */
     public ArrayList<Resource> checkAvailabilityDepot(ArrayList<Resource> resources) throws CloneNotSupportedException {
         ArrayList<Resource> missingResources = new ArrayList<>();

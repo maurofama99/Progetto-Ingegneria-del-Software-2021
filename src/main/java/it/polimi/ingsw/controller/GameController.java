@@ -174,12 +174,18 @@ public class GameController implements Observer, Serializable {
                             vv.displayPopup("You can't do this move now, please choose a floor");
                             vv.fetchResourcePlacement(resourceChosen);
                         } else if (answer.equalsIgnoreCase("switch")) {
-                            try{
-                                currentplayer.getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(),((ResourcePlacement) msg).getDestFloor());
-                                vvMap.get(nickname).fetchResourcePlacement(resourceChosen);
-                            } catch (IllegalArgumentException ex){
-                                vvMap.get(nickname).displayGenericMessage(e.getMessage() + ". Try Again...\n");
-                                vvMap.get(nickname).displayPopup(e.getMessage() + ". Try Again...\n");
+                            if (((ResourcePlacement) msg).getDestFloor()==4){
+                                vv.displayGenericMessage("You can't do this move now, please choose a floor");
+                                vv.displayPopup("You can't do this move now, please choose a floor");
+                                vv.fetchResourcePlacement(resourceChosen);
+                            } else {
+                                try {
+                                    currentplayer.getPersonalBoard().getWarehouse().getDepot().switchFloors(((ResourcePlacement) msg).getSourceFloor(), ((ResourcePlacement) msg).getDestFloor());
+                                    vvMap.get(nickname).fetchResourcePlacement(resourceChosen);
+                                } catch (IllegalArgumentException ex) {
+                                    vvMap.get(nickname).displayGenericMessage(e.getMessage() + ". Try Again...\n");
+                                    vvMap.get(nickname).displayPopup(e.getMessage() + ". Try Again...\n");
+                                }
                             }
                         }
                     } catch(IllegalArgumentException e){
@@ -449,18 +455,17 @@ public class GameController implements Observer, Serializable {
      * Sends to all connected clients in this game a message that ends the game for everyone.
      */
     public void endGame() throws IOException {
-        if (singlePlayer) singlePlayerController.endSoloGame(true);
-        else {
-            for (String key : vvMap.keySet()) {
-                for (Player player : table.getPlayers())
-                    if (player.getNickname().equals(key)) {
-                        try {
-                            vvMap.get(key).displayWinningMsg();
-                        } catch (IOException ignored) {
-                        }
+
+        for (String key : vvMap.keySet()) {
+            for (Player player : table.getPlayers())
+                if (player.getNickname().equals(key)) {
+                    try {
+                        vvMap.get(key).displayWinningMsg();
+                    } catch (IOException ignored) {
                     }
-            }
+                }
         }
+
     }
 
 

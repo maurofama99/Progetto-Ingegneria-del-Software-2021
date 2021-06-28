@@ -148,9 +148,9 @@ public class Cli extends ClientObservable implements View {
                     scanner.nextLine();
                 }
             }
-            System.out.print("Destination floor (1,2,3):  >");
+            System.out.print("Destination floor (1,2,3,4 for extra depot):  >");
             int destFloor = -1;
-            while(destFloor < 1 || destFloor > 3){
+            while(destFloor < 1 || destFloor > 4){
                 try {
                     destFloor = scanner.nextInt();
                 } catch (InputMismatchException e){
@@ -614,7 +614,7 @@ public class Cli extends ClientObservable implements View {
      */
     @Override
     public void displayToken(Token token) {
-        cliGraphics.printLorenzo(token);
+        System.out.println(token.getTokenAction().toString());
     }
 
     /**

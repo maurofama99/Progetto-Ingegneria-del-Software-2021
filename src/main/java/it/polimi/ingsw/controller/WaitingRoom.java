@@ -174,7 +174,7 @@ public class WaitingRoom {
     /**
      *
      * @param players Players whose virtual view we want.
-     * @return An Hash Map that asscoiates for every player is virtual view.
+     * @return An Hash Map that associates for every player is virtual view.
      */
     public HashMap<String, VirtualView> getPlayersVirtualView(ArrayList<Player> players){
         HashMap<String, VirtualView> result = new HashMap<>();

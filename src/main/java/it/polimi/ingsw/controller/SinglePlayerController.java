@@ -144,8 +144,21 @@ public class SinglePlayerController implements Observer {
 
     @Override
     public void update(Message message) throws IOException {
-        if (message.getMessageType() == Content.END_SOLOGAME)
-            endSoloGame(((EndSoloGame) message).isPlayerWinner());
+        switch (message.getMessageType()){
+            case END_SOLOGAME:
+                endSoloGame(((EndSoloGame) message).isPlayerWinner());
+                break;
+            case END_GAME:
+                endSoloGame(true);
+                break;
+            case TURN_FAVORTILE:
+                singlePlayer.getPersonalBoard().getFaithTrack().getTrack()
+                        .get(singlePlayer.getPersonalBoard().getFaithTrack()
+                                .getFaithMarkerPosition()).turnFavorAddPoints(singlePlayer, singlePlayer.getPersonalBoard()
+                                        .getFaithTrack().getFaithMarkerPosition());
+                break;
+
+        }
     }
 
 }

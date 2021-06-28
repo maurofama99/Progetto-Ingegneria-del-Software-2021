@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" > <!--fx:controller="it.polimi.ingsw.view.gui.scenes.SwitchPopupController"-->
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"> <!--fx:controller="it.polimi.ingsw.view.gui.scenes.SwitchPopupController"-->
     <top>
         <AnchorPane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -13,12 +13,12 @@
                     <image>
                         <Image url="@../other/background/sfondo_popup.jpg" />
                     </image></ImageView>
-            <Button fx:id="srcFloor1Btn" layoutX="37.0" layoutY="105.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button"  />
-            <Button fx:id="srcFloor2Btn" layoutX="37.0" layoutY="186.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button"  />
-            <Button fx:id="srcFloor3Btn" layoutX="37.0" layoutY="269.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button"  />
+            <Button fx:id="srcFloor1Btn" layoutX="37.0" layoutY="105.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" />
+            <Button fx:id="srcFloor2Btn" layoutX="37.0" layoutY="186.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button" />
+            <Button fx:id="srcFloor3Btn" layoutX="37.0" layoutY="269.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button" />
             <Button fx:id="dstnFloor1Btn" layoutX="471.0" layoutY="104.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl1Button" />
-            <Button fx:id="dstnFloor2Btn" layoutX="471.0" layoutY="184.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button"  />
-            <Button fx:id="dstnFloor3Btn" layoutX="471.0" layoutY="268.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button"  />
+            <Button fx:id="dstnFloor2Btn" layoutX="471.0" layoutY="184.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl2Button" />
+            <Button fx:id="dstnFloor3Btn" layoutX="471.0" layoutY="268.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="lvl3Button" />
             <ImageView fitHeight="74.0" fitWidth="183.0" layoutX="-4.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../other/texts/source.png" />
@@ -34,6 +34,7 @@
                 <Image url="@../other/texts/which_floors.png" />
                 </image>
                 </ImageView>
+            <Button fx:id="extra" layoutX="170.0" layoutY="332.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="261.0" text="Put one resource in the extra depot" />
             </children>
             <stylesheets>
                 <URL value="@../css/depo_popup.css" />

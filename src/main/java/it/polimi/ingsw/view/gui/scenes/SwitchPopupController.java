@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.network.messagescs.ResourcePlacement;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,8 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
     @FXML
     private Button dstnFloor3Btn;
     @FXML
+    private Button extra;
+    @FXML
     private BorderPane rootPane;
 
     /**
@@ -63,10 +66,11 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         dstnFloor1Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDstnFloor1BtnClicked);
         dstnFloor2Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDstnFloor2BtnClicked);
         dstnFloor3Btn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::whenDstnFloor3BtnClicked);
+        extra.addEventHandler(MouseEvent.MOUSE_CLICKED, this::extraButton);
         dstnFloor1Btn.setDisable(true);
         dstnFloor2Btn.setDisable(true);
         dstnFloor3Btn.setDisable(true);
-
+        extra.setVisible(false);
     }
 
     /**
@@ -125,6 +129,11 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         stage.close();
     }
 
+    private void extraButton(MouseEvent event) {
+        notifyObservers(new ResourcePlacement("client", "switch", src, 4));
+        stage.close();
+    }
+
     /**
      * Two methods for switching from active to not the buttons.
      */
@@ -138,6 +147,7 @@ public class SwitchPopupController extends ClientObservable implements GenericPo
         dstnFloor1Btn.setDisable(false);
         dstnFloor2Btn.setDisable(false);
         dstnFloor3Btn.setDisable(false);
+        extra.setVisible(true);
     }
 
     /**
