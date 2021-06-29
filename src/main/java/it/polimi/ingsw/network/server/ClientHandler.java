@@ -98,16 +98,6 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
 
-        ses.scheduleAtFixedRate( () -> {
-                    try {
-                        sendMessage(new Message("client", Content.HEARTBEAT));
-                    } catch (IOException e) {
-                        System.out.println(nickname + "is unreachable, connection dropped");
-                        gameController.forcedEndGame(nickname);
-                    }
-                },
-                0, 5, TimeUnit.SECONDS);
-
         try {
             output = new ObjectOutputStream(client.getOutputStream());
             input = new ObjectInputStream(client.getInputStream());
@@ -117,6 +107,7 @@ public class ClientHandler implements Runnable {
         }
 
         System.out.println("Connected to " + client.getInetAddress());
+
 
         try {
             handleClientConnection();
@@ -159,6 +150,16 @@ public class ClientHandler implements Runnable {
     private void handleClientConnection() throws IOException {
         System.out.println("Handling " + client.getInetAddress());
         sendMessage(new LoginRequest());
+
+        ses.scheduleAtFixedRate( () -> {
+                    try {
+                        sendMessage(new Message("client", Content.HEARTBEAT));
+                    } catch (IOException e) {
+                        System.out.println(nickname + " is unreachable, connection dropped");
+                        gameController.forcedEndGame(nickname);
+                    }
+                },
+                0, 5, TimeUnit.SECONDS);
 
         try {
             while (!stop) {

@@ -443,7 +443,7 @@ public class GameController implements Observer, Serializable {
     public void forcedEndGame(String nickname) {
         for (String key : vvMap.keySet()){
             for(Player player : table.getPlayers())
-                if (player.getNickname().equals(key)) {
+                if (player.getNickname().equals(key) && !player.getNickname().equals(nickname)) {
                     try {
                         vvMap.get(key).forcedEnd(nickname);
                     } catch (IOException ignored) {}

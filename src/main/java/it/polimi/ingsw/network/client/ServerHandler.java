@@ -13,6 +13,9 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -25,6 +28,7 @@ public class ServerHandler implements Runnable {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Client client;
+    private final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
 
     /**
@@ -54,6 +58,9 @@ public class ServerHandler implements Runnable {
             System.out.println("could not open connection to " + serverSocket.getInetAddress());
             return;
         }
+
+        ses.scheduleAtFixedRate( () -> sendMessage(new Message("server", Content.HEARTBEAT)),
+                0, 5, TimeUnit.SECONDS);
 
         try {
             handleServerConnection();

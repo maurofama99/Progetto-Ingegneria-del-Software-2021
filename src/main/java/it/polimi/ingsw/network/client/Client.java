@@ -193,8 +193,7 @@ public class Client implements Runnable, ClientObserver {
             localGameManager = new LocalGameManager(this);
             localGameManager.run();
         }
-        ses.scheduleAtFixedRate( () -> serverHandler.sendMessage(new Message("server", Content.HEARTBEAT)),
-               0, 5, TimeUnit.SECONDS);
+
     }
 
     /**
