@@ -7,7 +7,7 @@ import it.polimi.ingsw.controller.WaitingRoom;
 public class ServerManager {
 
     public static void main(String[] args) {
-        String usage = "Usage: java -jar server.jar -port portNumber";
+        String usage = "Usage: java -jar server.jar -port <port>";
         int i = 0;
         String arg;
         int SOCKET_PORT = -1;

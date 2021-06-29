@@ -22,6 +22,9 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A class that represents the client inside the server.
@@ -41,6 +44,7 @@ public class ClientHandler implements Runnable {
     private boolean solo = false;
     private boolean stop = false;
     private LocalGameManager localGameManager;
+    private final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
 
     public ClientHandler(Server server, Socket client, WaitingRoom waitingRoom) {
         this.server = server;
@@ -93,6 +97,16 @@ public class ClientHandler implements Runnable {
         } catch (SocketException e) {
             e.printStackTrace();
         }
+
+        ses.scheduleAtFixedRate( () -> {
+                    try {
+                        sendMessage(new Message("client", Content.HEARTBEAT));
+                    } catch (IOException e) {
+                        System.out.println(nickname + "is unreachable, connection dropped");
+                        gameController.forcedEndGame(nickname);
+                    }
+                },
+                0, 5, TimeUnit.SECONDS);
 
         try {
             output = new ObjectOutputStream(client.getOutputStream());
