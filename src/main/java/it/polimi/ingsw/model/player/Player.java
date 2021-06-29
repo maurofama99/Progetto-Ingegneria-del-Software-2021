@@ -2,16 +2,13 @@ package it.polimi.ingsw.model.player;
 
 
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.model.player.leadercards.*;
+import it.polimi.ingsw.model.player.leadercards.EffectType;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.Depot;
 import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.network.messagessc.GenericMessage;
-import it.polimi.ingsw.network.messagessc.NoAvailableResources;
-import it.polimi.ingsw.observerPattern.Observable;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ import java.util.Optional;
 /**
  * Class that models a player
  */
-public class Player extends Observable implements Serializable {
+public class Player implements Serializable {
 
     private final String nickname;
     private int turnOrder;
@@ -91,7 +88,6 @@ public class Player extends Observable implements Serializable {
         for (int index : indexes){
             leaderCards.remove(index);
         }
-        notifyObserver(new GenericMessage(leaderCards.toString()));
     }
 
     /**

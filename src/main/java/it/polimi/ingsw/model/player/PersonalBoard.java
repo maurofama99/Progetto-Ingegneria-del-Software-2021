@@ -5,14 +5,8 @@ import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
 import it.polimi.ingsw.model.player.warehouse.Warehouse;
-import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.resources.ResourceType;
-
-import it.polimi.ingsw.observerPattern.Observable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 /**
  * Class that models the player's personal board
