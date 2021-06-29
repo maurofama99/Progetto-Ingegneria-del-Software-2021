@@ -624,6 +624,7 @@ public class Cli extends ClientObservable implements View {
     @Override
     public void forcedEnd(String nickname) {
         System.out.println(nickname + " left the game. The match ends now.");
+
         System.exit(0);
     }
 

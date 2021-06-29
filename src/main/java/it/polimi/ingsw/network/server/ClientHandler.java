@@ -97,6 +97,7 @@ public class ClientHandler implements Runnable {
         } catch (SocketException e) {
             System.out.println(nickname + " is unreachable, connection dropped");
             gameController.forcedEndGame(nickname);
+            stop = true;
         }
 
         try {
@@ -109,18 +110,18 @@ public class ClientHandler implements Runnable {
 
         System.out.println("Connected to " + client.getInetAddress());
 
-
         try {
             handleClientConnection();
         } catch (SocketTimeoutException e ){
-            System.out.println(nickname + "kicked out for inactivity");
             gameController.forcedEndGame(nickname);
+            stop = true;
         }
         catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");
 
             try {
                 gameController.forcedEndGame(nickname);
+                stop = true;
             }  catch (NullPointerException ignore){}
 
             switch (numPlayers){
@@ -159,6 +160,7 @@ public class ClientHandler implements Runnable {
                     } catch (IOException e) {
                         System.out.println(nickname + " is unreachable, connection dropped");
                         gameController.forcedEndGame(nickname);
+                        stop = true;
                     }
                 },
                 0, 5, TimeUnit.SECONDS);
