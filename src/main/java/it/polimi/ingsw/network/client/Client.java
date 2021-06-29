@@ -91,16 +91,21 @@ public class Client implements Runnable, ClientObserver {
 
             switch (args[0]) {
                 case "-cli":
-                    if (args[1].equals("-port") && args.length <= 3) {
-                        try {
-                            cli = true;
-                            solo = false;
-                            SOCKET_PORT = Integer.parseInt(args[2]);
-                        } catch (NumberFormatException e) {
-                            System.err.println("-port requires a port number\n" + usage);
+                    try {
+                        if (args[1].equals("-port") && args.length <= 3) {
+                            try {
+                                cli = true;
+                                solo = false;
+                                SOCKET_PORT = Integer.parseInt(args[2]);
+                            } catch (NumberFormatException e) {
+                                System.err.println("-port requires a port number\n" + usage);
+                                break;
+                            }
+                        } else {
+                            System.err.println(usage);
                             break;
                         }
-                    } else {
+                    } catch (IndexOutOfBoundsException e){
                         System.err.println(usage);
                         break;
                     }
@@ -188,8 +193,8 @@ public class Client implements Runnable, ClientObserver {
             localGameManager = new LocalGameManager(this);
             localGameManager.run();
         }
-        //ses.scheduleAtFixedRate( () -> serverHandler.sendMessage(new Message("server", Content.HEARTBEAT)),
-        //        0, 5, TimeUnit.SECONDS);
+        ses.scheduleAtFixedRate( () -> serverHandler.sendMessage(new Message("server", Content.HEARTBEAT)),
+               0, 5, TimeUnit.SECONDS);
     }
 
     /**
