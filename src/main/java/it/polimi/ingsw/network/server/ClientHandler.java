@@ -93,9 +93,10 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         try {
-            client.setSoTimeout(1500000);
+            client.setSoTimeout(6000);
         } catch (SocketException e) {
-            e.printStackTrace();
+            System.out.println(nickname + " is unreachable, connection dropped");
+            gameController.forcedEndGame(nickname);
         }
 
         try {
@@ -154,6 +155,7 @@ public class ClientHandler implements Runnable {
         ses.scheduleAtFixedRate( () -> {
                     try {
                         sendMessage(new Message("client", Content.HEARTBEAT));
+                        System.out.println("Sent HeartBeat:" + client.getInetAddress());
                     } catch (IOException e) {
                         System.out.println(nickname + " is unreachable, connection dropped");
                         gameController.forcedEndGame(nickname);
@@ -218,7 +220,7 @@ public class ClientHandler implements Runnable {
     //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
     public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         if (msg.getMessageType() == Content.HEARTBEAT){
-            System.out.println("H: " + client.getInetAddress());
+            System.out.println("Received HeartBeat: " + client.getInetAddress());
         }
         else if (msg.getMessageType() == Content.LOGIN_DATA) {
             if (waitingRoom.nicknameAlreadyPresent(((LoginData)msg).getNickname()) || ((((LoginData)msg).getNumPlayers() > 4 && ((LoginData)msg).getNumPlayers()<1))) {
