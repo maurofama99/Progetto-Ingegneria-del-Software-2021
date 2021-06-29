@@ -11,7 +11,6 @@ import it.polimi.ingsw.network.messagescs.LoginData;
 import it.polimi.ingsw.network.messagessc.GenericPopup;
 import it.polimi.ingsw.network.messagessc.LoginRequest;
 import it.polimi.ingsw.view.VirtualView;
-import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,11 +18,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,6 +43,7 @@ public class ClientHandler implements Runnable {
     private boolean stop = false;
     private LocalGameManager localGameManager;
     private final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture<?> result;
 
     public ClientHandler(Server server, Socket client, WaitingRoom waitingRoom) {
         this.server = server;
@@ -97,7 +96,7 @@ public class ClientHandler implements Runnable {
         } catch (SocketException e) {
             System.out.println(nickname + " is unreachable, connection dropped");
             gameController.forcedEndGame(nickname);
-            stop = true;
+            result.cancel(true);
         }
 
         try {
@@ -114,14 +113,14 @@ public class ClientHandler implements Runnable {
             handleClientConnection();
         } catch (SocketTimeoutException e ){
             gameController.forcedEndGame(nickname);
-            stop = true;
+            result.cancel(true);
         }
         catch (IOException e) {
             System.out.println("client " + client.getInetAddress() + " connection dropped");
 
             try {
                 gameController.forcedEndGame(nickname);
-                stop = true;
+                result.cancel(true);
             }  catch (NullPointerException ignore){}
 
             switch (numPlayers){
@@ -153,7 +152,7 @@ public class ClientHandler implements Runnable {
         System.out.println("Handling " + client.getInetAddress());
         sendMessage(new LoginRequest());
 
-        ses.scheduleAtFixedRate( () -> {
+        result = ses.scheduleAtFixedRate( () -> {
                     try {
                         sendMessage(new Message("client", Content.HEARTBEAT));
                         System.out.println("Sent HeartBeat:" + client.getInetAddress());
@@ -162,7 +161,7 @@ public class ClientHandler implements Runnable {
                         gameController.forcedEndGame(nickname);
                         stop = true;
                     }
-                },
+                 },
                 0, 5, TimeUnit.SECONDS);
 
         try {
