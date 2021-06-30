@@ -41,7 +41,22 @@ public class Warehouse{
 
         if (!checkAvailabilityWarehouse(resources))
             throw new NoSuchElementException("You do not have enough resources");
+
         else {
+            for (Resource res : resources) {
+                for (int k = 0; k < 2; k++) {
+                    if (getDepot().getExtraFloors().get(k).isPresent() && res.getType().equals(getDepot().getExtraFloors().get(k).get().getType())) {
+                        if (res.getQnt() < getDepot().getExtraFloors().get(k).get().getQnt()) {
+                            getDepot().getExtraFloors().get(k).get().setQnt(0);
+                            res.setQnt(0);
+                        }
+                        else {
+                            res.setQnt(res.getQnt() - getDepot().getExtraFloors().get(k).get().getQnt());
+                            getDepot().getExtraFloors().get(k).get().setQnt(getDepot().getExtraFloors().get(k).get().getQnt() - res.getQnt());
+                        }
+                    }
+                }
+            }
             if (getDepot().checkAvailabilityDepot(resources) != null) {
                 for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {
                     getStrongBox().removeResourceStrongBox(resource);
@@ -50,9 +65,9 @@ public class Warehouse{
             for (Resource res : resources) {
                 for (int i = 0; i < 3; i++) {
                     if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
-                        if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt())
+                        if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt()) {
                             getDepot().getFloors().set(i, Optional.empty());
-
+                        }
                         else {
                             getDepot().getFloors().get(i).get().setQnt(getDepot().getFloors().get(i).get().getQnt() - res.getQnt());
                             if (getDepot().getFloors().get(i).get().getQnt() == 0)
@@ -73,7 +88,7 @@ public class Warehouse{
     public boolean checkAvailabilityWarehouse (ArrayList<Resource> resources) throws CloneNotSupportedException {
         if (getDepot().checkAvailabilityDepot(resources) != null){
             for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {
-                if (!getStrongBox().checkAvailabilityStrongBox(resource)) {
+                if (!getStrongBox().checkAvailabilityStrongBox(resource)){
                     return false;
                 }
             }

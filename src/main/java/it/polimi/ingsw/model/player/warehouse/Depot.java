@@ -177,6 +177,17 @@ public class Depot {
         for (Resource resource : resources){
             resourcesToCheck.add((Resource) resource.clone());
         }
+        for (Resource resource: resourcesToCheck){
+            for (int k=0; k<2;k++) {
+                if (extraFloors.get(k).isPresent() && resource.getType().equals(extraFloors.get(k).get().getType())) {
+                    if (resource.getQnt() < extraFloors.get(k).get().getQnt()) {
+                        resourcesToCheck.remove(resource);
+                    }
+                    else resource.setQnt(resource.getQnt() - extraFloors.get(k).get().getQnt());
+                }
+            }
+        }
+
         int j=0;
         boolean checked = false;
         while (j<resourcesToCheck.size()) {
@@ -198,5 +209,6 @@ public class Depot {
         if (missingResources.size() == 0) return null;
         else return missingResources;
     }
+
 
 }
