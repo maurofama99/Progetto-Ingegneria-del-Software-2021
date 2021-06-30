@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import java.net.URL?>
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="400.0" prefWidth="606.0" BorderPane.alignment="CENTER">
@@ -13,9 +13,9 @@
                   <Image url="@../board/slot.png" />
                </image>
             </ImageView>
-            <ImageView styleClass="imageBtn" fx:id="leftSlot" fitHeight="205.0" fitWidth="155.0" layoutX="24.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView styleClass="imageBtn" fx:id="centerSlot" fitHeight="205.0" fitWidth="155.0" layoutX="211.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView styleClass="imageBtn" fx:id="rightSlot" fitHeight="205.0" fitWidth="155.0" layoutX="402.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="leftSlot" fitHeight="240.0" fitWidth="160.0" layoutX="21.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn" />
+            <ImageView fx:id="centerSlot" fitHeight="240.0" fitWidth="160.0" layoutX="211.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn" />
+            <ImageView fx:id="rightSlot" fitHeight="240.0" fitWidth="160.0" layoutX="402.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" styleClass="imageBtn" />
          </children>
          <stylesheets>
             <URL value="@../css/devcard_display.css" />

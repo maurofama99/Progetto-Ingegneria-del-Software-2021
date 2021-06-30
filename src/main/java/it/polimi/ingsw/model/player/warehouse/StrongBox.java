@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
- * the strongbox is an array of the 4 resources that can be stored, in alfhabetic order and with
+ * the strongbox is an array of the 4 resources that can be stored, in alfabetic order and with
  * an initialized quantity of 0. Only productions power store their things here
  */
 public class StrongBox{
@@ -16,10 +16,10 @@ public class StrongBox{
     private final Resource[] storedResources = new Resource[4];
 
     public StrongBox() {
-        this.storedResources[0] = new Resource(20, ResourceType.COIN);
-        this.storedResources[1] = new Resource(20, ResourceType.SERVANT);
-        this.storedResources[2] = new Resource(20, ResourceType.SHIELD);
-        this.storedResources[3] = new Resource(20, ResourceType.STONE);
+        this.storedResources[0] = new Resource(0, ResourceType.COIN);
+        this.storedResources[1] = new Resource(0, ResourceType.SERVANT);
+        this.storedResources[2] = new Resource(0, ResourceType.SHIELD);
+        this.storedResources[3] = new Resource(0, ResourceType.STONE);
     }
 
     public Resource[] getStoredResources() {
