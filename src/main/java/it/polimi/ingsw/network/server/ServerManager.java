@@ -5,7 +5,10 @@ import it.polimi.ingsw.controller.WaitingRoom;
  * ServerManager is the class that starts a server for the game.
  */
 public class ServerManager {
-
+    /**
+     * Used to start the server. We specify the port in the usage (if it is not GUI)
+     * @param args the port of the server
+     */
     public static void main(String[] args) {
         String usage = "Usage: java -jar server.jar -port <port>";
         int i = 0;

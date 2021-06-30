@@ -148,6 +148,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles the client connection and sends the heartbeats to ensure it is still active
+     * @throws IOException
+     */
     private void handleClientConnection() throws IOException {
         System.out.println("Handling " + client.getInetAddress());
         sendMessage(new LoginRequest());
@@ -195,6 +199,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Removes a player who disconnected before the game started (while he was in the waiting room)
+     * @param iter
+     */
     public void removeDisconnectedPlayer(Iterator<Player> iter){
         while (iter.hasNext()){
             Player player = iter.next();

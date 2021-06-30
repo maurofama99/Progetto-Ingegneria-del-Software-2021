@@ -165,6 +165,9 @@ public class Client implements Runnable, ClientObserver {
 
     }
 
+    /**
+     * Run method for the CLI game. Asks for the IP of the server (Port is already specified). Also starts the local CLI game.
+     */
     @Override
     public void run() {
         if(cli) {
@@ -293,12 +296,21 @@ public class Client implements Runnable, ClientObserver {
             }
     }
 
+    /**
+     * Connects the gui to the server, using the parameters specified in the connection scene
+     * @param ip ip written in the connection scene
+     * @param server port in the connection scene
+     */
     public void startGuiGame(String ip, Socket server){
         serverHandler = new ServerHandler(server, this, ip);
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
     }
 
+    /**
+     * Updates the game using a message.
+     * @param message the message sent
+     */
     @Override
     public void update(Message message) {
         if (message.getMessageType() == Content.LOGIN_DATA){
