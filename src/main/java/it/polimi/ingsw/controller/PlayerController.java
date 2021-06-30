@@ -51,6 +51,12 @@ public class PlayerController {
         return gameController.getVvMap().get(gameController.getTable().getCurrentPlayer().getNickname());
     }
 
+    public ArrayList<Resource> getResourcesToAdd() {
+        return resourcesToAdd;
+    }
+
+
+
     /**
      * Dispatches the message received by the client to the specific method that manages the player action.
      * @param msg the message received by the client
@@ -528,7 +534,6 @@ public class PlayerController {
                 player.getPersonalBoard().getFaithTrack().moveForward(player, faithPoints);
         }
     }
-
 
     public ArrayList<Resource> hasDiscountEffect(ArrayList<Resource> requirements){
         if (getPlayerPB().hasEffect(EffectType.DISCOUNT)){

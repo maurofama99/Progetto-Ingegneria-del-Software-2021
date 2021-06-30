@@ -72,6 +72,10 @@ public class GameController implements Observer, Serializable {
         return singlePlayer;
     }
 
+    public void setSinglePlayer(boolean singlePlayer) {
+        this.singlePlayer = singlePlayer;
+    }
+
     public Resource getResourceChosen() {
         return resourceChosen;
     }

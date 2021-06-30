@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
- * A class that represents the server inside the client.
+ * Manages and handles connection with the remote server
  */
 public class ServerHandler implements Runnable {
     private String ip;

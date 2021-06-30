@@ -1,7 +1,11 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.leadercards.Discount;
+import it.polimi.ingsw.model.player.leadercards.LeaderCard;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
@@ -54,6 +58,7 @@ public class GameControllerTest {
         vvMap.put(gameController.getTable().getCurrentPlayer().getNickname(), vv);
         gameController.setVvMap(vvMap);
         playerController = new PlayerController(gameController);
+        gameController.setPlayerController(playerController);
 
         objectOutputStream = new ObjectOutputStream(new OutputStream() {
             @Override
@@ -104,12 +109,20 @@ public class GameControllerTest {
     }
 
     @Test
-    public void testFinalizeProduction(){
+    public void testFinalizeProduction() throws IOException {
 
-    }
+        gameController.getPlayerController().finalizeProduction();
+        assertTrue(gameController.getPlayerController().getResourcesToAdd().isEmpty());
 
-    @Test
-    public void testHasTwoLeaderCards(){
+        gameController.getPlayerController().getResourcesToAdd().add(new Resource(1, ResourceType.STONE));
+        gameController.getPlayerController().getResourcesToAdd().add(new Resource(1, ResourceType.COIN));
+        gameController.getPlayerController().getResourcesToAdd().add(new Resource(1, ResourceType.FAITHPOINT));
+
+        assertFalse(gameController.getPlayerController().getResourcesToAdd().isEmpty());
+
+        gameController.getPlayerController().finalizeProduction();
+
+        assertTrue(gameController.getPlayerController().getResourcesToAdd().isEmpty());
 
     }
 
@@ -120,11 +133,25 @@ public class GameControllerTest {
 
     @Test
     public void hasDiscountEffect(){
-
+        ArrayList<Resource> requirements = new ArrayList<>();
+        ArrayList<Color> colors = new ArrayList<>();
+        colors.add(Color.BLUE);
+        requirements.add(new Resource(1, ResourceType.STONE));
+        requirements.add(new Resource(1, ResourceType.COIN));
+        gameController.getPlayerController().getPlayerPB().getActiveLeaderCards().add(new LeaderCard(10, new Discount(ResourceType.STONE, colors)));
+        int prev = requirements.get(0).getQnt();
+        gameController.getPlayerController().hasDiscountEffect(requirements);
+        assertEquals(prev, requirements.get(0).getQnt()+1);
+        gameController.getPlayerController().getPlayerPB().getActiveLeaderCards().add(new LeaderCard(10, new Discount(ResourceType.COIN, colors)));
+        prev = requirements.get(1).getQnt();
+        gameController.getPlayerController().hasDiscountEffect(requirements);
+        assertEquals(prev, requirements.get(1).getQnt()+1);
     }
 
     @Test
-    public void addFaithPointsToOpponent(){}
+    public void addFaithPointsToOpponent(){
+        gameController.setSinglePlayer(true);
+    }
 
 
 
