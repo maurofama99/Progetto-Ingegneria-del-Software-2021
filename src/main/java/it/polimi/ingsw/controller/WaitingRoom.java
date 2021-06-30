@@ -58,7 +58,10 @@ public class WaitingRoom {
         if (msg.getMessageType() == Content.LOGIN_DATA) {
             playerInWait(((LoginData) msg).getNickname(), ((LoginData) msg).getNumPlayers());
             boolean bool = checkGameStart();
-            if (!bool) vv.displayGenericMessage("Please wait for other players to join...");
+            if (!bool) {
+                vv.displayGenericMessage("Please wait for other players to join...");
+                vv.displayPopup("Please wait for other players to join...");
+            }
         } else throw new InvalidObjectException("Received message should be Login Data.");
 
     }

@@ -73,11 +73,6 @@ public class ExtraProdPopupController extends ClientObservable implements Generi
             eprpc.addAllClientObservers(clientObservers);
             SceneController.showPopup(eprpc, "resource_choosing_popup.fxml");
         });
-        Platform.runLater(() -> {
-            PopupSceneController psc = new PopupSceneController("You can choose a type of resource you want");
-            psc.addAllClientObservers(clientObservers);
-            SceneController.showPopup(psc, "popup_scene.fxml");
-        });
 
         stage.close();
     }

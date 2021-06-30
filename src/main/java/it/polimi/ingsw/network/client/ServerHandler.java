@@ -30,20 +30,18 @@ public class ServerHandler implements Runnable {
     private Client client;
     private final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     private AtomicBoolean shouldStop = new AtomicBoolean(false);
+    private boolean cli=false;
+    private final boolean gui;
 
     /**
-     * Initializes a new handler using a specific socket connected to
-     * a server.
+     * Initializes a new handler using a specific socket connected to a server.
      * @param serverSocket The socket connection to the server.
      */
-    ServerHandler(Socket serverSocket, Client client, String ip) {
+    ServerHandler(Socket serverSocket, Client client, String ip, boolean cliOrGui) {
         this.serverSocket = serverSocket;
         this.client = client;
         this.ip = ip;
-    }
-
-    public ServerHandler(Client client) {
-        this.client = client;
+        gui = !cliOrGui;
     }
 
     /**
@@ -132,16 +130,13 @@ public class ServerHandler implements Runnable {
             output.reset();
         } catch (IOException e) {
             System.out.println("Communication error, server is unreachable. Game ends now.");
-            Platform.runLater(()-> {
-                EndPopupSceneController epsc = new EndPopupSceneController("Communication error, server is unreachable. Game ends now.");
-                SceneController.showPopup(epsc, "popup_scene.fxml");
-            });
-            client.getSes().shutdown();
-            try {
-                client.receiveMessage(new Message("client", Content.FORCEDEND));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+            if (gui) {
+                Platform.runLater(() -> {
+                    EndPopupSceneController epsc = new EndPopupSceneController("Communication error, server is unreachable. Game ends now.");
+                    SceneController.showPopup(epsc, "popup_scene.fxml");
+                });
             }
+            client.getSes().shutdown();
             System.exit(0);
         }
     }

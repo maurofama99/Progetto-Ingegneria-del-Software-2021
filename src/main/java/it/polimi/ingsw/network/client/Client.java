@@ -41,12 +41,13 @@ public class Client implements Runnable, ClientObserver {
         this.cli = true;
     }
 
+    /*
     public Client(View view, int SOCKET_PORT, String ip) {
         this.view = view;
         this.SOCKET_PORT = SOCKET_PORT;
         this.ip = ip;
         this.gui=true;
-    }
+    }*/
 
     public Client(View view) {
         this.view = view;
@@ -186,7 +187,7 @@ public class Client implements Runnable, ClientObserver {
                     tryConnection(ip, SOCKET_PORT);
                 }
                 System.out.println("Connected");
-                serverHandler = new ServerHandler(server, this, ip);
+                serverHandler = new ServerHandler(server, this, ip, cli);
                 Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
                 serverHandlerThread.start();
 
@@ -302,7 +303,7 @@ public class Client implements Runnable, ClientObserver {
      * @param server port in the connection scene
      */
     public void startGuiGame(String ip, Socket server){
-        serverHandler = new ServerHandler(server, this, ip);
+        serverHandler = new ServerHandler(server, this, ip, false);
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
     }

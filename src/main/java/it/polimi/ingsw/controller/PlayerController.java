@@ -613,7 +613,6 @@ public class PlayerController {
             resourcesToAdd.clear();
             playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
         }
-
     }
 
     /**
