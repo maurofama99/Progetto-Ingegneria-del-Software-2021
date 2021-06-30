@@ -39,6 +39,10 @@ public class PlayerController {
         this.playerAction = PlayerAction.WAITING;
     }
 
+    public PlayerAction getPlayerAction() {
+        return playerAction;
+    }
+
     public void setPlayerAction(PlayerAction playerAction) {
         this.playerAction = playerAction;
     }
@@ -442,13 +446,14 @@ public class PlayerController {
             case ACTIVATE_EXTRAPRODUCTION:
 
                 if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
-                    if (!alreadyAskedExtra) {
+                    if (!hasTwoExtraProduction()) finalizeProduction();
+                    else if (!alreadyAskedExtra) {
                         hasTwoExtraProduction();
                         alreadyAskedExtra = true;
                     }
                     else {
                         displayPB();
-                        playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                        finalizeProduction();
                     }
 
                 }
@@ -457,11 +462,13 @@ public class PlayerController {
                         getPlayerPB().getWarehouse().removeResources(resourcesToRemove);
                         resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
                         resourcesToAdd.add(new Resource(1, ResourceType.FAITHPOINT));
-                        if (!alreadyAskedExtra) {
+                        if (!hasTwoExtraProduction()) finalizeProduction();
+                        else if (!alreadyAskedExtra) {
                             hasTwoExtraProduction();
                             alreadyAskedExtra = true;
                         }
                         else finalizeProduction();
+
                     }
                     catch (NoSuchElementException e){
                         playerVV().displayGenericMessage(e.getMessage());
@@ -543,13 +550,15 @@ public class PlayerController {
      * Checks if the player has two extra production leader cards, if so it sends another extra production request to client.
      * @throws IOException If virtual view fails to send message.
      */
-    public void hasTwoExtraProduction() throws IOException {
-        if (!(getPlayerPB().getActiveLeaderCards().size()==1) &&
-                getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
-                getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
-         {
+    public boolean hasTwoExtraProduction() throws IOException {
+        if (getPlayerPB().getActiveLeaderCards().size()==1) return false;
+        else if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
+                !getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
+            return false;
+        else {
             playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
             resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+            return true;
         }
     }
 

@@ -24,7 +24,7 @@ public class WaitingRoom {
     private final ArrayList<Player> threePlayersArray = new ArrayList<>();
     private final ArrayList<Player> fourPlayersArray = new ArrayList<>();
     private final HashMap<String, VirtualView> vvMap = new HashMap<>();
-    private final HashMap<String, ClientHandler> playerClientHandlerHashMap = new HashMap<>();
+    private  HashMap<String, ClientHandler> playerClientHandlerHashMap = new HashMap<>();
 
     public HashMap<String, ClientHandler> getPlayerClientHandlerHashMap() {
         return playerClientHandlerHashMap;
@@ -32,6 +32,10 @@ public class WaitingRoom {
 
     public HashMap<String, VirtualView> getVvMap() {
         return vvMap;
+    }
+
+    public ArrayList<Player> getSinglePlayerArray() {
+        return singlePlayerArray;
     }
 
     public ArrayList<Player> getTwoPlayersArray() {
@@ -71,7 +75,7 @@ public class WaitingRoom {
      * @return True if a game is starting.
      * @throws IOException If virtual view fails to send message.
      */
-    private boolean checkGameStart() throws IOException {
+    public boolean checkGameStart() throws IOException {
         if (singlePlayerArray.size()==1){
             setupSingleController(singlePlayerArray);
             singlePlayerArray.clear();
@@ -112,7 +116,6 @@ public class WaitingRoom {
         result.put(players.get(0).getNickname(), singlePlayerController.getVirtualView());
         singlePlayerController.getGameController().setVvMap(result);
 
-        playerClientHandlerHashMap.get(players.get(0).getNickname()).setStarted(true);
         playerClientHandlerHashMap.get(players.get(0).getNickname()).setSinglePlayer(true);
         playerClientHandlerHashMap.get(players.get(0).getNickname()).setSinglePlayerController(singlePlayerController);
 
@@ -134,7 +137,6 @@ public class WaitingRoom {
             gc.getTable().setNumPlayers(playersArray.size());
         }
         for(Player player : playersArray){
-            playerClientHandlerHashMap.get(player.getNickname()).setStarted(true);
             playerClientHandlerHashMap.get(player.getNickname()).setGameController(gc);
         }
         gc.startGame();
@@ -145,7 +147,7 @@ public class WaitingRoom {
      * @param nickname Nickname of the player.
      * @param numPlayers Desired number of player of the game by the player.
      */
-    private void playerInWait(String nickname, int numPlayers) {
+    public void playerInWait(String nickname, int numPlayers) {
         switch (numPlayers){
             case 1:
                 singlePlayerArray.add(new Player(nickname));

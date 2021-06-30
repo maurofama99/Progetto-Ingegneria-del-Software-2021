@@ -36,12 +36,6 @@ public class ResourcePlacement extends Message {
         this.sourceFloor = sourceFloor;
     }
 
-    public ResourcePlacement(String senderUser, String floor, String type) {
-        super(senderUser, "server", Content.RESOURCE_PLACEMENT);
-        this.floor = floor;
-        this.type = type;
-    }
-
     public String getFloor() {
         return floor;
     }

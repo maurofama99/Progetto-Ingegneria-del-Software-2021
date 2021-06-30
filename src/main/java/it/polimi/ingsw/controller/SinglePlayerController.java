@@ -39,6 +39,10 @@ public class SinglePlayerController implements Observer {
         return singlePlayer;
     }
 
+    public SinglePlayerTableState getSinglePlayerTableState() {
+        return singlePlayerTableState;
+    }
+
     public VirtualView getVirtualView() {
         return vv;
     }
@@ -114,7 +118,7 @@ public class SinglePlayerController implements Observer {
                     (CliColor.ANSI_BLUE.escape() +
                             "--------------------------------\n" +
                             "|           YOU LOST!          |\n" +
-                            "|     LORENZO IL MAGNIFICO      |" +
+                            "|     LORENZO IL MAGNIFICO     |" +
                             "|    PLAYED BETTER THAN YOU!   |\n" +
                             "--------------------------------\n" + CliColor.RESET);
             vv.displayPopup("YOU LOST!\nLORENZO IL MAGNIFICO DEFEATED YOU.");

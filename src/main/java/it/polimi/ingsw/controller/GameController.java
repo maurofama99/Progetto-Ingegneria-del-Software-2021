@@ -68,10 +68,6 @@ public class GameController implements Observer, Serializable {
         return singlePlayerController;
     }
 
-    public TableState getTableState() {
-        return tableState;
-    }
-
     public boolean isSinglePlayer() {
         return singlePlayer;
     }
@@ -80,12 +76,24 @@ public class GameController implements Observer, Serializable {
         return resourceChosen;
     }
 
+    public TableState getTableState() {
+        return tableState;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
     public void setTable(Table table) {
         this.table = table;
     }
 
     public void setEndPlayerNumber(int endPlayerNumber) {
         this.endPlayerNumber = endPlayerNumber;
+    }
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
     }
 
     public void setTableState(TableState tableState) {

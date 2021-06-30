@@ -67,6 +67,10 @@ public class Player implements Serializable {
         this.turnOrder = turnOrder;
     }
 
+    public void setCounterDevCards(int counterDevCards) {
+        this.counterDevCards = counterDevCards;
+    }
+
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
     }

@@ -37,7 +37,6 @@ public class ClientHandler implements Runnable {
     private GameController gameController;
     private SinglePlayerController singlePlayerController;
     private final WaitingRoom waitingRoom;
-    private boolean started = false;
     private boolean singlePlayer = false;
     private boolean solo = false;
     private boolean stop = false;
@@ -72,16 +71,16 @@ public class ClientHandler implements Runnable {
         this.singlePlayerController = singlePlayerController;
     }
 
+    public void setOutput(ObjectOutputStream output) {
+        this.output = output;
+    }
+
     public void setSinglePlayer(boolean singlePlayer) {
         this.singlePlayer = singlePlayer;
     }
 
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
-    }
-
-    public void setStarted(boolean started) {
-        this.started = started;
     }
 
     /**

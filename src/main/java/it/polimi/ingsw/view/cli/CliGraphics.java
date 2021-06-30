@@ -209,16 +209,16 @@ public class CliGraphics {
         }
         System.out.println(s);
         if (lc.size()==1){
-            printExtraDepot(wH, lc, 0);
+            printExtraLeader(wH, lc, 0);
         }
         else if (lc.size()==2){
-            printExtraDepot(wH, lc, 0 );
-            printExtraDepot(wH, lc, 1 );
+            printExtraLeader(wH, lc, 0 );
+            printExtraLeader(wH, lc, 1 );
         }
     }
 
-    private void printExtraDepot(SerializableWarehouse wH, ArrayList<LeaderCard> lc, int i) {
-        System.out.print(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(0)));
+    private void printExtraLeader(SerializableWarehouse wH, ArrayList<LeaderCard> lc, int i) {
+        System.out.print(CliColor.ANSI_BRED.escape() + "LEADER EFFECT ACTIVATED: " +CliColor.RESET + printEffect(lc.get(i)));
         if (lc.get(i).getLeaderEffect().getEffectType().equals(EffectType.EXTRADEPOT)){
             System.out.println("You have: " + wH.getExtraFloors().get(i).getQnt() + printRes(wH.getExtraFloors().get(i))+" in this extra depot\n");
         }
