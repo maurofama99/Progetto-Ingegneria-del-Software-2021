@@ -484,27 +484,31 @@ public class Cli extends ClientObservable implements View {
      */
     @Override
     public void fetchPlayLeader(ArrayList<LeaderCard> leaderCards, boolean isEndTurn) throws IOException {
-        modelView.setLeaderCards(leaderCards);
-        cliGraphics.showLeaderCards(leaderCards);
-        System.out.print("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)\n>");
-        Scanner scanner = new Scanner(System.in);
-        String action = scanner.nextLine();
-        action = action.replaceAll("\\s+","");
-        while (!action.equalsIgnoreCase("activate") && !action.equalsIgnoreCase("discard") && !action.equalsIgnoreCase("no")){
-            System.out.print("Invalid input, try again!\n>");
-            action = scanner.nextLine();
-            action = action.replaceAll("\\s+","");
-        }
+        if(leaderCards.size()!=0) {
+            modelView.setLeaderCards(leaderCards);
+            cliGraphics.showLeaderCards(leaderCards);
+            System.out.print("\nDo you want to activate or discard a leader card? (Type ACTIVATE or DISCARD or NO)\n>");
+            Scanner scanner = new Scanner(System.in);
+            String action = scanner.nextLine();
+            action = action.replaceAll("\\s+", "");
+            while (!action.equalsIgnoreCase("activate") && !action.equalsIgnoreCase("discard") && !action.equalsIgnoreCase("no")) {
+                System.out.print("Invalid input, try again!\n>");
+                action = scanner.nextLine();
+                action = action.replaceAll("\\s+", "");
+            }
 
-        if (action.equalsIgnoreCase("ACTIVATE")) {
-            System.out.print("Choose the leader card you want to activate (insert index)\n>");
-            int index = chooseLeader(leaderCards, scanner);
-            notifyObservers(new ActivateLeader(index - 1, isEndTurn));
-        } else if (action.equalsIgnoreCase("DISCARD")){
-            System.out.print("Choose the leader card you want to discard (insert index)\n>");
-            int index = chooseLeader(leaderCards, scanner);
-            notifyObservers(new DiscardOneLeader(index - 1, isEndTurn));
-        } else if (action.equalsIgnoreCase("NO")){
+            if (action.equalsIgnoreCase("ACTIVATE")) {
+                System.out.print("Choose the leader card you want to activate (insert index)\n>");
+                int index = chooseLeader(leaderCards, scanner);
+                notifyObservers(new ActivateLeader(index - 1, isEndTurn));
+            } else if (action.equalsIgnoreCase("DISCARD")) {
+                System.out.print("Choose the leader card you want to discard (insert index)\n>");
+                int index = chooseLeader(leaderCards, scanner);
+                notifyObservers(new DiscardOneLeader(index - 1, isEndTurn));
+            } else if (action.equalsIgnoreCase("NO")) {
+                afterLeaderAction(isEndTurn, leaderCards);
+            }
+        } else {
             afterLeaderAction(isEndTurn, leaderCards);
         }
 
