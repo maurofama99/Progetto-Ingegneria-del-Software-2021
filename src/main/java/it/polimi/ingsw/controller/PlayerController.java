@@ -404,7 +404,6 @@ public class PlayerController {
     public void activateProduction(Message msg) throws IOException, CloneNotSupportedException {
         switch (msg.getMessageType()){
             case ACTIVATE_PRODUCTION:
-
                 if (((ActivateProduction)msg).getSlot1()==1 ){
                     try {
                         resourcesToAdd.addAll(gameController.getTable().getCurrentPlayer().activateProd(0));
@@ -436,30 +435,16 @@ public class PlayerController {
                 }
 
                 if (((ActivateProduction)msg).getBasic()==0) {
-                    if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)) {
-                        if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
-                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
-                            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
-                        } else if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
-                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-                            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-                        }
-                    }
-                    else finalizeProduction();
+                    askExtraProduction();
                 }
                 break;
 
             case ACTIVATE_EXTRAPRODUCTION:
-
                 if (((ActivateExtraProd)msg).getType().equals(ResourceType.NULLRESOURCE)){
                     if (!hasTwoExtraProduction()) finalizeProduction();
-                    else if (!alreadyAskedExtra) {
-                        hasTwoExtraProduction();
-                        alreadyAskedExtra = true;
-                    }
                     else {
-                        displayPB();
-                        finalizeProduction();
+                        resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+                        playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
                     }
 
                 }
@@ -469,11 +454,10 @@ public class PlayerController {
                         resourcesToAdd.add(new Resource(1, ((ActivateExtraProd) msg).getType()));
                         resourcesToAdd.add(new Resource(1, ResourceType.FAITHPOINT));
                         if (!hasTwoExtraProduction()) finalizeProduction();
-                        else if (!alreadyAskedExtra) {
-                            hasTwoExtraProduction();
-                            alreadyAskedExtra = true;
+                        else{
+                            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+                            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
                         }
-                        else finalizeProduction();
 
                     }
                     catch (NoSuchElementException e){
@@ -506,18 +490,25 @@ public class PlayerController {
                         playerVV().displayPopup("You don't have the requirements to do this production");
                     }
 
-                    if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)){
-                        for (int j = 0; j< getPlayerPB().getActiveLeaderCards().size(); j++){
-                            if (getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
-                                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(j).getLeaderEffect().getObject());
-                            }
-                        }
-                    }
-                    else {
-                        finalizeProduction();
-                    }
+                    askExtraProduction();
                 }
                 break;
+        }
+    }
+
+    public void askExtraProduction() throws IOException {
+        if (getPlayerPB().hasEffect(EffectType.ADDPRODUCTION)) {
+            if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
+                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
+                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getObject());
+            }
+            else if (getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)) {
+                playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+                resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
+            }
+        }
+        else {
+            finalizeProduction();
         }
     }
 
@@ -557,14 +548,14 @@ public class PlayerController {
      */
     public boolean hasTwoExtraProduction() throws IOException {
         if (getPlayerPB().getActiveLeaderCards().size()==1) return false;
-        else if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) ||
-                !getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
-            return false;
-        else {
-            playerVV().fetchExtraProd((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-            resourcesToRemove.add((Resource) getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getObject());
-            return true;
+        else if (getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
+                getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION)){
+            if (!alreadyAskedExtra){
+                alreadyAskedExtra = true;
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -606,8 +597,8 @@ public class PlayerController {
      * @throws IOException If virtual view fails to send message
      */
     public void finalizeProduction() throws IOException {
-        alreadyAskedExtra=false;
         resourcesToRemove.clear();
+        alreadyAskedExtra = false;
         if (resourcesToAdd.isEmpty()){
             displayPB();
             playerVV().displayGenericMessage("You were not able to activate any production");
