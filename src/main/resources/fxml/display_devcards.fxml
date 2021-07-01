@@ -36,7 +36,7 @@
                         <Button fx:id="thirdRowSecondColumnBtn" layoutX="480.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
                         <Button fx:id="thirdRowThirdColumnBtn" layoutX="645.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
                         <Button fx:id="thirdRowFourthColumnBtn" layoutX="810.0" layoutY="475.0" mnemonicParsing="false" prefHeight="209.0" prefWidth="163.0" styleClass="choiceBtn" />
-                        <Button styleClass="backBtn" fx:id="backBtn" layoutX="39.0" layoutY="661.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="107.0" text="Back" />
+                        <Button styleClass="backButton" fx:id="backBtn" layoutX="39.0" layoutY="661.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="107.0" />
                     </children>
                 </AnchorPane>
             </children>

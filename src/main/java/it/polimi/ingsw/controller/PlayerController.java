@@ -557,7 +557,7 @@ public class PlayerController {
      */
     public boolean hasTwoExtraProduction() throws IOException {
         if (getPlayerPB().getActiveLeaderCards().size()==1) return false;
-        else if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) &&
+        else if (!getPlayerPB().getActiveLeaderCards().get(0).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION) ||
                 !getPlayerPB().getActiveLeaderCards().get(1).getLeaderEffect().getEffectType().equals(EffectType.ADDPRODUCTION))
             return false;
         else {
