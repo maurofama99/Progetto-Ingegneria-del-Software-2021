@@ -212,3 +212,6 @@ public class Depot {
 
 
 }
+
+//elimina dall'array dei requirements le risorse disponibili nell'extra depot
+//aggiungi all'array missing resources le risorse che non sono disponibili nel deposito

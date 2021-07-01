@@ -25,7 +25,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A class that represents the client inside the server.
+ * Manages and handles connection with the remote client
  */
 public class ClientHandler implements Runnable {
     private Server server;
@@ -91,7 +91,7 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         try {
-            client.setSoTimeout(6000);
+            client.setSoTimeout(15000);
         } catch (SocketException e) {
             System.out.println(nickname + " is unreachable, connection dropped");
             gameController.forcedEndGame(nickname);
@@ -149,7 +149,7 @@ public class ClientHandler implements Runnable {
 
     /**
      * Handles the client connection and sends the heartbeats to ensure it is still active
-     * @throws IOException
+     * @throws IOException if fails to send message
      */
     private void handleClientConnection() throws IOException {
         System.out.println("Handling " + client.getInetAddress());
@@ -200,7 +200,7 @@ public class ClientHandler implements Runnable {
 
     /**
      * Removes a player who disconnected before the game started (while he was in the waiting room)
-     * @param iter
+     * @param iter the iterator used to iterate the waiting room array lists
      */
     public void removeDisconnectedPlayer(Iterator<Player> iter){
         while (iter.hasNext()){
@@ -219,13 +219,10 @@ public class ClientHandler implements Runnable {
      * Receive message method of the client handler. For the resilience we use the fact that the virtual views are saved
      * and matched with nicknames, so if a player reconnects and the nickname matches, he can continue playing
      * @param msg the message being received
-     * @throws IOException
-     * @throws IllegalAccessException
-     * @throws CloneNotSupportedException
+     * @throws IOException If fails to send message
+     * @throws IllegalAccessException If fails to receive messages in single player mode
+     * @throws CloneNotSupportedException If cloning fails
      */
-    //sfrutta il fatto che le vv sono tutte salvate e accoppiate al loro nickname per la resilienza alle disconnessioni:
-    //quando un player si riconnette e ha un nickname già associato alla virtual view, è la sua
-    //per risolvere il problema delle vv inutili si può tener conto che il client handler si ricorda del nickname precedente (l'ultimo rifiutato)
     public void receiveMessage(Message msg) throws IOException, IllegalAccessException, CloneNotSupportedException {
         if (msg.getMessageType() == Content.HEARTBEAT){
             System.out.println("Received HeartBeat: " + client.getInetAddress());

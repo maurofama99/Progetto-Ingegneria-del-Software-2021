@@ -13,6 +13,7 @@ public class Warehouse{
 
     private final Depot depot;
     private final StrongBox strongBox;
+    private ArrayList<Resource> checkAvailabilityResources = new ArrayList<>();
 
     public Warehouse(Depot depot, StrongBox strongBox) {
         this.depot = depot;
@@ -57,8 +58,8 @@ public class Warehouse{
                     }
                 }
             }
-            if (getDepot().checkAvailabilityDepot(resources) != null) {
-                for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {
+            if (checkAvailabilityResources != null) {
+                for (Resource resource : checkAvailabilityResources) {
                     getStrongBox().removeResourceStrongBox(resource);
                 }
             }
@@ -86,8 +87,9 @@ public class Warehouse{
      * @return true if and only if all of the resources are available.
      */
     public boolean checkAvailabilityWarehouse (ArrayList<Resource> resources) throws CloneNotSupportedException {
-        if (getDepot().checkAvailabilityDepot(resources) != null){
-            for (Resource resource : getDepot().checkAvailabilityDepot(resources)) {
+        checkAvailabilityResources = getDepot().checkAvailabilityDepot(resources);
+        if (checkAvailabilityResources != null){
+            for (Resource resource : checkAvailabilityResources) {
                 if (!getStrongBox().checkAvailabilityStrongBox(resource)){
                     return false;
                 }

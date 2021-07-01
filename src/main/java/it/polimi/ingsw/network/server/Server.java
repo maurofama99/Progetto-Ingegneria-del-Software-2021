@@ -36,8 +36,6 @@ public class Server implements Runnable {
 
         while (true) {
             try {
-                /* accepts connections; for every connection we accept,
-                 * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
                 ClientHandler clientHandler = new ClientHandler(this, client, this.waitingRoom);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
@@ -50,7 +48,3 @@ public class Server implements Runnable {
 
 }
 
-//thread pool che contiene tutti i thread dei client handler
-//ping a tutti i client handler periodicamente
-//quando uno salta salva il nickname
-//metti nickname in lista riconessioni
