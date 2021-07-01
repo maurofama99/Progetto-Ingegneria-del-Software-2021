@@ -123,16 +123,17 @@ public class Player implements Serializable {
      * @param slotNumber index of the slot where the card is supposed to be placed.
      * @return return true if and only if the player has all the requirements to buy the development card.
      */
-    public void buyDevCard(DevCard devCardToBuy, ArrayList<Resource> requirements, int slotNumber) throws IllegalAccessException {
+    public boolean buyDevCard(DevCard devCardToBuy, ArrayList<Resource> requirements, int slotNumber) throws IllegalAccessException {
         slotNumber = slotNumber -1;
         try {
-            if (getPersonalBoard().getWarehouse().checkAvailabilityWarehouse(requirements)) {
+            if (getPersonalBoard().getWarehouse().checkAvailabilityWarehouse(requirements)){
                 getPersonalBoard().getSlots()[slotNumber].placeDevCard(devCardToBuy);
                 devCardToBuy.checkRequirements(requirements, this);
                 victoryPoints += devCardToBuy.getVictoryPointsDevCard();
                 counterDevCards += 1;
+                return true;
             }
-            else throw new IllegalAccessException("You don't have enough resources");
+            else return false;
         }
         catch (IllegalAccessException | CloneNotSupportedException e) {
             throw new IllegalAccessException(e.getMessage());

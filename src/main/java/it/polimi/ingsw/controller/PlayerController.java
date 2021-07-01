@@ -378,12 +378,14 @@ public class PlayerController {
             requirements = hasDiscountEffect(requirements);
 
             try {
-                gameController.getTable().getCurrentPlayer().buyDevCard(devCard, requirements, ((BuyDevCard) msg).getSlot());
-                gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
-                countDevCards();
-                displayPB();
-                playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
-
+                if (!gameController.getTable().getCurrentPlayer().buyDevCard(devCard, requirements, ((BuyDevCard) msg).getSlot())) {
+                    playerVV().update(new NoAvailableResources(gameController.getTable().getCurrentPlayer().getNickname()));
+                } else {
+                    gameController.getTable().getDevCardsDeck().removeAndGetCard(((BuyDevCard) msg).getRow(), ((BuyDevCard) msg).getColumn());
+                    countDevCards();
+                    displayPB();
+                    playerVV().fetchDoneAction(gameController.getTable().getCurrentPlayer().getLeaderCards());
+                }
             } catch (IllegalAccessException e) {
                 playerVV().displayGenericMessage(e.getMessage());
                 playerVV().fetchPlayerAction();

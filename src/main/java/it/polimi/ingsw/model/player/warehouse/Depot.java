@@ -177,6 +177,7 @@ public class Depot {
         for (Resource resource : resources){
             resourcesToCheck.add((Resource) resource.clone());
         }
+
         for (Resource resource: resourcesToCheck){
             for (int k=0; k<2;k++) {
                 if (extraFloors.get(k).isPresent() && resource.getType().equals(extraFloors.get(k).get().getType())) {
@@ -209,7 +210,6 @@ public class Depot {
         if (missingResources.size() == 0) return null;
         else return missingResources;
     }
-
 
 }
 

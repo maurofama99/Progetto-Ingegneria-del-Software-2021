@@ -35,7 +35,7 @@ public class Warehouse{
      * @param resourcesToRemove Resources to remove from warehouse.
      */
     public void removeResources(ArrayList<Resource> resourcesToRemove) throws CloneNotSupportedException {
-
+        ArrayList<Resource> resourcesAfterExtra = new ArrayList<>();
         ArrayList<Resource> resources = new ArrayList<>();
         for (Resource resource : resourcesToRemove)
             resources.add((Resource) resource.clone());
@@ -44,26 +44,15 @@ public class Warehouse{
             throw new NoSuchElementException("You do not have enough resources");
 
         else {
-            for (Resource res : resources) {
-                for (int k = 0; k < 2; k++) {
-                    if (getDepot().getExtraFloors().get(k).isPresent() && res.getType().equals(getDepot().getExtraFloors().get(k).get().getType())) {
-                        if (res.getQnt() < getDepot().getExtraFloors().get(k).get().getQnt()) {
-                            getDepot().getExtraFloors().get(k).get().setQnt(0);
-                            res.setQnt(0);
-                        }
-                        else {
-                            res.setQnt(res.getQnt() - getDepot().getExtraFloors().get(k).get().getQnt());
-                            getDepot().getExtraFloors().get(k).get().setQnt(getDepot().getExtraFloors().get(k).get().getQnt() - res.getQnt());
-                        }
-                    }
-                }
-            }
-            if (checkAvailabilityResources != null) {
-                for (Resource resource : checkAvailabilityResources) {
+            for (Resource resource : removeResourcesFromExtraDepot(resources))
+                resourcesAfterExtra.add((Resource) resource.clone());
+
+            if (getDepot().checkAvailabilityDepot(resourcesAfterExtra) != null) {
+                for (Resource resource : getDepot().checkAvailabilityDepot(resourcesAfterExtra)) {
                     getStrongBox().removeResourceStrongBox(resource);
                 }
             }
-            for (Resource res : resources) {
+            for (Resource res : resourcesAfterExtra) {
                 for (int i = 0; i < 3; i++) {
                     if (getDepot().getFloors().get(i).isPresent() && getDepot().getFloors().get(i).get().getType().equals(res.getType())) {
                         if (res.getQnt() > getDepot().getFloors().get(i).get().getQnt()) {
@@ -97,5 +86,39 @@ public class Warehouse{
         }
         return true;
     }
+
+
+    public ArrayList<Resource> removeResourcesFromExtraDepot(ArrayList<Resource> resourcesToRemove) throws CloneNotSupportedException {
+        boolean checked = false;
+        ArrayList<Resource> missingResources = new ArrayList<>();
+        ArrayList<Resource> resources = new ArrayList<>();
+        for (Resource resource : resourcesToRemove)
+            resources.add((Resource) resource.clone());
+
+        for (int j=0; j<resources.size(); j++) {
+            for (int k = 0; k < 2; k++) {
+                if (getDepot().getExtraFloors().get(k).isPresent() && resources.get(j).getType().equals(getDepot().getExtraFloors().get(k).get().getType())) {
+                    if (resources.get(j).getQnt() <= getDepot().getExtraFloors().get(k).get().getQnt()) {
+                        getDepot().getExtraFloors().get(k).get().setQnt(getDepot().getExtraFloors().get(k).get().getQnt() - resources.get(j).getQnt());
+                    }
+                    else {
+                        missingResources.add(new Resource(resources.get(j).getQnt() - getDepot().getExtraFloors().get(k).get().getQnt(), resources.get(j).getType()));
+                        getDepot().getExtraFloors().get(k).get().setQnt(0);
+
+                    }
+                    checked=true;
+                }
+            }
+            if (!checked) {
+                missingResources.add(resources.get(j));
+            }
+            checked = false;
+        }
+
+        if (missingResources.size() == 0) return null;
+        else return missingResources;
+    }
+
+
 }
 
