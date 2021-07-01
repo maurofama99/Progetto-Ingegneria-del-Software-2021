@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="408.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,7 @@
                <font>
                   <Font name="System Bold" size="40.0" />
                </font></Label>
-            <Label fx:id="messageOfLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="120.0" prefHeight="178.0" prefWidth="453.0" styleClass="popupMessage" text="Generic message goes here!" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="messageOfLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="86.0" prefHeight="228.0" prefWidth="558.0" styleClass="popupMessage" text="Generic message goes here!" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="System Bold Italic" size="23.0" />
                </font></Label>
