@@ -1,7 +1,7 @@
 # Communication Protocol
 
 You can find the sequence diagram file here: 
-[Sequence Diagrams](https://github.com/maurofama99/ing-sw-2021-detomas-fama-grazian/tree/main/deliverables/final/UML/SequenceDiagrams.png)
+[Sequence Diagrams](https://github.com/maurofama99/ing-sw-2021-detomas-fama-grazian/tree/main/deliverables/final/UML/Sequence_Diagrams.png)
 
 ## Connection
 In the phase of connection to the Server by the Client, the latter is asked to enter the IP of the server to which he wishes to connect and the port to use (via command line argument for CLI mode, via keyboard input for GUI mode) . It then creates a stream socket and connects it to the specified port number on the named host. Once the connection has been created, the server sends the client a login request, the client must then enter his nickname (different from that of any players in the waiting room) and the number of players with whom he wishes to play. At this point, the client will be put on hold for a game.
