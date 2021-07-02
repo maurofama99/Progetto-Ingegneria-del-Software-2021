@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.devcard;
 
 import com.google.gson.annotations.SerializedName;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resources.*;
+import it.polimi.ingsw.model.resources.Resource;
 
 import java.io.Serializable;
 import java.util.ArrayList;

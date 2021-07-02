@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.messagescs;
 
-import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 

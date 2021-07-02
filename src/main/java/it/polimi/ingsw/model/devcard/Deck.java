@@ -3,9 +3,12 @@ package it.polimi.ingsw.model.devcard;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Stack;
 
 /**
  * Class of development cards' deck.

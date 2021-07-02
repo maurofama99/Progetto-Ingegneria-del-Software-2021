@@ -1,14 +1,11 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.network.client.Client;
-import it.polimi.ingsw.network.client.ServerHandler;
 import it.polimi.ingsw.observerPattern.ClientObservable;
-import it.polimi.ingsw.view.gui.Gui;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

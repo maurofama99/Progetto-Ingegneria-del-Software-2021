@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.singleplayer;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.view.cli.CliColor;
-import it.polimi.ingsw.view.cli.CliGraphics;
 
 import java.io.Serializable;
 

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.cli;
 
 
-import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.devcard.Color;
 import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Slot;
@@ -9,11 +8,9 @@ import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.player.leadercards.EffectType;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.warehouse.SerializableWarehouse;
-import it.polimi.ingsw.model.player.warehouse.StrongBox;
 import it.polimi.ingsw.model.resources.MarketTray;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
-import it.polimi.ingsw.model.singleplayer.Token;
 
 import java.util.ArrayList;
 

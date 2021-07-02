@@ -7,15 +7,15 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
-import it.polimi.ingsw.network.messagescs.*;
+import it.polimi.ingsw.network.messagescs.DiscardLeader;
+import it.polimi.ingsw.network.messagescs.ResourcePlacement;
+import it.polimi.ingsw.network.messagescs.ResourceTypeChosen;
 import it.polimi.ingsw.network.messagessc.EndGame;
 import it.polimi.ingsw.observerPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
-import java.io.Serializable;
-
 import java.io.IOException;
-
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
 

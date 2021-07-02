@@ -1,7 +1,9 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.observerPattern.*;
-import it.polimi.ingsw.view.gui.scenes.*;
+import it.polimi.ingsw.observerPattern.ClientObservable;
+import it.polimi.ingsw.observerPattern.ClientObserver;
+import it.polimi.ingsw.view.gui.scenes.GenericPopupController;
+import it.polimi.ingsw.view.gui.scenes.GenericSceneController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

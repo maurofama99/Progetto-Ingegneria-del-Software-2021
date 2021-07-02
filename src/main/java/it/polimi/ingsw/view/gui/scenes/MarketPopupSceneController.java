@@ -1,7 +1,5 @@
 package it.polimi.ingsw.view.gui.scenes;
 
-import it.polimi.ingsw.model.resources.MarketTray;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.ResourceType;
 import it.polimi.ingsw.network.messagescs.GoingMarket;
 import it.polimi.ingsw.observerPattern.ClientObservable;
@@ -19,9 +17,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class MarketPopupSceneController extends ClientObservable implements GenericPopupController {
     private final Stage stage;

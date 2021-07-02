@@ -1,8 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
-import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.devcard.DevCard;
-import it.polimi.ingsw.network.messagescs.BuyDevCard;
 import it.polimi.ingsw.observerPattern.ClientObservable;
 import it.polimi.ingsw.view.cli.ModelView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -18,8 +16,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.ArrayList;
 
 /**
  * The controller of the dev card market. Shows and updates the cards, letting the player choosing the card he wants

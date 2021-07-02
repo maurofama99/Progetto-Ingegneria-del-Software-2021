@@ -14,7 +14,8 @@ import it.polimi.ingsw.network.messagessc.NoAvailableResources;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 
 /**

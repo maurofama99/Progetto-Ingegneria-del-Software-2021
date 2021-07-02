@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ShowOthersPopupController extends ClientObservable implements GenericPopupController {
 

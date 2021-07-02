@@ -3,11 +3,6 @@ package it.polimi.ingsw.model.singleplayer;
 
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.faithtrack.FaithTrack;
-import it.polimi.ingsw.network.messagessc.EndGame;
-import it.polimi.ingsw.network.messagessc.TurnFavorTiles;
-
-import java.util.ArrayList;
 
 /**
  * The "player" we fight against in single player. It is very different from a normal player

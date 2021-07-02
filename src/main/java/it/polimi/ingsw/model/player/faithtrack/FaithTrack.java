@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.player.faithtrack;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.devcard.DevCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.messagessc.EndGame;
 import it.polimi.ingsw.network.messagessc.EndSoloGame;

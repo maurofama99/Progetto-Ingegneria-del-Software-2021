@@ -1,15 +1,12 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.client.Client;
-import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.scenes.StartSceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.IOException;

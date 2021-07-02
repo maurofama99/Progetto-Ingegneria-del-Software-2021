@@ -3,25 +3,28 @@ package it.polimi.ingsw.model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.devcard.Color;
+import it.polimi.ingsw.model.devcard.Deck;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.leadercards.LeaderCard;
 import it.polimi.ingsw.model.player.leadercards.LeaderEffect;
 import it.polimi.ingsw.model.player.leadercards.LeaderEffectJsonDeserializer;
 import it.polimi.ingsw.model.resources.MarketTray;
-import it.polimi.ingsw.model.singleplayer.*;
-import it.polimi.ingsw.model.devcard.*;
+import it.polimi.ingsw.model.singleplayer.LorenzoIlMagnifico;
+import it.polimi.ingsw.model.singleplayer.MoveAction;
+import it.polimi.ingsw.model.singleplayer.RemoveCardsAction;
+import it.polimi.ingsw.model.singleplayer.Token;
 import it.polimi.ingsw.network.Content;
 import it.polimi.ingsw.network.Message;
 import it.polimi.ingsw.network.messagessc.DisplayLeaderCards;
-import it.polimi.ingsw.network.messagessc.GenericMessage;
 import it.polimi.ingsw.observerPattern.Observable;
 
-import java.io.*;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Random;
 
 
 /**

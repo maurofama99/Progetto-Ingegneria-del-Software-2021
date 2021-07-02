@@ -1,11 +1,9 @@
 package it.polimi.ingsw.model.player.warehouse;
 
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.resources.ResourceType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Serializable class that acts as the depot of the player. Resources are put into arraylist, that can be modified by actions in the game.
