@@ -37,7 +37,7 @@ public class DevCardTest {
         devCard = createDevelopmentCards(1);
         boolean check = false;
 
-        p1.buyDevCard(devCard, devCard.getRequirementsDevCard(), 1);
+        //p1.buyDevCard(devCard, devCard.getRequirementsDevCard(), 1);
 
        assertFalse(p1.buyDevCard(devCard, devCard.getRequirementsDevCard(), 1));
 
