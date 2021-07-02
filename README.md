@@ -24,7 +24,7 @@
 ### Server
 Per lanciare il server di Maestri del Rinascimento, posizionarsi nella directory /deliverables/final/jar e lanciare da terminale il seguente comando:
 ```bash
-java -jar server.jar -port portNumber
+java -jar server.jar -port <port>
 ```
 In cui portNumber indica la porta in cui il server si metterà in ascolto.
 
@@ -32,7 +32,7 @@ In cui portNumber indica la porta in cui il server si metterà in ascolto.
 Per lanciare il client di Maestri del Rinascimento posizionarsi nella directory /deliverables/final/jar e, a seconda della modalità di gioco desiderata, lanciare da terminale uno dei seguenti comandi:
 #### CLI 
 ```bash
-java -jar client.jar -cli -port portNumber
+java -jar client.jar -cli -port <port>
 ```
 In cui portNumber indica la porta alla quale si connetterà il client
 #### GUI
