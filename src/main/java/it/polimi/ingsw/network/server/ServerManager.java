@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021.  Mauro Famà, Valeria Detomas, Christian Fabio Grazian.
+ */
+
 package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.WaitingRoom;
 
@@ -26,7 +30,7 @@ public class ServerManager {
                         System.err.println("-port requires a port number\n" + usage);
                     }
                 else
-                    System.err.println("-port requires a port number\nU" +  usage);
+                    System.err.println("-port requires a port number\n" +  usage);
             }
         }
         if (i == 0 || SOCKET_PORT==-1){

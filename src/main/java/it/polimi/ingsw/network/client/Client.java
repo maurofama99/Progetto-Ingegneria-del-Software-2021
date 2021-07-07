@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021.  Mauro Famà, Valeria Detomas, Christian Fabio Grazian.
+ */
+
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.Content;
@@ -39,14 +43,6 @@ public class Client implements Runnable, ClientObserver {
         this.SOCKET_PORT = SOCKET_PORT;
         this.cli = true;
     }
-
-    /*
-    public Client(View view, int SOCKET_PORT, String ip) {
-        this.view = view;
-        this.SOCKET_PORT = SOCKET_PORT;
-        this.ip = ip;
-        this.gui=true;
-    }*/
 
     public Client(View view) {
         this.view = view;
