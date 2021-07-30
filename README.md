@@ -1,14 +1,7 @@
 # Prova Finale Ingegneria del Sofware 2020/21
 
-![alt text](src/main/resources/other/background/backgroundMaestri.png)
-
-## Sviluppatori
-
-[Valeria Detomas](https://github.com/valeriadetomas)
-
-[Mauro Famà](https://github.com/maurofama99)
-
-[Christian Fabio Grazian](https://github.com/grazcri)
+Obiettivo del progetto è lo sviluppo di un complesso artefatto software a conclusione del percorso formativo. Lo studente deve dimostrare, tramite l’elaborato e opportune prove in laboratorio, la propria conoscenza dei linguaggi, metodi e strumenti introdotti nelle esercitazioni e nell'ambito degli altri insegnamenti del corso di studi, con particolare riferimento all'insegnamento di ingegneria del software, e la propria capacità di utilizzarli per la progettazione orientata agli oggetti del software. 
+La prova finale consiste nella preparazione, in autonomia, di un elaborato software da svolgere in Java. Il tema dell'elaborato, proposto dal docente, sarà di carattere interdisciplinare e riassuntivo dell'intero triennio, ma con particolare riferimento alle metodologie dell'ingegneria del software.
 
 ## Funzionalità implementate
 
@@ -48,7 +41,13 @@ java -jar client.jar -local -cli
 ```bash
 java -jar client.jar -local -gui
 ```
+## Sviluppatori
 
+[Valeria Detomas](https://github.com/valeriadetomas)
+
+[Mauro Famà](https://github.com/maurofama99)
+
+[Christian Fabio Grazian](https://github.com/grazcri)
 
 
 
