@@ -9,7 +9,7 @@ Il progetto consiste nello sviluppo di una versione software del gioco da tavolo
 Il progetto include:
 * diagramma UML ad alto livello dell’applicazione ([link](https://github.com/maurofama99/Progetto-Ingegneria-del-Software-2021/blob/main/deliverables/final/UML/Summary_UML.png));
 * diagrammi UML finali che mostrino come è stato progettato il software ([link](https://github.com/maurofama99/Progetto-Ingegneria-del-Software-2021/tree/main/deliverables/final/UML/Final%20UML));
-* implementazione funzionante del gioco conforme alle regole del gioco e alle specifiche presenti [in questo documento](https://github.com/maurofama99/Progetto-Ingegneria-del-Software-2021/blob/main/requirements.pdf);
+* implementazione funzionante del gioco conforme alle regole del gioco;
 * codice sorgente dell’implementazione ([link](https://github.com/maurofama99/Progetto-Ingegneria-del-Software-2021/tree/main/src/main/java/it/polimi/ingsw));
 * codice sorgente dei test di unità ([link](https://github.com/maurofama99/Progetto-Ingegneria-del-Software-2021/tree/main/src/test/java/it/polimi/ingsw)).
 
