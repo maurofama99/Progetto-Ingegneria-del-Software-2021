@@ -52,6 +52,6 @@ In cui portNumber indica la porta alla quale il client si connetterà.
 
 
 
-*Tutti i diritti delle risorse grafiche sono riservati e appartengono alla Cranio Creations
+*Tutti i diritti delle risorse grafiche sono riservati e appartengono alla Cranio Creations*
 
 
